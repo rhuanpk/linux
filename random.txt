@@ -19,3 +19,22 @@ exibir branch no terminal
 https://glaucocustodio.github.io/2013/03/15/exibir-branch-atual-em-repositorios-git-no-terminal/
 
 contab -e
+
+---
+nano atualizar.sh
+  
+#!/bin/bash
+apt-get update -y
+apt-get upgrade -y
+apt-get dist-upgrade -y
+
+ctrl+x (para sair e salvar)
+
+chmod +x atualizar.sh
+
+sudo mv atualizar.sh /bin/
+
+sudo -s
+
+atualizar
+---
