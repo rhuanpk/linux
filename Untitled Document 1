@@ -1,0 +1,19 @@
+ferramenta de aparencia
+
+sudo apt-get install gnome-tweak-tool
+sudo apt-get remove gnome-tweak-tool
+sudo apt-get autoremove
+
+copia/cola terminal
+
+http://www.bosontreinamentos.com.br/linux/comandos-cp-e-mv-como-copiar-e-mover-arquivos-no-linux/
+
+:/usr/share/icons$ sudo cp -r /home/marknet06/Downloads/cz-Hickson-Black .
+
+remover arquivo ou diretorio
+
+rm article.txt
+
+exibir branch no terminal
+
+https://glaucocustodio.github.io/2013/03/15/exibir-branch-atual-em-repositorios-git-no-terminal/
