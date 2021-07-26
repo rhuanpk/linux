@@ -17,3 +17,5 @@ rm article.txt
 exibir branch no terminal
 
 https://glaucocustodio.github.io/2013/03/15/exibir-branch-atual-em-repositorios-git-no-terminal/
+
+contab -e
