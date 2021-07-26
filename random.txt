@@ -38,3 +38,7 @@ sudo -s
 
 atualizar
 ---
+baixar, instalar ppa pelo terminar
+
+sudo add-apt-repository ppa:ubuntu-wine/ppa
+---
