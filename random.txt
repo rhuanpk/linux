@@ -42,3 +42,7 @@ baixar, instalar ppa pelo terminar
 
 sudo add-apt-repository ppa:ubuntu-wine/ppa
 ---
+del (delete) exclui somente superficial (manda para lixeira)
+
+shift+del (delete) exclui completamente o arquivo
+---
