@@ -46,3 +46,21 @@ del (delete) exclui somente superficial (manda para lixeira)
 
 shift+del (delete) exclui completamente o arquivo
 ---
+instalr o wine
+
+1) $ sudo dpkg --add-architecture i386 // (ativando arquiteturo 32bits)
+2) $ wget -nc https://dl.winehq.org/wine-builds/winehq.key // (download da chave do repo)
+3) $ sudo apt-key add winehq.key // (adicionar chave do repo)
+4) $ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+5) $ add-apt-repository ppa:cybermax-dexter/sdl2-backport // para add ppa pelo terminal
+ou
+5) pesquisa no menu inicar -> "Fontes de Aplicativos"
+  PPAs
+  Adicionar
+  OK
+  OK
+  Atualiza Cache
+6) $ sudo apt install --install-recommends winehq-stable
+7) $ winecfg
+8) abrir .exe com Carregador de Aplicativos Windows
+---
