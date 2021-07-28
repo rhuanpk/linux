@@ -36,7 +36,12 @@ sudo mv atualizar.sh /bin/
 
 sudo -s
 
-atualizar
+atualizar.sh
+
+sudo apt-get update
+sudo apt-get autoclean
+sudo apt-get clean
+sudo apt-get autoremove
 ---
 baixar, instalar ppa pelo terminar
 
