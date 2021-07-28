@@ -66,7 +66,7 @@ ou
   OK
   Atualiza Cache
 6) $ sudo apt install --install-recommends winehq-stable -y
-7) $ winecfg
+7) $ winecfg (se não instalar, rodar o comando $ sudo apt install wine)
 8) abrir .exe com Carregador de Aplicativos Windows
 ---
 ferramente para metadados
