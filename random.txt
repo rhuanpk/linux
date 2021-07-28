@@ -73,3 +73,7 @@ ferramente para metadados
 
 sudo apt install libimage-exiftool-perl -y
 ---
+remover wine
+
+https://qastack.com.br/ubuntu/15551/how-to-remove-wine-completely#:~:text=Voc%C3%AA%20tamb%C3%A9m%20pode%20remover%20a,wine%20.
+---
