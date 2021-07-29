@@ -1,0 +1,24 @@
+distros linux
+
+distros utilizaveis
+- linux mint 20.02
+- ubuntu 20.04
+- debian 10.10
+- bodhi linux 5.4 (standard 64bits)
+- linux lite 5.4
+- lubuntu 20.04
+
+distros não usadas
+- lmde 4 (linux mint)
+- deepin 20.2.2
+
+para verificar
+- zorin os 15.3 lite
+- pop os 20.4
+
+para baixar
+- zorin os
+- pixel os
+- xubuntu
+- peppermint
+- slax
