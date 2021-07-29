@@ -89,3 +89,11 @@ remove chaveiro
 
 $ sudo apt-get remove gnome-keyring
 ---
+matar processos no linux
+
+$ ps -A (mostra todos os processos e id's)
+$ killall <nome do processo> (mata todos os processos com tal nome)
+
+ou
+
+$ kill <id do processo>
