@@ -81,3 +81,7 @@ ver porcentagem da bateria
 
 https://sempreupdate.com.br/como-verificar-o-status-da-bateria-no-linux/
 ---
+scroll mouse
+
+https://askubuntu.com/questions/690512/how-to-enable-natural-scrolling-in-xfce4
+--
