@@ -85,3 +85,7 @@ scroll mouse
 
 https://askubuntu.com/questions/690512/how-to-enable-natural-scrolling-in-xfce4
 --
+remove chaveiro
+
+$ sudo apt-get remove gnome-keyring
+---
