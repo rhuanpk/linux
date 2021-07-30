@@ -106,3 +106,7 @@ instalando virtual box
 
 https://www.edivaldobrito.com.br/virtualbox-no-linux/
 ---
+limpar cache
+
+$ sync ; echo 3 > /proc/sys/vm/drop_caches
+---
