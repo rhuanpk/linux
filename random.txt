@@ -97,3 +97,12 @@ $ killall <nome do processo> (mata todos os processos com tal nome)
 ou
 
 $ kill <id do processo>
+---
+saber arquitetura do meu sistema
+
+$ uname -m
+---
+instalando virtual box
+
+https://www.edivaldobrito.com.br/virtualbox-no-linux/
+---
