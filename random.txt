@@ -102,9 +102,10 @@ saber arquitetura do meu sistema
 
 $ uname -m
 ---
-instalando virtual box
+instalando e criando virtual box
 
 https://www.edivaldobrito.com.br/virtualbox-no-linux/
+https://tecnoblog.net/302459/como-criar-uma-maquina-virtual-virtualbox/
 ---
 limpar cache
 
