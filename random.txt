@@ -111,3 +111,7 @@ limpar cache
 
 $ sync ; echo 3 > /proc/sys/vm/drop_caches
 ---
+saber interface gráfica atual
+
+echo $XDG_CURRENT_DESKTOP
+---
