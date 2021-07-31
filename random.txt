@@ -116,6 +116,8 @@ saber interface gráfica atual
 echo $XDG_CURRENT_DESKTOP
 ---
 instalar interface no Ubuntu server
-
 http://www.ramosconsultoria.net/painel/knowledgebase/10/Como-instalar-Interface-Grafica-Gnome-no-Ubuntu-Server.html
+
+instalando outras interfaces no MINT
+https://sempreupdate.com.br/como-instalar-outra-interface-grafica-no-linux-mint/amp/
 ---
