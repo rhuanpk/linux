@@ -115,3 +115,7 @@ saber interface gráfica atual
 
 echo $XDG_CURRENT_DESKTOP
 ---
+instalar interface no Ubuntu server
+
+http://www.ramosconsultoria.net/painel/knowledgebase/10/Como-instalar-Interface-Grafica-Gnome-no-Ubuntu-Server.html
+---
