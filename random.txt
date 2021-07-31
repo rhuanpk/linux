@@ -121,3 +121,11 @@ http://www.ramosconsultoria.net/painel/knowledgebase/10/Como-instalar-Interface-
 instalando outras interfaces no MINT
 https://sempreupdate.com.br/como-instalar-outra-interface-grafica-no-linux-mint/amp/
 ---
+#!/bin/bash
+git status ;
+git add . ;
+git status ;
+git commit -m "refresh" ;
+git status ;
+git push origin master
+---
