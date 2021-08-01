@@ -138,4 +138,8 @@ updates
 comando para busca de arquivos e diretorios
 
 $ find <diretorio> -name <nome do arquivo/diretorio>
+
+find . -maxdepth 1 -name icons
+
+(-maxdepth e passa o numero de subniveis)
 ---
