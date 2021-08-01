@@ -81,7 +81,7 @@ ver porcentagem da bateria
 
 https://sempreupdate.com.br/como-verificar-o-status-da-bateria-no-linux/
 ---
-scroll mouse
+scroll mouse ****************
 
 https://askubuntu.com/questions/690512/how-to-enable-natural-scrolling-in-xfce4
 --
@@ -139,7 +139,7 @@ comando para busca de arquivos e diretorios
 
 $ find <diretorio> -name <nome do arquivo/diretorio>
 
-find . -maxdepth 1 -name icons
+find / -maxdepth 3 -name icons
 
 (-maxdepth e passa o numero de subniveis)
 ---

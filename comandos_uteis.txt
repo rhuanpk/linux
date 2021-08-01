@@ -1,0 +1,98 @@
+>>> Comandos Aleatoriamente úteis !
+
+-----------------------------------------------------------------------------------------------------
+
+exibir branch no terminal
+
+$ export PS1='\u@\h\[\033[01;34m\] \w\[\033[0;32m\]$(__git_ps1 " (%s)")\[\033[01;34m\]$\[\033[00m\] '
+
+-----------------------------------------------------------------------------------------------------
+
+baixar ppa pelo terminal
+
+$ sudo add-apt-repository ppa:<nome_ppa>
+
+-----------------------------------------------------------------------------------------------------
+
+instalar wine
+
+1) $ sudo dpkg --add-architecture i386
+2) $ wget -nc https://dl.winehq.org/wine-builds/winehq.key
+3) $ sudo apt-key add winehq.key
+4) $ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main' // verificar repo atual no site: https://wiki.winehq.org/Download
+5) $ sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+6) $ sudo apt install --install-recommends winehq-stable -y
+7) $ winecfg ou $ sudo apt install wine
+
+-----------------------------------------------------------------------------------------------------
+
+comando para ver metadados -> exiftool
+
+$ sudo apt install libimage-exiftool-perl -y
+
+como usar: $ exiftool <nome_arquivo>
+
+-----------------------------------------------------------------------------------------------------
+
+comando para ver porcentagem da bateria -> acpi
+
+sudo apt install acpi
+
+como usar: $ acpi
+           $ acpi -i -b
+
+-----------------------------------------------------------------------------------------------------
+
+remover chaveiro
+
+$ sudo apt-get remove gnome-keyring
+
+-----------------------------------------------------------------------------------------------------
+
+matar processos no linux
+
+$ ps -A // mostra todos os processos e id's
+$ killall <nome_processo> // mata todos os processos com o nome
+
+ou
+
+$ kill <id_processo>
+
+-----------------------------------------------------------------------------------------------------
+
+saber arquitetura do sistema
+
+$ uname -m
+
+-----------------------------------------------------------------------------------------------------
+
+limpar cache
+
+$ sync ; echo 3 > /proc/sys/vm/drop_caches
+
+-----------------------------------------------------------------------------------------------------
+
+saber interface gráfica atual
+
+$ echo $XDG_CURRENT_DESKTOP
+
+-----------------------------------------------------------------------------------------------------
+
+comando para mostrar arvore -> tree
+
+$ sudo apt install tree
+
+como usar: $ tree
+           $ tree <diretorio>
+
+-----------------------------------------------------------------------------------------------------
+
+comando para busca de arquivos e diretorios
+
+$ find . -name <nome_arquivo/diretorio>
+
+ou
+
+$ find / -maxdepth 3 -name icons
+
+-----------------------------------------------------------------------------------------------------

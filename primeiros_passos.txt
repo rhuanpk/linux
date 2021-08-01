@@ -1,0 +1,11 @@
+Primeiros passo depois de instalar Linux
+
+1) instalar acpi
+2) instalar exiftool
+3) instalar tree
+4) baixar repo_standard
+5) atualizar sistema
+
+--------------------
+
+* instalar wine
