@@ -135,3 +135,6 @@ sudo apt install acpi
 top
 updates
 ---
+comando para busca de arquivos e diretorios
+
+$ find <diretorio> -name <nome do arquivo/diretorio>
