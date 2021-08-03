@@ -4,9 +4,16 @@ Primeiros passo depois de instalar Linux
 2) instalar exiftool
 3) instalar tree
 4) instalar git
+ ) 
 5) baixar repo_standard : $ git clone https://github.com/rhuan-pk/standard-scripts.git
+ ) $ sudo mv -v ./*.sh /bin/
 6) atualizar sistema
-
+ ) instalar driver de vídeo? $ sudo ubuntu-drivers autoinstall
+ 
 --------------------
 
 * instalar wine
+
+--------------------
+
+https://diolinux.com.br/tutoriais/o-que-fazer-apos-instalar-o-ubuntu-20-04.html
