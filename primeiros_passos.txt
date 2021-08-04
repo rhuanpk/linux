@@ -9,6 +9,7 @@ Primeiros passo depois de instalar Linux
  ) $ sudo mv -v ./*.sh /bin/
 6) atualizar sistema
  ) instalar driver de vídeo? $ sudo ubuntu-drivers autoinstall
+ ) instalar codecs de midia? $ sudo apt install ubuntu-restricted-extras
  
 --------------------
 
@@ -16,4 +17,5 @@ Primeiros passo depois de instalar Linux
 
 --------------------
 
-https://diolinux.com.br/tutoriais/o-que-fazer-apos-instalar-o-ubuntu-20-04.html
+site bom
+https://www.edivaldobrito.com.br/dicas-de-coisas-para-fazer-depois-de-instalar-o-ubuntu-20-10/
