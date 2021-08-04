@@ -105,6 +105,10 @@ descompactar .tar.gz
 
 $ tar -zxvf arquivos.tar.gz
 
+descompactar .tar.xz
+
+$ tar -xvf arquivos.tar.gz
+
 -----------------------------------------------------------------------------------------------------
 
 mostra uso da RAM
