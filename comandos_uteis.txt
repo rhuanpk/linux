@@ -2,19 +2,19 @@
 
 -----------------------------------------------------------------------------------------------------
 
-exibir branch no terminal
+*exibir branch no terminal
 
 $ export PS1='\u@\h\[\033[01;34m\] \w\[\033[0;32m\]$(__git_ps1 " (%s)")\[\033[01;34m\]$\[\033[00m\] '
 
 -----------------------------------------------------------------------------------------------------
 
-baixar ppa pelo terminal
+*baixar ppa pelo terminal
 
 $ sudo add-apt-repository ppa:<nome_ppa>
 
 -----------------------------------------------------------------------------------------------------
 
-instalar wine
+*instalar wine
 
 1) $ sudo dpkg --add-architecture i386
 2) $ wget -nc https://dl.winehq.org/wine-builds/winehq.key
@@ -26,7 +26,7 @@ instalar wine
 
 -----------------------------------------------------------------------------------------------------
 
-comando para ver metadados -> exiftool
+*comando para ver metadados -> exiftool
 
 $ sudo apt install libimage-exiftool-perl -y
 
@@ -34,7 +34,7 @@ como usar: $ exiftool <nome_arquivo>
 
 -----------------------------------------------------------------------------------------------------
 
-comando para ver porcentagem da bateria -> acpi
+*comando para ver porcentagem da bateria -> acpi
 
 sudo apt install acpi
 
@@ -43,13 +43,13 @@ como usar: $ acpi
 
 -----------------------------------------------------------------------------------------------------
 
-remover chaveiro
+*remover chaveiro
 
 $ sudo apt-get remove gnome-keyring
 
 -----------------------------------------------------------------------------------------------------
 
-matar processos no linux
+*matar processos no linux
 
 $ ps -A // mostra todos os processos e id's
 $ killall <nome_processo> // mata todos os processos com o nome
@@ -60,25 +60,25 @@ $ kill <id_processo>
 
 -----------------------------------------------------------------------------------------------------
 
-saber arquitetura do sistema
+*saber arquitetura do sistema
 
 $ uname -m
 
 -----------------------------------------------------------------------------------------------------
 
-limpar cache
+*limpar cache
 
 $ sync ; echo 3 > /proc/sys/vm/drop_caches
 
 -----------------------------------------------------------------------------------------------------
 
-saber interface gráfica atual
+*saber interface gráfica atual
 
 $ echo $XDG_CURRENT_DESKTOP
 
 -----------------------------------------------------------------------------------------------------
 
-comando para mostrar arvore -> tree
+*comando para mostrar arvore -> tree
 
 $ sudo apt install tree
 
@@ -87,7 +87,7 @@ como usar: $ tree
 
 -----------------------------------------------------------------------------------------------------
 
-comando para busca de arquivos e diretorios
+*comando para busca de arquivos e diretorios
 
 $ find . -name <nome_arquivo/diretorio>
 
@@ -97,21 +97,21 @@ $ find / -maxdepth 3 -name icons
 
 -----------------------------------------------------------------------------------------------------
 
-compactar .tar.gz
+*compactar .tar.gz
 
 $ tar -zcvf arquivos.tar.gz arquivos/
 
-descompactar .tar.gz
+*descompactar .tar.gz
 
 $ tar -zxvf arquivos.tar.gz
 
-descompactar .tar.xz
+*descompactar .tar.xz
 
 $ tar -xvf arquivos.tar.gz
 
 -----------------------------------------------------------------------------------------------------
 
-mostra uso da RAM
+*mostra uso da RAM
 
 $ free -h
 
@@ -121,8 +121,14 @@ $ top
 
 -----------------------------------------------------------------------------------------------------
 
-mostra a distro
+*mostra a distro
 
 $ lsb_release -a
+
+-----------------------------------------------------------------------------------------------------
+
+*corrigir pacotes quebrados
+
+$ sudo apt-get install -f
 
 -----------------------------------------------------------------------------------------------------
