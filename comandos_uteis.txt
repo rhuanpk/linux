@@ -132,3 +132,13 @@ $ lsb_release -a
 $ sudo apt-get install -f
 
 -----------------------------------------------------------------------------------------------------
+
+*notas autoadesivas
+
+$ sudo add-apt-repository ppa:umang/indicator-stickynotes
+
+$ sudo apt-get update
+
+$ sudo apt-get install indicator-stickynotes
+
+-----------------------------------------------------------------------------------------------------
