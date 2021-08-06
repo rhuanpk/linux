@@ -8,3 +8,4 @@ ferramentas/programas
 - chrome (brwoser)
 - vivald (brwoser)
 - simple screen recorder (gravador de tela)
+- audio recorder (gravador de voz)
