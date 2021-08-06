@@ -184,6 +184,7 @@ exemplo: $ dpkg -l > ~/saida.txt
 
 *gravador de tela (simple screen recorder)
 
+$ sudo apt-get update
 $ sudo apt-get install simplescreenrecorder
 
 *gravador nativo
