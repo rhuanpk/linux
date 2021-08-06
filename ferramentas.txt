@@ -1,0 +1,9 @@
+ferramentas/programas
+
+- gparted (particionador de disco)
+- grub customizer (configurador do grub)
+- gravador de imagem USB (nativo)
+- ePapirus (icon theme)
+- Shade of Z (icon theme)
+- chrome (brwoser)
+- vivald (brwoser)
