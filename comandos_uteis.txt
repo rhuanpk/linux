@@ -193,4 +193,10 @@ $ sudo apt-get install simplescreenrecorder
 2) ctrl + alt + shift + r // inicia gravação
 3) ctrl + alt + shift + r // encerra gravação
 
+*gravador de audio
+
+$ sudo add-apt-repository ppa:audio-recorder/ppa
+$ sudo apt-get update
+$ sudo apt-get install audio-recorder
+
 -----------------------------------------------------------------------------------------------------
