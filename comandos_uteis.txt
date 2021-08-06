@@ -181,3 +181,13 @@ mais especifico para fazer alguma ação!
 exemplo: $ dpkg -l > ~/saida.txt
 
 -----------------------------------------------------------------------------------------------------
+
+*gravador de tela (simple screen recorder)
+
+$ sudo apt-get install simplescreenrecorder
+
+*gravador nativo
+
+ctrl + alt + shift + r
+
+-----------------------------------------------------------------------------------------------------
