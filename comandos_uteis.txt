@@ -164,3 +164,20 @@ ou
 $ smem -r
 
 -----------------------------------------------------------------------------------------------------
+
+*remove completamente o programa
+
+$ sudo apt-get purge <nome_programa>
+
+-----------------------------------------------------------------------------------------------------
+
+*lista todos os programas instalados
+
+$ sudo dpkg -l
+
+obs: joga a saida para um arquivo de texto para editar no nano, assim pode-se procurar por algo
+mais especifico para fazer alguma ação!
+
+exemplo: $ dpkg -l > ~/saida.txt
+
+-----------------------------------------------------------------------------------------------------
