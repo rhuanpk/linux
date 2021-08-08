@@ -183,7 +183,6 @@ exemplo: $ dpkg -l > ~/saida.txt
 
 -----------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 *explorador de arquivos
 
 $ sudo apt install ranger
@@ -192,12 +191,14 @@ como usar: $ ranger
 
 -----------------------------------------------------------------------------------------------------
 
-*vem tamanho de diretorios
+*ver tamanho de diretorios
 
 $ sudo apt install ncdu
 
 como usar: $ ncdu <pode_passar_path> // "d" exclui
-=======
+
+-----------------------------------------------------------------------------------------------------
+
 *gravador de tela (simple screen recorder)
 
 $ sudo apt-get update
@@ -214,6 +215,5 @@ $ sudo apt-get install simplescreenrecorder
 $ sudo add-apt-repository ppa:audio-recorder/ppa
 $ sudo apt-get update
 $ sudo apt-get install audio-recorder
->>>>>>> bd8c42a2cded378e3476f8e860196d7a99915a20
 
 -----------------------------------------------------------------------------------------------------
