@@ -8,7 +8,8 @@ ferramentas/programas
 
 customização
 - Shade of Z (icon theme)
-- Tela circle black Dark
+- Tela circle black Dark (icon theme)
+- Zorin OS (full theme)
 
 navegador
 - chrome (brwoser)
