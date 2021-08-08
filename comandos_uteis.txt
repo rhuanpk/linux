@@ -183,6 +183,7 @@ exemplo: $ dpkg -l > ~/saida.txt
 
 -----------------------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
 *explorador de arquivos
 
 $ sudo apt install ranger
@@ -196,5 +197,23 @@ como usar: $ ranger
 $ sudo apt install ncdu
 
 como usar: $ ncdu <pode_passar_path> // "d" exclui
+=======
+*gravador de tela (simple screen recorder)
+
+$ sudo apt-get update
+$ sudo apt-get install simplescreenrecorder
+
+*gravador nativo
+
+1) gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0 // deixar tempo ilimitado de gravação
+2) ctrl + alt + shift + r // inicia gravação
+3) ctrl + alt + shift + r // encerra gravação
+
+*gravador de audio
+
+$ sudo add-apt-repository ppa:audio-recorder/ppa
+$ sudo apt-get update
+$ sudo apt-get install audio-recorder
+>>>>>>> bd8c42a2cded378e3476f8e860196d7a99915a20
 
 -----------------------------------------------------------------------------------------------------

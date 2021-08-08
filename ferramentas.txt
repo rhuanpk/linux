@@ -7,3 +7,5 @@ ferramentas/programas
 - Shade of Z (icon theme)
 - chrome (brwoser)
 - vivald (brwoser)
+- simple screen recorder (gravador de tela)
+- audio recorder (gravador de voz)
