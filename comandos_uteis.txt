@@ -217,3 +217,11 @@ $ sudo apt-get update
 $ sudo apt-get install audio-recorder
 
 -----------------------------------------------------------------------------------------------------
+
+*comando para buscar trecho de textos
+
+$ grep -Ri "trecho" /var/www/* ou ~/Documentos/teste.txt
+
+obs: ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou frase dentro de aspas duplas no diretorio tal com todos arquivos ou não ou em um documento especifico
+
+-----------------------------------------------------------------------------------------------------
