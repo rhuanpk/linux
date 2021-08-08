@@ -1,22 +1,12 @@
 Primeiros passo depois de instalar Linux
 
-1) instalar acpi
-2) instalar exiftool
-3) instalar tree
-4) instalar git
-5) instalar smem
- ) 
-5) baixar repo_standard : $ git clone https://github.com/rhuan-pk/standard-scripts.git
- ) $ sudo mv -v ./*.sh /bin/
-6) atualizar sistema
- ) instalar driver de vídeo? $ sudo ubuntu-drivers autoinstall
- ) instalar codecs de midia? $ sudo apt install ubuntu-restricted-extras
+1) instalar chrome
+2) atualizar sistema $ sudo atualizar.sh
+3) instalar driver de vídeo? $ sudo ubuntu-drivers autoinstall
+4) instalar codecs de midia? $ sudo apt install ubuntu-restricted-extras
  
 --------------------
 
 * instalar wine
 
 --------------------
-
-site bom
-https://www.edivaldobrito.com.br/dicas-de-coisas-para-fazer-depois-de-instalar-o-ubuntu-20-10/

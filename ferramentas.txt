@@ -1,12 +1,26 @@
 ferramentas/programas
-
 - gparted (particionador de disco)
 - grub customizer (configurador do grub)
 - gravador de imagem USB (nativo)
-- ePapirus (icon theme)
-- Shade of Z (icon theme)
-- chrome (brwoser)
-- vivald (brwoser)
+- git (versionador de arquivos)
 - simple screen recorder (gravador de tela)
 - audio recorder (gravador de voz)
+
+customização
+- Shade of Z (icon theme)
+- Tela circle black Dark
+
+navegador
+- chrome (brwoser)
+- vivald (brwoser)
+
+terminal
 - ranger (explorador de arquivos modo texto)
+- acpi (exibe poercentagem bateria)
+- exiftool (meta dados imagens)
+- tree (árvore de diretorios)
+- ncdu (mostra tamanho de diretorios)
+
+programação
+- visual studio code
+- ecplipse 

@@ -183,7 +183,7 @@ exemplo: $ dpkg -l > ~/saida.txt
 
 -----------------------------------------------------------------------------------------------------
 
-*explorador de arquivos
+*explorador de arquivos modo texto
 
 $ sudo apt install ranger
 
