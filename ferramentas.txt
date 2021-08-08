@@ -9,3 +9,4 @@ ferramentas/programas
 - vivald (brwoser)
 - simple screen recorder (gravador de tela)
 - audio recorder (gravador de voz)
+- ranger (explorador de arquivos modo texto)
