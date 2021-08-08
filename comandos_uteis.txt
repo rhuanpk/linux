@@ -21,8 +21,9 @@ $ sudo add-apt-repository ppa:<nome_ppa>
 3) $ sudo apt-key add winehq.key
 4) $ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main' // verificar repo atual no site: https://wiki.winehq.org/Download
 5) $ sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-6) $ sudo apt install --install-recommends winehq-stable -y
-7) $ winecfg ou $ sudo apt install wine
+6) $ sudo apt update
+7) $ sudo apt install --install-recommends winehq-stable -y
+8) $ winecfg ou $ sudo apt install wine
 
 -----------------------------------------------------------------------------------------------------
 
@@ -179,5 +180,21 @@ obs: joga a saida para um arquivo de texto para editar no nano, assim pode-se pr
 mais especifico para fazer alguma ação!
 
 exemplo: $ dpkg -l > ~/saida.txt
+
+-----------------------------------------------------------------------------------------------------
+
+*explorador de arquivos
+
+$ sudo apt install ranger
+
+como usar: $ ranger
+
+-----------------------------------------------------------------------------------------------------
+
+*vem tamanho de diretorios
+
+$ sudo apt install ncdu
+
+como usar: $ ncdu <pode_passar_path> // "d" exclui
 
 -----------------------------------------------------------------------------------------------------
