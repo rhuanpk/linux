@@ -6,6 +6,8 @@ ferramentas/programas
 - simple screen recorder (gravador de tela)
 - audio recorder (gravador de voz)
 - anydesk (acesso remoto)
+- ferramento para fazer tuto com imagem (diolinux (verificar a ferramenta))
+- pdfimagem (extrair texto de imagens (verificar a ferramenta))
 
 customização
 - Shade of Z (icon theme)
