@@ -5,6 +5,7 @@ ferramentas/programas
 - git (versionador de arquivos)
 - simple screen recorder (gravador de tela)
 - audio recorder (gravador de voz)
+- anydesk (acesso remoto)
 
 customização
 - Shade of Z (icon theme)
