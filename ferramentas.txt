@@ -10,6 +10,7 @@ customização
 - Shade of Z (icon theme)
 - Tela circle black Dark (icon theme)
 - Zorin OS (full theme)
+- Eternal Darknes (full theme?)
 
 navegador
 - chrome (brwoser)
