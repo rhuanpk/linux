@@ -221,7 +221,7 @@ $ sudo apt-get install simplescreenrecorder
 
 *gravador nativo
 
-1) gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0 // deixar tempo ilimitado de gravação
+1) $ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0 // deixar tempo ilimitado de gravação
 2) ctrl + alt + shift + r // inicia gravação
 3) ctrl + alt + shift + r // encerra gravação
 
