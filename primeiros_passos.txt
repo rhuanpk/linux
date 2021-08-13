@@ -1,9 +1,7 @@
 Primeiros passo depois de instalar Linux
 
 1) instalar chrome
-2) atualizar sistema $ sudo atualizar.sh
-3) instalar driver de vídeo? $ sudo ubuntu-drivers autoinstall
-4) instalar codecs de midia? $ sudo apt install ubuntu-restricted-extras
+2) atualizar sistema $ sudo first-att.sh
  
 --------------------
 

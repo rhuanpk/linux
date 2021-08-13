@@ -2,6 +2,21 @@
 
 -----------------------------------------------------------------------------------------------------
 
+! git
+
+*renomear repositorio remoto
+
+$ git remote rename <nome_atual> <novo_nome>
+
+*pasta inacessivel (pasta com submodule)
+
+$ git rm --cached <nome_pasta>
+$ rm -Rf <nome_pasta>/.git
+$ git add .
+$ git push origin master
+
+-----------------------------------------------------------------------------------------------------
+
 *exibir branch no terminal
 
 $ export PS1='\u@\h\[\033[01;34m\] \w\[\033[0;32m\]$(__git_ps1 " (%s)")\[\033[01;34m\]$\[\033[00m\] '
