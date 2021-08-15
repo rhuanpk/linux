@@ -15,6 +15,24 @@ $ rm -Rf <nome_pasta>/.git
 $ git add .
 $ git push origin master
 
+*manipulação de branch
+
+$ git branch ou $ git branch --list // mostra branchs locais
+
+$ git checkout <nome_branch> // troca de branch
+$ git checkout -b <nova_branch> // cria e muda para uma nova ramificação 
+
+$ git branch -d <nome_branch> // remove branch local
+$ git branch -D <nome_branch> // força exclusão da branch
+
+*visualização de log's
+
+$ git log // mostro os log's por completo
+$ git log --oneline // mostra os log's resumidos
+
+$ git log --graph --all // mostra por completo o gráfico de nodles
+$ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodles
+
 -----------------------------------------------------------------------------------------------------
 
 *exibir branch no terminal
@@ -244,5 +262,31 @@ obs: ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou fr
 *IP interno
 
 $ hostname -I
+
+-----------------------------------------------------------------------------------------------------
+
+*como inserir icones do "menu de aplicativos" e adiciona-los na "barra de favoritos"
+
+1) Crie um arquivo .desktop em: ~/.local/share/applications
+
+    exemplo: touch ~/.local/share/applications/nome_arquivo.desktop 
+
+2) Edite o arquivo inserindo as seguintes linhas
+
+   [Desktop Entry]
+   Comment=Nome App
+   Terminal=false
+   Name=Nome App
+   Exec=/path/to/your/app
+   Type=Application
+   Icon=/path/to/your/app/icon.xpm
+
+3) Torne o .desktop criado em executavel
+
+   $ chmod +x nome_arquivo.desktop
+
+4) Cliente em "Mostrar Aplicativos"
+5) Busque pelo nome do aplicativo
+6) Com botão direito do mouse no mesmo, escolha "Adicionar aos favoritos"
 
 -----------------------------------------------------------------------------------------------------
