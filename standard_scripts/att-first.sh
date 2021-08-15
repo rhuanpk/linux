@@ -10,5 +10,5 @@ apt-get dist-upgrade -y ;
 
 apt full-upgrade -y ;
 
-ubuntu-drivers autoinstall -y ;
+ubuntu-drivers autoinstall ;
 apt install ubuntu-restricted-extras -y
