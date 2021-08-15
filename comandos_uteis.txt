@@ -33,6 +33,21 @@ $ git log --oneline // mostra os log's resumidos
 $ git log --graph --all // mostra por completo o gráfico de nodles
 $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodles
 
+*setando e removendo token pessoal de acesso (github)
+   
+   setando
+
+      1) $ git config --global credential.helper cache
+      2) próximo login e senha (token digitado) ficara salvo
+
+   removendo
+
+      1) para remover: $ git config --global --unset credential.helper
+
+*para manipular informações do usuários
+
+$ cd ~/.gitconfig
+
 -----------------------------------------------------------------------------------------------------
 
 *exibir branch no terminal
