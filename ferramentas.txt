@@ -9,6 +9,7 @@ ferramentas/programas
 - ferramento para fazer tuto com imagem (diolinux (verificar a ferramenta))
 - pdfimagem (extrair texto de imagens (verificar a ferramenta: https://qastack.com.br/ubuntu/59389/how-can-i-extract-text-from-images))
 - kolour paint (paint)
+- totem (player padrão do gnome)
 
 customização
 - Shade of Z (icon theme)

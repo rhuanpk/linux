@@ -60,6 +60,10 @@ $ export PS1='\u@\h\[\033[01;34m\] \w\[\033[0;32m\]$(__git_ps1 " (%s)")\[\033[01
 
 $ sudo add-apt-repository ppa:<nome_ppa>
 
+*remover ppa pelo terminal
+
+$ sudo add-apt-repository -r ppa:<nome_ppa>
+
 -----------------------------------------------------------------------------------------------------
 
 *instalar wine
@@ -303,5 +307,11 @@ $ hostname -I
 4) Cliente em "Mostrar Aplicativos"
 5) Busque pelo nome do aplicativo
 6) Com botão direito do mouse no mesmo, escolha "Adicionar aos favoritos"
+
+-----------------------------------------------------------------------------------------------------
+
+*instalar player padrão de aúdio e vídeo do GNOME
+
+$ sudo apt install totem
 
 -----------------------------------------------------------------------------------------------------
