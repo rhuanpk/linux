@@ -105,3 +105,8 @@ apt autoremove -y
 echo
 echo "============================================"
 echo
+
+echo A simple solution ...
+echo
+echo Created by: Crazy Group Inc © (CG)
+echo
