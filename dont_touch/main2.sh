@@ -9,6 +9,8 @@ echo
 echo "======================ATUALIZANDO======================"
 echo
 
+apt update -y ;
+apt upgrade -y ;
 apt full-upgrade -y ;
 
 echo "---switch---"
@@ -46,13 +48,13 @@ echo "======================CHROME======================"
 echo
 
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb ;
-dpkg -i ./google-chrome-stable_current_amd64.deb ;
+dpkg -i google-chrome-stable_current_amd64.deb ;
 
 echo
 echo "======================SNAP======================"
 echo
 
-sudo apt install snapd ;
+apt install snapd -y ;
 
 echo
 echo "======================VS-CODE======================"
@@ -65,8 +67,8 @@ echo
 echo "======================DISCORD======================"
 echo
 
-wget https://dl.discordapp.net/apps/linux/0.0.15/discord-0.0.15.deb ;
-dpkg -i ./discord-0.0.15.deb ;
+snap install discord ;
+snap refresh discord ;
 
 echo
 echo "======================FILEZILLA======================"
@@ -77,6 +79,11 @@ apt install filezilla -y ;
 echo
 echo "======================LIMPAR======================"
 echo
+
+apt install -f ;
+apt --fix-broken install ;
+
+echo "---switch---"
 
 apt full-upgrade -y ;
 
