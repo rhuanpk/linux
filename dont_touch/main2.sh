@@ -106,7 +106,12 @@ echo
 echo "============================================"
 echo
 
-echo A simple solution ...
+echo "A simple solution ..."
 echo
-echo Created by: Crazy Group Inc © (CG)
+echo "Created by: Crazy Group Inc © (CG)"
 echo
+echo "."
+echo "."
+echo "."
+echo
+echo "                                                            Version 0.0.3"
