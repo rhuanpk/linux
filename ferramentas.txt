@@ -10,6 +10,9 @@ ferramentas/programas
 - pdfimagem (extrair texto de imagens (verificar a ferramenta: https://qastack.com.br/ubuntu/59389/how-can-i-extract-text-from-images))
 - kolour paint (paint)
 - totem (player padrão do gnome)
+- chob (pesquisador de pacotes)
+- snap (gerenciador de pacotes)
+- flatpak (gerenciador de pacotes)
 
 customização
 - Shade of Z (icon theme)
