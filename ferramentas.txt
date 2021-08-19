@@ -13,6 +13,7 @@ ferramentas/programas
 - chob (pesquisador de pacotes)
 - snap (gerenciador de pacotes)
 - flatpak (gerenciador de pacotes)
+- hotshots (editor de imagens para tutorias?)
 
 customização
 - Shade of Z (icon theme)
