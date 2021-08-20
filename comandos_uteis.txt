@@ -220,7 +220,11 @@ $ smem -r
 
 *remove completamente o programa
 
-$ sudo apt-get purge <nome_programa>
+$ sudo apt-get purge <pacote>
+
+ou
+
+$ sudo apt-get --purge remove <pacote>
 
 -----------------------------------------------------------------------------------------------------
 
