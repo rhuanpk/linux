@@ -1,4 +1,4 @@
 #!/bin/bash
-apt-get clean ;
-apt-get autoclean ;
-apt-get autoremove
+apt-get clean -y ;
+apt-get autoclean -y ;
+apt-get autoremove -y
