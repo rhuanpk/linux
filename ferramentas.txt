@@ -15,6 +15,7 @@ ferramentas/programas
 - flatpak (gerenciador de pacotes)
 - hotshots (editor de imagens para tutorias?)
 - speedtest-cli (mediro de velocidade modo texto)
+- flameshot (capturador de tela (pela loja tem mais recursos?))
 
 customização
 - Shade of Z (icon theme)
