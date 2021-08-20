@@ -32,7 +32,10 @@ terminal
 - exiftool (meta dados imagens)
 - tree (árvore de diretorios)
 - ncdu (mostra tamanho de diretorios)
+- zsh
 
 programação
 - visual studio code
 - ecplipse 
+- sublime
+- brackets
