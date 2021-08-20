@@ -36,8 +36,8 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
 *setando e removendo token pessoal de acesso (github)
    
    setando
-
-      1) $ git config --global credential.helper cache
+         	
+      1) $ git config --global credential.helper cache OU git config --global credential.helper cache 'cache --timeout=259200'
       2) próximo login e senha (token digitado) ficara salvo
 
    removendo
