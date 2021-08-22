@@ -36,7 +36,7 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
 *setando e removendo token pessoal de acesso (github)
    
    setando
-         	
+
       1) $ git config --global credential.helper cache OU git config --global credential.helper cache 'cache --timeout=259200'
       2) próximo login e senha (token digitado) ficara salvo
 
@@ -47,7 +47,7 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
    setando da maneira "correta"? (usando Keyring)
    
       1) $ sudo apt install make
-      2) $ sudo apt install gcc
+      2) $ sudo apt install gcc -- ou --  sudo apt install build-essential
       3) $ sudo apt-get install libsecret-1-0 libsecret-1-dev
       4) $ cd /usr/share/doc/git/contrib/credential/libsecret
       5) $ sudo make
