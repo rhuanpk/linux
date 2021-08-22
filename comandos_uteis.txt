@@ -46,7 +46,7 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
 
    setando da maneira "correta"? (usando Keyring)
    
-      1) $ sudo apt install make
+      1) $ sudo apt install make (mais em baixo tem como instalar)
       2) $ sudo apt install gcc -- ou --  sudo apt install build-essential
       3) $ sudo apt-get install libsecret-1-0 libsecret-1-dev
       4) $ cd /usr/share/doc/git/contrib/credential/libsecret
@@ -357,4 +357,11 @@ via ppa
    2) $ sudo apt-get update
    3) $ sudo apt-get install ubuntu-make
 
+-----------------------------------------------------------------------------------------------------
+
+*instalar chob
+
+   1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.3.5/chob.deb
+   2) $ sudo dpkg -i chob.deb
+   
 -----------------------------------------------------------------------------------------------------
