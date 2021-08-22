@@ -44,6 +44,15 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
 
       1) para remover: $ git config --global --unset credential.helper
 
+   setando da maneira "correta"? (usando GNOME Keyring)
+   
+      1) $ sudo apt install libgnome-keyring-dev
+      2) $  git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+            ou
+         $ nano ~/.gitconfig
+           [credential]
+           helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+
 *para manipular informações do usuários
 
 $ cd ~/.gitconfig
@@ -329,5 +338,21 @@ $ sudo apt install totem
 *atualiza a distro?
 
 $ sudo do-release-upgrade -d
+
+-----------------------------------------------------------------------------------------------------
+
+*instalar make developer tools
+
+via snap
+
+   1) $ sudo snap install ubuntu-make --classic
+   2) $ sudo snap install ubuntu-make --edge
+   3) $ sudo snap refresh ubuntu-make
+
+via ppa
+
+   1) $ sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
+   2) $ sudo apt-get update
+   3) $ sudo apt-get install ubuntu-make
 
 -----------------------------------------------------------------------------------------------------
