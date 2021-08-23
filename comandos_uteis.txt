@@ -361,7 +361,7 @@ via ppa
 
 *instalar chob
 
-   1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.3.5/chob.deb
-   2) $ sudo dpkg -i chob.deb
+   1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
+   2) $ sudo dpkg --install ./chob_0.9_amd64.deb
    
 -----------------------------------------------------------------------------------------------------
