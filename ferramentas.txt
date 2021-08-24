@@ -1,3 +1,5 @@
+-------------------------------------------------------------------------------------------------------------------------------------------
+
 ferramentas/programas
 
 - gparted (particionador de disco) // $ sudo apt install gparted
@@ -25,33 +27,51 @@ ferramentas/programas
 - chob (pesquisador de pacotes app, flat, snap) 
 
 	1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
-	2) $ sudo dpkg --install ./chob_0.9_amd64.deb
+   	2) $ sudo dpkg --install ./chob_0.9_amd64.deb
 	
 - speedtest cli (medidor de velocidade modo texto) //
 
-- flame shot (capturador de tela (pela loja tem mais recursos?))
-- gravador de imagem USB (linux possui nativo?)
+- flame shot (capturador de tela simples (pela loja tem mais recursos?))
 
-customização
+- notas autoadesivas (fazer anotações para "colar" no workspace)
+
+	1) $ sudo add-apt-repository ppa:umang/indicator-stickynotes
+	2) $ sudo apt-get update
+	3) $ sudo apt-get install indicator-stickynotes
+	
+- audio recorder
+
+	1) $ sudo add-apt-repository ppa:audio-recorder/ppa
+	2) $ sudo apt-get update
+	3) $ sudo apt-get install audio-recorder
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+customização/skins
+
 - Shade of Z (icon theme)
 - Tela circle black Dark (icon theme)
 - Zorin OS (full theme)
 - Eternal Darknes (full theme?)
 
-navegador
-- chrome (brwoser)
-- vivald (brwoser)
+-------------------------------------------------------------------------------------------------------------------------------------------
 
-terminal
-- ranger (explorador de arquivos modo texto)
-- acpi (exibe poercentagem bateria)
-- exiftool (meta dados imagens)
-- tree (árvore de diretorios)
-- ncdu (mostra tamanho de diretorios)
-- zsh
+navegadores/sujeridos
 
-programação
-- visual studio code
-- ecplipse 
-- sublime
-- brackets
+- brave
+- chrome
+- vivald 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+terminal/ferramentas
+
+- ranger (explorador de arquivos modo texto) // $ sudo apt install ranger
+
+- acpi (exibe poercentagem bateria) // $ sudo apt install acpi
+
+- tree (lista árvore de diretorios) // $ sudo apt install tree
+
+- ncdu (mostra tamanho de diretorios/explorador modo texto) // $ sudo apt install ncdu
+
+-------------------------------------------------------------------------------------------------------------------------------------------

@@ -65,7 +65,7 @@ $ cd ~/.gitconfig
 
 -----------------------------------------------------------------------------------------------------
 
-*exibir branch no terminal
+*exibir branch no terminal (bash)
 
 $ export PS1='\u@\h\[\033[01;34m\] \w\[\033[0;32m\]$(__git_ps1 " (%s)")\[\033[01;34m\]$\[\033[00m\] '
 
@@ -86,7 +86,7 @@ $ sudo add-apt-repository -r ppa:<nome_ppa>
 1) $ sudo dpkg --add-architecture i386
 2) $ wget -nc https://dl.winehq.org/wine-builds/winehq.key
 3) $ sudo apt-key add winehq.key
-4) $ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main' // verificar repo atual no site: https://wiki.winehq.org/Download
+4) $ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main' ---> verificar repo atual no site: https://wiki.winehq.org/Download
 5) $ sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
 6) $ sudo apt update
 7) $ sudo apt install --install-recommends winehq-stable -y
@@ -94,33 +94,16 @@ $ sudo add-apt-repository -r ppa:<nome_ppa>
 
 -----------------------------------------------------------------------------------------------------
 
-*comando para ver metadados -> exiftool
-
-$ sudo apt install libimage-exiftool-perl -y
-
-como usar: $ exiftool <nome_arquivo>
-
------------------------------------------------------------------------------------------------------
-
 *comando para ver porcentagem da bateria -> acpi
 
-sudo apt install acpi
-
 como usar: $ acpi
-           $ acpi -i -b
-
------------------------------------------------------------------------------------------------------
-
-*remover chaveiro
-
-$ sudo apt-get remove gnome-keyring
 
 -----------------------------------------------------------------------------------------------------
 
 *matar processos no linux
 
 $ ps -A // mostra todos os processos e id's
-$ killall <nome_processo> // mata todos os processos com o nome
+$ killall <nome_processo> // mata todos os processos com tal nome
 
 ou
 
@@ -148,20 +131,19 @@ $ echo $XDG_CURRENT_DESKTOP
 
 *comando para mostrar arvore -> tree
 
-$ sudo apt install tree
-
 como usar: $ tree
            $ tree <diretorio>
+           $ tree -L <valor> // ira limitar o encadeamento
 
 -----------------------------------------------------------------------------------------------------
 
 *comando para busca de arquivos e diretorios
 
-$ find . -name <nome_arquivo/diretorio>
+$ find . -name <path>
 
 ou
 
-$ find / -maxdepth 3 -name icons
+$ find / -maxdepth 3 -name <path>
 
 -----------------------------------------------------------------------------------------------------
 
@@ -198,16 +180,6 @@ $ lsb_release -a
 *corrigir pacotes quebrados
 
 $ sudo apt-get install -f
-
------------------------------------------------------------------------------------------------------
-
-*notas autoadesivas
-
-$ sudo add-apt-repository ppa:umang/indicator-stickynotes
-
-$ sudo apt-get update
-
-$ sudo apt-get install indicator-stickynotes
 
 -----------------------------------------------------------------------------------------------------
 
@@ -253,45 +225,24 @@ $ sudo apt-get --purge remove <pacote>
 
 $ sudo dpkg -l
 
-obs: joga a saida para um arquivo de texto para editar no nano, assim pode-se procurar por algo
+obs: joga a saida para um arquivo de texto para poder abrir num editor, assim pode-se procurar por algo
 mais especifico para fazer alguma ação!
 
 exemplo: $ dpkg -l > ~/saida.txt
 
 -----------------------------------------------------------------------------------------------------
 
-*explorador de arquivos modo texto
-
-$ sudo apt install ranger
-
-como usar: $ ranger
-
------------------------------------------------------------------------------------------------------
-
-*ver tamanho de diretorios
-
-$ sudo apt install ncdu
+*ver tamanho de diretorios modo texto
 
 como usar: $ ncdu <pode_passar_path> // "d" exclui
 
 -----------------------------------------------------------------------------------------------------
 
-*gravador de tela (simple screen recorder)
-
-$ sudo apt-get update
-$ sudo apt-get install simplescreenrecorder
-
-*gravador nativo
+*gravador nativo linux?
 
 1) $ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0 // deixar tempo ilimitado de gravação
 2) ctrl + alt + shift + r // inicia gravação
 3) ctrl + alt + shift + r // encerra gravação
-
-*gravador de audio
-
-$ sudo add-apt-repository ppa:audio-recorder/ppa
-$ sudo apt-get update
-$ sudo apt-get install audio-recorder
 
 -----------------------------------------------------------------------------------------------------
 
@@ -309,7 +260,7 @@ $ hostname -I
 
 -----------------------------------------------------------------------------------------------------
 
-*como inserir icones do "menu de aplicativos" e adiciona-los na "barra de favoritos"
+*como inserir icones no "menu de aplicativos" e adiciona-los na "barra de favoritos"
 
 1) Crie um arquivo .desktop em: ~/.local/share/applications
 
@@ -329,15 +280,9 @@ $ hostname -I
 
    $ chmod +x nome_arquivo.desktop
 
-4) Cliente em "Mostrar Aplicativos"
+4) Clicando em "Mostrar Aplicativos"
 5) Busque pelo nome do aplicativo
 6) Com botão direito do mouse no mesmo, escolha "Adicionar aos favoritos"
-
------------------------------------------------------------------------------------------------------
-
-*instalar player padrão de aúdio e vídeo do GNOME
-
-$ sudo apt install totem
 
 -----------------------------------------------------------------------------------------------------
 
@@ -360,12 +305,5 @@ via ppa
    1) $ sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
    2) $ sudo apt-get update
    3) $ sudo apt-get install ubuntu-make
-
------------------------------------------------------------------------------------------------------
-
-*instalar chob
-
-   1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
-   2) $ sudo dpkg --install ./chob_0.9_amd64.deb
    
 -----------------------------------------------------------------------------------------------------
