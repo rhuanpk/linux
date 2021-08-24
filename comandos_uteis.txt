@@ -39,14 +39,15 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
 
 *setando e removendo token pessoal de acesso (github)
    
-   setando
+   setando pelo cache
 
-      1) $ git config --global credential.helper cache OU git config --global credential.helper cache 'cache --timeout=259200'
-      2) próximo login e senha (token digitado) ficara salvo
+      1) $ $ git config credential.helper 'cache --timeout=28800'
+      2) próximo login e senha (token digitado) ficara salvo pelo tempo determina (sem passar parametro o padrão é 15min (900s))
 
    removendo
 
-      1) para remover: $ git config --global --unset credential.helper
+      1) para remover: $ git credential-cache exit
+      2) para remover: $ git config --global --unset credential.helper
 
    setando da maneira "correta"? (usando Keyring)
    
