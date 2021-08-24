@@ -18,6 +18,7 @@ $ git push origin master
 *manipulação de branch
 
 $ git branch ou $ git branch --list // mostra branchs locais
+$ git remote show <nome_remoto> // mostra além das branchs remotas, outras infos
 
 $ git checkout <nome_branch> // troca de branch
 $ git checkout -b <nova_branch> // cria e muda para uma nova ramificação 
