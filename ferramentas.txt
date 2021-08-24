@@ -1,21 +1,36 @@
 ferramentas/programas
-- gparted (particionador de disco)
-- grub customizer (configurador do grub)
-- gravador de imagem USB (nativo)
-- git (versionador de arquivos)
-- simple screen recorder (gravador de tela)
-- audio recorder (gravador de voz)
-- anydesk (acesso remoto)
-- ferramento para fazer tuto com imagem (diolinux (verificar a ferramenta))
-- pdfimagem (extrair texto de imagens (verificar a ferramenta: https://qastack.com.br/ubuntu/59389/how-can-i-extract-text-from-images))
-- kolour paint (paint)
-- totem (player padrão do gnome)
-- chob (pesquisador de pacotes)
-- snap (gerenciador de pacotes)
-- flatpak (gerenciador de pacotes)
-- hotshots (editor de imagens para tutorias?)
-- speedtest-cli (mediro de velocidade modo texto)
-- flameshot (capturador de tela (pela loja tem mais recursos?))
+
+- gparted (particionador de disco) // $ sudo apt install gparted
+
+- grub customizer (configurador do grub) // $ sudo apt install grub-customizer 
+		
+- git (versionador de arquivos) // $ sudo apt install git
+
+- simple screen recorder (gravador de tela) // $ sudo apt install simplescreenrecorder
+
+- audio recorder (gravador de voz) //
+
+- gnome soud recorder (gravador de voz) // $ sudo apt install gnome-sound-recorder
+
+- anydesk (acesso remoto) // $ sudo apt install anydesk
+
+- hot shots (editor de imagens para tutorias) //
+
+- pdfimagem (extrair texto de imagens via browser) // https://qastack.com.br/ubuntu/59389/how-can-i-extract-text-from-images
+
+- kolour paint (paint) // $ sudo apt install kolourpaint
+
+- totem (player de vídeo e visualizador de imagens default do gnome?) // $ sudo apt install totem
+
+- chob (pesquisador de pacotes app, flat, snap) 
+
+	1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
+	2) $ sudo dpkg --install ./chob_0.9_amd64.deb
+	
+- speedtest cli (medidor de velocidade modo texto) //
+
+- flame shot (capturador de tela (pela loja tem mais recursos?))
+- gravador de imagem USB (linux possui nativo?)
 
 customização
 - Shade of Z (icon theme)

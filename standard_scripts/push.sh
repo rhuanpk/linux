@@ -1,9 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-if [ "$1" = ""  ]; then
-	"$1"="refresh!"
-fi
+[[ "$1" == "" ]] && value='refresh!' || value="$1"
 
 git add . ;
-git commit -m "$1" ;
+git commit -m "$value" ;
 git push origin master
