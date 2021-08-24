@@ -25,6 +25,9 @@ $ git checkout -b <nova_branch> // cria e muda para uma nova ramificação
 $ git branch -d <nome_branch> // remove branch local
 $ git branch -D <nome_branch> // força exclusão da branch
 
+$ git push origin :<branch_remoto> // remove branch remoto
+$ git push origin --delete <branch_remoto> // remove branch remoto
+
 *visualização de log's
 
 $ git log // mostro os log's por completo
