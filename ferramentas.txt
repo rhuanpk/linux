@@ -47,6 +47,8 @@ ferramentas/programas
 	2) $ sudo apt-get update
 	3) $ sudo apt-get install audio-recorder
 
+- gnome tweak tool (ferramente de customização da interface) $ sudo apt install gnome-tweak-tool
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 customização/skins
