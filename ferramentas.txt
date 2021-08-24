@@ -1,3 +1,5 @@
+>>> Ferramentes/Programas para modo texto e de interface !
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 ferramentas/programas
@@ -27,7 +29,7 @@ ferramentas/programas
 - chob (pesquisador de pacotes app, flat, snap) 
 
 	1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
-   	2) $ sudo dpkg --install ./chob_0.9_amd64.deb
+        2) $ sudo dpkg --install ./chob_0.9_amd64.deb
 	
 - speedtest cli (medidor de velocidade modo texto) //
 
