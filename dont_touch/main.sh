@@ -2,8 +2,8 @@
 
 # parametros:
 #
-#		1 - nome git
-#		2 - e-mail git
+#	1 - nome git
+#	2 - e-mail git
 
 echo
 echo "======================ATUALIZANDO======================"
@@ -84,6 +84,18 @@ wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add - ;
 echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list ;
 apt update -y ;
 apt install anydesk -y ;
+
+echo
+echo "======================FLATPAK======================"
+echo
+
+apt install flatpak -y ;
+
+echo
+echo "======================POSTMAN======================"
+echo
+
+flatpak install flathub com.getpostman.Postman ;
 
 echo
 echo "======================LIMPAR======================"
