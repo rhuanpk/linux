@@ -29,7 +29,7 @@ ferramentas/programas
 - chob (pesquisador de pacotes app, flat, snap) 
 
 	1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
-        2) $ sudo dpkg --install ./chob_0.9_amd64.deb
+	2) $ sudo dpkg --install ./chob_0.9_amd64.deb
 	
 - speedtest cli (medidor de velocidade modo texto) //
 
@@ -48,6 +48,11 @@ ferramentas/programas
 	3) $ sudo apt-get install audio-recorder
 
 - gnome tweak tool (ferramente de customização da interface) $ sudo apt install gnome-tweak-tool
+
+- mark text (editor perfeito de markdown em tempo real)
+
+	1) $ wget https://github.com/marktext/marktext/releases/download/v0.16.3/marktext-amd64.deb
+	2) $ wget ./sudo dpkg --install marktext-amd64.deb
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
