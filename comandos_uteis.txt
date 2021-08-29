@@ -308,3 +308,55 @@ via ppa
    3) $ sudo apt-get install ubuntu-make
    
 -----------------------------------------------------------------------------------------------------
+
+*variáveis de ambiente (escopo global)
+	
+	mostrar variáveis de ambiente (do usuario corrente)
+	
+		$ env
+		
+	criar variável de ambiente (escopo global)
+
+		$ export edward="hostinger"
+
+-----------------------------------------------------------------------------------------------------
+
+*mapear teclas e ações 
+
+$ xev | sed -ne '/^KeyPress/,/^$/p'
+
+-----------------------------------------------------------------------------------------------------
+
+*dispositivos conectados
+
+$ xinput -list
+
+&&
+
+$ lsusb
+
+-----------------------------------------------------------------------------------------------------
+
+*informações completas da máquina
+
+$ inxi -Fxz
+
+-----------------------------------------------------------------------------------------------------
+
+*kernel do sistema
+
+$ uname -r
+
+-----------------------------------------------------------------------------------------------------
+
+*editor de texto padrão
+
+	para saber qual 
+
+		$ cat /usr/share/applications/defaults.list
+
+	para escolher o editor padrão modo texto / ver o editor padrão modo texto
+
+		$ sudo update-alternatives --config editor
+
+-----------------------------------------------------------------------------------------------------
