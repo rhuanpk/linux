@@ -12,13 +12,16 @@ ferramentas/programas
 
 - simple screen recorder (gravador de tela) // $ sudo apt install simplescreenrecorder
 
-- audio recorder (gravador de voz) //
+- audio recorder (gravador de voz)
+
+	1) $ sudo snap install audio-recorder
+	2) $ sudo snap install audio-recorder --beta
+	3) $ sudo snap install audio-recorder --edge
+	4) $ sudo snap refresh audio-recorder
 
 - gnome soud recorder (gravador de voz) // $ sudo apt install gnome-sound-recorder
 
 - anydesk (acesso remoto) // $ sudo apt install anydesk
-
-- hot shots (editor de imagens para tutorias) //
 
 - pdfimagem (extrair texto de imagens via browser) // https://qastack.com.br/ubuntu/59389/how-can-i-extract-text-from-images
 
@@ -33,7 +36,7 @@ ferramentas/programas
 	
 - speedtest cli (medidor de velocidade modo texto) //
 
-- flame shot (capturador de tela simples (pela loja tem mais recursos?))
+- flame shot (capturador de tela pratico para edição (pela loja tem mais recursos?)) // $ sudo apt install flameshot
 
 - notas autoadesivas (fazer anotações para "colar" no workspace)
 
@@ -47,12 +50,30 @@ ferramentas/programas
 	2) $ sudo apt-get update
 	3) $ sudo apt-get install audio-recorder
 
-- gnome tweak tool (ferramente de customização da interface) $ sudo apt install gnome-tweak-tool
+- gnome tweak tool (ferramente de customização da interface) // $ sudo apt install gnome-tweak-tool
 
 - mark text (editor perfeito de markdown em tempo real)
 
 	1) $ wget https://github.com/marktext/marktext/releases/download/v0.16.3/marktext-amd64.deb
 	2) $ wget ./sudo dpkg --install marktext-amd64.deb
+
+- video downloader (baixador de vídeos YT)
+	
+	1) $ sudo snap install video-downloader
+	2) $ sudo snap install video-downloader --edge
+	3) $ sudo snap refresh video-downloader 
+
+- hot shots (capturador tela simples para tutorias (pode estar quebrado))
+
+	- via ppa
+	
+		1) $ sudo add-apt-repository ppa:dhor/myway
+		2) $ sudo apt update
+		3) $ sudo apt-get install hotshots
+
+	- .deb
+
+		1) $ https://launchpad.net/~dhor/+archive/ubuntu/myway/+packages?field.name_filter=hotshots&field.status_filter=published&field.series_filter= 
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -82,5 +103,9 @@ terminal/ferramentas
 - tree (lista árvore de diretorios) // $ sudo apt install tree
 
 - ncdu (mostra tamanho de diretorios/explorador modo texto) // $ sudo apt install ncdu
+
+- elinks (navegador web modo texto) // $ sudo apt install elinks
+
+- links2 (navegador web modo texto; obs: usar parametro "-g") // $ sudo apt install links2 
 
 -------------------------------------------------------------------------------------------------------------------------------------------
