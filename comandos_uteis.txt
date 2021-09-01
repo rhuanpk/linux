@@ -45,9 +45,8 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
       2) próximo login e senha (token digitado) ficara salvo pelo tempo determina (sem passar parametro o padrão é 15min (900s))
 
    removendo
-
-      1) para remover: $ git credential-cache exit
-      2) para remover: $ git config --global --unset credential.helper
+      
+      para remover: $ git credential-cache exit
 
    setando da maneira "correta"? (usando Keyring)
    
@@ -59,6 +58,10 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
       6) $ nano ~/.gitconfig
 	      [credential]
               helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+              
+   para remover
+   
+      $ git config --global --unset credential.helper
 
 *para manipular informações do usuários
 
@@ -368,79 +371,15 @@ $ uname -r
 		$ sudo update-alternatives --config editor
 
 -----------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------
 
->>> BASE ! ! !
+*mudar shell padrão
 
-*usuarios, grupos e permissoes
+	mudando no usuário especifico em:
+		
+		$ sudo nano /etc/passwd
+		
+	rodando:
 	
-	usuarios
+		$ chsh -s $(which zsh)
 		
-		adicionar usuário: sudo adduser <nome_usuario>
-
-		remover usuário: sudo userdel <nome_usuario>
-
-		trocar senha usuário: sudo passwd <nome_usuario>
-
-		logar com outro usuário (pode passar diretamente o login como parâmetro): sudo login 
-
-		sair do usuário logado (voltar para o que estava antes): logout
-
-		para adicionar um usuário ao grupo sudo (para ganhar privilégios de administrador): sudo adduser <nome_usuario> sudo
-		
-	grupos
-	
-		para adicionar um grupo: sudo addgroup <nome_grupo>
-
-		para remover um grupo: sudo delgroup <nome_group>
-
-		para adicionar um usuário a um grupo: sudo adduser <nome_usuario> <nome_grupo>
-
-		para remover um usuário de um grupo: sudo deluser <nome_usuario> <nome_grupo>
-
-	path dos arquivos que guardão as informações
-	
-		path grupos criados: cat /etc/group
-
-			localizar um grupo específico, serve também para verificar quem está naquele grupo (exemplo de utilização "grep"): grep financeiro /etc/group 
-	
-		path para usuários: cat etc/passwd
-
-			localiza um usuário específico, serve tbm para ver informações (exemplo de utilização "grep"): grep rhuna /etc/passwd
-			
-	permissões
-	
-		existem 3 (três) tipos de permissões no linux
-
-			r: read (ler)
-			w: write (escrever)
-			x: execute (executar)
-
-		na hora de serem apresentadas, se tiverem um ifen/traço/menos ("-") significa que está permissão está desligada (não está habilitada) (binário)
-		
-			exemplo: r-x
-				 101
-			
-		número das permissões
-		
-			rwx (soma das permissões = 7)
-			421
-		
-		existem 3 grupos de permissções
-		
-			Proprietario   Grupo   Todos
-			rwx	       rwx     r-x  	
-			7	       7       5 	
-
-		alterando permissões
-		
-			comando chmod
-			
-			sudo chmod 700 pasta/ -R // dessa forma estou dizendo que o proprietário tem todos as permissções sobre está pasta, o grupo nenhuma e todos também nenhuma
-
-		trocando o proprietário de uma pasta
-			
-			sudo chown <usuario_vai_receber_dono> path/ -R
-
------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
