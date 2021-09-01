@@ -74,7 +74,7 @@ ferramentas/programas
 	   2) $ sudo apt update
 	   3) $ sudo apt-get install hotshots
 	.deb
-	   1) $ https://launchpad.net/~dhor/+archive/ubuntu/myway/+packages?field.name_filter=hotshots&field.status_filter=published&field.series_filter= 
+	   1) $ https://flathub.org/apps/details/io.github.obiwankennedy.HotShots 
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
