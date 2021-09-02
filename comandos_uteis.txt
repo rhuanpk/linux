@@ -89,6 +89,15 @@ standard
 	vermelho/ciano
 	export PS1='\[\033[01;31m\]\u@\h\[\033[01;36m\] \w\[\033[0;31m\]$(__git_ps1 " (%s)")\[\033[01;36m\]$\[\033[00m\] '
 	
+valores
+
+	\u: usuário atual
+	\h: nome da máquina (host)
+	\H: nome da máquina completo
+	\w: diretório de trabalho atual
+	\W: diretório de trabalho atual com o nome base (último segmento) apenas
+	$(__git_ps1 "%s"): branch atual caso esteja em um repositório git, senão exibe nada.
+
 obs: para setar permanentemente adicione essa script na última linha do arquivo ~/.bashrc 
 
 -----------------------------------------------------------------------------------------------------
