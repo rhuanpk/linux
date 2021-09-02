@@ -10,8 +10,10 @@
 
 		remover usuário: sudo userdel <nome_usuario>
 
-		trocar senha usuário: sudo passwd <nome_usuario>
+		remover usuário (mais diretorios): sudo userdel -r <nome_usuario> 
 
+		trocar senha usuário: sudo passwd <nome_usuario>	
+	
 		logar com outro usuário (pode passar diretamente o login como parâmetro): sudo login 
 
 		sair do usuário logado (voltar para o que estava antes): logout
