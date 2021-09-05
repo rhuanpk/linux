@@ -75,3 +75,30 @@
 			sudo chown <usuario_vai_receber_dono> path/ -R
 
 -----------------------------------------------------------------------------------------------------
+
+>>> LEGENDA ! ! !
+
+	programas
+
+		adduser - adiciona um usuário
+		addgroup - adiciona um grupo
+		deluser - remove um usuário
+		passwd - altera a senha de um usário
+
+	arquivos
+
+		/etc/passwd - contem a lista de todos os usuário locais
+		/etc/shadow - contem hash's de senhas dos usuários (criptográfia das senhas)
+		/etc/group - contem a lista de todos os grupos
+		/etc/gshadow - equivalente ao "shadow" só que para grupos
+
+		editores que durante a edição do arquivo deixa o arquivo "locked" (que somente um usuário pode mecher no arquivo por vez)
+
+			vipw
+			vigr
+			vipw -s
+			vigr -s
+
+		
+
+-----------------------------------------------------------------------------------------------------
