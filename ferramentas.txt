@@ -109,4 +109,6 @@ terminal/ferramentas
 
 - links2 (navegador web modo texto; obs: usar parametro "-g") // $ sudo apt install links2 
 
+- ecryptfs  (encriptador de arquivos) // $ sudo apt install ecryptfs-utils
+
 -------------------------------------------------------------------------------------------------------------------------------------------
