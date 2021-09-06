@@ -391,6 +391,12 @@ $ uname -r
 
 -----------------------------------------------------------------------------------------------------
 
+*mudar terminal padrão
+
+$ sudo update-alternatives --config x-terminal-emulator
+
+-----------------------------------------------------------------------------------------------------
+
 *mudar shell padrão
 
 	mudando no usuário especifico em:
