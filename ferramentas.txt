@@ -111,4 +111,6 @@ terminal/ferramentas
 
 - ecryptfs  (encriptador de arquivos) // $ sudo apt install ecryptfs-utils
 
+- emulador de terminal (https://livreeaberto.com/emuladores-de-terminal-linux)
+
 -------------------------------------------------------------------------------------------------------------------------------------------
