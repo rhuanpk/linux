@@ -490,3 +490,13 @@ https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux
 	1) $ mkdir ~/.config/autostart/
 
 -----------------------------------------------------------------------------------------------------
+
+*cron - adicionar alguma tarefa
+
+	sintaxe: m h dm m ds command
+	exemplo de horario: 0 8 * * 1,2,3,4,5 // de segunda a sexta às 08:00
+
+	1) $ crontab -e
+	2) $ inserir na última linha sempre
+
+-----------------------------------------------------------------------------------------------------
