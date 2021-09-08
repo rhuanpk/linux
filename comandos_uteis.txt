@@ -2,7 +2,7 @@
 
 -----------------------------------------------------------------------------------------------------
 
-! git
+! git 
 
 *renomear repositorio remoto
 
@@ -410,11 +410,13 @@ $ sudo update-alternatives --config x-terminal-emulator
 -----------------------------------------------------------------------------------------------------
 
 *alias (definir permanente)
-
-	insira na última linhas do arquivo 	
 	
 	1) $ nano ~/.bashrc
+
+	entre no campo (bloco) específico do "alias"
+	
 	2) $ alias <nome_atalho>='<comando>'
+	3) $ source .bashrc
 
 -----------------------------------------------------------------------------------------------------
 
@@ -442,6 +444,18 @@ $ sudo update-alternatives --config x-terminal-emulator
 		obs: coloque os arquivos na pasta
 		
 		2) $ sudo umount ~/privado // desmonta a pasta (efetivamente os arquivos estaram agora encriptados)
-		3) $ sudo mount -t ecryptfs ~/privado ~/privado -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n // desmonta novamente a pasta para conseguer ter acesso aos arquivos
+		3) $ sudo mount -t ecryptfs ~/privado ~/privado -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n // desmonta novamente a pasta para conseguer ter acesso aos arquivos	
+
+		obs: para fefinir no "ALias"
+
+			no campo (bloco) correto dentro de .bashrc
+
+			mountt() {
+			   sudo mount -t ecryptfs "$1" "$2"; 
+			}
+
+			remountt() {
+			   sudo mount -t ecryptfs "$1" "$2" -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n
+			}
 
 -----------------------------------------------------------------------------------------------------
