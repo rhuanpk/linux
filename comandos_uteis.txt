@@ -459,3 +459,34 @@ $ sudo update-alternatives --config x-terminal-emulator
 			}
 
 -----------------------------------------------------------------------------------------------------
+
+*como saber a placa de vídeo
+
+$ lspci | grep VGA
+
+-----------------------------------------------------------------------------------------------------
+
+*mudar reoslução da tela via terminal 
+
+https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux.html
+
+-----------------------------------------------------------------------------------------------------
+
+*colocar programas para autostart 
+
+	1) crie um arquivo ".desktop" dentro da pasta "~/.config/autostart/"
+	2) coloque nesse arquivo:
+	
+		[Desktop Entry]
+		Type=Application
+		Exec=</path/to/binary or command to execute>
+		Hidden=false
+		NoDisplay=false
+		X-GNOME-Autostart-enabled=true
+		Name=<Name_to_be_displayed>
+		Comment=<optional comment>
+		
+	obs: caso a pasta ainda não exista, basta cria-la
+	1) $ mkdir ~/.config/autostart/
+
+-----------------------------------------------------------------------------------------------------
