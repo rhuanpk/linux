@@ -500,3 +500,22 @@ https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux
 	2) $ inserir na última linha sempre
 
 -----------------------------------------------------------------------------------------------------
+
+*hard links / links simbolicos
+
+$ ls -i ~/arq.txt // mostra o "inode" do arquivo
+$ file ~/arq.txt // mostra o tipo do arquivo e seu path
+
+	link simbolico
+	
+		1) $ ln -s ~/path/to/arquivo.txt ~/home/nome_link_simbolico
+		
+		obs: o link simbólico terá um inode diferente do arquivo original e o arquivo original for corrompido o link se tornara inutil
+		
+	hard link
+	
+		1) $ ln -s ~/path/to/arquivo.txt ~/home/nome_link_simbolico
+		
+		obs: o hard link tem o mesmo inode do original e se o original for corrompido o link fica independente
+
+-----------------------------------------------------------------------------------------------------
