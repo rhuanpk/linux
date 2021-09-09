@@ -51,7 +51,7 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
    setando da maneira "correta"? (usando Keyring)
    
       1) $ sudo apt install make (mais em baixo tem como instalar)
-      2) $ sudo apt install gcc -- ou --  sudo apt install build-essential
+      2) $ sudo apt install gcc -- ou -- $ sudo apt install build-essential
       3) $ sudo apt-get install libsecret-1-0 libsecret-1-dev
       4) $ cd /usr/share/doc/git/contrib/credential/libsecret
       5) $ sudo make
