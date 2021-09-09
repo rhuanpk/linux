@@ -41,7 +41,7 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
    
    setando pelo cache
 
-      1) $ $ git config credential.helper 'cache --timeout=28800'
+      1) $ git config credential.helper 'cache --timeout=28800'
       2) próximo login e senha (token digitado) ficara salvo pelo tempo determina (sem passar parametro o padrão é 15min (900s))
 
    removendo
