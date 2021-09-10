@@ -520,8 +520,6 @@ $ file ~/arq.txt // mostra o tipo do arquivo e seu path
 
 -----------------------------------------------------------------------------------------------------
 
-*rodar um comando em outra janela de terminal
-
-$ gnome-terminal -x sh -c "<comando>; bash"
+*rodar um comenta
 
 -----------------------------------------------------------------------------------------------------
