@@ -522,6 +522,10 @@ $ file ~/arq.txt // mostra o tipo do arquivo e seu path
 
 *rodar um comando em outra janela de terminal
 
-$ gnome-terminal -x sh -c "<comando>; bash"
+$ gnome-terminal -x sh -c "<comando>; bash" // abre em outra guia
+
+ou
+
+$ gnome-terminal -- sh -c "<comando>; bash" // abre em outra janela
 
 -----------------------------------------------------------------------------------------------------
