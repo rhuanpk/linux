@@ -1,0 +1,24 @@
+" " - Interpreta caracteres especiais
+
+' ' - Não interpreta caracteres especiais
+
+~ Sintaxe ~
+
+    read <var1> <var2> <var3>
+    read <opções> <variável>
+        Opções
+            -p - Para não utilizar o "echo", esse parametro mostra uma frase antes de abrir o campo para o usuário digital, exemplo: read -p "Entre com uma frase: " <var>
+            -s - Esse parâmetro serve para não ecoar o que foi digitado (geralmente usado em senhas), exemplo: read -s <var>
+            -n - Limita o número de caracteres de entrada "e encerra", exemplo: read -n 4 -p "Digite o pin: " <var>
+
+    echo <opções> <argumentos>
+        Opções
+            -e - Nceita caracteres de escape
+            -n - Não add nova linha aposta mostrar os argumentos
+        Caracteres de escape
+            \a - Caracter de alerta sonoro (beep)
+            \b - Backspace
+            \c - Suprime newline, forçando a continuação na mesma linha
+            \n - Inicia um nova linha
+            \t - Equivale a um espaço de tabulação horizontal
+            \v - Equivale a um espaço de tabulação vertical

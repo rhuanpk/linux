@@ -30,6 +30,28 @@
 
 		para remover um usuário de um grupo: sudo deluser <nome_usuario> <nome_grupo>
 
+	grupos (gpasswd)
+
+		sintaxe: gpasswd <opcoes> <usuario> <grupo>
+
+		add usuario a um grupo: # gpasswd -a fabio planilhas
+
+		remover usuario de um grupo: # gpasswd -d fabio planilhas
+
+		add varrios usuario de uma vez só a um grupo: # gpasswd -M monica,sophia,renato memorandos
+
+		configurar o usuario como adm do grupo: # gpasswd -A fabio docs
+
+		add senha a um grupo: # gpasswd planilhas
+
+		add um usuario a varios grupos: # usermod -a -G planilhas,memorandos,docs monica
+
+			gpasswd (manipulando senha do grupo)
+
+				criar senha para o grupo: gpasswd nome_do_grupo
+
+				apaga senha do grupo: gpasswd -r nome_do_grupo
+
 	path dos arquivos que guardão as informações
 	
 		path grupos criados: cat /etc/group
