@@ -69,26 +69,43 @@ $ cd ~/.gitconfig
 
 -----------------------------------------------------------------------------------------------------
 
+*Manipulando variável PS1
+
 *exibir branch no terminal (bash)
 
-default
-
-	$ export PS1='\u@\h\[\033[01;34m\] \w\[\033[0;32m\]$(__git_ps1 " (%s)")\[\033[01;34m\]$\[\033[00m\] '
-
-standard
+	$ export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
 	
-	verde padrão
-	$ export PS1='\[\033[01;32m\]\u@\h\[\033[01;34m\] \w\[\033[0;35m\]$(__git_ps1 " (%s)")\[\033[01;37m\]$\[\033[00m\] '	
+*cor para usuário root (bash)
 
-	ciano/azul
-	export PS1='\[\033[01;36m\]\u@\h\[\033[01;34m\] \w\[\033[0;31m\]$(__git_ps1 " (%s)")\[\033[01;34m\]$\[\033[00m\] '
+	$ export PS1='\[\033[01;31m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[01;37m\]$\[\033[00m\] '
 
-	azul/ciano
-	export PS1='\[\033[01;34m\]\u@\h\[\033[01;36m\] \w\[\033[0;31m\]$(__git_ps1 " (%s)")\[\033[01;36m\]$\[\033[00m\] '
+*instalando zsh/oh-my-zsh
 
-	vermelho/ciano
-	export PS1='\[\033[01;31m\]\u@\h\[\033[01;36m\] \w\[\033[0;31m\]$(__git_ps1 " (%s)")\[\033[01;36m\]$\[\033[00m\] '
+	~ zsh ~
+
+	1) $ sudo apt install zsh
+	2) $ chsh -s $(which zsh)
+	3) encerrar sessão ($ pkill -9 -u $USER)
+	4) abra o terminal (ctrl+shift+t)
+	5) ira mostrar uma msng do proprio zsh para finalizar a configuração, digite 2 para terminar a configuração
+
+	~ oh-my-zsh ~ (colocando oh-my-zsh no usuario normal)
+
+	1) $ sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 	
+	ou
+	
+	1) $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+*colocar oh-my-zsh no root
+
+	1) $ sudo cp /$HOME/.zshrc /root
+	2) $ sudo cp -r /$HOME/.oh-my-zsh /root
+	3) $ editar o arquivo ".zshrc" no root para trocar a linha que contenha o path do usuario normal para colocar o root
+		3.1) $ sudo nano /root/.zshrc
+		3.2) de....: export ZSH="/home/$USER/.oh-my-zsh" 
+		     para..: export ZSH="/root/.oh-my-zsh" 
+
 valores
 
 	\u: usuário atual
@@ -96,9 +113,9 @@ valores
 	\H: nome da máquina completo
 	\w: diretório de trabalho atual
 	\W: diretório de trabalho atual com o nome base (último segmento) apenas
-	$(__git_ps1 "%s"): branch atual caso esteja em um repositório git, senão exibe nada.
+	$(__git_ps1 "%s"): branch atual caso esteja em um repositório git, se não, não exibe nada.
 
-obs: para setar permanentemente adicione essa script na última linha do arquivo ~/.bashrc 
+obs: para setar permanentemente adicione essa script na última linha do arquivo ~/.bashrc (tanto na home do usuario normal quanto na home do root)
 
 -----------------------------------------------------------------------------------------------------
 
@@ -404,7 +421,7 @@ $ sudo update-alternatives --config x-terminal-emulator
 
 *mudar shell padrão
 
-	mudando no usuário especifico em:
+	mudando diretamente no arquivo:
 		
 		$ sudo nano /etc/passwd
 		
