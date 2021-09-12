@@ -176,6 +176,11 @@ ou
 
 $ find / -maxdepth 3 -name <path>
 
+exemplo de uso
+	
+	entrada..: $ find ~/ -name autostart
+	saida....: /home/rhuna/.config/autostart
+
 -----------------------------------------------------------------------------------------------------
 
 *compactar .tar.gz
