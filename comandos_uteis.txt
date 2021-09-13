@@ -556,6 +556,10 @@ $ gnome-terminal -- sh -c "<comando>; bash" // abre em outra janela
 
 $ cal <mes> <ano>
 
+*horas/data de hoje
+
+$ date
+
 -----------------------------------------------------------------------------------------------------
 
 *para instalar quaisquer dependencias que possam ter sidas removidas
@@ -563,3 +567,12 @@ $ cal <mes> <ano>
 $ sudo apt install ubuntu-desktop
 
 -----------------------------------------------------------------------------------------------------
+
+*adicionando $PATH (diretorio de binários)
+
+$ export PATH=$PATH:/home/user/scripts
+
+obs: para adicionar permanentemente, insira esse script na última linha do arquivo do seu shell (exemplo: .bashrc)
+
+-----------------------------------------------------------------------------------------------------
+
