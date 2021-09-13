@@ -572,7 +572,7 @@ $ sudo apt install ubuntu-desktop
 
 $ export PATH=$PATH:/home/user/scripts
 
-obs: para adicionar permanentemente, insira esse script na última linha do arquivo do seu shell (exemplo: .bashrc)
+obs: para adicionar permanentemente, insira esse script na última linha do arquivo do seu shell (exemplo: .bashrc) -> (ainda confirmar)
 
 -----------------------------------------------------------------------------------------------------
 
