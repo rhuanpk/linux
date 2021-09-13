@@ -557,3 +557,9 @@ $ gnome-terminal -- sh -c "<comando>; bash" // abre em outra janela
 $ cal <mes> <ano>
 
 -----------------------------------------------------------------------------------------------------
+
+*para instalar quaisquer dependencias que possam ter sidas removidas
+
+$ sudo apt install ubuntu-desktop
+
+-----------------------------------------------------------------------------------------------------

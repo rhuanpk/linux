@@ -28,6 +28,8 @@ ferramentas/programas
 
 - stacer (excelente gerenciador de processos (e mais) de modo gráfico) // $ sudo apt install stacer
 
+- dash to panel (mudar visualização da dock (ainda verificar)) // https://linuxavante.com/como-remover-ou-desativar-o-ubuntu-dock#:~:text=Para%20ocultar%20permanentemente%20o%20Ubuntu,,%20dock-fixed%20e%20intellihide%20.
+
 - speedtest cli (medidor de velocidade modo texto)
 
 	1) $ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
