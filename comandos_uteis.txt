@@ -41,7 +41,7 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
    
    setando pelo cache
 
-      1) $ git config credential.helper 'cache --timeout=28800'
+      1) $ git config --global credential.helper 'cache --timeout=28800' // se não passar o parâmetro "--global" ele seta para um diretorio específico?
       2) próximo login e senha (token digitado) ficara salvo pelo tempo determina (sem passar parametro o padrão é 15min (900s))
 
    removendo
@@ -69,7 +69,7 @@ $ cd ~/.gitconfig
 
 -----------------------------------------------------------------------------------------------------
 
-*Manipulando variável PS1
+*manipulando variável PS1
 
 *exibir branch no terminal (bash)
 
