@@ -556,7 +556,7 @@ $ gnome-terminal -- sh -c "<comando>; bash" // abre em outra janela
 
 $ cal <mes> <ano>
 
-*horas/data de hoje
+*hora/data de hoje
 
 $ date
 
@@ -576,3 +576,20 @@ obs: para adicionar permanentemente, insira esse script na última linha do arqu
 
 -----------------------------------------------------------------------------------------------------
 
+*como passar senha para comando sudo automáticamente
+
+$ echo -e "senha\n" | sudo -S <comando>
+
+obs: parâmetro -S no sudo aceita outra etrada de dado que não seja e entrada padrão via terminal esperando receber no final da string uma nova linha
+	
+-----------------------------------------------------------------------------------------------------
+
+*como encerrar o terminal depois de executar um comando
+
+$ kill -9 $$
+
+ou
+
+$ exec <comando> // usando o "exec" depois de executar a sessão de terminal corrente é encerrada
+
+-----------------------------------------------------------------------------------------------------
