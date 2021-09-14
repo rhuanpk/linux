@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-apt update -y ;
-apt upgrade -y ;
-apt dist-upgrade -y ;
+# Para quando ainda não tiver sido feito nenhuma atualização no sistema
 
 apt-get update -y ;
 apt-get upgrade -y ;
