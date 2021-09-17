@@ -1,0 +1,8 @@
+wmctrl -l = lista as janelas abertas
+wmctrl -d = lista os desktops, desktop corrente fica com asterisco
+wmctrl -s <desktop> = troca para o desktop informado informando o numero
+wmctrl -a <window> = troca para a janela passando o nome dela
+wmctrl -c <window> = fecha a janela passando o nome
+wmctrl -r <win> -t <desk> = move a janela para o workspace
+wmctrl -i = interpreta a janela pelo ID
+xwininfo = mostra informações da janela
