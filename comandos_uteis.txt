@@ -488,7 +488,7 @@ $ lspci | grep VGA
 
 -----------------------------------------------------------------------------------------------------
 
-*mudar reoslução da tela via terminal 
+*mudar resolução da tela via terminal 
 
 https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux.html
 

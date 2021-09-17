@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Faz todo o processo de push para automaticamente e se não passado parâmetro, commita com uma mensagem padrão
+# Faz todo o processo de push automaticamente e se não passado parâmetro, commita com uma mensagem padrão
 
 [[ "$1" == "" ]] && value='refresh!' || value="$1"
 
