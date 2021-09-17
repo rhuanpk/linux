@@ -22,3 +22,4 @@
             \n - Inicia um nova linha
             \t - Equivale a um espaço de tabulação horizontal
             \v - Equivale a um espaço de tabulação vertical
+.....
