@@ -532,6 +532,7 @@ $ file ~/arq.txt // mostra o tipo do arquivo e seu path
 	
 		1) $ ln -s ~/path/to/arquivo.txt ~/home/nome_link_simbolico
 		
+		obs: tem que passar o path completo para esta operação
 		obs: o link simbólico terá um inode diferente do arquivo original e o arquivo original for corrompido o link se tornara inutil
 		
 	hard link
@@ -562,7 +563,7 @@ $ date
 
 -----------------------------------------------------------------------------------------------------
 
-*para instalar quaisquer dependencias que possam ter sidas removidas
+*para instalar quaisquer dependencias que possam ter sidas removidas (para ubuntu)
 
 $ sudo apt install ubuntu-desktop
 
@@ -591,5 +592,44 @@ $ kill -9 $$
 ou
 
 $ exec <comando> // usando o "exec" depois de executar a sessão de terminal corrente é encerrada
+
+-----------------------------------------------------------------------------------------------------
+
+*rodar programas ou comandos em segundo plano
+
+	$ <programa> &
+	$ bg // com o programa em execução
+	$ ctrl+z // com o programa em execução
+
+mostrar programas em segundo plano: 
+
+	$ jobs
+
+para trazer um programa para primeiro plano:
+
+	$ fg <programa>
+
+-----------------------------------------------------------------------------------------------------
+
+*protetor de tela modo texto com infos do sistema
+
+$ neofetch
+
+obs: como instalar o programa em "./ferramentas.txt"
+
+-----------------------------------------------------------------------------------------------------
+
+*minimizar tela do terminal corrente (com xdotool)
+
+1) $ var=$(xdotool getactivewindow)
+2) $ xdotool windowminimize "$var"
+
+obs: como instalar o programa em "./ferramentas.txt"
+
+-----------------------------------------------------------------------------------------------------
+
+*rodar um comando como se estivesse logado como root
+
+$ su -c "<comando>"
 
 -----------------------------------------------------------------------------------------------------

@@ -115,4 +115,12 @@ terminal/ferramentas
 
 - emulador de terminal (https://livreeaberto.com/emuladores-de-terminal-linux)
 
+- wmctrl (gerenciador de janelas) // $ sudo apt install wmctrl
+
+- neofetch (protetor de tela com infos do sistema) // $ sudo apt install neofetch
+
+- xdotool (ferramente de automatização via "command line" (emula teclado/mouse)) // $ sudo apt install xdotool
+
+- aptitude (gerenciador de pacotes instalados) // $ sudo apt install aptitude
+
 -------------------------------------------------------------------------------------------------------------------------------------------

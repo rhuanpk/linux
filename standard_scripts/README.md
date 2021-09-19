@@ -1,1 +1,1 @@
-**Corra o script "script-pasta.sh" dentro da pasta corrente ($ ./script-pasta.sh)** para criar a pasta separada e mover os scripts para a mesma
+**Corra o script "mover.sh" dentro da pasta corrente ($ ./mover.sh)** para mover os scripts para a pasta designada
