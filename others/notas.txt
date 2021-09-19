@@ -1,0 +1,3 @@
+1. $ git credential-cache exit = serve somente para o "git config --global credential.helper cache", para o keyring basta estar trocando o repo e tentar subir
+
+2. Links Simbólicos funcionam com Shell Scripts? Yes
