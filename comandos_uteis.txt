@@ -50,15 +50,20 @@ $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodl
 
    setando da maneira "correta"? (usando Keyring)
    
-      1) $ sudo apt install make (mais em baixo tem como instalar)
+      1) $ instalar o make (make developer tools)
+            1.1) $ sudo snap install ubuntu-make --classic
+            1.2) $ sudo snap install ubuntu-make --edge
+            1.3) $ sudo snap refresh ubuntu-make
       2) $ sudo apt install gcc -- ou -- $ sudo apt install build-essential
       3) $ sudo apt-get install libsecret-1-0 libsecret-1-dev
       4) $ cd /usr/share/doc/git/contrib/credential/libsecret
       5) $ sudo make
+      6) $ git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+      ou
       6) $ nano ~/.gitconfig
 	      [credential]
               helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-              
+         
    para remover
    
       $ git config --global --unset credential.helper
@@ -343,22 +348,6 @@ $ hostname -I
 
 $ sudo do-release-upgrade -d
 
------------------------------------------------------------------------------------------------------
-
-*instalar make developer tools
-
-via snap
-
-   1) $ sudo snap install ubuntu-make --classic
-   2) $ sudo snap install ubuntu-make --edge
-   3) $ sudo snap refresh ubuntu-make
-
-via ppa
-
-   1) $ sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
-   2) $ sudo apt-get update
-   3) $ sudo apt-get install ubuntu-make
-   
 -----------------------------------------------------------------------------------------------------
 
 *variáveis de ambiente (escopo global)
