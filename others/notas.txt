@@ -1,3 +1,7 @@
 1. $ git credential-cache exit = serve somente para o "git config --global credential.helper cache", para o keyring basta estar trocando o repo e tentar subir
 
 2. Links Simbólicos funcionam com Shell Scripts? Yes
+
+3. A conta do root naturalmente vem desativada (sem senha), para ativa-la coloque uma senha para ele com o "passwd"
+
+4. como restar a senha do root (https://sempreupdate.com.br/como-recuperar-a-senha-root-no-linux/)
