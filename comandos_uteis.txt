@@ -633,3 +633,48 @@ $ exec /sbin/init
 
 -----------------------------------------------------------------------------------------------------
 
+*copiar saida de comando para a área de transferencia
+
+$ pwd | xclip -selection clipboard
+
+ou
+
+$ pwd | tr -d '\n' | xclip -selection clipboard // para remover a "new line"
+
+obs: criar um alias para falicitamento 
+	
+	$ alias cb="tr -d '\n' | xclip -selection clipboard"
+	
+	exemplo
+	
+	$ pwd | cb
+	
+	
+*copiar saida de comando para dentro de um abiente 'X'
+
+copiar
+
+	$ pwd | xclip
+
+colar
+
+	$ xclip -o
+
+exemplo
+
+	1) $ pwd | xclip
+	2) $ xclip -o | cd
+	
+obs: criar um alias para falicitamento
+
+	$ alias c='xclip'
+	$ alias v='xclip -o'
+	
+exemplo
+
+	1) $ pwd | xclip
+	2) $ cd `v`
+	ou
+	2) $ cd $(v)
+
+-----------------------------------------------------------------------------------------------------
