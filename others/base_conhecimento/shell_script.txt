@@ -29,4 +29,30 @@ Caracteres de escape
 comando/arquivo > arquivo = Sobreescreve o conteudo
 comando/arquivo >> arquivo = Adiciona na última linha do arquivo
 
+~ Varivaveis ~
+
+cria variável - $ var="ola"
+cria variável global - $ export var="ola"
+
+~ arrays ~
+
+${arr[*]} - mostra todos os elementos de um array
+${arr[indice]} - mostra o indice especifico
+
+arr[0]="ola" - atribui valor a um indice do array
+arr=("ola", "mundo", "dois") - atribuir valores simultaneamente
+
+~ PS1 ~
+
+\s - O nome do shell
+\u - Nome do usuário que está usando o shell
+\h - O hostname
+\w - Contém o nome do diretório corrente desde a raiz
+\d - Mostra a data no formato: dia_da_semana mês dia
+\nnn - Mostra o caracter correspondente em números na base octal
+\t - Mostra a hora atual no formato de 24 horas, HH:MM:SS
+\T - Mostra a hora atual no formato de 12 horas, HH:MM:SS
+\W - Comente nsomente
+
 .....
+
