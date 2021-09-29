@@ -30,6 +30,8 @@ ferramentas/programas
 
 - dash to panel (mudar visualização da dock // $ sudo apt-get install gnome-shell-extension-dash-to-panel
 
+- hotshots (capturador de tela para tutoriais) // $ flatpak install --user https://flathub.org/repo/appstream/io.github.obiwankennedy.HotShots.flatpakref
+
 - speedtest cli (medidor de velocidade modo texto)
 
 	1) $ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
@@ -68,15 +70,6 @@ ferramentas/programas
 	1) $ sudo snap install video-downloader
 	2) $ sudo snap install video-downloader --edge
 	3) $ sudo snap refresh video-downloader 
-
-- hot shots (capturador tela simples para tutorias (pode estar quebrado))
-
-	via ppa	
-	   1) $ sudo add-apt-repository ppa:dhor/myway
-	   2) $ sudo apt update
-	   3) $ sudo apt-get install hotshots
-	.deb
-	   1) $ https://flathub.org/apps/details/io.github.obiwankennedy.HotShots 
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
