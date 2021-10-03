@@ -378,12 +378,6 @@ $ lsusb
 
 -----------------------------------------------------------------------------------------------------
 
-*informações completas da máquina
-
-$ inxi -Fxz
-
------------------------------------------------------------------------------------------------------
-
 *kernel do sistema
 
 $ uname -r
@@ -682,5 +676,78 @@ exemplo
 *mostra os programas baixado em apt
 
 $ sudo ls /etc/apt/sources.list.d
+
+-----------------------------------------------------------------------------------------------------
+
+*pegar o "valor bruto" da memória ram em buff/cache
+
+$ free -h | cut -d' ' -f45 | grep "2" | cut -c1
+
+-----------------------------------------------------------------------------------------------------
+
+*depurar programas
+
+$ sh -x programa
+
+-----------------------------------------------------------------------------------------------------
+
+*sempre pedir a senha do sudo (reseta o tempo de armazenar a senha)
+
+
+colocar "Defaults:ALL timestamp_timeout=0" na última linha do "/etc/sudoers"
+
+	$ echo -e "\nDefaults:ALL timestamp_timeout=0" >> /etc/sudoers
+	
+força em pedir a senha do sudo
+
+	$ sudo -k comando
+		
+-----------------------------------------------------------------------------------------------------
+
+*exibir info do sistema
+
+$ lshw
+
+-----------------------------------------------------------------------------------------------------
+
+*informações completas da máquina
+
+$ inxi
+
+ou
+
+$ inxi -F
+
+ou
+
+$ inxi -Fxz
+
+-----------------------------------------------------------------------------------------------------
+
+*volta para o diretorio anterior (equivalente a "$ cd $OLDPWD")
+
+$ cd -
+
+-----------------------------------------------------------------------------------------------------
+
+*pegar/cortar determinado linhas de coluna de um arquivo
+
+$ head -5 /etc/passwd
+
+-----------------------------------------------------------------------------------------------------
+
+*cortar colunas de arquivos
+
+$ cut -d':' -f1,7 /etc/passwd
+
+ou
+
+$ cut -c1-3 /etc/passwd
+
+-----------------------------------------------------------------------------------------------------
+
+*organizar arquivos em colunas
+
+$ column -s':' -t /etc/passwd
 
 -----------------------------------------------------------------------------------------------------

@@ -18,6 +18,8 @@ ferramentas/programas
 
 - pdfimagem (extrair texto de imagens via browser) // https://qastack.com.br/ubuntu/59389/how-can-i-extract-text-from-images
 
+- trim (ferramente de corte de vídeo via browser) // https://online-video-cutter.com/
+
 - kolour paint (paint) // $ sudo apt install kolourpaint
 
 - totem (player de vídeo e visualizador de imagens default do gnome?) // $ sudo apt install totem
@@ -115,5 +117,9 @@ terminal/ferramentas
 - xdotool (ferramente de automatização via "command line" (emula teclado/mouse)) // $ sudo apt install xdotool
 
 - aptitude (gerenciador de pacotes instalados) // $ sudo apt install aptitude
+
+- lshw (exibir infos do sistema) // $ sudo apt install lshw
+
+- inxi (exibir infos do sistema) // $ sudo apt install inxi
 
 -------------------------------------------------------------------------------------------------------------------------------------------

@@ -56,3 +56,14 @@ arr=("ola", "mundo", "dois") - atribuir valores simultaneamente
 
 .....
 
+Documentações
+
+operadores
+https://gnulinuxbr.wordpress.com/2010/04/07/operadores-shell-script/
+
+geral
+https://google.github.io/styleguide/shellguide.html
+
+arrays
+https://cleitonbueno.com/shell-script-estrutura-de-repeticao-e-arrays/
+
