@@ -34,6 +34,11 @@ ferramentas/programas
 
 - hotshots (capturador de tela para tutoriais) // $ flatpak install --user https://flathub.org/repo/appstream/io.github.obiwankennedy.HotShots.flatpakref
 
+- cutyq (gerenciador de área de transferencia)
+
+	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
+	2) $ flatpak --user update com.github.hluk.copyq
+
 - speedtest cli (medidor de velocidade modo texto)
 
 	1) $ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
