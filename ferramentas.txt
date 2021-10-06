@@ -34,7 +34,7 @@ ferramentas/programas
 
 - hotshots (capturador de tela para tutoriais) // $ flatpak install --user https://flathub.org/repo/appstream/io.github.obiwankennedy.HotShots.flatpakref
 
-- cutyq (gerenciador de área de transferencia)
+- copyq (gerenciador de área de transferencia)
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
 	2) $ flatpak --user update com.github.hluk.copyq
