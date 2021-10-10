@@ -207,11 +207,15 @@ exemplo de uso
 
 *compactar .tar.gz
 
-$ tar -zcvf arquivos.tar.gz arquivos/
+$ tar -zcvf pasta_compactada.tar.gz /etc/passwd /var/log
 
 *descompactar .tar.gz
 
-$ tar -zxvf arquivos.tar.gz
+$ tar -zxvf pasta_compactada.tar.gz
+
+*ver .tar.gz
+
+$ tar -tf pasta_compactada.tar.gz
 
 *descompactar .tar.xz
 
