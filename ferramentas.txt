@@ -26,7 +26,9 @@ ferramentas/programas
 
 - flame shot (capturador de tela pratico para edição (pela loja tem mais recursos?)) // $ sudo apt install flameshot
 
-- gnome tweak tool (ferramente de customização da interface) // $ sudo apt install gnome-tweak-tool
+- gnome tweak tool (ferramente de customização de interface) // $ sudo apt install gnome-tweak-tool
+
+- dconf (utilitário de customização de interface) // $ sudo apt install dconf-editor
 
 - stacer (excelente gerenciador de processos (e mais) de modo gráfico) // $ sudo apt install stacer
 

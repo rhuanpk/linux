@@ -9,3 +9,11 @@
 5. Se você criar um link simbolico numa pasta normal de um arquivo depois criar outra pasta colocar no path e mover o link simbolico (que é executavel) para essa pasta ele passa virar o programa em si??
 
 6. Eescrevendo temas zsh https://blog.carbonfive.com/writing-zsh-themes-a-quickref/ // %~ para pegar o path com a home?
+
+7. mudar versão corrente do java // $ sudo update-alternatives --config java
+
+8. /var/lib/apt/lists/ => usado (pelo apt)para armazenar informação para cada pacote
+	/var/cache/apt/archives/ => onde os arquivos baixados dos repositórios ficam
+	/var/lib/dpkg/ => usado (pelo dpkg)para armazenar informação para cada pacote
+	/etc/apt/sources.list => repositórios
+	/etc/apt/sources.list.d => adicionar repositorios sem precisar editar o /etc/apt/sources.list
