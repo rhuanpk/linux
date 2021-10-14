@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 print_usage() {
-	echo -e "Usage: move_autostart.sh <-mc> [-h]\n\n\t-h: print this message and exit with 0\n\t-m: move para a pasta de destino\n\t-c: trás de volta para a pasta de origem"
+	echo -e "Usage: move_autostart <-mc> [-h]\n\n\t-h: print this message and exit with 0\n\t-m: move para a pasta de destino\n\t-c: trás de volta para a pasta de origem"
 }
 
 while getopts 'mch' opts 2> /dev/null; do
@@ -24,8 +24,11 @@ if [ "${1}" = "" -o "${1}" = " " ]; then
 	exit 1
 fi
 
+path_origin=~/.config/autostart/
+path_destine=~/.config/autostart/off/
+
 if [ ${active} -eq 0 ]; then
-	mv ~/.config/autostart/*.desktop ~/.config/autostart/off/
+	mv ${path_origin}
 elif [ ${active} -eq 1 ]; then
-	mv ~/.config/autostart/off/*.desktop ~/.config/autostart/
+	mv ${path_destine}
 fi
