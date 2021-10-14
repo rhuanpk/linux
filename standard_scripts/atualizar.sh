@@ -2,6 +2,6 @@
 
 # Atualização padrão do sistema
 
-apt update -y ;
-apt upgrade -y ;
+apt update -y
+apt upgrade -y
 apt full-upgrade -y

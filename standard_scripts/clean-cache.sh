@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-# Limpa o cache da memória
+# Limpa a memória cache
 
-sync ; echo 3 > /proc/sys/vm/drop_caches
+sync; echo 3 > /proc/sys/vm/drop_caches

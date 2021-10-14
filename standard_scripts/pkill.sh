@@ -2,4 +2,4 @@
 
 # Reinicia a sessão
 
-pkill -9 -u $USER
+pkill -9 -u ${USER}
