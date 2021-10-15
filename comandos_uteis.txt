@@ -771,3 +771,15 @@ $ sudo date -s "mes/dia/ano 13:30"
 $ sudo hwclock -s
 
 -----------------------------------------------------------------------------------------------------
+
+*saber todos os probrmas que já foram instalados?
+
+$ history | grep "apt install" > instalados.txt; history | grep "apt-get install" >> instalados.txt
+
+-----------------------------------------------------------------------------------------------------
+
+*mostra o tamanho de uma pasta/arquivo específico
+
+$ du -sh /path
+
+-----------------------------------------------------------------------------------------------------
