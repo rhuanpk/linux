@@ -14,20 +14,25 @@ while getopts 'mchsv' opts 2> /dev/null; do
 	case ${opts} in
 		m) ACTIVE=0
 		   ;;
-		c) ACTIVE=1
+		
+	   	c) ACTIVE=1
 		   ;;
-		h) print_usage
+		
+	   	h) print_usage
 		   exit 0
 		   ;;
-		s)	SET=1
-			;;
-		v) print_set
-			exit 0
-			;;
-		?) print_usage
+		
+	   	s) SET=1
+		   ;;
+		
+	   	v) print_set
+		   exit 0
+		   ;;
+		
+	   	?) print_usage
 		   exit 1
 		   ;;
-		esac
+	   	esac
 done
 
 if [ "${1}" == "" -o "${1}" == " " ]; then
