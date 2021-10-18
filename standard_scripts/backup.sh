@@ -2,14 +2,14 @@
 
 arquivo="$(date +"%d-%m-%y")_backup.tar.gz"
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
-main="${HOME}/loja_suporte"
+main="${HOME}/backup"
 destino="${HOME}/Dropbox/backup"
 
-rm -rf ${main}/*
-rm -rf ${destino}/*.tar.gz
+rm -rfv ${main}/*
+rm -rfv ${destino}/*.tar.gz
 
 for (( i = 0; i < ${#busca[@]}; ++i )); do
-        cp -r ${busca[i]} ${main}
+        cp -rv ${busca[i]} ${main}
 done
 
 tar -zcvf ${destino}/${arquivo} ${main}
