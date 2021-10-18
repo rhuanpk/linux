@@ -94,7 +94,7 @@
 
 		trocando o proprietário de uma pasta
 			
-			sudo chown <usuario_vai_receber_dono> path/ -R
+			sudo chown -R <usuario_vai_receber_dono> path/
 
 -----------------------------------------------------------------------------------------------------
 
