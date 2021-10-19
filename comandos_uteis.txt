@@ -153,6 +153,14 @@ $ sudo apt-get update; sudo apt-get install virtualbox virtualbox—ext–pack -
 
 -----------------------------------------------------------------------------------------------------
 
+*instalar vagrant
+
+1) $ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+2) $ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+3) $ sudo apt-get update && sudo apt-get install vagrant
+
+-----------------------------------------------------------------------------------------------------
+
 *comando para ver porcentagem da bateria -> acpi
 
 como usar: $ acpi
