@@ -147,6 +147,12 @@ $ sudo add-apt-repository -r ppa:<nome_ppa>
 
 -----------------------------------------------------------------------------------------------------
 
+*instalar virtualbox (vm)
+
+sudo apt-get update; sudo apt-get install virtualbox virtualbox—ext–pack -y
+
+-----------------------------------------------------------------------------------------------------
+
 *comando para ver porcentagem da bateria -> acpi
 
 como usar: $ acpi
