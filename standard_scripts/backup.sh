@@ -11,7 +11,7 @@
 #	busca - pastas que seram feitas o backup
 #	espaco - nome para diferencias arquivos de backup
 #	main - pasta aonde irá as pastas a serem feitas o backup
-#	destino - pasta do serivo de cloud storage
+#	destino - pasta do serviço de cloud storage
 #	externo - caminho do disco externo
 #		OBS: MONTAR ATOMÁTICAMENTE O DISCO EXTERNO (para ficar
 #		     permissões de usuário normal)
@@ -19,11 +19,11 @@
 ##########################################################################
 
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
-espaco="home"
+espaco="work"
 arquivo="$(date +"%d-%m-%y")_${espaco}_backup.tar.gz"
-main="${HOME}/backup"
-destino="${HOME}/cloud/backup"
-externo="/media/${USER}/99B0-A454"
+main="${HOME}/loja_suporte"
+destino="${HOME}/Dropbox/backup"
+externo="/media/usuario/A3DE-614D"
 
 rm -rfv ${main}/*
 rm -rfv ${destino}/*.tar.gz
