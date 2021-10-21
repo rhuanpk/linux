@@ -355,12 +355,14 @@ $ hostname -I
 2) Edite o arquivo inserindo as seguintes linhas
 
    [Desktop Entry]
-   Comment=Nome App
-   Terminal=false
+   Encoding=UTF-8
    Name=Nome App
-   Exec=/path/to/your/app
+   Comment=Comentario App
+   Icon=/path/for/app/icon.xpm
+   Exec=/path/to/binary/to/your/app
+   Terminal=false
    Type=Application
-   Icon=/path/to/your/app/icon.xpm
+   Categories=Desenvolvimento
 
 3) Torne o .desktop criado em executavel
 
