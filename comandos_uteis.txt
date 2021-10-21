@@ -219,6 +219,16 @@ exemplo de uso
 
 -----------------------------------------------------------------------------------------------------
 
+*comando para busca de arquivos e diretorios
+
+$ locate -b '\arquivo' // ele mostrará somente as ocorrências que conteram o valor "arquivo"
+
+ou
+
+$ locate arquivo // mostrará todoas as ocorrenciasque conteram o valor "arquivo" (combinar com pipe grep)
+
+-----------------------------------------------------------------------------------------------------
+
 *compactar .tar.gz
 
 $ tar -zcvf pasta_compactada.tar.gz /etc/passwd /var/log
