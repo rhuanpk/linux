@@ -92,20 +92,11 @@ ferramentas/programas
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
-customização/skins
-
-- Shade of Z (icon theme)
-- Tela circle black Dark (icon theme)
-- Zorin OS (full theme)
-- Eternal Darknes (full theme?)
-
--------------------------------------------------------------------------------------------------------------------------------------------
-
 navegadores/sujeridos
 
 - brave
-- chrome
 - vivald 
+- chromium
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -140,5 +131,30 @@ terminal/ferramentas
 - lshw (exibir infos do sistema) // $ sudo apt install lshw
 
 - inxi (exibir infos do sistema) // $ sudo apt install inxi
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+customização/skins
+
+temas
+
+- Flat Remix (Flat-Remix-GTK-Red-Darkest-Solid-NoBorder)
+- Sweet Dark (Sweet-Dark)
+
+icones
+
+- Flat Remix (Flat-Remix-Red-Dark)
+- Flatery (Flatery-Dark)
+- Candy (candy-icons)
+
+cursores
+
+- Hickson (cz-Hickson-Black)
+- Comix (ComixCursors-Black) 
+
+- Shade of Z (icon theme)
+- Tela circle black Dark (icon theme)
+- Zorin OS (full theme)
+- Eternal Darknes (full theme?)
 
 -------------------------------------------------------------------------------------------------------------------------------------------
