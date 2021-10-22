@@ -140,21 +140,28 @@ temas
 
 - Flat Remix (Flat-Remix-GTK-Red-Darkest-Solid-NoBorder)
 - Sweet Dark (Sweet-Dark)
+- Eternal Darknes (eternal-darknes)
 
 icones
 
 - Flat Remix (Flat-Remix-Red-Dark)
 - Flatery (Flatery-Dark)
 - Candy (candy-icons)
+- Shade of Z (icone)
+- Tela Circle (tela-circle-black-dark)
 
-cursores
+cursore
 
 - Hickson (cz-Hickson-Black)
 - Comix (ComixCursors-Black) 
 
-- Shade of Z (icon theme)
-- Tela circle black Dark (icon theme)
-- Zorin OS (full theme)
-- Eternal Darknes (full theme?)
+fontes
+
+- Hack (Hack Regular)
+- JetBreans (Jet Breans Mono Bold)
+- IBM (Noveau IBM Stretch Bold)
+- Typist (Tlwg Typist Bold)
+
+site de fontes grátis ---> https://www.free-fonts.com/ibm-plex-mono
 
 -------------------------------------------------------------------------------------------------------------------------------------------
