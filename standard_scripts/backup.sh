@@ -19,13 +19,14 @@
 ##########################################################################
 
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
-espaco="work"
+espaco="home"
 data="$(date +"%d-%m-%y")"
 arquivo="${data}_${espaco}_backup.tar.gz"
-main="${HOME}/loja_suporte"
-destino="${HOME}/Dropbox/backup"
-externo="/media/marknet06/A3DE-614D"
-log_file="/home/marknet06/.backup_log.log"
+main="${HOME}/backup"
+destino="${HOME}/cloud/backup"
+usuario="rhuan"
+externo="/media/${usuario}/A3DE-614D"
+log_file="/home/${usuario}/.backup_log.log"
 
 rm -rfv ${main}/*
 
@@ -40,7 +41,7 @@ echo -e "\n    ~     ~     ~" >> "${log_file}"
 echo -e "\n[${data} * $(date +%T)] --- PROCESSO CLOUD INICIADO ---\n" >> "${log_file}"
 if rm -rfv ${destino}/*.tar.gz 2>> "${log_file}"; then
 	echo -e "[${data} * $(date +%T)] - Backup antigo removido - SUCESSO !" >> "${log_file}"
-	if tar -zcvf ${destino}/${arquivo} ${main} 2>> /dev/null; then
+	if tar -zcvf ${destino}/${arquivo} ${main} 2> /dev/null; then
 		echo -e "[${data} * $(date +%T)] - Novo backup realizado - SUCESSO ! " >> "${log_file}"
 	else
 		echo -e "[${data} * $(date +%T)] - Novo backup não realizado - FALHA ! " >> "${log_file}"
@@ -51,19 +52,21 @@ fi
 
 # Externo
 
-if mountpoint /media/marknet06/A3DE-614D 2>> /dev/null; then
+if aux=$(mountpoint /media/${usuario}/A3DE-614D 2>&1); then
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO EXTERNO INICIADO ---\n" >> "${log_file}"
-	if rm -rfv ${externo}/*${espaco}* 2>> "${log_file}"; then 
+	if aux=$(rm ${externo}/*${espaco}* 2>&1); then 
 		echo -e "[${data} * $(date +%T)] - Backup antigo removido - SUCESSO !" >> "${log_file}"
-		if tar -zcvf ${externo}/${arquivo} ${main} 2>> /dev/null; then
+		if aux=$(tar -zcvf ${externo}/${arquivo} ${main} 2>&1); then
 			echo -e "[${data} * $(date +%T)] - Novo backup realizado - SUCESSO ! " >> "${log_file}"
 		else
 			echo -e "[${data} * $(date +%T)] - Novo backup não realizado - FALHA ! " >> "${log_file}"
+			echo -e "[${data} * $(date +%T)] STDERR: ${aux}" >> "${log_file}"
 		fi
 	else
 		echo -e "[${data} * $(date +%T)] - Backup antigo não removido - FALHA !" >> "${log_file}"
+		echo -e "[${data} * $(date +%T)] STDERR: ${aux}" >> "${log_file}"
 	fi
 else
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO EXTERNO NÃO INICIADO ---\n" >> "${log_file}"
-	echo -e "[${data} * $(date +%T)] Saida de erro: ${aux}" >> "${log_file}"
+	echo -e "[${data} * $(date +%T)] STDERR: ${aux}" >> "${log_file}"
 fi
