@@ -22,11 +22,11 @@ busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictur
 espaco="home"
 data="$(date +"%d-%m-%y")"
 arquivo="${data}_${espaco}_backup.tar.gz"
-main="${HOME}/backup"
-destino="${HOME}/cloud/backup"
+main="/tmp/backup"
+destino="/tmp/temp/backup/destino"
 usuario="rhuan"
-externo="/media/${usuario}/A3DE-614D"
-log_file="/home/${usuario}/.backup_log.log"
+externo="/tmp/temp/backup/externo"
+log_file="/tmp/temp/backup/backup_log.log"
 
 rm -rfv ${main}/*
 
@@ -38,16 +38,19 @@ echo -e "\n    ~     ~     ~" >> "${log_file}"
 
 # Cloud
 
-echo -e "\n[${data} * $(date +%T)] --- PROCESSO CLOUD INICIADO ---\n" >> "${log_file}"
-if rm -rfv ${destino}/*.tar.gz 2>> "${log_file}"; then
+if aux=$(rm ${destino}/*.tar.gz 2>&1); then
+	echo -e "\n[${data} * $(date +%T)] --- PROCESSO CLOUD INICIADO ---\n" >> "${log_file}"
 	echo -e "[${data} * $(date +%T)] - Backup antigo removido - SUCESSO !" >> "${log_file}"
-	if tar -zcvf ${destino}/${arquivo} ${main} 2> /dev/null; then
+	if aux=$(tar -zcvf ${destino}/${arquivo} ${main} 2>&1); then
 		echo -e "[${data} * $(date +%T)] - Novo backup realizado - SUCESSO ! " >> "${log_file}"
 	else
 		echo -e "[${data} * $(date +%T)] - Novo backup não realizado - FALHA ! " >> "${log_file}"
+		echo -e "[${data} * $(date +%T)] STDERR: ${aux}" >> "${log_file}"
 	fi
 else
+	echo -e "\n[${data} * $(date +%T)] --- PROCESSO CLOUD NÃO INICIADO ---\n" >> "${log_file}"
 	echo -e "[${data} * $(date +%T)] - Backup antigo não removido - FALHA !" >> "${log_file}"
+	echo -e "[${data} * $(date +%T)] STDERR: ${aux}" >> "${log_file}"
 fi
 
 # Externo
