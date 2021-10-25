@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-###########################################################################
+###############################################################################
 #
-# Script criado para fazer backup soimples
+# Script criado para fazer backup simples
 # para alguma pasta de serviço de cloud e
 # para algum disco externo
 #
@@ -10,13 +10,15 @@
 #
 #	busca - pastas que seram feitas o backup
 #	espaco - nome para diferencias arquivos de backup
-#	main - pasta aonde irá as pastas a serem feitas o backup
+#	main - pasta aonde as pastas a serem feitas o backup seram copiadas
 #	destino - pasta do serviço de cloud storage
 #	externo - caminho do disco externo
 #		OBS: MONTAR ATOMÁTICAMENTE O DISCO EXTERNO (para ficar
-#		     permissões de usuário normal)
+#		OBS: permissões de usuário normal)
+#	usuario - para usar no caminho de montagem automática do dispositivo
+#	log_file - nome e caminho do arquivo que será feito
 #
-##########################################################################
+###############################################################################
 
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
 espaco="home"
@@ -25,7 +27,7 @@ arquivo="${data}_${espaco}_backup.tar.gz"
 main="/tmp/backup"
 destino="/tmp/temp/backup/destino"
 usuario="rhuan"
-externo="/tmp/temp/backup/externo"
+externo="/tmp/temp/backup/${usuario}/externo"
 log_file="/tmp/temp/backup/backup_log.log"
 
 rm -rfv ${main}/*
