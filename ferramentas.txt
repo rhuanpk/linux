@@ -164,4 +164,8 @@ fontes
 
 site de fontes grátis ---> https://www.free-fonts.com/ibm-plex-mono
 
+terminator (paleta de cores)
+
+---> https://github.com/EliverLara/terminator-themes
+
 -------------------------------------------------------------------------------------------------------------------------------------------
