@@ -2,6 +2,12 @@
 
 -----------------------------------------------------------------------------------------------------
 
+*script cork
+
+$ wget https://raw.githubusercontent.com/rhuan-pk/cork/master/cork.sh
+
+-----------------------------------------------------------------------------------------------------
+
 ! git 
 
 *renomear repositorio remoto
@@ -811,5 +817,30 @@ $ history | grep "apt install" > instalados.txt; history | grep "apt-get install
 *mostra o tamanho de uma pasta/arquivo específico
 
 $ du -sh /path
+
+-----------------------------------------------------------------------------------------------------
+
+*tentativa de reconfigurar programas quebrados?
+
+$ sudo apt install --reinstall <programa>
+
+ou
+
+$ sudo dpkg-reconfigure <programa>
+
+-----------------------------------------------------------------------------------------------------
+
+*verificar atualização de arquivos em tempo real
+
+$ tail -f arquiv.txt 
+
+-----------------------------------------------------------------------------------------------------
+
+# ToDo List (SlackJeff)
+
+export TODO="${HOME}/Documents/anotacoes/todo_list.txt"
+
+tla() { [ $# -eq 0 ] && cat ${TODO} || echo "$(echo $* | md5sum | cut -c 1-4) ---> $*" >> ${TODO} ;}
+tlr() { sed -i "/^$*/d" ${TODO} ;}
 
 -----------------------------------------------------------------------------------------------------

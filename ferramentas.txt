@@ -90,6 +90,11 @@ ferramentas/programas
 	6) $ sudo cp ./highlight-pointer /bin/
 	7) $ nohup highlight-pointer --show-cursor -o 3.75 -r 24.75 -c '#303030' -p '#a41313' -t 5 --auto-hide-cursor --auto-hide-highlight&
 
+- font finder (gerenciador de fontes)
+
+	1) $ flatpak install --user https://flathub.org/repo/appstream/io.github.mmstick.FontFinder.flatpakref
+	2) $ flatpak --user update io.github.mmstick.FontFinder
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 navegadores/sujeridos
@@ -166,6 +171,15 @@ fontes
 - Noto Sans (Noto Sans Mono CJK HK Bold)
 
 *** site de fontes grátis: https://www.free-fonts.com/ibm-plex-mono ***
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+emuladores terminal
+
+- terminator // $ sudo apt install terminator
+- xterm // $ sudo apt install xterm
+- cool retro // $ sudo apt install cool-retro-term
+- eDEX // $ wget -O eDEX.AppImage "https://github.com/GitSquared/edex-ui/releases/download/v2.2.8/eDEX-UI-Linux-x86_64.AppImage"
 
 terminator (paleta de cores)
 
