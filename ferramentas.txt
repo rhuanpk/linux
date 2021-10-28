@@ -162,10 +162,13 @@ fontes
 - IBM (Noveau IBM Stretch Bold)
 - Typist (Tlwg Typist Bold)
 
-site de fontes grátis ---> https://www.free-fonts.com/ibm-plex-mono
+- Liberation (Liberation Mono Bold)
+- Noto Sans (Noto Sans Mono CJK HK Bold)
+
+*** site de fontes grátis: https://www.free-fonts.com/ibm-plex-mono ***
 
 terminator (paleta de cores)
 
----> https://github.com/EliverLara/terminator-themes
+https://github.com/EliverLara/terminator-themes
 
 -------------------------------------------------------------------------------------------------------------------------------------------
