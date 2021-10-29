@@ -1,0 +1,40 @@
+~ utilitarios do bash ~
+
+* tr // cortar e substituir caracteres
+
+$ tr 'w' 'v' < teste1 > teste2
+$ tr 'a-z' 'A-Z' < propaganda.txt > propaganda-M.txt
+$ tr -d '#' < teste.conf > teste2.conf
+$ tr -s 'ff' < teste1 > teste2
+
+$ tr -d '\n' | xclip -selection clipboard
+$ acpi | tr -d '[:blank:]'
+
+Classe	 | Significado
+-------- | -------------------------
+alnum	 | Caracteres alfanuméricos
+alpha	 | Caracteres alfabéticos
+blank	 | Espaços em branco
+digit	 | Caracteres numéricos
+graph	 | Caracteres gráficos
+lower	 | Caracteres minúsculos
+print	 | Caracteres imprimíveis
+punct	 | Caracteres de pontuação
+special	 | Caracteres especiais
+upper	 | Caracteres em maiúsculas
+xdigit	 | Caracteres hexadecimais
+
+* cut // mostra somente por colunas ou caracteres
+
+$ cut -d' ' -f2 Lista_Frutas
+$ cut -d' ' -f2,3 Lista_Frutas
+$ cut -d' ' -f2,3 Lista_Frutas | sort
+$ cut -d: -f1 /etc/passwd
+$ cut -c1,2 Lista_Frutas
+$ grep "/bin/bash" /etc/passwd | cut -d: -f1,3
+
+* tee // além de mostrar na saida padrão joga para dentro de um arquivo
+
+$ tee teste.txt
+$ tee -a teste.txt
+$ cat teste.txt | tee teste2.txt
