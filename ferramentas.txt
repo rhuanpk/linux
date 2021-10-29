@@ -169,6 +169,7 @@ fontes
 
 - Liberation (Liberation Mono Bold)
 - Noto Sans (Noto Sans Mono CJK HK Bold)
+- Monof (monofur Regular)
 
 *** site de fontes grátis: https://www.free-fonts.com/ibm-plex-mono ***
 
