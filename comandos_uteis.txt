@@ -836,11 +836,23 @@ $ tail -f arquiv.txt
 
 -----------------------------------------------------------------------------------------------------
 
+*** COM HASH ***
+
 # ToDo List (SlackJeff)
 
 export TODO="${HOME}/Documents/anotacoes/todo_list.txt"
 
 tla() { [ $# -eq 0 ] && cat ${TODO} || echo "$(echo $* | md5sum | cut -c 1-4) ---> $*" >> ${TODO} ;}
 tlr() { sed -i "/^$*/d" ${TODO} ;}
+
+*** APENAS NUMERICOS ***
+
+# ToDo List (SlackJeff)
+
+export TODO="${HOME}/Documents/anotacoes/todo_list.txt"
+
+rand() { export RAND="0"; while [ "${#RAND}" -lt "4" ]; do RAND=$((${RANDOM}%10000)); done ;}
+tla() { rand; [ $# -eq 0 ] && cat $TODO || echo "${RAND} ---> $*" >> $TODO ;}
+tlr() { sed -i "/^$*/d" $TODO ;}
 
 -----------------------------------------------------------------------------------------------------
