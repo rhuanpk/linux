@@ -183,6 +183,8 @@ emuladores terminal
 
 terminator (paleta de cores)
 
+- VibrantInk
+
 https://github.com/EliverLara/terminator-themes
 
 -------------------------------------------------------------------------------------------------------------------------------------------
