@@ -851,7 +851,7 @@ tlr() { sed -i "/^$*/d" ${TODO} ;}
 
 export TODO="${HOME}/Documents/anotacoes/todo_list.txt"
 
-rand() { export RAND="0"; while [ "${#RAND}" -lt "4" ]; do RAND=$((${RANDOM}%10000)); done ;}
+rand() { export RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done ;}
 tla() { rand; [ $# -eq 0 ] && cat $TODO || echo "${RAND} ---> $*" >> $TODO ;}
 tlr() { sed -i "/^$*/d" $TODO ;}
 
