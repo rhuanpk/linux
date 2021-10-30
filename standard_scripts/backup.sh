@@ -28,7 +28,7 @@ main="/tmp/backup"
 destino="/tmp/temp/backup/destino"
 usuario="rhuan"
 externo="/tmp/temp/backup/${usuario}/externo"
-log_file="/tmp/temp/backup/backup_log.log"
+log_file="/tmp/temp/backup/.backup_file.log"
 
 rm -rfv ${main}/*
 
