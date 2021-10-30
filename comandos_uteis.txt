@@ -43,6 +43,11 @@ $ git log --oneline // mostra os log's resumidos
 $ git log --graph --all // mostra por completo o gráfico de nodles
 $ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodles
 
+-- blame --
+
+$ git blame <nome_do_arquivo> // mostra um histórico de alteraçẽos realizadas
+$ git blame -w -L 1,12 <nome_do_arquivo> // -w: remove espaços em branco; -L: limita a faixa de linhas
+
 *setando e removendo token pessoal de acesso (github)
    
    setando pelo cache
