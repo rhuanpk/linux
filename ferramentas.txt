@@ -166,6 +166,7 @@ fontes
 - JetBreans (Jet Breans Mono Bold)
 - IBM (Noveau IBM Stretch Bold)
 - Typist (Tlwg Typist Bold)
+- Determination (Determination Mono Web)
 
 - Liberation (Liberation Mono Bold)
 - Noto Sans (Noto Sans Mono CJK HK Bold)
