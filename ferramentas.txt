@@ -155,6 +155,7 @@ icones
 - Candy (candy-icons)
 - Shade of Z (icone)
 - Tela Circle (tela-circle-black-dark)
+- Beauty (BeautyLine)
 
 cursore
 
