@@ -151,7 +151,7 @@ temas
 icones
 
 - Flat Remix (Flat-Remix-Red-Dark)
-- Flatery (Flatery-Dark)
+- Flatery (Flatery-Dark, Flatery-Black-Dark, Flatery-Indigo-Dark)
 - Candy (candy-icons)
 - Shade of Z (icone)
 - Tela Circle (tela-circle-black-dark)
