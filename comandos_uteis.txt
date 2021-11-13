@@ -547,7 +547,7 @@ https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux
 	
 *para mudar o editor do cron
 
-$ crontab select-editor // ???
+$ select-editor
 
 -----------------------------------------------------------------------------------------------------
 
