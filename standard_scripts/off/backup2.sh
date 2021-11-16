@@ -20,6 +20,8 @@
 #
 ###############################################################################
 
+# Declaração de variáveis
+
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
 espaco="home"
 data="$(date +"%d-%m-%y")"
@@ -30,22 +32,26 @@ usuario="rhuan"
 externo="/tmp/temp/backup_teste/backup/externo"
 log_file="/tmp/temp/backup_teste/.backup_file.log"
 
+# Inicio do Backup
+
 echo -e "\n    ~     ~     ~" >> "${log_file}"
 
-for (( i = 0; i < ${#busca[@]}; ++i )); do
-	if aux=$(rm -rfv ${main}/$(echo "${busca[$((i+1))]}" | cut -d '/' -f 4) 2>&1); then
-		echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
-		echo -e "[${data} * $(date +%T)] STDERR (remoção): Failed to remove content from \"main\" folder" >> "${log_file}"
-		exit 1
-	fi
-done
-
-for (( i = 0; i < ${#busca[@]}; ++i )); do
-	if aux=$(cp -rv ${busca[i]} ${main} 2>&1); then		
-		echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
-		echo -e "[${data} * $(date +%T)] STDERR (criação): ${aux}" >> "${log_file}"
-		exit 1
-	fi
+for ((i=0;i<${#busca[@]};++i)); do
+	for ((j=0;j<${#busca[@]};++j)); do
+		if [ ${i} -eq 0 ]; then
+			if ! aux=$(rm -rfv ${main}/$(echo "${busca[${j}]}" | cut -d '/' -f 5) 2>&1); then
+				echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
+				echo -e "[${data} * $(date +%T)] STDERR (remoção): ${aux}" >> "${log_file}"
+				exit 1
+			fi
+		else
+			if ! aux=$(cp -rv ${busca[${j}]} ${main} 2>&1); then		
+				echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
+				echo -e "[${data} * $(date +%T)] STDERR (criação): ${aux}" >> "${log_file}"
+				exit 1
+			fi
+		fi
+	done
 done
 
 # Cloud
