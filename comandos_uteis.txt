@@ -863,3 +863,16 @@ tla() { rand; [ $# -eq 0 ] && cat $TODO || echo "${RAND} ---> $*" >> $TODO ;}
 tlr() { sed -i "/^$*/d" $TODO ;}
 
 -----------------------------------------------------------------------------------------------------
+
+# transferir por ssh
+
+scp /path/local usuario@192.168.0.1:/path/remoto
+
+-----------------------------------------------------------------------------------------------------
+
+# mudar tema e icones por linha de comando
+
+gsettings set org.gnome.desktop.interface gtk-theme "nome_do_tema"
+gsettings set org.gnome.desktop.interface icon-theme "nome_do_icone" 
+
+-----------------------------------------------------------------------------------------------------
