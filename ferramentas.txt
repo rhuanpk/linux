@@ -146,6 +146,7 @@ temas
 - Flat Remix (Flat-Remix-GTK-Red-Darkest-Solid-NoBorder)
 - Sweet Dark (Sweet-Dark)
 - United (United-Ubuntu-alt-Dark-Compact)
+- Lava (LAVA-BLACK-Blue)
 
 icones
 
