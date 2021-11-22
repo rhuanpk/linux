@@ -161,7 +161,10 @@ cursore
 
 - Hickson (cz-Hickson-Black)
 - Comix (ComixCursors-Black) 
-- WinSun (WinSur-dark-cursors)
+- ATER (ATER-yellow)
+- Fossa (FossaCursors)
+- Mocu (Mocu-Black-Right)
+- Pixel (pixelfun3)
 
 fontes
 
