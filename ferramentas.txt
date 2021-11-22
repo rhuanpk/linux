@@ -147,11 +147,13 @@ temas
 - Sweet Dark (Sweet-Dark)
 - United (United-Ubuntu-alt-Dark-Compact)
 - Lava (LAVA-BLACK-Blue)
+- Nordic (Nordic-darker-standard-buttons)
 
 icones
 
 - Flat Remix (Flat-Remix-Red-Dark)
-- Flatery (Flatery-Dark, Flatery-Black-Dark, Flatery-Indigo-Dark)
+- Flatery (Flatery-Dark)
+- Flatery (Flatery-Indigo-Dark)
 - Candy (candy-icons)
 - Shade of Z (Shade of Z - White)
 - Tela Circle (Tela-circle-black-dark)
