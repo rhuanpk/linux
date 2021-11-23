@@ -23,35 +23,36 @@
 # Declaração de variáveis
 
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
-espaco="home"
+espaco="work"
 data="$(date +"%d-%m-%y")"
 arquivo="${data}_${espaco}_backup.tar.gz"
 main="/tmp/back_teste/backup"
 destino="/tmp/temp/backup_teste/backup/destino"
-usuario="rhuan"
+# usuario="usuario"
 externo="/tmp/temp/backup_teste/backup/externo"
 log_file="/tmp/temp/backup_teste/.backup_file.log"
+
+# Para criar as pastas necessárias para realizar os testes
+# mkdir -p /tmp/back_teste/backup; mkdir -p /tmp/temp/backup_teste/backup/destino; mkdir -p /tmp/temp/backup_teste/backup/externo; cd /tmp/temp/backup_teste
 
 # Inicio do Backup
 
 echo -e "\n    ~     ~     ~" >> "${log_file}"
 
-for ((i=0;i<${#busca[@]};++i)); do
-	for ((j=0;j<${#busca[@]};++j)); do
-		if [ ${i} -eq 0 ]; then
-			if ! aux=$(rm -rfv ${main}/$(echo "${busca[${j}]}" | cut -d '/' -f 5) 2>&1); then
-				echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
-				echo -e "[${data} * $(date +%T)] STDERR (remoção): ${aux}" >> "${log_file}"
-				exit 1
-			fi
-		else
-			if ! aux=$(cp -rv ${busca[${j}]} ${main} 2>&1); then		
-				echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
-				echo -e "[${data} * $(date +%T)] STDERR (criação): ${aux}" >> "${log_file}"
-				exit 1
-			fi
+for ((i=0;i<=1;++i)); do
+	if [ ${i} -eq 0 ]; then
+		if ! aux=$(rm -rfv ${main}/{D*,P*,V*} 2>&1); then
+			echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
+			echo -e "[${data} * $(date +%T)] STDERR (remoção): ${aux}" >> "${log_file}"
+			exit 1
 		fi
-	done
+	else
+		if ! aux=$(cp -rv ${busca[${j}]} ${main} 2>&1); then		
+			echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
+			echo -e "[${data} * $(date +%T)] STDERR (criação): ${aux}" >> "${log_file}"
+			exit 1
+		fi
+	fi
 done
 
 # Cloud
