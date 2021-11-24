@@ -23,17 +23,17 @@
 # Declaração de variáveis
 
 busca=("${HOME}/Desktop" "${HOME}/Documents" "${HOME}/Downloads" "${HOME}/Pictures" "${HOME}/Videos")
-espaco="work"
+espaco="teste"
 data="$(date +"%d-%m-%y")"
 arquivo="${data}_${espaco}_backup.tar.gz"
-main="/tmp/back_teste/backup"
-destino="/tmp/temp/backup_teste/backup/destino"
+main="/tmp/tmp/backup_teste/backup"
+destino="/tmp/tmp/backup_teste/destino"
 # usuario="usuario"
-externo="/tmp/temp/backup_teste/backup/externo"
-log_file="/tmp/temp/backup_teste/.backup_file.log"
+externo="/tmp/tmp/backup_teste/externo"
+log_file="/tmp/tmp/backup_teste/backup_file.log"
 
 # Para criar as pastas necessárias para realizar os testes
-# mkdir -p /tmp/back_teste/backup; mkdir -p /tmp/temp/backup_teste/backup/destino; mkdir -p /tmp/temp/backup_teste/backup/externo; cd /tmp/temp/backup_teste
+# for foo in "backup" "destino" "externo"; mkdir -p /tmp/tmp/backup_teste/${foo}; done
 
 # Inicio do Backup
 
