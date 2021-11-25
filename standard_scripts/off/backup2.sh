@@ -33,7 +33,7 @@ externo="/tmp/tmp/backup_teste/externo"
 log_file="/tmp/tmp/backup_teste/backup_file.log"
 
 # Para criar as pastas necessárias para realizar os testes
-# for foo in "backup" "destino" "externo"; mkdir -p /tmp/tmp/backup_teste/${foo}; done
+# for foo in "backup" "destino" "externo"; do mkdir -p /tmp/tmp/backup_teste/${foo}; done
 
 # Inicio do Backup
 
@@ -41,16 +41,24 @@ echo -e "\n    ~     ~     ~" >> "${log_file}"
 
 for ((i=0;i<=1;++i)); do
 	if [ ${i} -eq 0 ]; then
-		if ! aux=$(rm -rfv ${main}/{D*,P*,V*} 2>&1); then
+		echo "here remocao"
+		if ! aux=$(for foo in ${main}/*; do rm -rfv ${foo}; done 2>&1); then
+			echo "if falha remocao"
 			echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
 			echo -e "[${data} * $(date +%T)] STDERR (remoção): ${aux}" >> "${log_file}"
 			exit 1
+		else
+			echo "if acerto remocao"
 		fi
 	else
+		echo "here criacao"
 		if ! aux=$(cp -rv ${busca[${j}]} ${main} 2>&1); then		
+			echo "if falha cricao"
 			echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
 			echo -e "[${data} * $(date +%T)] STDERR (criação): ${aux}" >> "${log_file}"
 			exit 1
+		else
+			echo "if acerto cricao"
 		fi
 	fi
 done
