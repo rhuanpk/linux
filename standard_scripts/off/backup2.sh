@@ -42,7 +42,9 @@ echo -e "\n    ~     ~     ~" >> "${log_file}"
 for ((i=0;i<=1;++i)); do
 	if [ ${i} -eq 0 ]; then
 		echo "here remocao"
-		if ! aux=$(for foo in ${main}/*; do rm -rfv ${foo}; done 2>&1); then
+		aux=$(for foo in ${main}/*; do rm -rfv ${foo}; done 2>&1)
+		echo "${?}"
+		if [ ${?} -ne 0 ]; then
 			echo "if falha remocao"
 			echo -e "\n[${data} * $(date +%T)] --- BACKUP NÃO INICIADO ---\n" >> "${log_file}"
 			echo -e "[${data} * $(date +%T)] STDERR (remoção): ${aux}" >> "${log_file}"
