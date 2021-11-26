@@ -167,6 +167,7 @@ cursore
 - Fossa (FossaCursors)
 - Mocu (Mocu-Black-Right)
 - Pixel (pixelfun3)
+- DMZyb (DMZ with Yellow Background Multisized)
 
 fontes
 
