@@ -192,11 +192,26 @@ emuladores terminal
 - cool retro // $ sudo apt install cool-retro-term
 - eDEX // $ wget -O eDEX.AppImage "https://github.com/GitSquared/edex-ui/releases/download/v2.2.8/eDEX-UI-Linux-x86_64.AppImage"
 
-terminator (paleta de cores)
+-------------------------------------------------------------------------------------------------------------------------------------------
 
-- VibrantInk
+terminator
 
-https://github.com/EliverLara/terminator-themes
+*paleta de cores
+- VibrantInk (https://github.com/EliverLara/terminator-themes)
+
+*tamanho padrão da janela
+# Colocar a opção "size" dentro da seção "window0"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+    [[[window0]]]
+      type = Window
+      parent = ""
+      profile = None
+      size = 900, 600 // bem aqui
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
