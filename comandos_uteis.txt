@@ -872,8 +872,24 @@ tlr() { sed -i "/^$*/d" $TODO ;}
 
 -----------------------------------------------------------------------------------------------------
 
-# transferir por ssh
+* ssh
 
+# instalar conexão
+sudo apt install ssh openssh-server
+
+# start/stop/restart/status
+service ssh opcao
+
+# conexão
+   # apenas CLI
+   ssh usuario@127.0.0.1
+   
+   # acessar GUI
+   ssh -X -C usuario@127.0.0.1
+      # caso dê algum erro de conexão com interface remova a pasta Xauthority da Home
+      rm -rfv ~/Xauthority
+      
+# transferir por ssh
 scp /path/local usuario@192.168.0.1:/path/remoto
 
 -----------------------------------------------------------------------------------------------------
