@@ -36,6 +36,8 @@ ferramentas/programas
 
 - hotshots (capturador de tela para tutoriais) // $ flatpak install --user https://flathub.org/repo/appstream/io.github.obiwankennedy.HotShots.flatpakref
 
+- Eye of GNOME (visualizador de imagens padrão do GNOME) // $ sudo apt install eog
+
 - copyq (gerenciador de área de transferencia)
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
