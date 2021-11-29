@@ -42,6 +42,9 @@ ferramentas/programas
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
 	2) $ flatpak --user update com.github.hluk.copyq
+	
+	# exec
+	/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=copyq com.github.hluk.copyq --start-server show
 
 - speedtest cli (medidor de velocidade modo texto)
 
