@@ -185,6 +185,7 @@ fontes
 - Liberation (Liberation Mono Bold)
 - Noto Sans (Noto Sans Mono CJK HK Bold)
 - Monof (monofur Regular)
+- Fantasque (FantasqueSansMono Nerd Font Mono)
 
 *** site de fontes grátis: https://www.free-fonts.com/ibm-plex-mono ***
 
@@ -225,5 +226,6 @@ vs code
 - Night Wolf
 - Nighthawk
 - Midnight City
+- PowerMode
 
 -------------------------------------------------------------------------------------------------------------------------------------------
