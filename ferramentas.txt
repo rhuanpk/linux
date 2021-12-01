@@ -221,6 +221,17 @@ terminator
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
+zsh plugins (auto suggestions)
+
+1) sh -c "$(curl -fsSL https://git.io/zinit-install)"
+2) zinit self-update
+3) # Coloque no final do .zshrc file
+	zinit light zdharma-continuum/fast-syntax-highlighting
+	zinit light zsh-users/zsh-autosuggestions
+	zinit light zsh-users/zsh-completions
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
 vs code
 
 - Night Wolf
