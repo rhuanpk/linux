@@ -178,11 +178,12 @@ fontes
 
 - Hack (Hack Regular)
 - JetBreans (Jet Breans Mono Bold)
+- Determination (Determination Mono Web)
+- Liberation (Liberation Mono Bold)
+- Fira do SpaceShip (Fira Code Retina)
+
 - IBM (Noveau IBM Stretch Bold)
 - Typist (Tlwg Typist Bold)
-- Determination (Determination Mono Web)
-
-- Liberation (Liberation Mono Bold)
 - Noto Sans (Noto Sans Mono CJK HK Bold)
 - Monof (monofur Regular)
 - Fantasque (FantasqueSansMono Nerd Font Mono)
