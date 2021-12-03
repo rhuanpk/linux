@@ -241,3 +241,11 @@ vs code
 - PowerMode
 
 -------------------------------------------------------------------------------------------------------------------------------------------
+
+gedit themes
+
+1) git clone "https://github.com/mig/gedit-themes" "/tmp/gedit-themes"
+2) mkdir -p ${HOME}/.local/share/gedit/styles
+3) mv /tmp/gedit-themes/*.xml ${HOME}/.local/share/gedit/styles
+
+-------------------------------------------------------------------------------------------------------------------------------------------
