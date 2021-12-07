@@ -84,3 +84,47 @@ replace
 
 # substitui cada ‘foo’ (case sensitive) por ‘bar’, pedindo por confirmação (usado após o uso de :set ignorecase para fazer as consultas serem case insensitive):
 :%s/foo/bar/gcI
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+CORES BASH (ANSI)
+
+Abertura e fechamento:
+
+\e[<cod_bg>;<cod_fg>m<texto>\e[m
+
+# FG
+
+PRETO	 30
+VERMELHO 31
+VERDE	 32
+AMARELO	 33
+AZUL	 34
+MAGENTA	 35
+CIANO	 36
+BRANCO	 37
+
+# BG
+
+PRETO	 40
+VERMELHO 41
+VERDE	 42
+AMARELO	 43
+AZUL	 44
+MAGENTA	 45
+CIANO	 46
+BRANCO	 47
+
+# EFEITOS
+
+NORMAL	       0
+NEGRITO	       1
+BAIXA INTENSID 2
+ITALICO	       3
+SUBLINHADO     4
+PISCANDO       5
+PISCA RAPIDO   6
+INVERSO	       7
+INVISIVEL      8
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------

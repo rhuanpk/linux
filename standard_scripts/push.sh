@@ -2,8 +2,9 @@
 
 # Faz todo o processo de push automaticamente e se não passado parâmetro, commita com uma mensagem padrão
 
-[[ "${1}" == "" ]] && value='refresh!' || value="${1}"
+[[ "${1}" == "" ]] && MSG='refresh!' || MSG="${1}"
+[[ "${2}" == "" ]] && BRANCH='master' || BRANCH="${2}"
 
 git add .
-git commit -m "${value}"
-git push origin master
+git commit -m "${MSG}"
+git push origin "${BRANCH}"
