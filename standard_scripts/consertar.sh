@@ -2,5 +2,6 @@
 
 # Tenta concertar pacotes quebrados no sistema
 
-apt-get install -f -y
-apt-get --fix-broken install
+apt install -f -y
+apt dist-upgrade -y
+apt --fix-broken install -y

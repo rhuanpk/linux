@@ -2,6 +2,7 @@
 
 # Limpa tudo que está inútil no sistema, deixado por pacotes desinstalados
 
-apt-get clean -y
-apt-get autoclean -y
-apt-get autoremove -y
+apt clean -y
+apt autoclean -y
+apt autoremove -y
+apt full-upgrade -y
