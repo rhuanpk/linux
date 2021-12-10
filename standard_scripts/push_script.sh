@@ -11,32 +11,49 @@
 #
 ##################################################################################
 
-path="${HOME}/Documents/git"
+path="/tmp/tmp/git"
 repo=$(ls -1 ${path} | sed 's/$/ /g' | tr -d '\n')
 
 print_usage(){
-	echo " \e[1mOPTIONS\e[m\n\
-		\t-h: Print this message and exit with 0\n\
-		\t-v: View the atual path selected and exit with 0\n\
-		\t-v: Set as new path to get the directories\n\t\texample: $ push_script -v \"/path/to/yours/repos\""
+	echo -e "\n\
+	       	\r###################################################################\n\
+		\r#\n\
+		\r# \e[1mOPTIONS\e[m\n\
+		\r#\n\
+		\r#\t\e[1m-h\e[m: Print this message and exit with 0\n\
+		\r#\t\e[1m-v\e[m: View the atual path selected and exit with 0\n\
+		\r#\t\e[1m-s\e[m: Set a new path to grab the folders\n#\t\texample: $ push_script -v \"/path/to/your/repos\"\n\
+		\r#\n\
+		\r###################################################################\n"
 }
 
 switch_path(){
 	aux="${path}"
 	read -p "Enter with the new path: " path
-	[[ "${path}" == "" ]] && path="${aux}"
+	if [[ "${path}" == "" ]]; then
+		path="${aux}"; exit 0  
+	elif [[ ! -e "${path}" ]]; then
+		
+	else
+		# verificar se é o parâmetro -e mesmo ou -f, caso existir (else), então printa status 200
+	fi
 }
 
 while getopts 'hvs' opts; do
 	case ${opts} in
 		h)
-			print_usage ;;
+			print_usage; exit 0 ;;
 		v)
-			echo "Path atual: ${path}"; exit 0 ;;
+			echo -e "\n\
+				\r#############################\n\
+				\r#\n\
+				\r# Atual path: ${path}\n\
+				\r#\n\
+				\r#############################"; exit 0 ;;
 		s)
 			switch_path ;;
 		*)
-			echo "\e[41;1m>> Invalid argument !!\e[m $(print_usage)"
+			echo -e "\e[41;1m>> Invalid argument !!\e[m $(print_usage)"; exit 1 ;;
 	esac
 done
 
