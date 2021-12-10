@@ -38,7 +38,7 @@ switch_path(){
 		path="${aux}"
 		echo -e "\e[31mThe path not exist!!!\e[m"; exit 1
 	else
-		sed -i "14s/^.*/path=\"${path}\"/" "${0}"
+		sed -i "14s~^.*~path=\"${path}\"~" ${0}
 		echo -e "\e[32m> New path successfully changed !\e[m"; exit 0
 	fi
 }
