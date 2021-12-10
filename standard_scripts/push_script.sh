@@ -11,7 +11,7 @@
 #
 ##################################################################################
 
-path="/tmp/tmp/git"
+path="/tmp/tmp/importar_descricao"
 repo=$(ls -1 ${path} | sed 's/$/ /g' | tr -d '\n')
 
 print_usage(){
@@ -22,38 +22,42 @@ print_usage(){
 		\r#\n\
 		\r#\t\e[1m-h\e[m: Print this message and exit with 0\n\
 		\r#\t\e[1m-v\e[m: View the atual path selected and exit with 0\n\
-		\r#\t\e[1m-s\e[m: Set a new path to grab the folders\n#\t\texample: $ push_script -v \"/path/to/your/repos\"\n\
+		\r#\t\e[1m-s\e[m: Set a new path to grab the folders\n\
 		\r#\n\
 		\r###################################################################\n"
 }
 
 switch_path(){
 	aux="${path}"
+	echo "Atual path: ${aux}"
 	read -p "Enter with the new path: " path
-	if [[ "${path}" == "" ]]; then
-		path="${aux}"; exit 0  
-	elif [[ ! -e "${path}" ]]; then
-		
+	if [ "${path}" = "" ]; then
+		path="${aux}"
+		echo -e "\e[31mThe path can not is null!!!\e[m"; exit 1
+	elif [ ! -e "${path}" ]; then
+		path="${aux}"
+		echo -e "\e[31mThe path not exist!!!\e[m"; exit 1
 	else
-		# verificar se é o parâmetro -e mesmo ou -f, caso existir (else), então printa status 200
+		sed -i "14s/^.*/path=\"${path}\"/" "${0}"
+		echo -e "\e[32m> New path successfully changed !\e[m"; exit 0
 	fi
 }
 
-while getopts 'hvs' opts; do
+while getopts 'hvs' opts 2>/dev/null; do
 	case ${opts} in
 		h)
 			print_usage; exit 0 ;;
 		v)
 			echo -e "\n\
-				\r#############################\n\
+				\r###################################################################\n\
 				\r#\n\
 				\r# Atual path: ${path}\n\
 				\r#\n\
-				\r#############################"; exit 0 ;;
+				\r###################################################################\n"; exit 0 ;;
 		s)
 			switch_path ;;
 		*)
-			echo -e "\e[41;1m>> Invalid argument !!\e[m $(print_usage)"; exit 1 ;;
+			echo -e "\n\e[31;1m>> Invalid argument !!\e[m\n$(print_usage)\n"; exit 1 ;;
 	esac
 done
 
