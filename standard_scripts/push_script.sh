@@ -103,6 +103,7 @@ for dir in ${repo}; do
 	if [ ${flag_custom_mode} -eq 1 ]; then
 		read -p "Enter with the message: " msg_git
 		read -p "Enter with the branch: " branch_git	
+		echo ""
 		push.sh "${msg_git}" "${branch_git}"
 	else
 		[[ "${*}" == "" ]] && push.sh || ${*}
