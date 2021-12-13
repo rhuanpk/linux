@@ -59,17 +59,17 @@ print_usage(){
 
 switch_path(){
 	aux="${path}"
-	echo "Atual path: ${aux}"
+	echo -e "\nAtual path: \e[33m${aux}\e[m\n"
 	read -p "Enter with the new path: " path
 	if [ "${path}" = "" ]; then
 		path="${aux}"
-		echo -e "\e[31mThe path can not is null!!!\e[m"; exit 1
+		echo -e "\n\e[31m> The path can not is null !\e[m\n"; exit 1
 	elif [ ! -e "${path}" ]; then
 		path="${aux}"
-		echo -e "\e[31mThe path not exist!!!\e[m"; exit 1
+		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
 	else
 		sed -i "14s~^.*~path=\"${path}\"~" ${0}
-		echo -e "\e[32m> New path successfully changed !\e[m"; exit 0
+		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
 	fi
 }
 
