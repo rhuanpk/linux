@@ -11,7 +11,7 @@
 #
 ##################################################################################
 
-path="/tmp/tmp/dir_1"
+path="/tmp"
 repo=$(ls -1 ${path} | sed 's/$/ /g' | tr -d '\n')
 flag_custom_mode=0
 
@@ -68,7 +68,7 @@ switch_path(){
 		path="${aux}"
 		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
 	else
-		sed -i "14s~^.*~path=\"${path}\"~" ${0}
+		sudo sed -i "14s~^.*~path=\"${path}\"~" ${0}
 		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
 	fi
 }
