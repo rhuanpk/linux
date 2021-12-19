@@ -168,9 +168,24 @@ $ sudo add-apt-repository -r ppa:<nome_ppa>
 
 *instalar virtualbox (vm)
 
-1) baixar .deb da distro no site da oracle 
-2) $ sudo apt install libqt5opengl5 libsdl1.2debian -y
-3) # sudo dpkg --install arquivo.deb
+# Verificar se os links estão atualizado
+
+# software-properties-common (obrigatório)
+
+1) sudo apt install software-properties-common -y 
+
+# virtualbox (obrigatório)
+
+2) wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+3) wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+4) echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+5) sudo apt update
+6) sudo apt install virtualbox-6.1 -y
+
+# extension packs (opcional)
+
+7) wget "https://download.virtualbox.org/virtualbox/6.1.30/Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack"
+8) sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack
 
 -----------------------------------------------------------------------------------------------------
 
