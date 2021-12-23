@@ -99,7 +99,7 @@ shift $((${OPTIND}-1))
 
 for dir in ${repo}; do
 	cd ${path}/${dir}
-	echo -e "\n → ggpull in *${dir^^}* !\n"
+	echo -e "\n → git in *${dir^^}* !\n"
 	if [ ${flag_custom_mode} -eq 1 ]; then
 		read -p "Enter with the message: " msg_git
 		read -p "Enter with the branch: " branch_git	
