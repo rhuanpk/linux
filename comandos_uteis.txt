@@ -368,11 +368,21 @@ como usar: $ ncdu <pode_passar_path> // "d" exclui
 
 -----------------------------------------------------------------------------------------------------
 
-*comando para buscar trecho de textos
+* comando grep
 
-$ grep -Ri "trecho" /var/www/* ou ~/Documentos/teste.txt
+# sintexe
 
-obs: ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou frase dentro de aspas duplas no diretorio tal com todos arquivos ou não ou em um documento especifico
+grep -Ri 'trecho' /var/www/* ou ~/Documentos/teste.txt
+
+obs: ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou frase dentro de aspas duplas no diretorio tal com todos arquivos ou em um documento especifico
+
+# exemplo de utilização
+   # para saber quantidade da ocorrência solicitada
+   grep -o 'bash' /etc/passwd | wc -l
+
+# pesquisando mais de uma ocorrência (utilizando parâmetro de RegEx)
+
+grep --color -E "vmx|svm" /proc/cpuinfo
 
 -----------------------------------------------------------------------------------------------------
 
@@ -533,7 +543,7 @@ $ sudo update-alternatives --config x-terminal-emulator
 
 *como saber a placa de vídeo
 
-$ lspci | grep VGA
+$ lspci | grep 'VGA'
 
 -----------------------------------------------------------------------------------------------------
 
@@ -751,7 +761,7 @@ $ sudo ls /etc/apt/sources.list.d
 
 *pegar o "valor bruto" da memória ram em buff/cache
 
-$ free -h | cut -d' ' -f45 | grep "2" | cut -c1
+$ free -h | cut -d' ' -f45 | grep '2' | cut -c1
 
 -----------------------------------------------------------------------------------------------------
 
@@ -806,16 +816,6 @@ $ head -5 /etc/passwd
 
 -----------------------------------------------------------------------------------------------------
 
-*cortar colunas de arquivos
-
-$ cut -d':' -f1,7 /etc/passwd
-
-ou
-
-$ cut -c1-3 /etc/passwd
-
------------------------------------------------------------------------------------------------------
-
 *organizar arquivos em colunas
 
 $ column -s':' -t /etc/passwd
@@ -840,7 +840,7 @@ $ sudo hwclock -s
 
 *saber todos os probrmas que já foram instalados?
 
-$ history | grep "apt install" > instalados.txt; history | grep "apt-get install" >> instalados.txt
+$ history | grep 'apt install' > instalados.txt; history | grep 'apt-get install' >> instalados.txt
 
 -----------------------------------------------------------------------------------------------------
 
@@ -860,9 +860,15 @@ $ sudo dpkg-reconfigure <programa>
 
 -----------------------------------------------------------------------------------------------------
 
-*verificar atualização de arquivos em tempo real
+* comando tail
+ 
+# mostra a última linha de um arquivo
 
-$ tail -f arquiv.txt 
+tail -n 1 arquivo.txt
+
+# mostra atualização do arquivo em tempo real
+
+tail -f arquivo.txt 
 
 -----------------------------------------------------------------------------------------------------
 
@@ -926,6 +932,10 @@ history -c
 
  ls /home
 
+# pesquisar algum comando do histórico
+
+CTRL + r
+
 -----------------------------------------------------------------------------------------------------
 
 * comando yes
@@ -968,24 +978,221 @@ cat -n file.md
 
 -----------------------------------------------------------------------------------------------------
 
+* comando progress
 
+<comando> | progress -m
 
 -----------------------------------------------------------------------------------------------------
+
+* comando cut
+
+# pegar a coluna 1 e 7 do arquivo "/etc/passwd" pelo delimitador ":"
+
+cut -d ':' -f 1,7 /etc/passwd
+
+# pegar do 1º até o 3º caractere de cada linha
+
+cut -c 1-3 /etc/passwd
+
+# mudar o delimitador padrão
+
+cut -d ' ' -f 3,4 --output-delimiter=',' arquivo.txt
+
 -----------------------------------------------------------------------------------------------------
+
+# excluir a última linha de um arquivo
+
+sed -i "$(cat arquivo.txt > /dev/null | wc -l)d" arquivo.txt
+
+# recortar primeira linha de um arquivo
+
+echo "$(head -n 1 arquivo.txt)" > arquivo.txt
+
+# recortar última linha de um arquivo
+
+echo "$(tail -n 1 arquivo.txt)" > arquivo.txt
+
 -----------------------------------------------------------------------------------------------------
+
+* RegEx (negar as ocorrências específicadas)
+
+# habilitar o RegEx no bash
+shopt -s extglob
+   
+   # sintaxe 
+   rm -rfv !(*.txt|*.md)
+
+# habilitar o RegEx no bash
+setopt extendedglob
+
+   # sintaxe
+   rm -rfv ^*.txt
+   rm -v ^file-1*
+   rm -v ^*.(txt|tmp
+
 -----------------------------------------------------------------------------------------------------
+
+* comando dpkg
+
+# instalar pacotes .deb
+
+sudo dpkg -i pkg.deb
+
+# saber arquitetura do sistema
+
+dpkg --print-architecture
+
+# saber se há outra arquitetura disponível para ser habilitada
+
+dpkg --print-foreign-architectures
+
+# adicionar arquitetura
+
+sudo dpkg --add-architecture i386
+
+# remover arquitetura
+
+sudo dpkg --remove-architecture i386
+
 -----------------------------------------------------------------------------------------------------
+
+* montagem/desmontagem e ejeção de dispositivos
+
+# montar
+
+sudo mount /dev/sdc1 /mnt
+
+# desmontar
+
+sudo umount /mnt
+
+# ejetar
+
+sudo eject /dev/sdc1
+
 -----------------------------------------------------------------------------------------------------
+
+* layout do teclado
+
+sudo vim /etc/default/keyboard
+
+   # trocar o conteúdo dessa linha "XKBLAYOUT" para "br" (que é o ABNT 2)
+   XKBLAYOUT="en"
+
 -----------------------------------------------------------------------------------------------------
+
+* mudar a furtividade de senhas
+
+sudo vim /etc/sudoers
+
+   # inserir em baixo da sessão dos "Defaults"
+   Defaults        pwfeedback
+
 -----------------------------------------------------------------------------------------------------
+
+* manipulação de discos
+
+# manipulação de partições
+
+sudo fdisk /dev/sdb
+
+# formatação de disco
+
+sudo mkfs.ext4 /dev/sdb
+sudo mkfs.vfat /dev/sdb
+
 -----------------------------------------------------------------------------------------------------
+
+* portas
+
+sudo ss -ntpl
+
 -----------------------------------------------------------------------------------------------------
+
+* grupos/usuários/permissões
+
+# saber os grupos de um usuário
+
+groups <usuario>
+
 -----------------------------------------------------------------------------------------------------
+
+# comando gdebi
+
+sudo gdebi pkg.deb
+
 -----------------------------------------------------------------------------------------------------
+
+# comando trans
+
+trans -b en:pt-br 'The books on the table!'
+
+# traduzir arquivos
+
+trans -b en:pt-br -i hello_world.txt
+
 -----------------------------------------------------------------------------------------------------
+
+* saber infos do sistema (compilar os outros comandos referentes nessa seção tabém)
+
+# comandos diversos para saber infos do sistema
+
+hwinfo --short
+
+inxi -GIS
+
+# saber número de núcleos (cores) do processador
+
+nproc
+
 -----------------------------------------------------------------------------------------------------
+
+* caixas de diálogo
+
+# notify-send
+
+notify-send 'Atenção!' 'Reinicialização necessária.'
+
+# zenity
+
+# dialog
+
+# whiptail
+
+# toilet
+
 -----------------------------------------------------------------------------------------------------
+
+* qemu
+
+# criar disco
+
+qemu-img create -f qcow2 imagem-disco.qcow2 15G
+
+# subir VM
+
+qemu-system-i386 -k pt-br -usb -enable-kvm -m 2048 -smp 2 -boot d -hda (imagem-disco.qcow2 ou /dev/sdb) -cdrom imagem-distro.iso
+
 -----------------------------------------------------------------------------------------------------
+
+* wi-fi CLI
+
+# conectar rede wi-fi via CLI
+
+nmtui-connect
+
+# saber ips conectados a minha rede
+
+sudo apt install nmap -y
+ip address
+sudo nmap -sn 192.168.0.255/24 
+
+-----------------------------------------------------------------------------------------------------
+
+* ver info e metadados de arquivos?
+
+stat arquivo.txt
+
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------

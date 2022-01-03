@@ -24,6 +24,8 @@ ferramentas/programas
 
 - totem (player de vídeo e visualizador de imagens default do gnome?) // $ sudo apt install totem
 
+- parole (player de vídeo que roda qualquer formato?) // $ sudo apt install parole
+
 - flame shot (capturador de tela pratico para edição (pela loja tem mais recursos?)) // $ sudo apt install flameshot
 
 - gnome tweak tool (ferramente de customização de interface) // $ sudo apt install gnome-tweak-tool
@@ -36,7 +38,13 @@ ferramentas/programas
 
 - hotshots (capturador de tela para tutoriais) // $ flatpak install --user https://flathub.org/repo/appstream/io.github.obiwankennedy.HotShots.flatpakref
 
+- gdebi (instalador de pacotes .deb, alternativa ao "dpkg --install") // $ sudo apt install gdebi-core
+
 - Eye of GNOME (visualizador de imagens padrão do GNOME) // $ sudo apt install eog
+
+- trans (tradutor CLI) // $ sudo apt install translate-shell
+
+- qemu (virtualizador de máquina; alternativa ao VB) // $ sudo apt install qemu qemu-kvm qemu-utils
 
 - copyq (gerenciador de área de transferencia)
 
@@ -99,6 +107,11 @@ ferramentas/programas
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/io.github.mmstick.FontFinder.flatpakref
 	2) $ flatpak --user update io.github.mmstick.FontFinder
+
+- network-manager (utilitário gerenciador de rede)
+
+	1) $ sudo apt install network-manager
+	2) $ sudo systemctl start NetworkManager
 
 -------------------------------------------------------------------------------------------------------------------------------------------
 
