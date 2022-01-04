@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+mkdir -p /tmp/tmp; cd /tmp/tmp
+
+soma=0
+
+echo "$(smem -rtk | grep "${1}")" > saida
+tr 'M' ',' < saida | cut -d ',' -f 2 | tr -d '[:blank:]' | sed '/^$/d' > saida
+for line in $(seq `wc -l saida | cut -d ' ' -f 1`); do let soma+=$(head -n ${line} saida | tail -n 1); done
+
+echo "consumo: ${soma}"
