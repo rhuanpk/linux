@@ -2,125 +2,123 @@
 
 -----------------------------------------------------------------------------------------------------
 
-*script cork
+* script cork
 
-$ wget https://raw.githubusercontent.com/rhuan-pk/cork/master/cork.sh
+wget https://raw.githubusercontent.com/rhuan-pk/cork/master/cork.sh
 
 -----------------------------------------------------------------------------------------------------
 
-! git 
+* git 
 
-*renomear repositorio remoto
+# renomear repositorio remoto
 
-$ git remote rename <nome_atual> <novo_nome>
+git remote rename <nome_atual> <novo_nome>
 
-*pasta inacessivel (pasta com submodule)
+# pasta inacessivel (pasta com submodule)
 
-$ git rm --cached <nome_pasta>
-$ rm -Rf <nome_pasta>/.git
-$ git add .
-$ git push origin master
+1) git rm --cached <nome_pasta>
+2) rm -Rf <nome_pasta>/.git
+3) git add .
+4) git push origin master
 
-*manipulação de branch
+# manipulação de branch
 
-$ git branch ou $ git branch --list // mostra branchs locais
-$ git remote show <nome_remoto> // mostra além das branchs remotas, outras infos
+   # mostra branchs locais
+   git branch ou $ git branch --list 
 
-$ git checkout <nome_branch> // troca de branch
-$ git checkout -b <nova_branch> // cria e muda para uma nova ramificação 
+   # mostra além das branchs remotas, outras infos
+   git remote show <nome_remoto> 
 
-$ git branch -d <nome_branch> // remove branch local
-$ git branch -D <nome_branch> // força exclusão da branch
+   # troca de branch
+   git checkout <nome_branch>
 
-$ git push origin :<branch_remoto> // remove branch remoto
-$ git push origin --delete <branch_remoto> // remove branch remoto
+   # cria e muda para uma nova ramificação
+   git checkout -b <nova_branch> 
 
-*visualização de log's
+   # remove branch local
+   git branch -d <nome_branch> 
 
-$ git log // mostro os log's por completo
-$ git log --oneline // mostra os log's resumidos
+   # força exclusão da branch
+   git branch -D <nome_branch> 
 
-$ git log --graph --all // mostra por completo o gráfico de nodles
-$ git log --oneline --graph --all // mostra de forma resumida o gráfico de nodles
-
--- blame --
-
-$ git blame <nome_do_arquivo> // mostra um histórico de alteraçẽos realizadas
-$ git blame -w -L 1,12 <nome_do_arquivo> // -w: remove espaços em branco; -L: limita a faixa de linhas
-
-*setando e removendo token pessoal de acesso (github)
+   # remove branch remoto
+   git push origin :<branch_remoto> 
    
-   setando pelo cache
+   # remove branch remoto
+   git push origin --delete <branch_remoto> 
 
-      1) $ git config --global credential.helper 'cache --timeout=28800' // se não passar o parâmetro "--global" ele seta para um diretorio específico?
-      2) próximo login e senha (token digitado) ficara salvo pelo tempo determina (sem passar parametro o padrão é 15min (900s))
+# visualização de log's
 
-   removendo
-      
-      para remover: $ git credential-cache exit
-
-   setando da maneira "correta"? (usando Keyring)
+   # mostro os log's por completo
+   git log
    
-      1) $ instalar o make (make developer tools)
-            1.1) $ sudo snap install ubuntu-make --classic
-            1.2) $ sudo snap install ubuntu-make --edge
-            1.3) $ sudo snap refresh ubuntu-make
-      2) $ sudo apt install gcc -- ou -- $ sudo apt install build-essential
-      3) $ sudo apt-get install libsecret-1-0 libsecret-1-dev
-      4) $ cd /usr/share/doc/git/contrib/credential/libsecret
-      5) $ sudo make
-      6) $ git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-      ou
-      6) $ nano ~/.gitconfig
-	      [credential]
-              helper = /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
+   # mostra os log's resumidos
+   git log --oneline
+
+   # mostra por completo o gráfico de nodles
+   git log --graph --all
+   
+   # mostra de forma resumida o gráfico de nodles
+   git log --oneline --graph --all
+
+# blame
+
+   # mostra um histórico de alteraçẽos realizadas
+   git blame <nome_do_arquivo>
+
+   # -w: remove espaços em branco; -L: limita a faixa de linhas
+   git blame -w -L 1,12 <nome_do_arquivo>
+
+# setando e removendo token pessoal de acesso (github)
+   
+   # setando pelo cache
+      git config --global credential.helper 'cache --timeout=28800'
+
+      # removendo
+      git credential-cache exit
+
+   # setando da maneira "correta"? (usando keyring)
+      1) instalar o make (make developer tools)
+         1.1) sudo snap install ubuntu-make --classic
+         1.2) sudo snap install ubuntu-make --edge
+         1.3) sudo snap refresh ubuntu-make
+      2) sudo apt install gcc build-essential
+      3) sudo apt-get install libsecret-1-0 libsecret-1-dev
+      4) cd /usr/share/doc/git/contrib/credential/libsecret
+      5) sudo make
+      6) git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
          
-   para remover
-   
-      $ git config --global --unset credential.helper
+      # removendo
+      git config --global --unset credential.helper
 
-*para manipular informações do usuários
+# para manipular informações do usuários
 
-$ cd ~/.gitconfig
+vim ~/.gitconfig
 
 -----------------------------------------------------------------------------------------------------
 
-*manipulando variável PS1
+* manipulando variável PS1
 
-*exibir branch no terminal (bash)
+# exibir branch no terminal (bash)
 
-	$ export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
+export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
 	
-*cor para usuário root (bash)
+# cor para usuário root (bash)
 
-	$ export PS1='\[\033[01;31m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[01;37m\]$\[\033[00m\] '
+export PS1='\[\033[01;31m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[01;37m\]$\[\033[00m\] '
 
-*instalando zsh/oh-my-zsh
+-----------------------------------------------------------------------------------------------------
 
-	~ zsh ~
+* zsh
 
-	1) $ sudo apt install zsh
-	2) $ chsh -s $(which zsh)
-	3) encerrar sessão ($ pkill -9 -u $USER)
-	4) abra o terminal (ctrl+shift+t)
-	5) ira mostrar uma msng do proprio zsh para finalizar a configuração, digite 2 para terminar a configuração
+# colocar oh-my-zsh no root
 
-	~ oh-my-zsh ~ (colocando oh-my-zsh no usuario normal)
-
-	1) $ sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-	
-	ou
-	
-	1) $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-*colocar oh-my-zsh no root
-
-	1) $ sudo cp /$HOME/.zshrc /root
-	2) $ sudo cp -r /$HOME/.oh-my-zsh /root
-	3) $ editar o arquivo ".zshrc" no root para trocar a linha que contenha o path do usuario normal para colocar o root
-		3.1) $ sudo nano /root/.zshrc
-		3.2) de....: export ZSH="/home/$USER/.oh-my-zsh" 
-		     para..: export ZSH="/root/.oh-my-zsh" 
+   1) sudo cp /$HOME/.zshrc /root
+   2) sudo cp -r /$HOME/.oh-my-zsh /root
+   3) editar o arquivo ".zshrc" no root para trocar a linha que contenha o path do usuario normal para colocar o root
+      3.1) sudo nano /root/.zshrc
+      3.2) de....: export ZSH="/home/$USER/.oh-my-zsh" 
+           para..: export ZSH="/root/.oh-my-zsh" 
 
 valores
 
@@ -135,40 +133,42 @@ obs: para setar permanentemente adicione essa script na última linha do arquivo
 
 -----------------------------------------------------------------------------------------------------
 
-*baixar ppa pelo terminal
+* ppa
 
-$ sudo add-apt-repository ppa:<nome_ppa>
+# baixar ppa pelo terminal
 
-*remover ppa pelo terminal
+sudo add-apt-repository ppa:<nome_ppa>
 
-$ sudo add-apt-repository -r ppa:<nome_ppa>
+# remover ppa pelo terminal
 
------------------------------------------------------------------------------------------------------
-
-*instalar wine
-
-1) $ sudo dpkg --add-architecture i386
-2) $ wget -nc https://dl.winehq.org/wine-builds/winehq.key
-3) $ sudo apt-key add winehq.key
-4) $ sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main' ---> verificar repo atual no site: https://wiki.winehq.org/Download
-5) $ sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-6) $ sudo apt update
-7) $ sudo apt install --install-recommends winehq-stable -y
-8) $ winecfg ou $ sudo apt install wine
+sudo add-apt-repository -r ppa:<nome_ppa>
 
 -----------------------------------------------------------------------------------------------------
 
-*instalar plank
+* instalar wine
 
-1) sudo apt install plank
-2) sudo apt install chrome-gnome-shell
-3) https://extensions.gnome.org/extension/4198/dash-to-plank/
+1) sudo dpkg --add-architecture i386
+2) wget -nc https://dl.winehq.org/wine-builds/winehq.key
+3) sudo apt-key add winehq.key
+4) verificar repo atual no site: https://wiki.winehq.org/Download
+   4.1) sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
+5) sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
+6) sudo apt update
+7) sudo apt install --install-recommends winehq-stable -y
+8) winecfg ou $ sudo apt install wine
 
 -----------------------------------------------------------------------------------------------------
 
-*instalar virtualbox (vm)
+* instalar plank
 
-# Verificar se os links estão atualizado
+1) sudo apt install chrome-gnome-shell plank
+2) https://extensions.gnome.org/extension/4198/dash-to-plank/
+
+-----------------------------------------------------------------------------------------------------
+
+* instalar virtualbox (VB)
+
+obs: verificar se os links estão atualizado
 
 # software-properties-common (obrigatório)
 
@@ -189,149 +189,128 @@ $ sudo add-apt-repository -r ppa:<nome_ppa>
 
 -----------------------------------------------------------------------------------------------------
 
-*instalar vagrant
+* instalar vagrant
 
-1) $ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-2) $ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-3) $ sudo apt-get update && sudo apt-get install vagrant
-
------------------------------------------------------------------------------------------------------
-
-*comando para ver porcentagem da bateria -> acpi
-
-como usar: $ acpi
+1) curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+2) sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+3) sudo apt-get update && sudo apt-get install vagrant
 
 -----------------------------------------------------------------------------------------------------
 
-*matar processos no linux
+* comando acpi
 
-$ ps -A // mostra todos os processos e id's
-$ killall <nome_processo> // mata todos os processos com tal nome
-
-ou
-
-$ kill <id_processo>
+# ver porcentagem da bateria (notebooks)
+acpi
 
 -----------------------------------------------------------------------------------------------------
 
-*saber arquitetura do sistema
+* matar processos no linux
 
-$ uname -m
+# mostra todos os processos e id's
+ps -A 
 
------------------------------------------------------------------------------------------------------
+# mata o processo pelo id
+kill <id_processo>
 
-*limpar cache
-
-$ sync ; echo 3 > /proc/sys/vm/drop_caches
-
------------------------------------------------------------------------------------------------------
-
-*saber interface gráfica atual
-
-$ echo $XDG_CURRENT_DESKTOP
+# mata todos os processos com tal nome
+killall <nome_processo>
 
 -----------------------------------------------------------------------------------------------------
 
-*comando para mostrar arvore -> tree
+* limpar memória cache
 
-como usar: $ tree
-           $ tree <diretorio>
-           $ tree -L <valor> // ira limitar o encadeamento
+sync; echo 3 > /proc/sys/vm/drop_caches
 
 -----------------------------------------------------------------------------------------------------
 
-*comando para busca de arquivos e diretorios
+* comando tree
 
-$ find . -name <path>
+# listagem de diretorios em árvore
+tree
 
-ou
+# passando path
+tree <diretorio>
 
-$ find / -maxdepth 3 -name <path>
+# limitante a recursividade
+tree -L 2
 
-exemplo de uso
+-----------------------------------------------------------------------------------------------------
+
+* busca de arquivos e diretorios
+
+   # comando find
+   
+      # sintaxe
+      find . -name arquivo.txt
+
+      # limitando a recursividade
+      find / -maxdepth 3 -name arquivo.txt
+
+   # comando locate
 	
-	entrada..: $ find ~/ -name autostart
-	saida....: /home/rhuna/.config/autostart
+      # sintaxe
+      locate arquivo
+
+      # buscar por nome exato
+      locate -b '\arquivo.txt'
 
 -----------------------------------------------------------------------------------------------------
 
-*comando para busca de arquivos e diretorios
+* compactação
 
-$ locate -b '\arquivo' // ele mostrará somente as ocorrências que conteram o valor "arquivo"
+   # comando tar
 
-ou
+      # compactar em .tar.gz
+      tar -zcvf pasta_compactada.tar.gz /etc/passwd /var/log
 
-$ locate arquivo // mostrará todoas as ocorrenciasque conteram o valor "arquivo" (combinar com pipe grep)
+      # descompactar de .tar.gz
+      tar -zxvf pasta_compactada.tar.gz
 
------------------------------------------------------------------------------------------------------
+      # ver conteúdo de .tar.gz
+      tar -tf pasta_compactada.tar.gz
 
-*compactar .tar.gz
+      # descompactar de .tar.xz
+      tar -xvf arquivos.tar.gz
 
-$ tar -zcvf pasta_compactada.tar.gz /etc/passwd /var/log
+   # comando zip
 
-*descompactar .tar.gz
+      # compactar em .zip
+      zip pasta_compactada.zip /path/to/files/*
 
-$ tar -zxvf pasta_compactada.tar.gz
-
-*ver .tar.gz
-
-$ tar -tf pasta_compactada.tar.gz
-
-*descompactar .tar.xz
-
-$ tar -xvf arquivos.tar.gz
+      # descompactar de .zip
+      unzip pasta_compactada.zip 
 
 -----------------------------------------------------------------------------------------------------
 
-*mostra uso da RAM
+* uso memória RAM
 
-$ free -h
+   # comando free
+   free -h
 
-ou
+   # comando top
+   top
 
-$ top
+   # comando smem
+   smem -rtk
 
------------------------------------------------------------------------------------------------------
-
-*mostra a distro
-
-$ lsb_release -a
-
------------------------------------------------------------------------------------------------------
-
-*corrigir pacotes quebrados
-
-$ sudo apt-get install -f
+      # da para explorar com um grep e talvez somar a quantidade de ram para ver quanto um único processo está consumindo?
+      smem -rtk | grep 'chrome'
 
 -----------------------------------------------------------------------------------------------------
 
-*mostra o tamanho dos direitos
+* mostra o tamanho dos direitos
 
-$ du -sch *
-
------------------------------------------------------------------------------------------------------
-
-*mostra partições e tamanho dos discos
-
-$ df -h
+du -sch ./*
 
 -----------------------------------------------------------------------------------------------------
 
-*mostra tamanho dos discos
+* mostra partições e tamanho dos discos
 
-$ sudo fdisk -l /dev/sda
-
------------------------------------------------------------------------------------------------------
-
-*comando para ver consumo de RAM por processos? smen & top
-
-$ top
-
-ou
-
-$ smem -r
+df -h
 
 -----------------------------------------------------------------------------------------------------
+
+# CONTINUAR DAQUI --->
 
 *remove completamente o programa
 
@@ -1000,6 +979,8 @@ cut -d ' ' -f 3,4 --output-delimiter=',' arquivo.txt
 
 -----------------------------------------------------------------------------------------------------
 
+* manipulação de linhas
+
 # excluir a última linha de um arquivo
 
 sed -i "$(cat arquivo.txt > /dev/null | wc -l)d" arquivo.txt
@@ -1011,6 +992,10 @@ echo "$(head -n 1 arquivo.txt)" > arquivo.txt
 # recortar última linha de um arquivo
 
 echo "$(tail -n 1 arquivo.txt)" > arquivo.txt
+
+# mostrar a últinha linha de um arquivo
+
+head -n 4 arquivo.txt | tail -n 1
 
 -----------------------------------------------------------------------------------------------------
 
@@ -1117,13 +1102,15 @@ groups <usuario>
 
 -----------------------------------------------------------------------------------------------------
 
-# comando gdebi
+* comando gdebi
 
 sudo gdebi pkg.deb
 
 -----------------------------------------------------------------------------------------------------
 
-# comando trans
+* comando trans
+
+# sintaxe
 
 trans -b en:pt-br 'The books on the table!'
 
@@ -1133,17 +1120,28 @@ trans -b en:pt-br -i hello_world.txt
 
 -----------------------------------------------------------------------------------------------------
 
-* saber infos do sistema (compilar os outros comandos referentes nessa seção tabém)
+* infos do sistema (compilar os outros comandos referentes nessa seção tabém)
 
-# comandos diversos para saber infos do sistema
+   # infos do sistema
+      1) hwinfo --short
+      2) inxi -GIS
 
-hwinfo --short
+   # saber número de núcleos (cores) do processador
+   nproc
 
-inxi -GIS
+   # saber arquitetura do sistema
+   uname -m
 
-# saber número de núcleos (cores) do processador
+   # saber interface gráfica atual
+   echo $XDG_CURRENT_DESKTOP
 
-nproc
+   # distro
+   
+      # infos da distro
+      lsb_release -a
+
+      # somente o nome da distro
+      lsb_release -cs
 
 -----------------------------------------------------------------------------------------------------
 
