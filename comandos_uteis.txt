@@ -1198,3 +1198,13 @@ stat arquivo.txt
 TMPFILE=$(mktemp RAM-XXXXX.tmp)
 
 -----------------------------------------------------------------------------------------------------
+
+* comando apt
+
+# apenas fazer download do programa e suas dependências sem instalar
+
+sudo apt install --download-only package
+
+obs: será salvo em "/var/cache/apt/archives"
+
+-----------------------------------------------------------------------------------------------------
