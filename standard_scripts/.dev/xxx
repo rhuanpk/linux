@@ -12,6 +12,10 @@ msg(){
                 \e[m\n"
 }
 
+lower_to_upper(){
+	echo "${1}" | tr '[:lower:]' '[:upper:]'
+}
+
 # Verifica se o smem está instalado, caso não, prossegue para a instalação
 INSTALADO=$(dpkg -l smem 2> /dev/null | tail -n 1 | cut -c 1-2)
 [ "${INSTALADO}" != "ii" ] && msg && read foobar && sudo apt install smem -y
@@ -31,4 +35,4 @@ tr 'M' ',' < ${TMPFILE} | cut -d ',' -f 2 | tr -d '[:blank:]' | sed '/^$/d' | tr
 for line in $(seq `wc -l ${TMPFILE} | cut -d ' ' -f 1`); do let SOMA+=$(head -n ${line} ${TMPFILE} | tail -n 1); done
 
 # Printa o resultado na tela
-echo -e "Consumo \e[1m${1}\e[m: ${SOMA}"
+echo -e "RAM - \e[1m$(lower_to_upper ${1})\e[m: $(echo "${SOMA}" | cut -d '.' -f 1)M"
