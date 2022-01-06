@@ -26,10 +26,13 @@ git remote rename <nome_atual> <novo_nome>
    # mostra branchs locais
    git branch ou $ git branch --list 
 
+   # mostra branchs remotas
+   git branch --remotes --list
+
    # mostra além das branchs remotas, outras infos
    git remote show <nome_remoto> 
 
-   # troca de branch
+   # trocar de branch
    git checkout <nome_branch>
 
    # cria e muda para uma nova ramificação
@@ -94,6 +97,32 @@ git remote rename <nome_atual> <novo_nome>
 # para manipular informações do usuários
 
 vim ~/.gitconfig
+
+* github cli
+
+# ver os repositórios remotos
+
+gh repo list
+
+# pull request
+
+   # para criar pull request
+   
+   1) entrar na ramificação em desenvolvimento e commitar as alterações
+      1.1) git checkout dev
+      1.2) git add .
+      1.3) git commit -m "mensagem"
+   # criar o pull request informando a branch que ele será mergado
+   2) gh pr create --base master
+
+   # listar os pr's ativos
+   gh pr list
+
+   # listar todos os pr's
+   gh pr view
+
+   # aceitar o pull request
+   gh pr review --aprrove
 
 -----------------------------------------------------------------------------------------------------
 
