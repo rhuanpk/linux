@@ -98,6 +98,12 @@ git remote rename <nome_atual> <novo_nome>
 
 vim ~/.gitconfig
 
+# restaurar repo a um commit específico
+
+# tenha o log em mãos
+1) git log --oneline
+2) git reset --hard 1aa0da8
+
 * github cli
 
 # ver os repositórios remotos
