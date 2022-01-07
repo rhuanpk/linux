@@ -200,6 +200,9 @@ fontes
 - Noto Sans (Noto Sans Mono CJK HK Bold)
 - Monof (monofur Regular)
 - Fantasque (FantasqueSansMono Nerd Font Mono)
+- Andale (Andale Mono Bold)
+- Monospace (Monospace Bold)
+- Noto (Noto Mono Bold)
 
 *** site de fontes grátis: https://www.free-fonts.com/ibm-plex-mono ***
 
