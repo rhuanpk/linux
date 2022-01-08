@@ -990,6 +990,10 @@ sudo chattr -R +i /path
 
 cat -n file.md
 
+# utilizando com heredocument 
+
+cat > file.txt << "EOF"
+
 -----------------------------------------------------------------------------------------------------
 
 * comando progress
