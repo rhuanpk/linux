@@ -7,7 +7,7 @@ WAY_ICONES="/home/${USER}/.icons"
 WAY_TEMAS="/home/${USER}/.themes"
 WAY_VSCODECFG="/home/${USER}/.config/Code/User"
 WAY_VSCODEEXT="/home/${USER}/.vscode/extensions"
-WAY_NOTI="/home/marknet06/.config/noti"
+WAY_NOTI="/home/${USER}/.config/noti"
 
 ls -1 ${WAY_OPT} | cat -n | tr -s ' ' > ${WAY_BKP}/opts/programas_opt.txt
 ls -1 ${WAY_FONTES} | cat -n | tr -s ' ' > ${WAY_BKP}/fontes/lista_fontes.txt
