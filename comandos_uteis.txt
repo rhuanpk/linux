@@ -1210,6 +1210,10 @@ qemu-img create -f qcow2 imagem-disco.qcow2 15G
 
 qemu-system-i386 -k pt-br -usb -enable-kvm -m 2048 -smp 2 -boot d -hda (imagem-disco.qcow2 ou /dev/sdb) -cdrom imagem-distro.iso
 
+# iniciar a imamgem
+
+qemu-system-i386 -k pt-br -usb -enable-kvm -m 2048 -smp 2 -boot d -hda <imagem-disco.qcow2 | /dev/sdb>
+
 -----------------------------------------------------------------------------------------------------
 
 * wi-fi CLI
