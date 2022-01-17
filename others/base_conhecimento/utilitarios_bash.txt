@@ -63,6 +63,8 @@ y: subistituir
 	# troca todas as ocorrencias de "chato" para "legal"
 	sed 'y/chato/legal/' arquivo.txt
 
+mostrar linha esepcífica: sed -n 5p file
+
 * vim
 
 replace
