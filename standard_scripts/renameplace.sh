@@ -44,6 +44,15 @@ lista_dir(){
 	ls -1hF --color
 }
 
+########## Função que cria um pasta segura (na /tmp) e alguns arquivos para teste ##########
+modo_teste(){
+    echo -ne "\nCriar uma pasta segura para testes em \"/tmp/tmp\", é movido para ela e gera arquivos aleátorios para testes! [Y/n]? "; read OPCAO
+    if [ "${OPCAO}" = "" -o "${OPCAO}" = "y" -o "${OPCAO}" = "Y" ]; then
+        [ ! -e /tmp/tmp ] && mkdir -v /tmp/tmp; cd /tmp/tmp || cd /tmp/tmp
+    	touch file-{1..4}.{txt,md,new,tmp}
+    fi
+}
+
 ########## Função "main" da primeira opção do menu que trata dos espaços em branco ##########
 espacos_branco(){
 
@@ -245,9 +254,7 @@ nome_arquivo(){
             fi
         done
         echo ""
-    }
-
-    # Modo teste
+    } 
 
     # Sub Menu particular que trata das renomeação no inicio e no final dos arquivos
     sub_menu_rename(){
@@ -312,14 +319,16 @@ menu(){
      	\r\t1. Retirar ou Colocar ${AMARELO_NEGRITO}ESPAÇOS EM BRANCO${RESET_COLOR}\n \
         \r\t2. Trocar ${AMARELO_NEGRITO}MAIÚSCULAS POR MINÚSCULAS${RESET_COLOR}\n \
         \r\t3. Manipular ${AMARELO_NEGRITO}NOME DOS ARQUIVOS${RESET_COLOR}\n \
-        \r\t4. ${AZUL}Listar o diretório corrente${RESET_COLOR}\n \
+        \r\t4. ${AMARELO_NEGRITO}Modo Teste${RESET_COLOR}\n \
+        \r\t5. ${AZUL}Listar o diretório corrente${RESET_COLOR}\n \
         \r\t0. ${VERMELHO_NEGRITO}SAIR${RESET_COLOR}\n"
         echo -n "Escolha: "; read OPCAO
         case ${OPCAO} in
             1) espacos_branco;;
             2) minu_maiu;;
             3) nome_arquivo;;
-	        4) echo ""; lista_dir; echo -en "\n<press_enter>"; read readkey;;
+	    4) modo_teste;;
+	    5) echo ""; lista_dir; echo -en "\n<press_enter>"; read readkey;;
             0) msg_saida; exit 0;;
             *) OPT_INV;;
         esac
