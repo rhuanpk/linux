@@ -4,7 +4,8 @@
 
 * script cork
 
-wget https://raw.githubusercontent.com/rhuan-pk/cork/master/cork.sh
+wget 'https://raw.githubusercontent.com/rhuan-pk/cork/master/cork.sh'
+sudo chmod +x cork.sh
 
 -----------------------------------------------------------------------------------------------------
 
