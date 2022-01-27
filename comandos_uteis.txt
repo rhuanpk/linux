@@ -926,7 +926,13 @@ service ssh opcao
       rm -rfv ~/Xauthority
       
 # transferir por ssh
-scp /path/local usuario@192.168.0.1:/path/remoto
+   # remoto -> local
+   scp /path/local usuario@192.168.0.1:/path/remoto
+
+   # remoto -> local
+   scp remoto@192.168.0.1:/path/remoto /tmp/tmp
+      # aceito parâmetro "-r" para recursividade
+      scp -r remoto@192.168.0.1:/path/remoto /tmp/tmp
 
 -----------------------------------------------------------------------------------------------------
 
