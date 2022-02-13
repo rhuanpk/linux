@@ -29,14 +29,14 @@ busca=("/tmp/tmp/home/Desktop" "/tmp/tmp/home/Documents" "/tmp/tmp/home/Download
 # Nomes e formatação
 
 espaco="teste"
-usuario="rhuan"
+usuario="user"
 data="$(date +"%d-%m-%y")"
 log_file="/tmp/tmp/.teste_backup_file.log"
 arquivo="${data}_${espaco}_backup.zip"
 
 # Path dos backups
 
-cloud="/tmp/tmp/Dropbox/backup"
+cloud="/tmp/tmp/dropbox/backup"
 externo_auto="/tmp/tmp/externo/media"
 externo_manu="/tmp/tmp/externo/tmp"
 
