@@ -58,6 +58,12 @@ echo -e "\n---------- Iniciado [${data} * $(date +%T)] ----------\n" >> ${log_fi
 
 # >>> Backup CLOUD !
 
+# touch ${cloud}/.unbroken
+# sudo chmod 600 ${cloud}/.unbroken
+# sudo chattr +i ${cloud}/.unbroken
+
+find ${cloud} -mtime +2 -delete
+
 if aux=$(for ((i=0;i<${#busca[@]};++i)); do zip -rv ${cloud}/${arquivo} ${busca[${i}]}; done 2>&1); then
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO CLOUD INICIADO ---\n" >> ${log_file}
 	echo -e "[${data} * $(date +%T)] - Atualização do backup realizada - SUCESSO ! " >> ${log_file}
@@ -91,6 +97,8 @@ if [ ${flag_externo_mount_auto} -eq 0 ]; then
 elif [ ${flag_externo_mount_manu} -eq 0 ]; then
 	externo="${externo_manu}"
 fi
+
+find ${externo} -mtime +2 -delete
 
 if aux=$(for ((i=0;i<${#busca[@]};++i)); do zip -rv ${externo}/${arquivo} ${busca[${i}]}; done 2>&1); then
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO EXTERNO INICIADO ---\n" >> ${log_file}
