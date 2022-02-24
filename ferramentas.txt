@@ -46,6 +46,8 @@ ferramentas/programas
 
 - qemu (virtualizador de máquina; alternativa ao VB) // $ sudo apt install qemu qemu-kvm qemu-utils
 
+- gnome-font-viwer (visualizador de fontes padrão do gnome?)
+
 - copyq (gerenciador de área de transferencia)
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
