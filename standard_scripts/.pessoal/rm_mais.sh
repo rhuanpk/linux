@@ -13,7 +13,6 @@ done
 control=$(grep -c '^[[:blank:]]*+' ${file})
 
 # Remove SOMENTE o caracter "+" do início da linha
-echo "------------------------"
 for ((i=0;i<${control};++i)); do
         linha=$(grep -n '^[[:blank:]]*+' ${file} | cut -d ':' -f 1 | sed -n "1p")
         content=$(grep -o '^[[:blank:]]*+' ${file} | sed -n "1p")
