@@ -14,9 +14,9 @@ control=$(grep -c '^[[:blank:]]*+' ${file})
 
 # Remove SOMENTE o caracter "+" do início da linha
 echo "------------------------"
-for ((i=1;i<=${control};++i)); do
-        linha=$(grep -n '^[[:blank:]]*+' ${file} | cut -d ':' -f 1 | sed -n "${i}p")
-        content=$(grep -o '^[[:blank:]]*+' ${file} | sed -n "${i}p")
+for ((i=0;i<${control};++i)); do
+        linha=$(grep -n '^[[:blank:]]*+' ${file} | cut -d ':' -f 1 | sed -n "1p")
+        content=$(grep -o '^[[:blank:]]*+' ${file} | sed -n "1p")
         treated=$(echo "${content}" | tr -d '+')
         sed -i "${linha}s/^${content}/${treated}/" ${file}
 done
