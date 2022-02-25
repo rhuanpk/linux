@@ -2,6 +2,7 @@
 
 file=${1}
 
+# Caso encontre alguma linha cujo primeiro caracter seja um "+" e a linha de baixo for em branco então remova-a 
 for i in $(seq $(grep -n '^[[:blank:]]*+' ${file} | wc -l)); do
 	line=$(grep -n '^[[:blank:]]*+' ${file} | sed -n "${i}p" | cut -c '1')
 	next_line=$((${line}+1))
@@ -9,4 +10,13 @@ for i in $(seq $(grep -n '^[[:blank:]]*+' ${file} | wc -l)); do
 	[ -z ${cont_next_line:+foobar} ] && sed -i "${next_line}d" ${file}
 done
 
-sed -i 's/^[[:blank:]]*+//g' ${file}
+control=$(grep -c '^[[:blank:]]*+' ${file})
+
+# Remove SOMENTE o caracter "+" do início da linha
+echo "------------------------"
+for ((i=1;i<=${control};++i)); do
+        linha=$(grep -n '^[[:blank:]]*+' ${file} | cut -d ':' -f 1 | sed -n "${i}p")
+        content=$(grep -o '^[[:blank:]]*+' ${file} | sed -n "${i}p")
+        treated=$(echo "${content}" | tr -d '+')
+        sed -i "${linha}s/^${content}/${treated}/" ${file}
+done
