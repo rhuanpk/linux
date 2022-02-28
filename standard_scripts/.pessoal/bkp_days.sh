@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
 
-year=$(date "+%Y")
-month=$(date "+%m")
-day=$(date "+%d")
-before_day=$((${day}-2))
+path=${1}
+dia_atual=$(date "+%d")
 
-# diferença é maior que dois?
-
-[ ${day} -le ${before_day} ] && echo "é menor"
-
-###############################################
-
-# day= #dia do arquivo
-diference=$((${day}-$(date "+%d")))
+qtd_arquivos=$(ls -1 | grep -c '.*')
+for ((i=0;i<${qtd_arquivos};++i)); do
+	dia_criacao[${i}]=$(ls -l ${path} | tr -s ' ' | cut -d ' ' -f '7' | sed '/^$/d' | sed -n "${i}p")
+	nome_arquivos[${i}]=$(ls -1 | sed -n "${i}p")
+	echo "nome arquivo [${i}]: ${nome_arquivo[${i}]} - dia criacao [${i}]: ${dia_criacao[${i}]}"
+done
