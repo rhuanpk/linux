@@ -132,7 +132,7 @@ if mountpoint ${externo_auto} 2>&-; then
 	flag_externo_mount_auto=0	
 else
 	mkdir ${externo_manu}
-	if aux=$(sudo mount -o uid=1000 -L BACKUP-DISK ${externo_manu} 2>&1); then
+	if aux=$(sudo mount -o showexec,uid=1000,gid=1000 -L BACKUP-DISK ${externo_manu} 2>&1); then
 		flag_externo_mount_manu=0
 	else
 		rmdir ${externo_manu} 
