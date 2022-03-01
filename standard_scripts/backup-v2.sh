@@ -47,8 +47,65 @@ flag_externo_mount_auto=1
 
 # ---------------------------------------------- Declaração de funções -------------------------------------------------
 
+# Função que print uma mensagem de finalização
+
 msg_final() {
 	echo -e "\n---------- Finalizado [${data} * $(date +%T)] ----------" >> ${log_file}
+}
+
+# Função que faz todo o tratamento e execução de qual backup está antigo para ser excluido
+
+rm_bkp_antigo() {
+
+	path="${1}"
+	tempo_exclusao=2
+	dia_atual=$(date "+%d")
+	mes_atual=$(date "+%m")
+	ano_atual=$(date "+%Y")
+
+	ultimo_dia_mes_passado() {
+		mes_passado=${mes_atual}
+		ano_passado=${ano_atual}
+		[ ${mes_atual} -eq 1 ] && { mes_passado=12; let --ano_passado ;} || let --mes_passado
+		linhas_calendario=$(cal ${mes_passado} ${ano_passado} | grep -c '.*')
+		pega_ultima_linha() {
+			f_linhas_calendario=${1}
+			echo "$(cal ${mes_passado} ${ano_passado} | sed -n "${f_linhas_calendario}p" | grep -E '([0-9])+')"
+		}
+		ultima_linha_calendario=$(pega_ultima_linha ${linhas_calendario})
+		[ -z ${ultima_linha_calendario} ] 2>&- && ultima_linha_calendario=$(pega_ultima_linha $((${linhas_calendario}-1)))
+		pega_ultimo_dia() {
+			f_ultima_linha_calendario="${*}"
+			echo "$(tr ' ' '\n' <<< ${f_ultima_linha_calendario} | tail -n +$(tr ' ' '\n' <<< ${f_ultima_linha_calendario} | grep -c '.*'))"
+		}
+		echo "$(pega_ultimo_dia ${ultima_linha_calendario})"
+	}
+
+	qtd_arquivos=$(ls -1 ${path} | grep -E "^.*(${espaco}).*$"  | grep -c '.*')
+	for ((j=0;j<2;++j)); do
+		for ((i=0;i<${qtd_arquivos};++i)); do
+			if [ ${j} -eq 0 ]; then
+				# Outra forma de pegar a data de crição dos arquivos usando o ls com a opção alongada:
+				# ls -l ${path} | tr -s ' ' | cut -d ' ' -f '7' | sed '/^$/d' | sed -n "$((${i}+1))p")
+				dias_criacao[${i}]=$(ls -1 ${path} | grep -E "^.*(${espaco}).*$"  | sed -n "$((${i}+1))p" | cut -c '1-2')
+				nomes_arquivos[${i}]=$(ls -1 ${path} | grep -E "^.*(${espaco}).*$" | sed -n "$((${i}+1))p")
+			fi
+			if [ ${j} -eq 1 ]; then
+				diff_day=$((${dia_atual}-${dias_criacao[${i}]}))
+				if [ ${diff_day} -ge ${tempo_exclusao} ]; then
+					rm -v ${path}/${nomes_arquivos[${i}]}
+				elif [ ${diff_day} -lt 0 ]; then
+					let diff_day*=-1
+					let ++diff_day
+					diff_day=$(($(($(ultimo_dia_mes_passado)-${diff_day}))+${dia_atual}))
+					if [ ${diff_day} -ge ${tempo_exclusao} ]; then
+						rm -v ${path}/${nomes_arquivos[${i}]}
+					fi
+				fi
+			fi
+		done
+	done
+
 }
 
 # ---------------------------------------------- Inicio do programa ----------------------------------------------------
@@ -58,13 +115,9 @@ echo -e "\n---------- Iniciado [${data} * $(date +%T)] ----------\n" >> ${log_fi
 
 # >>> Backup CLOUD !
 
-# touch ${cloud}/.unbroken
-# sudo chmod 600 ${cloud}/.unbroken
-# sudo chattr +i ${cloud}/.unbroken
+rm_bkp_antigo ${cloud}
 
-find ${cloud} -mtime +2 -delete
-
-if aux=$(for ((i=0;i<${#busca[@]};++i)); do zip -rv ${cloud}/${arquivo} ${busca[${i}]}; done 2>&1); then
+if aux=$(for ((i=0;i<${#busca[@]};++i)); do zip -r ${cloud}/${arquivo} ${busca[${i}]}; done 2>&1); then
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO CLOUD INICIADO ---\n" >> ${log_file}
 	echo -e "[${data} * $(date +%T)] - Atualização do backup realizada - SUCESSO ! " >> ${log_file}
 else
@@ -75,14 +128,14 @@ fi
 
 # >>> VERIFICAÇÃO e MONTAGEM da mídia removível
 
-if mountpoint /media/${usuario}/BACKUP-DISK 2>&-; then
+if mountpoint ${externo_auto} 2>&-; then
 	flag_externo_mount_auto=0	
 else
-	mkdir /tmp/BACKUP-DISK
-	if aux=$(sudo mount -L BACKUP-DISK /tmp/BACKUP-DISK 2>&1); then
+	mkdir ${externo_manu}
+	if aux=$(sudo mount -o uid=1000 -L BACKUP-DISK ${externo_manu} 2>&1); then
 		flag_externo_mount_manu=0
 	else
-		rmdir /tmp/BACKUP-DISK
+		rmdir ${externo_manu} 
 		echo -e "\n[${data} * $(date +%T)] --- PROCESSO EXTERNO NÃO INICIADO ---\n" >> ${log_file}
 		echo -e "[${data} * $(date +%T)] STDERR: ${aux}" >> ${log_file}
 		msg_final
@@ -98,9 +151,9 @@ elif [ ${flag_externo_mount_manu} -eq 0 ]; then
 	externo="${externo_manu}"
 fi
 
-find ${externo} -mtime +2 -delete
+rm_bkp_antigo ${externo}
 
-if aux=$(for ((i=0;i<${#busca[@]};++i)); do zip -rv ${externo}/${arquivo} ${busca[${i}]}; done 2>&1); then
+if aux=$(for ((i=0;i<${#busca[@]};++i)); do zip -r ${externo}/${arquivo} ${busca[${i}]}; done 2>&1); then
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO EXTERNO INICIADO ---\n" >> ${log_file}
 	echo -e "[${data} * $(date +%T)] - Atualização do backup realizada - SUCESSO ! " >> ${log_file}
 else
@@ -112,7 +165,7 @@ fi
 # >>> DESMONTAGEM da mídia removível
 
 if [ ${flag_externo_mount_auto} -eq 0 ]; then
-	if aux=$(sudo umount /media/${usuario}/BACKUP-DISK 2>&1); then
+	if aux=$(sudo umount ${externo} 2>&1); then
 		msg_final
 	else
 		echo -e " - Não foi possível desmontar o disco (automático) - FALHA !" >> ${log_file}
@@ -120,8 +173,8 @@ if [ ${flag_externo_mount_auto} -eq 0 ]; then
 		msg_final
 	fi
 elif [ ${flag_externo_mount_manu} -eq 0 ]; then
-	if aux=$(sudo umount /tmp/BACKUP-DISK 2>&1); then
-		rmdir /tmp/BACKUP-DISK
+	if aux=$(sudo umount ${externo} 2>&1); then
+		rmdir ${externo}
 		msg_final
 	else
 		echo -e " - Não foi possível desmontar o disco (manual) - FALHA !" >> ${log_file}
