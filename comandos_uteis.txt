@@ -73,6 +73,11 @@ git remote rename <nome_atual> <novo_nome>
    # -w: remove espaços em branco; -L: limita a faixa de linhas
    git blame -w -L 1,12 <nome_do_arquivo>
 
+# clone
+
+   # clonar de uma branch específica
+   git clone -b <branch_name> <url_clone>
+
 # setando e removendo token pessoal de acesso (github)
    
    # setando pelo cache
