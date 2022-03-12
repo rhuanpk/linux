@@ -107,7 +107,7 @@ minu_maiu(){
     minu(){
         clear
         for var in *; do
-            mv ${var} $(echo "${var}" | tr '[a-z,ç,á,â,ã,é,ê,í,ó,ô,ú)]' '[A-Z,Ç,Á,Â,Ã,É,Ê,Í,Ó,Ô,Ú)]')
+            mv ${var} $(echo "${var}" | tr '[a-z,ç,á,â,ã,é,ê,í,ó,ô,ú]' '[A-Z,Ç,Á,Â,Ã,É,Ê,Í,Ó,Ô,Ú]')
         done
     }
 
@@ -115,7 +115,7 @@ minu_maiu(){
     maiu(){
         clear
         for var in *; do
-            mv ${var} $(echo "${var}" | tr '[A-Z,Ç,Á,Â,Ã,É,Ê,Í,Ó,Ô,Ú)]' '[a-z,ç,á,â,ã,é,ê,í,ó,ô,ú)]' )
+            mv ${var} $(echo "${var}" | tr '[A-Z,Ç,Á,Â,Ã,É,Ê,Í,Ó,Ô,Ú]' '[a-z,ç,á,â,ã,é,ê,í,ó,ô,ú]')
         done
     }
 
