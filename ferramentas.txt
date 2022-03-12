@@ -50,6 +50,8 @@ ferramentas/programas
 
 - adobe aumentador de velocidade (de video) // https://www.adobe.com/br/express/feature/video/change-speed
 
+- evince (vizualiador de pdf) // sudo apt install evince
+
 - copyq (gerenciador de área de transferencia)
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
