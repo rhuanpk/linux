@@ -60,6 +60,9 @@ ferramentas/programas
 	# exec
 	/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=copyq com.github.hluk.copyq --start-server show
 
+	1) $ sudo add-apt-repository ppa:hluk/copyq
+	2) $ sudo apt update && sudo apt install copyq
+
 - speedtest cli (medidor de velocidade modo texto)
 
 	1) $ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
