@@ -1220,11 +1220,23 @@ qemu-img create -f qcow2 imagem-disco.qcow2 15G
 
 # subir VM
 
-qemu-system-i386 -k pt-br -usb -enable-kvm -m 2048 -smp 2 -boot d -hda (imagem-disco.qcow2 ou /dev/sdb) -cdrom imagem-distro.iso
+qemu-system-i386 -enable-kvm -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb] -boot d -cdrom imagem-distro.iso
 
 # iniciar a imamgem
 
-qemu-system-i386 -k pt-br -usb -enable-kvm -m 2048 -smp 2 -boot d -hda <imagem-disco.qcow2 | /dev/sdb>
+qemu-system-i386 -enable-kvm -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb]
+
+# subir vm modo UEFI
+
+sudo apt install ovmf -y
+
+# subir VM
+
+qemu-system-i386 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb] -boot d -cdrom imagem-distro.iso
+
+# iniciar a imamgem
+
+qemu-system-i386 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb]
 
 -----------------------------------------------------------------------------------------------------
 
