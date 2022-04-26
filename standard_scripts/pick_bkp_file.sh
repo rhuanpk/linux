@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 WAY_BKP="/home/${USER}/Documents/config_files_backup"
 WAY_OPT="/opt"
@@ -10,7 +10,7 @@ WAY_TERMINATOR="/home/${USER}/.config/terminator/config"
 ARR_WAY=("${WAY_BKP}/opt" "${WAY_BKP}/fontes" "${WAY_BKP}/icones_temas" "${WAY_BKP}/terminator" "${WAY_BKP}/dpkg" "${WAY_BKP}/neofetch")
 
 for index in ${ARR_WAY[@]}; do
-	[ ! -d "${ARR_WAY}" ] && mkdir -p "${ARR_WAY}"
+	[ ! -d "${index}" ] && mkdir -p "${index}"
 done
 
 ls -1 ${WAY_OPT} | cat -n | tr -s ' ' > ${WAY_BKP}/opt/programas_opt.txt
