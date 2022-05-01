@@ -580,12 +580,10 @@ https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux
 	
 		[Desktop Entry]
 		Type=Application
-		Exec=</path/to/binary or command to execute>
-		Hidden=false
-		NoDisplay=false
-		X-GNOME-Autostart-enabled=true
-		Name=<Name_to_be_displayed>
-		Comment=<optional comment>
+		Name=program_name
+		Exec=/path/to/binarie
+		StartupNotify=false
+		Terminal=false
 		
 	obs: caso a pasta ainda não exista, basta cria-la
 	1) $ mkdir ~/.config/autostart/
