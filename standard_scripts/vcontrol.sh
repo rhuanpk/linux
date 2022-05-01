@@ -15,4 +15,4 @@ while :; do
 	amixer set 'Master' 1%${VALUE} 1>/dev/null
 done
 
-#nohup terminator -u --borderless --geometry=200x48+1100+650 --command='zsh -c volume.sh' &
+#nohup terminator --borderless --geometry=175x30-0-0 --command='vcontrol.sh' &

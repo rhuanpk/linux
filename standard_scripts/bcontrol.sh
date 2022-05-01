@@ -29,3 +29,5 @@ while :; do
 	fi
 	xrandr --output $(xrandr -q | grep ' connected' | head -n 1 | cut -d ' ' -f 1) --brightness ${VALUE}
 done
+
+#nohup terminator --borderless --geometry=175x30-0-0 --command='bcontrol.sh' &
