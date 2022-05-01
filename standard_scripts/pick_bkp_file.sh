@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # crontab:
-# */30 * * * * /usr/local/bin/pick_bkp_file 2>/tmp/cron_error.log
+# */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
 
 USER='user'
 WAY_BKP="/home/${USER}/Documents/config_files_backup"
