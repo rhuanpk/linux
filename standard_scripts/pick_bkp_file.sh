@@ -11,8 +11,9 @@ WAY_ICONES="/home/${USER}/.icons"
 WAY_TEMAS="/home/${USER}/.themes"
 WAY_TERMINATOR="/home/${USER}/.config/terminator/config"
 WAY_EXECUTABLES="/home/${USER}/others/executables"
+WAY_TREE="/home/${USER}/others"
 
-ARR_WAY=("${WAY_BKP}/opt" "${WAY_BKP}/fonts" "${WAY_BKP}/icons_themes" "${WAY_BKP}/terminator" "${WAY_BKP}/dpkg" "${WAY_BKP}/neofetch" "${WAY_BKP}/executables")
+ARR_WAY=("${WAY_BKP}/opt" "${WAY_BKP}/fonts" "${WAY_BKP}/icons_themes" "${WAY_BKP}/terminator" "${WAY_BKP}/dpkg" "${WAY_BKP}/neofetch" "${WAY_BKP}/executables" "${WAY_BKP}/others")
 
 for index in ${ARR_WAY[@]}; do
 	[ ! -d "${index}" ] && mkdir -p "${index}"
@@ -26,3 +27,4 @@ ls -1 "${WAY_EXECUTABLES}" | cat -n | tr -s ' ' > "${WAY_BKP}/executables/exebut
 cp "${WAY_TERMINATOR}" "${WAY_BKP}/terminator/config.txt"
 dpkg -l | tee "${WAY_BKP}/dpkg/list.txt"
 neofetch > "${WAY_BKP}/neofetch/infos.txt"
+tree "${WAY_TREE}" > "${WAY_BKP}/others/tree_output.txt"
