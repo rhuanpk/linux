@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-custom_keybinding=${1}
-name_keybinding=${2}
-binding_keybinding=${3}
+custom_keybinding="${1}"
+name_keybinding="${2}"
+binding_keybinding="${3}"
 command_keybinding="terminator --borderless --geometry=175x30-0-0 --command=${4}"
 
 existing_keybindins=$(gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings | sed 's/]$/, /')
