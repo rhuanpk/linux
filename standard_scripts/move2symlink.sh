@@ -26,6 +26,12 @@ copy2binarie() {
 	done
 }
 
+execute_all() {
+	for atual_func in ${all_functions[@]}; do
+		${atual_func}
+	done
+}
+
 # ********** Declaração de Variáveis **********
 
 all_files=$(ls -1 ~/Documents/git/comandos-linux/standard_scripts/*.sh)
@@ -35,8 +41,8 @@ all_functions=("copy2symlink" "copy2binarie")
 # ********** Início do Programa **********
 
 case "${1}" in
-	"") ${all_functions[@]};;
-	--only-symlink) ;;
+	"") execute_all;;
+	--only-symlink) copy2symlink;;
 	-h | --help) print_usage;;
 	*) print_usage;;
 esac
