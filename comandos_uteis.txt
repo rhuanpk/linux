@@ -188,15 +188,14 @@ sudo add-apt-repository -r ppa:<nome_ppa>
 
 * instalar wine
 
-1) sudo dpkg --add-architecture i386
-2) wget -nc https://dl.winehq.org/wine-builds/winehq.key
-3) sudo apt-key add winehq.key
-4) verificar repo atual no site: https://wiki.winehq.org/Download
-   4.1) sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ focal main'
-5) sudo add-apt-repository ppa:cybermax-dexter/sdl2-backport
-6) sudo apt update
-7) sudo apt install --install-recommends winehq-stable -y
-8) winecfg ou $ sudo apt install wine
+1) sudo dpkg --add-architecture i386 
+2) wget -nc https://dl.winehq.org/wine-builds/winehq.key && sudo mv winehq.key /usr/share/keyrings/winehq-archive.key
+3) verificar repo atual no site: https://wiki.winehq.org/Download
+   3.1) wget -nc https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources && sudo mv winehq-jammy.sources /etc/apt/sources.list.d/
+4) verificar a branch desejada (stable pode não estar disponível)
+   4.1) sudo apt install --install-recommends winehq-stable
+   4.2) sudo apt install --install-recommends winehq-devel
+5) "winecfg" ou "sudo apt install wine"
 
 -----------------------------------------------------------------------------------------------------
 
