@@ -16,7 +16,7 @@ print_usage() {
 
 copy2symlink() {
 	for file in $(egrep -v "${expression}" <<< ${all_files}); do
-		sudo ln -sv ${file} /usr/local/bin/pk-$(basename ${file%.sh})
+		sudo ln -svf ${file} /usr/local/bin/pk-$(basename ${file%.sh})
 	done
 }
 
