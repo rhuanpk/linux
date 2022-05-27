@@ -12,6 +12,8 @@ TEXT='#EEEEEE'
 WRONG='#FF5D5DBB'
 VERIFYING='#00FF94BB'
 KEYHL='#DDDDDD'
+TEXT_SIZES=22
+BACKGROUND='#000000FF'
 
 i3lock \
 --insidever-color=$CLEAR     \
@@ -39,3 +41,10 @@ i3lock \
 --indicator                  \
 --time-str="%H:%M:%S"        \
 --date-str="%Y-%m-%d"        \
+\
+--verif-text='Verifying...'  \
+--wrong-text='Keep Out!'     \
+--noinput-text='No input?'   \
+\
+--verif-size=$TEXT_SIZES     \
+--wrong-size=$TEXT_SIZES
