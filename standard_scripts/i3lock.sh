@@ -45,7 +45,7 @@ i3lock \
 --verif-text='Verifying...'      \
 --wrong-text='Keep Out!'         \
 --noinput-text='No input?'       \
---lock-text='Locking…'           \
+--lock-text='Locking...'         \
 --lockfailed-text='Lock failed!' \
 \
 --verif-size=$TEXT_SIZES         \
