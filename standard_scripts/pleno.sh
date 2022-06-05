@@ -31,11 +31,13 @@ sudo apt install ubuntu-restricted-extras -y
 
 # Fix
 sudo apt install -f -y
-sudo apt dist-upgrade -y
 sudo apt --fix-broken install -y
 
 # Clean
 sudo apt clean -y
 sudo apt autoclean -y
 sudo apt autoremove -y
+
+# Update and Clean
+sudo apt dist-upgrade -y
 sudo apt full-upgrade -y
