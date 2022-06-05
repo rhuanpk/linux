@@ -25,4 +25,3 @@ verify_privileges
 sudo apt clean -y
 sudo apt autoclean -y
 sudo apt autoremove -y
-sudo apt full-upgrade -y

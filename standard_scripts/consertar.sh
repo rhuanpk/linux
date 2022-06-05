@@ -23,5 +23,4 @@ verify_privileges
 # >>>>> PROGRAM START <<<<<
 
 sudo apt install -f -y
-sudo apt dist-upgrade -y
 sudo apt --fix-broken install -y
