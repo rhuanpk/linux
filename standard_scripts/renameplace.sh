@@ -311,10 +311,10 @@ nome_arquivo(){
 ################################################## Inicio ##################################################
 
 # Verifica primeiro se solicitado mensagem de ajdua
-[ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        echo -e "Run:\n\t./$(basename ${0})"
-	exit 0
-}
+# [ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+# 	echo -e "Run:\n\t./$(basename ${0})"
+# 	exit 0
+# }
 
 # Função main do programa
 menu(){
