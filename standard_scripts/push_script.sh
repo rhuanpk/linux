@@ -95,7 +95,16 @@ done
 
 shift $((${OPTIND}-1))
 
+verify_privileges(){
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
+
 ############ BEGIN OF PROGRAM ############
+
+verify_privileges
 
 for dir in ${repo}; do
 	cd ${path}/${dir}

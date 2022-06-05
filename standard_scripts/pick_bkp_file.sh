@@ -1,7 +1,33 @@
 #!/usr/bin/env bash
 
+# ------------------------------------------------------
+# OBS: ainda é necessário deixar esse script automático
+# ------------------------------------------------------
+
+# Make a backup of some important files
+
 # crontab:
 # */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
+
+verify_privileges() {
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
+
+print_usage() {
+        echo -e "Run:\n\t./$(basename ${0})"
+}
+
+verify_privileges
+
+[ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+        print_usage
+        exit 1
+}
+
+# >>>>> PROGRAM START <<<<<
 
 USER='user'
 WAY_BKP="/home/${USER}/Documents/config_files_backup"

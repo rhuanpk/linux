@@ -1,21 +1,41 @@
 #!/usr/bin/env bash
 
-# Script que atualiza/conserta e limpa o sistema de uma única vez
+# Script that updates, fixes and cleans the system in one go
 
-# Atualizar
-apt update -y
-apt upgrade -y
+verify_privileges() {
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
 
-ubuntu-drivers autoinstall
-apt install ubuntu-restricted-extras -y
+print_usage() {
+        echo -e "Run:\n\t./$(basename ${0})"
+}
 
-# Consertar
-apt install -f -y
-apt dist-upgrade -y
-apt --fix-broken install -y
+verify_privileges
 
-# Limapr
-apt clean -y
-apt autoclean -y
-apt autoremove -y
-apt full-upgrade -y
+[ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+        print_usage
+        exit 1
+}
+
+# >>>>> PROGRAM START <<<<<
+
+# Update
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo ubuntu-drivers autoinstall
+sudo apt install ubuntu-restricted-extras -y
+
+# Fix
+sudo apt install -f -y
+sudo apt dist-upgrade -y
+sudo apt --fix-broken install -y
+
+# Clean
+sudo apt clean -y
+sudo apt autoclean -y
+sudo apt autoremove -y
+sudo apt full-upgrade -y

@@ -1,8 +1,15 @@
 #!/usr/bin/env bash
 
-# OBS: Sempre que adicionar uma nova função, adicionar no array "all_functions"
+# OBS: Whenever you add a new function, add it to the "all_functions" array
 
 # ********** Declaração de Funções **********
+
+verify_privileges() {
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
 
 print_usage() {
 	echo -e "\
@@ -39,6 +46,8 @@ expression='(backup|pick_bkp_file|push_script)\.sh'
 all_functions=("copy2symlink" "copy2binarie")
 
 # ********** Início do Programa **********
+
+verify_privileges
 
 case "${1}" in
 	"") execute_all;;

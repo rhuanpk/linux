@@ -1,5 +1,27 @@
 #!/usr/bin/env bash
 
-while : ; do
+# A simple clock in loop
+
+verify_privileges() {
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
+
+print_usage() {
+        echo -e "Run:\n\t./$(basename ${0})"
+}
+
+# verify_privileges
+
+[ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+        print_usage
+        exit 1
+}
+
+# >>>>> PROGRAM START <<<<<
+
+while :; do
 	echo -en "$(date +%T)\r"
 done

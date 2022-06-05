@@ -1,4 +1,37 @@
 #!/usr/bin/env bash
+
+# Make a list of the packages dependencies of the programs to temp files
+
+verify_privileges() {
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
+
+print_usage() {
+        cat <<- EOF
+		#########################################################################
+		#
+		# Pass as a parameter the program you want to download the dependencies.
+		#
+		# Example:
+		#
+		# 	$(basename ${0}) vim
+		#
+		#########################################################################
+	EOF
+}
+
+verify_privileges
+
+[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+        print_usage
+        exit 1
+}
+
+# >>>>> PROGRAM START <<<<<
+
 package=${1}
 dependencies=$(mktemp /tmp/apt_dependencies_${package}_XXXXXXXXXX.tmp)
 rdependencies=$(mktemp /tmp/apt_rdependencies_${package}_XXXXXXXXXX.tmp)

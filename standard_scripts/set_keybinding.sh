@@ -1,5 +1,44 @@
 #!/usr/bin/env bash
 
+# Set a new binding
+
+verify_privileges() {
+        if [ ${UID} -eq 0 ]; then
+                echo -e "ERROR: Run this program without privileges!\nExiting..."
+                exit 1
+        fi
+}
+
+print_usage() {
+        cat <<- EOF
+		#######################################################################
+		#
+		# >>> $(basename ${0^^})!
+		#
+		# Set a new binding passing the following params:
+		#
+		# 1. Name of binding
+		# 2. Description of binding
+		# 3. Binding
+		# 4. Command which call the binding
+		#
+		# Example:
+		#
+		# 	$(basename ${0}) volume0 'Volume control' '<Alt>v' vcontrol.sh
+		#
+		#######################################################################
+	EOF
+}
+
+verify_privileges
+
+[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+        print_usage
+        exit 1
+}
+
+# >>>>> PROGRAM START <<<<<
+
 custom_keybinding="${1}"
 name_keybinding="${2}"
 binding_keybinding="${3}"
