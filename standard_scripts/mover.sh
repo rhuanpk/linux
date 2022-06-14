@@ -15,7 +15,7 @@ print_usage() {
 
 verify_privileges
 
-[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
