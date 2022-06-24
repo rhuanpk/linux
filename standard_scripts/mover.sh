@@ -24,6 +24,8 @@ verify_privileges
 
 std_scripts_path=${HOME}/Documents/git/comandos-linux/standard_scripts
 
+[ ! -d ${std_scripts_path} ] || std_scripts_path=$(pwd)
+
 [ ${#} -eq 0 ] && sudo cp -v ${std_scripts_path}/*.sh /usr/local/bin/ || {
 	for file in ${@}; do
 		if ! sudo cp -v ${std_scripts_path}/${file} /usr/local/bin/; then

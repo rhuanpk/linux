@@ -41,7 +41,8 @@ execute_all() {
 
 # ********** Declaração de Variáveis **********
 
-all_files=$(ls -1 ~/Documents/git/comandos-linux/standard_scripts/*.sh)
+[ -d ${HOME}/Documents/git/comandos-linux/standard_scripts ] && path=${HOME}/Documents/git/comandos-linux/standard_scripts || path=$(pwd)
+all_files=$(ls -1 ${path}/*.sh)
 expression='(backup|pick_bkp_file|push_script)\.sh'
 all_functions=("copy2symlink" "copy2binarie")
 
