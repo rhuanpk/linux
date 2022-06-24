@@ -29,9 +29,8 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-user=user
-home=/home/${user}
-bkp_path=${home}/Documents/config_files_backup
+home=/home/${USER}
+bkp_path=${home}/Documents/config_files_backup/$(cat /etc/hostname)
 
 path_opt=/opt
 path_fontes=${home}/Documents/fonts

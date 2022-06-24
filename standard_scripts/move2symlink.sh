@@ -43,7 +43,7 @@ execute_all() {
 
 [ -d ${HOME}/Documents/git/comandos-linux/standard_scripts ] && path=${HOME}/Documents/git/comandos-linux/standard_scripts || path=$(pwd)
 all_files=$(ls -1 ${path}/*.sh)
-expression='(backup|pick_bkp_file|push_script)\.sh'
+expression='(backup|push_script)\.sh'
 all_functions=("copy2symlink" "copy2binarie")
 
 # ********** Início do Programa **********
