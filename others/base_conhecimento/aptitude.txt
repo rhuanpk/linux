@@ -1,9 +1,0 @@
-aptitude update = Atualiza a lista de pacotes.
-aptitude safe-upgrade = Atualiza os pacotes.
-aptitude install [pacote] = Instala o pacote.
-aptitude remove [pacote] = Remove o pacote.
-aptitude purge [pacote] = Purga o pacote. Remove e também apaga os arquivos de configurações associados ao pacote.
-aptitude search [pacote] = Procura pelo pacote.
-aptitude show [pacote] = Mostra o pacote.
-aptitude <enter> = Roda aptitude interativamente; F10 para acessar o menu.
-aptitude -n(N) moo = Easter Egg (repita v N vezes)
