@@ -23,7 +23,7 @@ verify_privileges
 # >>>>> PROGRAM START <<<<<
 
 pick_display() {
-	echo $(brightnessctl -l | egrep -i '(backlight)' | tr ' ' '\n' | egrep '0' | tr -d "'" | tail -n 1)
+	echo $(brightnessctl -l | grep -Ei '(backlight)' | tr ' ' '\n' | sed -n 2p | tr -d "'" | tail -n 1)
 }
 
 get_brighteness_percent() {
