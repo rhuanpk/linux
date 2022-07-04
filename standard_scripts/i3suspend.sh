@@ -22,4 +22,4 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-pk-i3lock && sudo systemctl suspend
+pk-i3lock && systemctl suspend
