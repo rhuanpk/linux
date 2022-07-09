@@ -1279,55 +1279,55 @@ obs: será salvo em "/var/cache/apt/archives"
 
 ### pacman
 
-\# sincronização total/procura por atualização
+\* sincronização total/procura por atualização
 
 ```bash
 pacman -Syyu
 ```
 
-\# procura por um pacote
+\* procura por um pacote
 
 ```bash
 pacman -Ss <package>
 ```
 
-\# instala um pacote
+\* instala um pacote
 
 ```bash
 pacman -S <package>
 ```
 
-\# apenas baixa o pacote e não o instala
+\* apenas baixa o pacote e não o instala
 
 ```bash
 pacman -Sw <package>
 ```
 
-\# mostra informações de um pacote não instalado
+\* mostra informações de um pacote não instalado
 
 ```bash
 pacman -Si <package>
 ```
 
-\# mostra informações do pacote já instalado
+\* mostra informações do pacote já instalado
 
 ```bash
 pacman -Qi <package>
 ```
 
-\# instala apenas as dependências
+\* instala apenas as dependências
 
 ```bash
 pacman -Se <package>
 ```
 
-\# remove um pacote
+\* remove um pacote
 
 ```bash
 pacman -R <package>
 ```
 
-\# remove o pacote junto com as dependências não usadas por outros pacotes
+\* remove o pacote junto com as dependências não usadas por outros pacotes
 
 ```bash
 pacman -Rs <package>
@@ -1335,7 +1335,7 @@ pacman -Rs <package>
 
 ### network/configuração/wifi
 
-\# editar o arquivo: /etc/iwd/main.conf
+\* editar o arquivo: /etc/iwd/main.conf
 
 ```
 [General]
@@ -1344,7 +1344,7 @@ EnableNetworkConfiguration=true
 NameResolvingService=systemd
 ```
 
-\# habilitar e iniciar os seguintes serviços
+\* habilitar e iniciar os seguintes serviços
 
 ```bash
 systemctl start iwd.service && systemctl enable iwd.service &&; \
