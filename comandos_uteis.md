@@ -1,6 +1,6 @@
->>> Comandos Aleatoriamente úteis !
+# >>> Comandos Aleatoriamente úteis !
 
------------------------------------------------------------------------------------------------------
+## > Debian Base
 
 * script cork
 
@@ -1273,9 +1273,55 @@ obs: será salvo em "/var/cache/apt/archives"
 
 -----------------------------------------------------------------------------------------------------
 
-## >>> Arch Linux !
+#### FONTS
 
-### PACMAN
+##### Diretórios
+
+Path de todos os usuários
+
+```bash
+/usr/share/fonts
+```
+
+Path pessoal do usuário (${XDG\_CONFIG})
+
+```bash
+~/.local/share/fonts
+```
+
+##### Comandos
+
+Listar todas as fontes
+
+```bash
+fc-list
+```
+
+Atualizar o cache de fontes
+
+```bash
+fc-cache
+```
+
+##### Instalação
+
+Instalar no path do usuário
+
+```bash
+cp *.ttf ~/.local/share/fonts/truetype/<directorie_font_name>/
+```
+
+Instalar no path global
+
+```bash
+sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
+```
+
+---
+
+### > Arch Linux
+
+#### PACMAN
 
 Sincronização total/procura por atualização
 
@@ -1331,7 +1377,7 @@ Remove o pacote junto com as dependências não usadas por outros pacotes
 pacman -Rs <package>
 ```
 
-### IWD
+#### IWD
 
 Editar o arquivo: /etc/iwd/main.conf
 
