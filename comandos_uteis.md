@@ -13,7 +13,7 @@ sudo chmod +x cork.sh
 
 # renomear repositorio remoto
 
-git remote rename <nome_atual> <novo_nome>
+git remote rename \<nome\_atual\> \<novo\_nome\>
 
 # pasta inacessivel (pasta com submodule)
 
@@ -1395,3 +1395,19 @@ systemctl start iwd.service && systemctl enable iwd.service &&; \
 systemctl start systemd-networkd.service && systemctl enable systemd-networkd.service; \
 systemctl start systemd-resolved.service && systemctl enable systemd-resolved.service
 ```
+
+## > Estudos
+
+### Tipos de datas
+
+- Access time
+	- Explicação: data que o arquivo foi acessado ou lido pela última vez (sem modificações)
+	- Exemplo: cat, head, vim, less
+
+- Modify time
+	- Explicação: data que o arquivo foi modificado pela última vez
+	- Exemplo: editando o contúdo do arquivo, adicionando ou excluindo
+
+- Change time
+	- Explicação: data que o inode do arquivo é modificado
+	- Exemplo: alterando permissões, propriedade, nome do arquivo ou número de links físicos
