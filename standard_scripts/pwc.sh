@@ -22,12 +22,17 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-# args_arr=(${*})
-declare -a args_arr=${*}
+cd /tmp
+
+# declare -a args_arr=${@}
+args_arr=(${@})
 declare -i seconds=${args_arr[0]}
-[ ! ${seconds} -ge 1 ] && seconds=1
+
+[ ! ${seconds} -ge 1 ] && seconds=1 || args_arr="${args_arr[@]:1}"
 
 scrot \
 	-d ${seconds} \
-	"${args_arr[@]:1}" \
+	${args_arr} \
 	-e 'xclip -selection clipboard -target image/png $f'
+
+mv /tmp/*scrot.png ~/Pictures/screenshots/
