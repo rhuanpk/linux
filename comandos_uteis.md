@@ -110,6 +110,48 @@ vim ~/.gitconfig
 1) git log --oneline
 2) git reset --hard 1aa0da8
 
+#### gitignore
+
+##### Arquivos
+
+\# Arquivo global: pode estar alocado em qualquer lugar e vale para qualquer repositório na máquina.
+
+```
+~/.gitignore
+```
+
+\# Arquivo local: deve estar na raiz do projeto e vale somente para aquele projeto e todos que contribuem
+
+```
+/path/to/project/.gitignore
+```
+
+\# Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionado pelo código
+
+```
+/path/to/project/.git/info/exclude
+```
+
+##### Comandos
+
+\# Depois de ignorar qualquer arquivo deve-se removelo do índice
+
+```bash
+git rm --cached file.txt
+```
+
+\# Setar o `gitignore` global:
+
+```bash
+git config --global core.excludesfile ~/.gitignore
+```
+
+\# Adicionar algum arquivo pelo que esteja sendo ignorado:
+
+```bash
+git add -f file.txt
+```
+
 * github cli
 
 # ver os repositórios remotos
