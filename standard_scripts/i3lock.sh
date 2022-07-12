@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# troca o círculo pela bottom var
+# troca o círculo pela bottom bar
 # --bar-indicator
 
 # tamanho da barra na hora do click
@@ -49,32 +49,19 @@ i3lock --color 00000000          \
 --bar-color 00000000             \
 --keyhl-color 00ff94cc           \
 --bshl-color ff0033cc            \
---bar-periodic-step 50           \
---bar-step 25                    \
---redraw-thread                  \
 \
 --clock                          \
 --force-clock                    \
---time-pos x+9:y+h-30            \
 --time-color ffffffff            \
---date-pos tx+3:ty+17            \
 --date-color ffffffff            \
---date-align 1                   \
---time-align 1                   \
 --ringver-color 00ff94cc         \
 --ringwrong-color ff0033cc       \
---status-pos x+613:y+h-425       \
---verif-align 1                  \
---wrong-align 1                  \
---verif-color ffffffff           \
---wrong-color ffffffff           \
---ind-pos 613:345                \
 \
 --time-str="%H:%M:%S"            \
 --date-str="%Y-%m-%d"            \
 \
---verif-text='Verifying...'      \
---wrong-text='Keep Out!'         \
---noinput-text='No input?'       \
---lock-text='Locking...'         \
---lockfailed-text='Lock failed!'
+--verif-text=''                  \
+--wrong-text=''                  \
+--noinput-text=''                \
+--lock-text=''                   \
+--lockfailed-text=''
