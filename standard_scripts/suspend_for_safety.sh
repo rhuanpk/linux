@@ -27,13 +27,13 @@ print_usage() {
 
 # >>>>> PROGRAM START <<<<<
 
-battery_power=$(acpi -b | cut -d ',' -f '2' | sed 's/ \|%//g')
-[ "$(acpi --ac-adapter | tr -d ' ' | cut -d ':' -f '2')" = 'on-line' ] && is_pluged=true || is_pugled=false
+battery_power=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)
+[ "$(acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2)" = 'on-line' ] && is_pluged=true || is_pluged=false
 
 if ! ${is_pluged}; then
-	if [ ${battery_power} -le 9 ]; then
+	if [ ${battery_power%\%} -le 9 ]; then
 		sudo systemctl suspend
-	elif [ ${battery_power} -le 11 ]; then
-		notify-send 'Battery Power low!' 'Low battery: 11% or less, plug it into outlet.'
+	elif [ ${battery_power%\%} -le 11 ]; then
+		notify-send 'Battery Power low!' "Low battery: ${battery_power} or less, plug it into outlet."
 	fi
 fi
