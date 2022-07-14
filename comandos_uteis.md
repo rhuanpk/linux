@@ -392,6 +392,10 @@ df -h
 
 -----------------------------------------------------------------------------------------------------
 
+* lista os discos na máquina (saber se é HD ou SSH pelo modelo)
+
+parted -l
+
 # CONTINUAR DAQUI --->
 
 *remove completamente o programa
