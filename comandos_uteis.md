@@ -1319,6 +1319,16 @@ obs: será salvo em "/var/cache/apt/archives"
 
 -----------------------------------------------------------------------------------------------------
 
+#### FILE MANAGER (THUNAR)
+
+##### Configurar "Open Terminal Here"
+
+Edit » "Configure custom actions..." » "Open Terminal Here" » *engrenagem* » Command:
+
+```bash
+terminator --working-directory=%f
+```
+
 #### FONTS
 
 ##### Diretórios
