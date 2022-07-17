@@ -39,7 +39,7 @@ path_temas=${home}/.themes
 path_terminator=${home}/.config/terminator/config
 path_tree=${home}/others
 path_executables=${home}/others/executables
-path_gtk=${home}/.config/settings.ini
+path_gtk="${home}/.config/gtk-3.0/settings.ini"
 
 declare -A arr_path=(\
 	[opt]=${bkp_path}/opt \
