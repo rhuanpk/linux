@@ -10,8 +10,10 @@ verify_privileges() {
 }
 
 print_usage() {
-        echo -e "Run:\n\tTo move all: ./$(basename ${0})\n\tTo move some scripts: ./$(basename ${0}) backup.sh bcontrol.sh"
+        echo -e "Run:\n\tTo move all: ./${program_name}\n\tTo move some scripts: ./${program_name} backup.sh bcontrol.sh"
 }
+
+program_name=$(basename ${0})
 
 verify_privileges
 
