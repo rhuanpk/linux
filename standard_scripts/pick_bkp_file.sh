@@ -39,6 +39,7 @@ path_temas=${home}/.themes
 path_terminator=${home}/.config/terminator/config
 path_tree=${home}/others
 path_executables=${home}/others/executables
+path_gtk=${home}/.config/settings.ini
 
 declare -A arr_path=(\
 	[opt]=${bkp_path}/opt \
@@ -49,6 +50,7 @@ declare -A arr_path=(\
 	[neo]=${bkp_path}/neofetch \
 	[exe]=${bkp_path}/executables \
 	[oth]=${bkp_path}/others\
+	[gtk]=${bkp_path}/gtk
 )
 
 for path in ${arr_path[@]}; do
@@ -61,6 +63,7 @@ ls -1 ${path_icones} | cat -n | tr -s ' ' >${arr_path[ico_the]}/icons.txt
 ls -1 ${path_temas} | cat -n | tr -s ' ' >${arr_path[ico_the]}/themes.txt
 ls -1 ${path_executables} | cat -n | tr -s ' ' >${arr_path[exe]}/exebutables.txt
 cp ${path_terminator} ${arr_path[ter]}/config.txt
+cp ${path_gtk} ${arr_path[gtk]}/settings.txt
 dpkg -l >${arr_path[dpk]}/list.txt
 neofetch >${arr_path[neo]}/infos.txt
 tree ${path_tree} >${arr_path[oth]}/tree_output.txt
