@@ -11,14 +11,11 @@ verify_privileges() {
 
 print_usage() {
         echo -e "\
-		\rTo the default commit (message and branch), run:\n\
-			\r\t./$(basename ${0})\n\n\
+		\rTo the default commit (message: \"refresh\"), run:\n\
+			\r\t$(basename ${0})\n\n\
 		\r\
-		\rFor commit with a specific message and for default branch (master), run:\n\
-			\r\t./$(basename ${0}) \"commit message\"\n\n\
-		\r\
-		\rFor commit with a specific branch and for default message (\"refresh\"), run:\n\
-			\r\t./$(basename ${0}) \"\" \"branch\"\
+		\rFor commit with a specific message, run:\n\
+			\r\t$(basename ${0}) \"commit message\"\
 		\r"
 }
 
