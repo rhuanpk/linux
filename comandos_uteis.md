@@ -1319,6 +1319,29 @@ obs: será salvo em "/var/cache/apt/archives"
 
 -----------------------------------------------------------------------------------------------------
 
+#### DISPOSITIVOS DE ENTRADA - TOUCHPAD
+
+##### Alterar velocidade do ponteiro
+
+###### Descobrir o código do dispositivo de entrada do *touch*
+
+```bash
+xinput
+```
+###### Listar as propriedades do dispositivo grepando por *speed*
+
+```bash
+xinput list-props \<device_id\> | grep -iF speed
+```
+
+###### Alterar o valor da respectiva propriedade
+
+```bash
+xinput set-prop \<device_id\> \<propertie_id\> \<value\>
+```
+
+> Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
+
 #### FILE MANAGER (THUNAR)
 
 ##### Configurar "Open Terminal Here"
