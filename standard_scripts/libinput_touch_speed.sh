@@ -22,7 +22,33 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-device_id=$(xinput list --short | grep -iF pointer | grep -iF touchpad | grep -Eio '(id=[[:digit:]]+)' | cut -d '=' -f 2)
-property_id=$(xinput list-props $foo | grep -Eio '(Accel Speed \([[:digit:]]+)' | cut -d '(' -f 2)
-old_value=$(xinput list-props $foo | grep -Ei '(Accel Speed \()' | tr -d '[[:blank:]]' | cut -d ':' -f 2 | grep -Eio '^([[:digit:]]{1}\.[[:digit:]]{1})')
-xinput set-prop $foo $bar 1
+get_device_id() {
+	device=$1
+	echo "$(xinput list --short | grep -iF pointer | grep -iF $device | grep -Eio '(id=[[:digit:]]+)' | cut -d '=' -f 2)"
+}
+
+get_old_value() {
+	echo "$(xinput list-props $device_id | grep -Ei '(Accel Speed \()' | tr -d '[[:blank:]]' | cut -d ':' -f 2 | grep -Eio '^([[:digit:]]{1}\.[[:digit:]]{1})')"
+}
+
+operation() {
+	signal=$1
+	xinput set-prop $device_id $property_id $(echo "$(get_old_value)${signal}0.1" | genius) 2>&-
+}
+
+flag=true
+device_id=$(get_device_id touchpad)
+[ -z $device_id ] && device_id=$(get_device_id mouse)
+property_id=$(xinput list-props $device_id | grep -Eio '(Accel Speed \([[:digit:]]+)' | cut -d '(' -f 2)
+
+while $flag; do
+	clear
+	read -n 1 -p "Speed Pointer: $(get_old_value) [+/-]? " answer
+	[ ${answer,,} = 'q' ] && flag=false || {
+		if [ $answer = '-' ]; then
+			operation $answer
+		elif [ $answer = '+' ]; then
+			operation $answer
+		fi
+	}
+done
