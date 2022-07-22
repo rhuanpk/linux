@@ -27,6 +27,8 @@ print_usage() {
 
 # >>>>> PROGRAM START <<<<<
 
+export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+
 battery_power=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)
 [ "$(acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2)" = 'on-line' ] && is_pluged=true || is_pluged=false
 
