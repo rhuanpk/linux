@@ -1,82 +1,144 @@
-# >>> Comandos Aleatoriamente úteis !
+# >>> Comandos Aleatoriamente úteis!
 
-## > Debian Base
+## > GIT
 
-* script cork
+Renomear repositório remoto:
 
-wget 'https://raw.githubusercontent.com/rhuan-pk/cork/master/cork.sh'
-sudo chmod +x cork.sh
+```bash
+git remote rename <nome_atual> <novo_nome>
+```
 
------------------------------------------------------------------------------------------------------
+Pasta inacessível (pasta com *submodule*):
 
-* git 
+1. `git rm --cached <folder_name>`
+1. `rm -rf <folder_name>/.git`
+1. `git add .`
+1. `git push origin master`
 
-# renomear repositorio remoto
+### Manipulação de branchs
 
-git remote rename \<nome\_atual\> \<novo\_nome\>
+#### Mostrar branchs
 
-# pasta inacessivel (pasta com submodule)
+Locais:
 
-1) git rm --cached <nome_pasta>
-2) rm -Rf <nome_pasta>/.git
-3) git add .
-4) git push origin master
+```bash
+git branch [--list|-l]
+```
 
-# manipulação de branch
+Remotas:
 
-   # mostra branchs locais
-   git branch ou $ git branch --list 
+```bash
+git branch (--remotes|-r) (--list|-l)
+```
 
-   # mostra branchs remotas
-   git branch --remotes --list
+Mostra além das branchs remotas, outras infos:
 
-   # mostra além das branchs remotas, outras infos
-   git remote show <nome_remoto> 
+```bash
+git remote show <remote_name>
+```
 
-   # trocar de branch
-   git checkout <nome_branch>
+#### Trocar de branch
 
-   # cria e muda para uma nova ramificação
-   git checkout -b <nova_branch> 
+Com *checkout*:
 
-   # remove branch local
-   git branch -d <nome_branch> 
+```bash
+git checkout <branch_name>
+```
 
-   # força exclusão da branch
-   git branch -D <nome_branch> 
+Com *switch*:
 
-   # remove branch remoto
-   git push origin :<branch_remoto> 
-   
-   # remove branch remoto
-   git push origin --delete <branch_remoto> 
+```bash
+git switch <branch_name>
+```
 
-# visualização de log's
+#### Criar e mudar para a nova branch
 
-   # mostro os log's por completo
-   git log
-   
-   # mostra os log's resumidos
-   git log --oneline
+Com *checkout*:
 
-   # mostra por completo o gráfico de nodles
-   git log --graph --all
-   
-   # mostra de forma resumida o gráfico de nodles
-   git log --oneline --graph --all
+```bash
+git checkout -b <nova_branch> 
+```
 
-# blame
+Com *switch*:
 
-   # mostra um histórico de alteraçẽos realizadas
-   git blame <nome_do_arquivo>
+```bash
+git switch -c <branch_name>
+```
 
-   # -w: remove espaços em branco; -L: limita a faixa de linhas
-   git blame -w -L 1,12 <nome_do_arquivo>
+#### Remoção de branchs
 
-# clone
+##### Local
 
-   # clonar de uma branch específica
-   git clone -b <branch_name> <url_clone>
+Remover:
+
+```bash
+git branch -d <branch_name> 
+```
+
+Forçando:
+
+```bash
+git branch -D <branch_name>
+```
+
+##### Remoto
+
+Remover:
+
+```bash
+git push origin (:<remote_branch>|--delete <remote_branch>) 
+```
+
+### Visualização de log's
+
+Mostra o log de commits:
+
+```bash
+git log
+```
+
+Mostra o log resumido:
+
+```bash
+git log --oneline
+```
+
+Mostra por completo o gráfico de nodles:
+
+```bash
+git log --graph --all
+```
+
+Mostra de forma resumida o gráfico de nodles:
+
+```bash
+git log --oneline --graph --all
+```
+
+#### Blame
+
+Mostra um histórico de alteraçẽos realizadas:
+
+- -w: remove espaços em branco
+- -L: limita a faixa de linhas
+
+```bash
+git blame [-w|-L 1,12] <file_name>
+```
+
+### Clonagem de repositórios
+
+Clonar:
+
+```bash
+git clone <url>
+```
+
+Clonar de uma branch específica:
+
+```bash
+git clone -b <branch_name> <url>
+```
 
 # setando e removendo token pessoal de acesso (github)
    
@@ -180,11 +242,15 @@ gh repo list
 
 -----------------------------------------------------------------------------------------------------
 
+## > Debian Base
+
 * manipulando variável PS1
 
 # exibir branch no terminal (bash)
 
-export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
+```bash
+export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '  
+```
 	
 # cor para usuário root (bash)
 
@@ -1428,7 +1494,7 @@ https://launchpad.net/ubuntu/+ppas
 
 ---
 
-### > Arch Linux
+### > Arch Base
 
 #### PACMAN
 
