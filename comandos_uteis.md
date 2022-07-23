@@ -1331,13 +1331,13 @@ xinput
 ###### Listar as propriedades do dispositivo grepando por *speed*
 
 ```bash
-xinput list-props \<device_id\> | grep -iF speed
+xinput list-props <device_id> | grep -iF speed
 ```
 
 ###### Alterar o valor da respectiva propriedade
 
 ```bash
-xinput set-prop \<device_id\> \<propertie_id\> \<value\>
+xinput set-prop <device_id> <propertie_id> <value>
 ```
 
 > Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
@@ -1395,6 +1395,36 @@ Instalar no path global
 ```bash
 sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 ```
+
+### UBUNTU
+
+#### Pesquisar pacotes:
+
+```
+https://packages.ubuntu.com/
+```
+
+#### Pesquisar manpages:
+
+Pesquisar na barrar de pesquisa da página
+
+```
+https://manpages.ubuntu.com/manpages/
+```
+
+Pesquisar diretamente pela URL
+
+```
+https://manpages.ubuntu.com/manpages/cgi-bin/search.py?q=<package_name>
+```
+
+#### Pesquisar ppa's:
+
+```
+https://launchpad.net/ubuntu/+ppas
+```
+
+#### Pesquisar por ppas
 
 ---
 
