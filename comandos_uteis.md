@@ -28,7 +28,7 @@ git branch [--list|-l]
 Remotas:
 
 ```bash
-git branch (--remotes|-r) (--list|-l)
+git branch {--remotes|-r} {--list|-l}
 ```
 
 Mostra além das branchs remotas, outras infos:
@@ -86,7 +86,7 @@ git branch -D <branch_name>
 Remover:
 
 ```bash
-git push origin (:<remote_branch>|--delete <remote_branch>) 
+git push origin {:<remote_branch>|--delete <remote_branch>}
 ```
 
 ### Visualização de log's
@@ -140,490 +140,703 @@ Clonar de uma branch específica:
 git clone -b <branch_name> <url>
 ```
 
-# setando e removendo token pessoal de acesso (github)
-   
-   # setando pelo cache
-      git config --global credential.helper 'cache --timeout=28800'
+### Manipular informações do usuário
 
-      # removendo
-      git credential-cache exit
+```
+~/.gitconfig
+```
 
-   # setando da maneira "correta"? (usando keyring)
-      1) instalar o make (make developer tools)
-         1.1) sudo snap install ubuntu-make --classic
-         1.2) sudo snap install ubuntu-make --edge
-         1.3) sudo snap refresh ubuntu-make
-      2) sudo apt install gcc build-essential
-      3) sudo apt-get install libsecret-1-0 libsecret-1-dev
-      4) cd /usr/share/doc/git/contrib/credential/libsecret
-      5) sudo make
-      6) git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret
-         
-      # removendo
-      git config --global --unset credential.helper
+### Reverter commits
 
-# para manipular informações do usuários
+Apenas desfazer o commit (sem perder as alteraçẽos):
 
-vim ~/.gitconfig
+```bash
+git reset --soft <hash_commit>
+```
 
-# restaurar repo a um commit específico
+Desfazer os commits (sem manter as alterações):
 
-# tenha o log em mãos
-1) git log --oneline
-2) git reset --hard 1aa0da8
+```bash
+git reset --hard <hash_commit>
+```
 
-#### gitignore
+### .gitignore
 
-##### Arquivos
+#### Arquivos
 
-\# Arquivo global: pode estar alocado em qualquer lugar e vale para qualquer repositório na máquina.
+Arquivo **global**: pode estar alocado em qualquer lugar e vale para qualquer repositório na máquina.
 
 ```
 ~/.gitignore
 ```
 
-\# Arquivo local: deve estar na raiz do projeto e vale somente para aquele projeto e todos que contribuem
+Arquivo **local**: deve estar na raiz do projeto e vale somente para aquele projeto e todos que contribuem.
 
 ```
 /path/to/project/.gitignore
 ```
 
-\# Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionado pelo código
+Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionado pelo código.
 
 ```
 /path/to/project/.git/info/exclude
 ```
 
-##### Comandos
+#### Comandos
 
-\# Depois de ignorar qualquer arquivo deve-se removelo do índice
+Depois de ignorar qualquer arquivo deve-se removelo do índice:
 
 ```bash
 git rm --cached file.txt
 ```
 
-\# Setar o `gitignore` global:
+Setar o `.gitignore` global:
 
 ```bash
 git config --global core.excludesfile ~/.gitignore
 ```
 
-\# Adicionar algum arquivo pelo que esteja sendo ignorado:
+Adicionar algum arquivo que esteja sendo ignorado:
 
 ```bash
 git add -f file.txt
 ```
 
-* github cli
+## > GITHUB CLI
 
-# ver os repositórios remotos
-
-gh repo list
-
-# pull request
-
-   # para criar pull request
-   
-   1) entrar na ramificação em desenvolvimento e commitar as alterações
-      1.1) git checkout dev
-      1.2) git add .
-      1.3) git commit -m "mensagem"
-   # criar o pull request informando a branch que ele será mergado
-   2) gh pr create --base master
-
-   # listar os pr's ativos
-   gh pr list
-
-   # listar todos os pr's
-   gh pr view
-
-   # aceitar o pull request
-   gh pr review --aprrove
-
------------------------------------------------------------------------------------------------------
-
-## > Debian Base
-
-* manipulando variável PS1
-
-# exibir branch no terminal (bash)
+Ver os repositórios remotos:
 
 ```bash
-export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '  
+gh repo list
+```
+
+### Pull request's
+
+Criar pull request:
+
+1. Entrar na ramificação em desenvolvimento e commitar as alterações
+
+	1. `git switch dev`
+	1. `git add .`
+	1. `git commit -m "<message_commit>"`
+
+1. Criar o pull request informando a branch que ele será mergeado
+
+	1. `gh pr create --base master`
+
+Listar os pr's ativos:
+
+```bash
+gh pr list
+```
+
+Listar todos os pr's:
+
+```bash
+gh pr view
+```
+
+Aceitar o pull request:
+
+```bash
+gh pr review --aprrove
+```
+
+## > Debian base
+
+### Manipulando variável PS1 (PROMPT)
+
+Exibir branch no terminal (bash):
+
+```bash
+export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
 ```
 	
-# cor para usuário root (bash)
+Cor para usuário root (bash):
 
+```bash
 export PS1='\[\033[01;31m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[01;37m\]$\[\033[00m\] '
+```
 
------------------------------------------------------------------------------------------------------
+Valores:
 
-* zsh
+- \u: usuário atual
+- \h: nome da máquina (host)
+- \H: nome da máquina completo
+- \w: diretório de trabalho atual
+- \W: diretório de trabalho atual com o nome base (último segmento) apenas
+- $(__git_ps1 "%s"): branch atual caso esteja em um repositório git, se não, não exibe nada.
 
-# colocar oh-my-zsh no root
+OBS: Para setar permanentemente, adicione essa script na última linha do arquivo ~/.bashrc (tanto na home do usuario normal quanto na home do root)
 
-   1) sudo cp /$HOME/.zshrc /root
-   2) sudo cp -r /$HOME/.oh-my-zsh /root
-   3) editar o arquivo ".zshrc" no root para trocar a linha que contenha o path do usuario normal para colocar o root
-      3.1) sudo nano /root/.zshrc
-      3.2) de....: export ZSH="/home/$USER/.oh-my-zsh" 
-           para..: export ZSH="/root/.oh-my-zsh" 
+---
 
-valores
+### Zsh
 
-	\u: usuário atual
-	\h: nome da máquina (host)
-	\H: nome da máquina completo
-	\w: diretório de trabalho atual
-	\W: diretório de trabalho atual com o nome base (último segmento) apenas
-	$(__git_ps1 "%s"): branch atual caso esteja em um repositório git, se não, não exibe nada.
+Colocar oh-my-zsh no root:
 
-obs: para setar permanentemente adicione essa script na última linha do arquivo ~/.bashrc (tanto na home do usuario normal quanto na home do root)
+1. `sudo cp ${HOME}/.zshrc /root`
+1. `sudo cp -r ${HOME}/.oh-my-zsh /root`
 
------------------------------------------------------------------------------------------------------
+---
 
-* ppa
+### Ppa's
 
-# baixar ppa pelo terminal
+Baixar ppa pelo terminal:
 
-sudo add-apt-repository ppa:<nome_ppa>
+```bash
+sudo add-apt-repository ppa:<ppa_name>
+```
 
-# remover ppa pelo terminal
+Remover ppa pelo terminal:
 
-sudo add-apt-repository -r ppa:<nome_ppa>
+```bash
+sudo add-apt-repository -r ppa:<ppa_name>
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* instalar wine
+### Instalar Wine
 
-1) sudo dpkg --add-architecture i386 
-2) wget -nc https://dl.winehq.org/wine-builds/winehq.key && sudo mv winehq.key /usr/share/keyrings/winehq-archive.key
-3) verificar repo atual no site: https://wiki.winehq.org/Download
-   3.1) wget -nc https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources && sudo mv winehq-jammy.sources /etc/apt/sources.list.d/
-4) verificar a branch desejada (stable pode não estar disponível)
-   4.1) sudo apt install --install-recommends winehq-stable
-   4.2) sudo apt install --install-recommends winehq-devel
-5) "winecfg" ou "sudo apt install wine"
+1. `sudo dpkg --add-architecture i386`
+1. `wget -nc https://dl.winehq.org/wine-builds/winehq.key && sudo mv winehq.key /usr/share/keyrings/winehq-archive.key`
+1. Verificar repo atual no site: https://wiki.winehq.org/Download
+	1. `wget -nc https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources && sudo mv winehq-jammy.sources /etc/apt/sources.list.d/`
+1. Verificar a branch desejada (stable pode não estar disponível)
+	1. `sudo apt install --install-recommends winehq-(stable|devel) -y`
+1. `winecfg` ou `sudo apt install wine -y`
 
------------------------------------------------------------------------------------------------------
+---
 
-* instalar plank
+### Instalar Plank
 
-1) sudo apt install chrome-gnome-shell plank
-2) https://extensions.gnome.org/extension/4198/dash-to-plank/
+1. `sudo apt install chrome-gnome-shell plank -y`
+1. https://extensions.gnome.org/extension/4198/dash-to-plank/
 
------------------------------------------------------------------------------------------------------
+---
 
-* instalar virtualbox (VB)
+### Instalar VirtualBox (VB)
 
-obs: verificar se os links estão atualizado
+Software properties common (obrigatório):
 
-# software-properties-common (obrigatório)
+1. `sudo apt install software-properties-common -y`
 
-1) sudo apt install software-properties-common -y 
+VirtualBox (obrigatório):
 
-# virtualbox (obrigatório)
+2. `wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -`
+1. `wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -`
+1. `echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list`
+1. `sudo apt update`
+1. `sudo apt install virtualbox-6.1 -y`
 
-2) wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-3) wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-4) echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-5) sudo apt update
-6) sudo apt install virtualbox-6.1 -y
+Extension packs (opcional):
 
-# extension packs (opcional)
+1. `wget "https://download.virtualbox.org/virtualbox/6.1.30/Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack"`
+1. `sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack`
 
-7) wget "https://download.virtualbox.org/virtualbox/6.1.30/Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack"
-8) sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack
+OBS: Verificar se os links estão atualizado
 
------------------------------------------------------------------------------------------------------
+---
 
-* instalar vagrant
+### Instalar Vagrant
 
-1) curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-2) sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-3) sudo apt-get update && sudo apt-get install vagrant
+1. `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`
+1. `sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`
+1. `sudo apt update && sudo apt install vagrant`
 
------------------------------------------------------------------------------------------------------
+---
 
-* comando acpi
+### Comando acpi
 
-# ver porcentagem da bateria (notebooks)
+Ver porcentagem da bateria (notebooks):
+
+```bash
 acpi
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* matar processos no linux
+### Matar processos no linux
 
-# mostra todos os processos e id's
+Mostra todos os processos e id's:
+
+```bash
 ps -A 
+```
 
-# mata o processo pelo id
-kill <id_processo>
+Mata o processo pelo id:
 
-# mata todos os processos com tal nome
-killall <nome_processo>
+```bash
+kill <process_id>
+```
 
------------------------------------------------------------------------------------------------------
+Mata todos os processos com tal nome:
 
-* limpar memória cache
+```bash
+killall <process_name>
+```
 
+---
+
+### Limpar memória cache
+
+Comando:
+
+```bash
 sync; echo 3 > /proc/sys/vm/drop_caches
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* comando tree
+### Comando tree
 
-# listagem de diretorios em árvore
+Listagem de diretorios em árvore:
+
+```bash
 tree
+```
 
-# passando path
-tree <diretorio>
+Passando path:
 
-# limitante a recursividade
+```bash
+tree <path>
+```
+
+Limitar a recursividade:
+
+```bash
 tree -L 2
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* busca de arquivos e diretorios
+### Busca de arquivos e diretorios
 
-   # comando find
-   
-      # sintaxe
-      find . -name arquivo.txt
+#### Comando find
 
-      # limitando a recursividade
-      find / -maxdepth 3 -name arquivo.txt
+Sintaxe:
 
-   # comando locate
+```bash
+find ./ -name file.txt
+```
+
+Limitando a recursividade:
+
+```bash
+find ./ -maxdepth 3 -name file.txt
+```
+
+Excluir determinado path da busca:
+
+```bash
+find ./ -path ./some_path -prune -o -name '*file*'
+```
+
+Excluir vários paths da busca:
+
+```bash
+find ./ \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
+```
+
+Excluir vários paths da busca e limitar a recursivedade:
+
+```bash
+find ./ -maxdepth 2 \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
+```
+
+#### Comando locate
 	
-      # sintaxe
-      locate arquivo
+Sintaxe:
 
-      # buscar por nome exato
-      locate -b '\arquivo.txt'
+```bash
+locate file
+```
 
------------------------------------------------------------------------------------------------------
+Buscar por nome exato:
 
-* compactação
+```bash
+locate -b '\file.txt'
+```
 
-   # comando tar
+---
 
-      # compactar em .tar.gz
-      tar -zcvf pasta_compactada.tar.gz /etc/passwd /var/log
+### Compactação de arquivos
 
-      # descompactar de .tar.gz
-      tar -zxvf pasta_compactada.tar.gz
+#### Comando tar
 
-      # ver conteúdo de .tar.gz
-      tar -tf pasta_compactada.tar.gz
+Compactar em .tar.gz:
 
-      # descompactar de .tar.xz
-      tar -xvf arquivos.tar.gz
+```bash
+tar -zcvf target_folder.tar.gz /folder/to/be/compressed_1 /folder/to/be/compressed_2 /file/to/be/compressed
+```
 
-   # comando zip
+Descompactar de .tar.gz:
 
-      # compactar em .zip
-      zip pasta_compactada.zip /path/to/files/*
+```bash
+tar -zxvf compressed_folder.tar.gz
+```
 
-      # descompactar de .zip
-      unzip pasta_compactada.zip 
+Ver conteúdo de .tar.gz:
 
------------------------------------------------------------------------------------------------------
+```bash
+tar -tf compressed_folder.tar.gz
+```
 
-* uso memória RAM
+Descompactar de .tar.xz:
 
-   # comando free
-   free -h
+```bash
+tar -xvf compressed_folder.tar.gz
+```
 
-   # comando top
-   top
+#### Comando zip
 
-   # comando smem
-   smem -rtk
+Compactar em .zip:
 
-      # da para explorar com um grep e talvez somar a quantidade de ram para ver quanto um único processo está consumindo?
-      smem -rtk | grep 'chrome'
+```bash
+zip target_folder.zip /folder/to/be/compressed_1 /folder/to/be/compressed_2 /file/to/be/compressed /for/compressed/multiples/*
+```
 
------------------------------------------------------------------------------------------------------
+Descompactar de .zip:
 
-* mostra o tamanho dos direitos
+```bash
+unzip compressed_folder.zip 
+```
 
+---
+
+### Uso memória RAM
+
+Comando free:
+
+```bash
+free -h
+```
+
+Comando top:
+
+```bash
+top
+```
+
+Comando smem:
+
+```bash
+smem -akt -P <program_name>
+```
+
+---
+
+### Mostra o tamanho dos direitos
+
+Comando:
+
+```bash
 du -sch ./*
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* mostra partições e tamanho dos discos
+### Mostra partições e tamanho dos discos:
 
+Comando:
+
+```bash
 df -h
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* lista os discos na máquina (saber se é HD ou SSH pelo modelo)
+### Lista os discos na máquina (saber se é HDD ou SSD pelo modelo):
 
+Comando:
+
+```bash
 parted -l
+```
 
-# CONTINUAR DAQUI --->
+---
 
-*remove completamente o programa
+### Apt
 
-$ sudo apt-get purge <pacote>
+Remover completamente o programa:
 
-ou
+```bash
+sudo apt purge <package>
+```
 
-$ sudo apt-get --purge remove <pacote>
+Lista todos os programas instalados:
 
------------------------------------------------------------------------------------------------------
+```bash
+sudo dpkg -l
+```
 
-*lista todos os programas instalados
+---
 
-$ sudo dpkg -l
+### Ver tamanho de diretorios (CLI)
 
-obs: joga a saida para um arquivo de texto para poder abrir num editor, assim pode-se procurar por algo
-mais especifico para fazer alguma ação!
+```bash
+ncdu [<path>]
+```
 
-exemplo: $ dpkg -l > ~/saida.txt
+---
 
------------------------------------------------------------------------------------------------------
+### Gravador nativo do linux?
 
-*ver tamanho de diretorios modo texto
+Deixar tempo ilimitado de gravação:
 
-como usar: $ ncdu <pode_passar_path> // "d" exclui
+```bash
+gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0
+```
 
------------------------------------------------------------------------------------------------------
+Inicia gravação:
 
-*gravador nativo linux?
+```bash
+ctrl + alt + shift + r
+```
 
-1) $ gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0 // deixar tempo ilimitado de gravação
-2) ctrl + alt + shift + r // inicia gravação
-3) ctrl + alt + shift + r // encerra gravação
+Encerra gravação:
 
------------------------------------------------------------------------------------------------------
+```bash
+ctrl + alt + shift + r
+```
 
-* comando grep
+---
 
-# sintexe
+### Comando grep
 
-grep -Ri 'trecho' /var/www/* ou ~/Documentos/teste.txt
+Sintexe:
 
-obs: ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou frase dentro de aspas duplas no diretorio tal com todos arquivos ou em um documento especifico
+```bash
+grep -Ri 'ocorrência' {/some/path/*|~/Documentos/teste.txt}
+```
 
-# exemplo de utilização
-   # para saber quantidade da ocorrência solicitada
-   grep -o 'bash' /etc/passwd | wc -l
+OBS: Ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou frase dentro de aspas duplas no diretorio tal com todos arquivos ou em um documento especifico
 
-# pesquisando mais de uma ocorrência (utilizando parâmetro de RegEx)
+Para saber quantidade da ocorrência solicitada:
 
-grep --color -E "vmx|svm" /proc/cpuinfo
+```bash
+grep -o 'bash' /etc/passwd | wc -l
+```
 
------------------------------------------------------------------------------------------------------
+Pesquisando mais de uma ocorrência (utilizando parâmetro de RegEx):
 
-*IP interno
+```bash
+grep --color -E "(vmx|svm)" /proc/cpuinfo
+```
 
-$ hostname -I
+---
 
------------------------------------------------------------------------------------------------------
+### Comando *hostname*
 
-*como inserir icones no "menu de aplicativos" e adiciona-los na "barra de favoritos"
+Hostname:
 
-1) Crie um arquivo .desktop em: ~/.local/share/applications
+```bash
+hostname
+```
 
-    exemplo: touch ~/.local/share/applications/nome_arquivo.desktop 
+Ip interno:
 
-2) Edite o arquivo inserindo as seguintes linhas
+```bash
+hostname -I
+```
 
-   [Desktop Entry]
-   Encoding=UTF-8
-   Name=Nome App
-   Comment=Comentario App
-   Icon=/path/for/app/icon.xpm
-   Exec=/path/to/binary/to/your/app
-   Terminal=false
-   Type=Application
-   Categories=Desenvolvimento
+---
 
-3) Torne o .desktop criado em executavel
+### Como inserir icones no "menu de aplicativos"
 
-   $ chmod +x nome_arquivo.desktop
+1. Crie um arquivo .desktop em: ~/.local/share/applications:
 
-4) Clicando em "Mostrar Aplicativos"
-5) Busque pelo nome do aplicativo
-6) Com botão direito do mouse no mesmo, escolha "Adicionar aos favoritos"
+```bash
+touch ~/.local/share/applications/nome_arquivo.desktop 
+```
 
------------------------------------------------------------------------------------------------------
+2. Edite o arquivo inserindo as seguintes linhas:
 
-*atualiza a distro?
+```
+[Desktop Entry]
+Encoding=UTF-8
+Name=App Name
+Comment=App Comment
+Icon=/path/for/app/icon.xpm
+Exec=/path/to/application/binary
+Terminal=false
+Type=Application
+Categories=Development
+```
 
-$ sudo do-release-upgrade -d
+3. Torne o .desktop criado em executavel:
 
------------------------------------------------------------------------------------------------------
+```bash
+chmod +x ~/.local/share/applications/file_name.desktop
+```
 
-*variáveis de ambiente (escopo global)
+---
+
+### Atualizar a versão da distro
+
+1. Atualize e limpe o sistema:
+
+```bash
+sudo apt update && sudo apt dist-upgrade -y
+```
+
+2. Remova pacotes não mais utilizados:
+
+```bash
+sudo apt autoremove
+```
+
+3. Instale a ferramente de gerenciamento de pacotes:
+
+```bash
+sudo apt install update-manager-core -y
+```
+
+4. Verifique se há versão disponíveis:
+
+```bash
+sudo do-release-upgrade --check-dist-upgrade-only -d
+```
+
+5. Atualize a distro:
+
+	- --allow-third-party: Mantém repositórios de terceiros (ppa's)
+
+```bash
+sudo do-release-upgrade -d [--allow-third-party]
+```
+
+6. Reinicie o sistema:
+
+```bash
+sudo shutdown -r now
+```
+
+7. Verifique a nova versão:
+
+```bash
+lsb_release -a
+```
+
+---
+
+### Variáveis de ambiente (escopo global)
 	
-	mostrar variáveis de ambiente (do usuario corrente)
+Mostrar variáveis de ambiente (do usuario corrente):
 	
-		$ env
-		
-	criar variável de ambiente (escopo global)
+```bash
+env
+```
 
-		$ export edward="hostinger"
+Criar variável de ambiente (escopo global):
 
------------------------------------------------------------------------------------------------------
+```bash
+export FOO="BAR"
+```
 
-*mapear teclas e ações 
+---
 
-$ xev | sed -ne '/^KeyPress/,/^$/p'
+### Mapear teclas e ações 
 
------------------------------------------------------------------------------------------------------
+Comando:
 
-*dispositivos conectados
+```bash
+xev | sed -ne '/^KeyPress/,/^$/p'
+```
 
-$ xinput -list
+---
 
-&&
+### Dispositivos
 
-$ lsusb
+#### Xinput
 
------------------------------------------------------------------------------------------------------
+Listar e descobrir os códigos dos dispositivos:
 
-*kernel do sistema
+```bash
+xinput
+```
 
-$ uname -r
+Listar as propriedades do dispositivo:
 
------------------------------------------------------------------------------------------------------
+```bash
+xinput list-props <device_id>
+```
 
-*editor de texto padrão
+Alterar o valor da respectiva propriedade:
 
-	para saber qual 
+```bash
+xinput set-prop <device_id> <property_id> <value>
+```
 
-		$ cat /usr/share/applications/defaults.list
+OBS: Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
 
-	para escolher o editor padrão modo texto / ver o editor padrão modo texto
+#### Lsusb
 
-		$ sudo update-alternatives --config editor
+Listagem dos dispositivos:
 
------------------------------------------------------------------------------------------------------
+```bash
+lsusb
+```
 
-*mudar terminal padrão
+---
 
-$ sudo update-alternatives --config x-terminal-emulator
+### Kernel do sistema
 
------------------------------------------------------------------------------------------------------
+```bash
+uname -r
+```
 
-*mudar shell padrão
+---
 
-	mudando diretamente no arquivo:
-		
-		$ sudo nano /etc/passwd
-		
-	rodando:
+### Comando *update-alternatives*
+
+#### Editor de texto padrão
+
+Para saber qual:
+
+```bash
+cat /usr/share/applications/defaults.list
+```
+
+Para escolher o editor padrão modo texto/ver o editor padrão modo texto:
+
+```bash
+sudo update-alternatives --config editor
+```
+
+#### Terminal padrão
+
+Comando:
+
+```bash
+sudo update-alternatives --config x-terminal-emulator
+```
+
+---
+
+### Mudar shell padrão
+
+Mudando diretamente no arquivo:
+
+```bash		
+sudo vim /etc/passwd
+```
+
+Com variável de ambiente USER (opção curta):
+
+```bash
+sudo chsh {--shell|-s} $(which zsh) {$(whoami)|${USER}}
+```
+
+---
+
+### Alias'es (definir permanente)
 	
-		$ chsh -s $(which zsh)
-		
------------------------------------------------------------------------------------------------------
+1. Edite o rc do seu shell:
 
-*alias (definir permanente)
-	
-	1) $ nano ~/.bashrc
+```bash
+vim ~/.<shell>rc
+```
 
 	entre no campo (bloco) específico do "alias"
 	
