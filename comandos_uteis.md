@@ -202,6 +202,26 @@ Adicionar algum arquivo que esteja sendo ignorado:
 git add -f file.txt
 ```
 
+#### Skip Work Tree
+
+Remover da árvore de trabalho:
+
+```bash
+git update-index --skip-worktree file.txt
+```
+
+Retornar para a árvore de trabalho:
+
+```bash
+git update-index --no-skip-worktree file.txt
+```
+
+Listar os arquivos *skipados*:
+
+```bash
+git ls-files -v | grep -E '^S'
+```
+
 ## > GITHUB CLI
 
 Ver os repositórios remotos:
