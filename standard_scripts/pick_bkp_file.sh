@@ -38,8 +38,8 @@ path_icones=${home}/.icons
 path_temas=${home}/.themes
 path_terminator=${home}/.config/terminator/config
 path_tree=${home}/others
-path_executables=${home}/others/executables
 path_gtk="${home}/.config/gtk-3.0/settings.ini"
+path_local_bin=/usr/local/bin
 
 declare -A arr_path=(\
 	[opt]=${bkp_path}/opt \
@@ -48,9 +48,9 @@ declare -A arr_path=(\
 	[ter]=${bkp_path}/terminator \
 	[dpk]=${bkp_path}/dpkg \
 	[neo]=${bkp_path}/neofetch \
-	[exe]=${bkp_path}/executables \
-	[oth]=${bkp_path}/others\
-	[gtk]=${bkp_path}/gtk
+	[oth]=${bkp_path}/others \
+	[gtk]=${bkp_path}/gtk \
+	[loc_bin]=${bkp_path}/local_bin\
 )
 
 for path in ${arr_path[@]}; do
@@ -61,7 +61,7 @@ ls -1 ${path_opt} | cat -n | tr -s ' ' >${arr_path[opt]}/programas_opt.txt
 ls -1 ${path_fontes} | cat -n | tr -s ' ' >${arr_path[fon]}/fonts.txt
 ls -1 ${path_icones} | cat -n | tr -s ' ' >${arr_path[ico_the]}/icons.txt
 ls -1 ${path_temas} | cat -n | tr -s ' ' >${arr_path[ico_the]}/themes.txt
-ls -1 ${path_executables} | cat -n | tr -s ' ' >${arr_path[exe]}/exebutables.txt
+ls -1 ${path_local_bin} | cat -n | tr -s ' ' >${arr_path[loc_bin]}/binaries.txt
 cp ${path_terminator} ${arr_path[ter]}/config.txt
 cp ${path_gtk} ${arr_path[gtk]}/settings.txt
 dpkg -l >${arr_path[dpk]}/list.txt
