@@ -858,280 +858,512 @@ sudo chsh {--shell|-s} $(which zsh) {$(whoami)|${USER}}
 vim ~/.<shell>rc
 ```
 
-	entre no campo (bloco) específico do "alias"
-	
-	2) $ alias <nome_atalho>='<comando>'
-	3) $ source .bashrc
+2. Definina o *alias* na última linha do arquivo:
 
------------------------------------------------------------------------------------------------------
+```bash
+alias <shortcut_name>='<command>'
+```
 
-*encriptar arquivos
+3. Recarregue o rc do seu shell:
+
+```bash
+source .bashrc
+```
+
+---
+
+### Sistema de arquivos criptografado
 	
-	caso os arquivos que seram encriptados ainda não tenham uma pasta preparada
+1. Crie a privada que guardara os arquivos:
+
+```bash
+mkdir ~/private
+```
+
+2. Faça que apenas o dono tenha permissões sobre ela:
+
+```bash
+sudo chmod 600 ~/private
+```
+
+OBS: Primeiro faça o processo de montagem e depois coloque os arquivos dentro da pasta
+
+3. Monte o sistema de arquivos com a pasta "*private*":
+
+	1.  Montando a pasta:
+		`mount -t ecryptfs ~/privado ~/privado`
+	2. Escolha a opção **2**
+	1. Digite a **senha**
+	1. Escolha a opção **1**
+	1. Escolha a opção **1** novamente
+	1. Escolha **n**
+	1. Escolha **n** novamente
+	1. Escolha **yes**
+	1. Escolha **yes** novamente
+
+OBS: Coloque os arquivos na pasta
+
+4. Desmonta a pasta (agora, efetivamente os arquivos estaram encriptados):
+
+```bash
+sudo umount ~/private
+```
+
+5. Monte novamente a pasta para conseguer ter acesso aos arquivos:
+
+```bash
+sudo mount -t ecryptfs ~/private ~/private -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n
+```
+
+#### Alias'es
+
+Para montar:
+
+```bash
+mountt() {
+	sudo mount -t ecryptfs "$1" "$2"; 
+}
+```
+
+Para montar:
+
+```bash
+remountt() {
+	sudo mount -t ecryptfs "$1" "$2" -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n
+}
+```
+
+---
+
+### Comando *lspci*
+
+Saber qual a placa de vídeo:
+
+```bash
+lspci | grep -iF 'VGA'
+```
+
+---
+
+### Comando *xrandr*
+
+#### Mudar resolução da tela via terminal:
+
+1. Verificar as saidas de vídeos possíveis:
+
+```bash
+xrandr
+```
+
+OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode ser DP1, VGA1 ou HDM1 por exemplo.
+
+2. Caso a resolução desejada já esteja disponível, pode aplica-la
+
+	1. Seta nova resolução:
+		`xrandr -s 1920x1080`
+
+1. Caso ainda não tenha a resolução desejada, adicione um novo modo com a desejada
+
+	1. Pegando as cordenadas da tela informando a **resolução** e **hz** desejados:
+		`cvt 1920 1080 90`
+	1. Copie tudo o que estiver depois de *"Modeline "*:
+		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
+	1. Agora criamos um novo modo com a informação coletada
+		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
+	1. Agora adicionamos o novo modo criado ao *xrandr*:
+		`xrandr --addmode Virtual1 1920x1080_90.00`
+	1. Caso o passo anterior também já não sete a resolução de forma automática, setar manualmente o novo modo adicionado:
+		`xrandr --output Virtual1 --mode 1920x1080_90.00`
+
+##### Adicionar alterações de forma permanente
+
+Adicione os comandos de criação, adição e definição do novo modo no *profile file*:
+
+```
+xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync
+xrandr --addmode Virtual1 1920x1080_90.00
+xrandr --output Virtual1 --mode 1920x1080_90.00
+```
+
+---
+
+### Colocar programas no autostart (inicia junto com a sessão do usuário)
+
+1. Crie um arquivo ".desktop" dentro da pasta "~/.config/autostart/"
+
+1. Coloque nesse arquivo:
+
+```
+[Desktop Entry]
+Type=Application
+Name=program_name
+Exec=/path/to/binary
+StartupNotify=false
+Terminal=false
+```
 	
-		1) $ mkdir ~/privado // crie a pasta
-		2) $ sudo chmod 700 ~/privado // faça que apenas o dono tenha permissões sobre ela
+Caso a pasta ainda não exista, basta cria-la:
+
+```bash
+mkdir ~/.config/autostart/
+```
+
+---
+
+### Cron
+
+#### Sintaxe e exemplo
+
+Sintaxe:
+
+```
+m h dm m ds command
+```
+
+Exemplo de horario de segunda a sexta às 08:00:
+
+```
+0 8 * * 1,2,3,4,5
+```
+
+#### Utilização
+
+1. Entrar no arquivo de configuração do cron para adicionar um novo:
+
+```bash
+crontab -e
+```
+
+2. Basta então inserir na última linha o comando
+
+#### Editor padrão
+
+Para mudar o editor do cron:
+
+```bash
+select-editor
+```
+
+---
+
+### Comando *ln*
+
+#### Hard link (link físico)
+
+- Hard links não podem ser feitos por arquivos que estão em pontos de montagem separados.
+
+- O hard link tem o mesmo inode do original e se o original for corrompido o link fica independente.
+
+```bash
+ln ~/path/to/file.txt ~/path/hard_link_name
+```
 		
-		obs: primeiro faça o processo de montagem e depois coloque os arquivos dentro da mesma
+#### Symlink (link simbólico)
+
+- Tem que passar o path completo para esta operação.
+
+- O link simbólico terá um inode diferente do arquivo original e se arquivo original for corrompido o link quebrará.
+
+```bash
+ln -s ~/path/to/file.txt ~/path/symlink_name
+```
+
+---
+
+### Comando *ls*
+
+Mostra o *inode* do arquivo:
+
+```bash
+ls -i ~/file.txt
+```
+
+---
+
+### Comando *file*
+
+Mostra o tipo do arquivo e seu path:
+
+```bash
+file ~/file.txt
+```
+
+---
+
+### Rodar um comando em outra janela de terminal
+
+#### Gnome-terminal
+
+Abrindo em outra guia:
+
+```bash
+gnome-terminal -x sh -c "<command>; bash"
+```
+
+Abrindo em outra janela:
+
+```bash
+gnome-terminal -- sh -c "<command>; bash"
+```
+
+#### Terminator
+
+Abrindo em outra janela:
+
+```bash
+terminator --command='<command>; bash'
+```
+
+---
+
+### Comando *cal*
+
+Calendário:
+
+```bash
+cal [<month>] [<year>]
+```
+
+### Comando *date*
+
+Data/hora:
+
+```bash
+date
+```
+
+---
+
+### Variável *$PATH*
+
+Adicionando diretórios ao *$PATH*:
+
+```bash
+export PATH=${PATH}:/home/user/scripts
+```
+
+OBS: Para adicionar permanentemente, insira o comando na última linha do rc do seu shell
+
+---
+
+### Comando *sudo*
+
+Passar senha de forma automática:
+
+- -S: aceita que a STDIN seja diferente e espera receber no final da string uma nova linha
+
+```bash
+echo -e "<password>\n" | sudo -S <command>
+```
+
+Não guardar a senha em cache:
+
+*sempre pedir a senha do sudo (reseta o tempo de armazenar a senha)
+
+
+colocar "Defaults:ALL timestamp_timeout=0" na última linha do "/etc/sudoers"
+
+	$ echo -e "\nDefaults:ALL timestamp_timeout=0" >> /etc/sudoers
+	
+força em pedir a senha do sudo
+
+	$ sudo -k comando
 		
-	montando o sistema de arquivos com a pasta "privada"
 	
-		1) $ sudo mount -t ecryptfs ~/privado ~/privado // montando a pasta
-			1.1) $ 2
-			1.2) $ <digite_a_senha>
-			1.3) $ 1
-			1.4) $ 1
-			1.5) $ n
-			1.6) $ n
-			1.7) $ yes
-			1.8) $ yes
+---
 
-		obs: coloque os arquivos na pasta
-		
-		2) $ sudo umount ~/privado // desmonta a pasta (efetivamente os arquivos estaram agora encriptados)
-		3) $ sudo mount -t ecryptfs ~/privado ~/privado -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n // desmonta novamente a pasta para conseguer ter acesso aos arquivos	
+### Comando *exec*
 
-		obs: para fefinir no "ALias"
+Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
 
-			no campo (bloco) correto dentro de .bashrc
+```bash
+exec <command>
+```
 
-			mountt() {
-			   sudo mount -t ecryptfs "$1" "$2"; 
-			}
+---
 
-			remountt() {
-			   sudo mount -t ecryptfs "$1" "$2" -o key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=16,ecryptfs_passthrough=n
-			}
+### Rodar programas ou comandos em segundo plano
 
------------------------------------------------------------------------------------------------------
+- Chamar o programa com *e comercial*:
+	`<program> &`
 
-*como saber a placa de vídeo
+- Dar `bg` com o programa em execução
 
-$ lspci | grep 'VGA'
+- Dar `ctrl+z` com o programa em execução
 
------------------------------------------------------------------------------------------------------
+Mostrar programas em segundo plano: 
 
-*mudar resolução da tela via terminal 
+```bash
+jobs
+```
 
-https://www.tutorialeinformacao.com.br/2020/07/forcar-resolucao-de-tela-no-linux.html
+Para trazer um programa para primeiro plano:
 
------------------------------------------------------------------------------------------------------
+```bash
+fg <program>
+```
 
-*colocar programas para autostart 
+---
 
-	1) crie um arquivo ".desktop" dentro da pasta "~/.config/autostart/"
-	2) coloque nesse arquivo:
+### Mostra infos do sistema
+
+Neofetch:
+
+```bash
+neofetch
+```
+
+Screenfecht:
+
+```bash
+screenfetch
+```
+
+---
+
+### Comando *xdotool*
+
+Minimizar tela do terminal corrente:
+
+1. `var=$(xdotool getactivewindow)`
+1. `xdotool windowminimize $var`
+
+---
+
+### Comando *su*
+
+Trocar de usuário:
+
+```bash
+su <user>
+```
+
+Trocar para o usuário root sem senha definida:
+
+```bash
+sudo su - root
+```
+
+Rodar um comando como se estivesse logado como root:
+
+```bash
+su -c "<command>"
+```
+
+---
+
+### Reiniciar o sistema
+
+Reboot:
+
+```bash
+reboot
+```
+
+Shutdown:
+
+```bash
+shutdown -r now
+```
+
+Systemctl:
+
+```bash
+systemctl reboot
+```
+
+---
+
+### Comando *xclip*
+
+#### Copiar para a área de transferência
+
+Copiar:
+
+```bash
+<command> | xclip -selection clipboard
+```
+
+Removendo a *new line* (\n):
+
+```bash
+<command> | tr -d '\n' | xclip -selection clipboard
+```
+
+##### Alias'es
+
+Definição:
+
+```bash
+alias cb="tr -d '\n' | xclip -selection clipboard"
+```
+
+Exemplo:
+
+```bash
+<command> | cb
+```
+
 	
-		[Desktop Entry]
-		Type=Application
-		Name=program_name
-		Exec=/path/to/binarie
-		StartupNotify=false
-		Terminal=false
-		
-	obs: caso a pasta ainda não exista, basta cria-la
-	1) $ mkdir ~/.config/autostart/
+#### Copiar somente para dentro da sessão do shell
 
------------------------------------------------------------------------------------------------------
+Copiar:
 
-*cron - adicionar alguma tarefa
+```bash
+<command> | xclip
+```
 
-	sintaxe: m h dm m ds command
-	exemplo de horario: 0 8 * * 1,2,3,4,5 // de segunda a sexta às 08:00
+Colar:
 
-	1) $ crontab -e
-	2) $ inserir na última linha sempre
-	
-*para mudar o editor do cron
+```bash
+xclip -o
+```
 
-$ select-editor
+##### Alias'es
 
------------------------------------------------------------------------------------------------------
+Para copiar:
 
-*hard links / links simbolicos
+```bash
+alias c='xclip'
+```
 
-$ ls -i ~/arq.txt // mostra o "inode" do arquivo
-$ file ~/arq.txt // mostra o tipo do arquivo e seu path
+Para colar:
 
-	link simbolico
-	
-		1) $ ln -s ~/path/to/arquivo.txt ~/home/nome_link_simbolico
-		
-		obs: tem que passar o path completo para esta operação
-		obs: o link simbólico terá um inode diferente do arquivo original e o arquivo original for corrompido o link se tornara inutil
-		
-	hard link
-	
-		1) $ ln -s ~/path/to/arquivo.txt ~/home/nome_link_simbolico
-		
-		obs: o hard link tem o mesmo inode do original e se o original for corrompido o link fica independente
+```bash
+alias v='xclip -o'
+```
 
------------------------------------------------------------------------------------------------------
+Exemplo:
 
-*rodar um comando em outra janela de terminal
+Para copiar:
 
-$ gnome-terminal -x sh -c "<comando>; bash" // abre em outra guia
+```bash
+<command> | c
+```
 
-ou
+Para colar:
 
-$ gnome-terminal -- sh -c "<comando>; bash" // abre em outra janela
+```bash
+<command> {`v`|$(v)}
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-*calendario
+### Debugar scripts
 
-$ cal <mes> <ano>
+Bash:
 
-*hora/data de hoje
+```bash
+bash -x script.sh
+```
 
-$ date
+Zsh:
 
------------------------------------------------------------------------------------------------------
+```bash
+zsh -xtrace script.sh
+```
 
-*para instalar quaisquer dependencias que possam ter sidas removidas (para ubuntu)
-
-$ sudo apt install ubuntu-desktop
-
------------------------------------------------------------------------------------------------------
-
-*adicionando $PATH (diretorio de binários)
-
-$ export PATH=$PATH:/home/user/scripts
-
-obs: para adicionar permanentemente, insira esse script na última linha do arquivo do seu shell (exemplo: .bashrc)
-
------------------------------------------------------------------------------------------------------
-
-*como passar senha para comando sudo automáticamente
-
-$ echo -e "senha\n" | sudo -S <comando>
-
-obs: parâmetro -S no sudo aceita outra etrada de dado que não seja e entrada padrão via terminal esperando receber no final da string uma nova linha
-	
------------------------------------------------------------------------------------------------------
-
-*como encerrar o terminal depois de executar um comando
-
-$ kill -9 $$
-
-ou
-
-$ exec <comando> // usando o "exec" depois de executar a sessão de terminal corrente é encerrada
-
------------------------------------------------------------------------------------------------------
-
-*rodar programas ou comandos em segundo plano
-
-	$ <programa> &
-	$ bg // com o programa em execução
-	$ ctrl+z // com o programa em execução
-
-mostrar programas em segundo plano: 
-
-	$ jobs
-
-para trazer um programa para primeiro plano:
-
-	$ fg <programa>
-
------------------------------------------------------------------------------------------------------
-
-*protetor de tela modo texto com infos do sistema
-
-$ neofetch
-
-obs: como instalar o programa em "./ferramentas.txt"
-
------------------------------------------------------------------------------------------------------
-
-*minimizar tela do terminal corrente (com xdotool)
-
-1) $ var=$(xdotool getactivewindow)
-2) $ xdotool windowminimize "$var"
-
-obs: como instalar o programa em "./ferramentas.txt"
-
------------------------------------------------------------------------------------------------------
-
-*rodar um comando como se estivesse logado como root
-
-$ su -c "<comando>"
-
------------------------------------------------------------------------------------------------------
-
-*reiniciar o sistema
-
-$ reboot
-
-ou
-
-$ exec /sbin/init
-
------------------------------------------------------------------------------------------------------
-
-*copiar saida de comando para a área de transferencia
-
-$ pwd | xclip -selection clipboard
-
-ou
-
-$ pwd | tr -d '\n' | xclip -selection clipboard // para remover a "new line"
-
-obs: criar um alias para falicitamento 
-	
-	$ alias cb="tr -d '\n' | xclip -selection clipboard"
-	
-	exemplo
-	
-	$ pwd | cb
-	
-	
-*copiar saida de comando para dentro de um abiente 'X'
-
-copiar
-
-	$ pwd | xclip
-
-colar
-
-	$ xclip -o
-
-exemplo
-
-	1) $ pwd | xclip
-	2) $ xclip -o | cd
-	
-obs: criar um alias para falicitamento
-
-	$ alias c='xclip'
-	$ alias v='xclip -o'
-	
-exemplo
-
-	1) $ pwd | xclip
-	2) $ cd `v`
-	ou
-	2) $ cd $(v)
-
------------------------------------------------------------------------------------------------------
-
-*mostra os programas baixado em apt
-
-$ sudo ls /etc/apt/sources.list.d
-
------------------------------------------------------------------------------------------------------
-
-*pegar o "valor bruto" da memória ram em buff/cache
-
-$ free -h | cut -d' ' -f45 | grep '2' | cut -c1
-
------------------------------------------------------------------------------------------------------
-
-*depurar programas
-
-$ sh -x programa
-
------------------------------------------------------------------------------------------------------
+---
 
 *sempre pedir a senha do sudo (reseta o tempo de armazenar a senha)
 
