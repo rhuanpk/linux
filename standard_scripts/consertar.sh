@@ -22,5 +22,6 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
+sudo dpkg --configure -a
 sudo apt install -f -y
 sudo apt --fix-broken install -y

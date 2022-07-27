@@ -22,16 +22,17 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
+# Fix
+sudo dpkg --configure -a
+sudo apt install -f -y
+sudo apt --fix-broken install -y
+
 # Update
 sudo apt update -y
 sudo apt upgrade -y
 
 sudo ubuntu-drivers autoinstall
 sudo apt install ubuntu-restricted-extras -y
-
-# Fix
-sudo apt install -f -y
-sudo apt --fix-broken install -y
 
 # Clean
 sudo apt clean -y
