@@ -1156,19 +1156,20 @@ Passar senha de forma automática:
 echo -e "<password>\n" | sudo -S <command>
 ```
 
-Não guardar a senha em cache:
+#### Não guardar a senha em cache:
 
-*sempre pedir a senha do sudo (reseta o tempo de armazenar a senha)
+Direto na linha de comando:
 
+```bash
+sudo -k <command>
+```
 
-colocar "Defaults:ALL timestamp_timeout=0" na última linha do "/etc/sudoers"
+Definir permanentemente:
 
-	$ echo -e "\nDefaults:ALL timestamp_timeout=0" >> /etc/sudoers
-	
-força em pedir a senha do sudo
-
-	$ sudo -k comando
-		
+1. Edite o arquivo de alterações do sudoers:
+	`sudo visudo -f /etc/sudoers.d/users`
+1. Colocar o seguinte conteúdo:
+	`Defaults:ALL timestamp_timeout=0`
 	
 ---
 
@@ -1266,10 +1267,18 @@ Shutdown:
 shutdown -r now
 ```
 
-Systemctl:
+#### Systemctl
+
+Leve:
 
 ```bash
 systemctl reboot
+```
+
+Forçado:
+
+```bash
+systemctl reboot -i
 ```
 
 ---
@@ -1365,145 +1374,139 @@ zsh -xtrace script.sh
 
 ---
 
-*sempre pedir a senha do sudo (reseta o tempo de armazenar a senha)
+### Infos do sistema
 
+- `lshw`
+- `inxi -Fxz`
+- `hwinfo --short`
 
-colocar "Defaults:ALL timestamp_timeout=0" na última linha do "/etc/sudoers"
+---
 
-	$ echo -e "\nDefaults:ALL timestamp_timeout=0" >> /etc/sudoers
-	
-força em pedir a senha do sudo
+### Comando *cd*
 
-	$ sudo -k comando
-		
------------------------------------------------------------------------------------------------------
+##### Voltar para o diretorio anterior
 
-*exibir info do sistema
+Com o caracter **-**:
 
-$ lshw
+```bash
+cd -
+```
 
------------------------------------------------------------------------------------------------------
+Com a variável **$OLDPWD**:
 
-*informações completas da máquina
+```bash
+cd $OLDPWD
+```
 
-$ inxi
+---
 
-ou
+### Comando *head*
 
-$ inxi -F
+Mostrar *x* primeiras linhas de um arquivo:
 
-ou
+```bash
+head -5 /etc/passwd
+```
 
-$ inxi -Fxz
+---
 
------------------------------------------------------------------------------------------------------
+### Comando *column*
 
-*volta para o diretorio anterior (equivalente a "$ cd $OLDPWD")
+Organizar a saida em colunas:
 
-$ cd -
+- -s: Delimitador
+- -t: Cria a tabela
 
------------------------------------------------------------------------------------------------------
+```bash
+column -s ':' -t /etc/passwd
+```
 
-*pegar/cortar determinado linhas de coluna de um arquivo
+---
 
-$ head -5 /etc/passwd
+### Data/Hora do sistema
 
------------------------------------------------------------------------------------------------------
+Atualizando os dois manualmente:
 
-*organizar arquivos em colunas
+```bash
+sudo date -s "mes/dia/ano 13:30"
+```
 
-$ column -s':' -t /etc/passwd
+Atualizar hora automática:
 
------------------------------------------------------------------------------------------------------
+```bash
+sudo hwclock -s
+```
 
-*força o reboot?
+---
 
-$ systemctl reboot -i
+### Saber todos os probrmas que já foram instalados?
 
------------------------------------------------------------------------------------------------------
+```bash
+for history_file in $(ls ~/.*_history); do grep -Ei '(apt-get|apt) install' ${history_file}; done
+```
 
-*para alterar data/hora do sistema
+---
 
-$ sudo date -s "mes/dia/ano 13:30"
+### Comando *du*
 
-*para atualizar automáticamente
+Mostra o tamanho de um arquivo ou pasta:
 
-$ sudo hwclock -s
+```bash
+du -sh /path/to/file_or_folder
+```
 
------------------------------------------------------------------------------------------------------
+Mostra o tamanho de todos os arquivos de uma pasta com o total:
 
-*saber todos os probrmas que já foram instalados?
+```bash
+du -sch /path/to/folder/*
+```
 
-$ history | grep 'apt install' > instalados.txt; history | grep 'apt-get install' >> instalados.txt
+---
 
------------------------------------------------------------------------------------------------------
-
-*mostra o tamanho de uma pasta/arquivo específico
-
-$ du -sh /path
-
------------------------------------------------------------------------------------------------------
-
-*tentativa de reconfigurar programas quebrados?
-
-$ sudo apt install --reinstall <programa>
-
-ou
-
-$ sudo dpkg-reconfigure <programa>
-
------------------------------------------------------------------------------------------------------
-
-* comando tail
+### Comando *tail*
  
-# mostra a última linha de um arquivo
+Mostra a última linha do arquivo:
 
-tail -n 1 arquivo.txt
+```bash
+tail -1 file.txt
+```
 
-# mostra atualização do arquivo em tempo real
+Monitora o arquivo em tempo real:
 
-tail -f arquivo.txt 
+```bash
+tail -f file.txt 
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-*** COM HASH ***
+### Ssh
 
-# ToDo List (SlackJeff)
+Instalação:
 
-export TODO="${HOME}/Documents/anotacoes/todo_list.txt"
+```bash
+sudo apt install ssh openssh-server -y
+```
 
-tla() { [ $# -eq 0 ] && cat ${TODO} || echo "$(echo $* | md5sum | cut -c 1-4) ---> $*" >> ${TODO} ;}
-tlr() { sed -i "/^$*/d" ${TODO} ;}
+#### Conexões
 
-*** APENAS NUMERICOS ***
+Apenas "CLI":
 
-# ToDo List (SlackJeff)
+```bash
+ssh user@127.0.0.1
+```
 
-export TODO="${HOME}/Documents/anotacoes/todo_list.txt"
+Acessar "GUI":
 
-rand() { export RAND=0; while [ ${#RAND} -lt 4 ]; do RAND=$((${RANDOM}%10000)); done ;}
-tla() { rand; [ $# -eq 0 ] && cat $TODO || echo "${RAND} ---> $*" >> $TODO ;}
-tlr() { sed -i "/^$*/d" $TODO ;}
+```bash
+ssh -X -C user@127.0.0.1
+```
 
------------------------------------------------------------------------------------------------------
+OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
 
-* ssh
+```bash
+rm -rfv ~/.Xauthority
+```
 
-# instalar conexão
-sudo apt install ssh openssh-server
-
-# start/stop/restart/status
-service ssh opcao
-
-# conexão
-   # apenas CLI
-   ssh usuario@127.0.0.1
-   
-   # acessar GUI
-   ssh -X -C usuario@127.0.0.1
-      # caso dê algum erro de conexão com interface remova a pasta Xauthority da Home
-      rm -rfv ~/Xauthority
-      
 # transferir por ssh
    # remoto -> local
    scp /path/local usuario@192.168.0.1:/path/remoto
