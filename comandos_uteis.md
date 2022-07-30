@@ -1374,11 +1374,45 @@ zsh -xtrace script.sh
 
 ---
 
-### Infos do sistema
+### Sobre o sistema
+
+#### Infos do sistema
 
 - `lshw`
 - `inxi -Fxz`
 - `hwinfo --short`
+
+#### Número de núcleos (cores) do processador
+
+```bash
+nproc
+```
+
+#### Arquitetura do sistema
+
+```bash
+uname -m
+```
+
+#### Interface gráfica atual
+
+```bash
+echo $XDG_CURRENT_DESKTOP
+```
+
+#### Distro
+
+Info geral da distro:
+
+```bash
+lsb_release -a
+```
+
+Somente o nome da distro:
+
+```bash
+lsb_release -cs
+```
 
 ---
 
@@ -1479,7 +1513,7 @@ tail -f file.txt
 
 ---
 
-### Ssh
+### Comando *ssh*
 
 Instalação:
 
@@ -1492,13 +1526,13 @@ sudo apt install ssh openssh-server -y
 Apenas "CLI":
 
 ```bash
-ssh user@127.0.0.1
+ssh user@192.168.0.1
 ```
 
 Acessar "GUI":
 
 ```bash
-ssh -X -C user@127.0.0.1
+ssh -X -C user@192.168.0.1
 ```
 
 OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
@@ -1507,315 +1541,403 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 rm -rfv ~/.Xauthority
 ```
 
-# transferir por ssh
-   # remoto -> local
-   scp /path/local usuario@192.168.0.1:/path/remoto
+### Comando *scp*
 
-   # remoto -> local
-   scp remoto@192.168.0.1:/path/remoto /tmp/tmp
-      # aceito parâmetro "-r" para recursividade
-      scp -r remoto@192.168.0.1:/path/remoto /tmp/tmp
+Local -> Remoto
 
------------------------------------------------------------------------------------------------------
+```bash
+scp -r /local/path user@192.168.0.1:/remote/path
+```
 
-# mudar tema e icones por linha de comando
+Remoto -> Local
 
-gsettings set org.gnome.desktop.interface gtk-theme "nome_do_tema"
-gsettings set org.gnome.desktop.interface icon-theme "nome_do_icone" 
+```bash
+scp -r user@192.168.0.1:/remote/path /local/path
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* comando history
+### Comando *gsettings*
 
-# limpar histórico do terminal
+Mudar tema via CLI:
 
+```bash
+gsettings set org.gnome.desktop.interface gtk-theme "theme_name"
+```
+
+Mudar icone via CLI:
+
+```bash
+gsettings set org.gnome.desktop.interface icon-theme "icon_name" 
+```
+
+---
+
+### Comando *history*
+
+Limpar histórico do terminal:
+
+```bash
 history -c
+```
 
-# não gravar comando no histórico (dê um espaço antes do comando)
+Não gravar comando no histórico (dê um espaço antes do comando):
 
+```bash
  ls /home
+```
 
-# pesquisar algum comando do histórico
+#### Plus
 
-CTRL + r
+Pesquisar algum comando no histórico:
 
------------------------------------------------------------------------------------------------------
+```bash
+ctrl+r
+```
 
-* comando yes
+---
 
-# loop infinito de echo (por default printa "y" na tela)
+### Comando *yes*
 
+Loop infinito de "echo" (por default printa "y" na tela)?:
+
+```bash
 yes
+```
 
-# passando algum string como parâmetro ele printara a string
+Passando alguma string:
 
+```bash
 yes "no"
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* atributos
+### Atributos
 
-# adicionar atributo de imutabilidade
+Listar atributos:
 
-sudo chattr +i file.md
-
-# listar atributos
-
+```bash
 lsattr
+```
 
-# removendo atributo de imutabilidade
+Adicionar atributo de imutabilidade:
 
-sudo chattr -i file.md
+```bash
+sudo chattr +i file.txt
+```
 
-# adicionar ou remover atributos recusivamente (em diretórios)
+Removendo atributo de imutabilidade:
 
+```bash
+sudo chattr -i file.txt
+```
+
+Adicionar ou remover atributos recusivamente:
+
+```bash
 sudo chattr -R +i /path
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* comando cat
+### Comando *cat*
 
-# mostra a quantidade de linhas de um arquivo
+Mostra a quantidade de linhas:
 
+```bash
 cat -n file.md
+```
 
-# utilizando com heredocument 
+Utilizando com *heredocument*:
 
-cat > file.txt << "EOF"
+```bash
+cat << EOF > file.txt
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* comando progress
+### Comando *progress*
 
-<comando> | progress -m
+```bash
+<command> | progress -m
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* comando cut
+### Comando *cut*
 
-# pegar a coluna 1 e 7 do arquivo "/etc/passwd" pelo delimitador ":"
+Pegar a coluna 1 e 7 do arquivo "/etc/passwd" pelo delimitador ":":
 
+```bash
 cut -d ':' -f 1,7 /etc/passwd
+```
 
-# pegar do 1º até o 3º caractere de cada linha
+Pegar do 1º até o 3º caractere de cada linha:
 
+```bash
 cut -c 1-3 /etc/passwd
+```
 
-# mudar o delimitador padrão
+Mudar o delimitador padrão:
 
+```bash
 cut -d ' ' -f 3,4 --output-delimiter=',' arquivo.txt
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* manipulação de linhas
+### Manipulação de linhas
 
-# excluir a última linha de um arquivo
+Excluir a última linha de um arquivo:
 
-sed -i "$(cat arquivo.txt > /dev/null | wc -l)d" arquivo.txt
+```bash
+sed -i "$(wc -l < file.txt)d" file.txt
+```
 
-# recortar primeira linha de um arquivo
+Recortar primeira linha de um arquivo:
 
-echo "$(head -n 1 arquivo.txt)" > arquivo.txt
+```bash
+head -1 file.txt > new_file.txt
+```
 
-# recortar última linha de um arquivo
+Recortar primeira linha de um arquivo (para o mesmo arquivo):
 
-echo "$(tail -n 1 arquivo.txt)" > arquivo.txt
+```bash
+echo $(head -1 file.txt) > file.txt
+```
 
-# mostrar a últinha linha de um arquivo
+Recortar última linha de um arquivo:
 
-head -n 4 arquivo.txt | tail -n 1
+```bash
+tail -n 1 file.txt > new_file.txt
+```
 
------------------------------------------------------------------------------------------------------
+Recortar última linha de um arquivo (para o mesmo arquivo):
 
-* RegEx (negar as ocorrências específicadas)
+```bash
+echo $(tail -n 1 file.txt) > file.txt
+```
 
-# habilitar o RegEx no bash
-shopt -s extglob
-   
-   # sintaxe 
-   rm -rfv !(*.txt|*.md)
+---
 
-# habilitar o RegEx no bash
-setopt extendedglob
+### Comando *dpkg*
 
-   # sintaxe
-   rm -rfv ^*.txt
-   rm -v ^file-1*
-   rm -v ^*.(txt|tmp
+Instalar pacotes .deb:
 
------------------------------------------------------------------------------------------------------
+```bash
+sudo dpkg {--install|-i} package.deb
+```
 
-* comando dpkg
+Saber arquitetura do sistema:
 
-# instalar pacotes .deb
-
-sudo dpkg -i pkg.deb
-
-# saber arquitetura do sistema
-
+```bash
 dpkg --print-architecture
+```
 
-# saber se há outra arquitetura disponível para ser habilitada
+Saber se há outra arquitetura disponível para ser habilitada:
 
+```bash
 dpkg --print-foreign-architectures
+```
 
-# adicionar arquitetura
+Adicionar arquitetura:
 
+```bash
 sudo dpkg --add-architecture i386
+```
 
-# remover arquitetura
+Remover arquitetura:
 
+```bash
 sudo dpkg --remove-architecture i386
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* montagem/desmontagem e ejeção de dispositivos
+### Montagem/desmontagem e ejeção de dispositivos
 
-# montar
+- X: Letra da partição
+- Y: Número da partição
 
-sudo mount /dev/sdc1 /mnt
+Montar:
 
-# desmontar
+```bash
+sudo mount /dev/sdXY /mnt
+```
 
+Desmontar:
+
+```bash
 sudo umount /mnt
+```
 
-# ejetar
+Ejetar:
 
-sudo eject /dev/sdc1
+```bash
+sudo eject /dev/sdXY
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* layout do teclado
+### Layout do teclado
 
-sudo vim /etc/default/keyboard
+1. Edite o arquivo de configuração com seu editor de preferência:
+	`sudo vim /etc/default/keyboard`
+1. Altere o valor da variável *XKBLAYOUT* para o layout desejado (**abnt2** é o valor *br*):
+	`XKBLAYOUT="br"`
 
-   # trocar o conteúdo dessa linha "XKBLAYOUT" para "br" (que é o ABNT 2)
-   XKBLAYOUT="en"
+---
 
------------------------------------------------------------------------------------------------------
+### Mudar a "furtividade" de senhas
 
-* mudar a furtividade de senhas
+1. Edite o arquivo de alterações do sudoers:
+	`sudo visudo -f /etc/sudoers.d/users`
 
-sudo vim /etc/sudoers
+1. Insira o conteúdo:
+	`Defaults pwfeedback`
 
-   # inserir em baixo da sessão dos "Defaults"
-   Defaults        pwfeedback
+---
 
------------------------------------------------------------------------------------------------------
+### Manipulação de discos
 
-* manipulação de discos
+- X: Letra do disco
 
-# manipulação de partições
+#### Comando *fdisk*
 
-sudo fdisk /dev/sdb
+Lista infos de todos os disco:
 
-# formatação de disco
+```bash
+sudo fdisk -l
+```
 
-sudo mkfs.ext4 /dev/sdb
-sudo mkfs.vfat /dev/sdb
+Lista infos de um disco específico:
 
------------------------------------------------------------------------------------------------------
+```bash
+sudo fdisk -l /dev/sdX
+```
 
-* portas
+Criação de tabelas de partição e partições:
 
+```bash
+sudo fdisk /dev/sdX
+```
+
+#### Comando *mkfs*
+
+Formatar em **ext4**:
+
+```bash
+sudo mkfs.ext4 /dev/sdX
+```
+
+Formatar em **fat32**:
+
+```bash
+sudo mkfs.fat -F 32 /dev/sdX
+```
+
+---
+
+### Comando *ss*
+
+Verificar portas usadas no sistema:
+
+```bash
 sudo ss -ntpl
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* grupos/usuários/permissões
+### Comando *trans*
 
-# saber os grupos de um usuário
+Sintaxe:
 
-groups <usuario>
-
------------------------------------------------------------------------------------------------------
-
-* comando gdebi
-
-sudo gdebi pkg.deb
-
------------------------------------------------------------------------------------------------------
-
-* comando trans
-
-# sintaxe
-
+```bash
 trans -b en:pt-br 'The books on the table!'
+```
 
-# traduzir arquivos
+Traduzir arquivos:
 
-trans -b en:pt-br -i hello_world.txt
+```bash
+trans -b en:pt-br -i file.txt
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-* infos do sistema (compilar os outros comandos referentes nessa seção tabém)
+### Caixas de diálogo
 
-   # infos do sistema
-      1) hwinfo --short
-      2) inxi -GIS
+#### Notify-send
 
-   # saber número de núcleos (cores) do processador
-   nproc
-
-   # saber arquitetura do sistema
-   uname -m
-
-   # saber interface gráfica atual
-   echo $XDG_CURRENT_DESKTOP
-
-   # distro
-   
-      # infos da distro
-      lsb_release -a
-
-      # somente o nome da distro
-      lsb_release -cs
-
------------------------------------------------------------------------------------------------------
-
-* caixas de diálogo
-
-# notify-send
-
+```bash
 notify-send 'Atenção!' 'Reinicialização necessária.'
+```
 
-# zenity
+#### Zenity
 
-# dialog
+#### Dialog
 
-# whiptail
+#### Whiptail
 
-# toilet
+#### Toilet
 
------------------------------------------------------------------------------------------------------
+---
 
-* qemu
+### Qemu
 
-# criar disco
+- X: Letra do disco
+- -m: Memória RAM em MB
+- -smp: Núcles do processador
 
-qemu-img create -f qcow2 imagem-disco.qcow2 15G
+Instalação:
 
-# subir VM
+```bash
+sudo apt install qemu qemu-utils qemu-system-x86 -y
+```
 
-qemu-system-i386 -enable-kvm -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb] -boot d -cdrom imagem-distro.iso
+Criar disco:
 
-# iniciar a imamgem
+```bash
+qemu-img create -f qcow2 virtual_disk.qcow2 15G
+```
 
-qemu-system-i386 -enable-kvm -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb]
+#### BIOS (Legacy)
 
-# subir vm modo UEFI
+Subir VM:
 
+```bash
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
+```
+
+Iniciar o disco:
+
+```bash
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
+```
+
+#### UEFI
+
+Dependência:
+
+```bash
 sudo apt install ovmf -y
+```
 
-# subir VM
+Subir VM:
 
-qemu-system-i386 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb] -boot d -cdrom imagem-distro.iso
+```bash
+qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
+```
 
-# iniciar a imamgem
+Iniciar o disco:
 
-qemu-system-i386 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda [imagem-disco.qcow2|/dev/sdb]
+```bash
+qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
+```
 
------------------------------------------------------------------------------------------------------
+---
+
+<!-- colocar o tuto do iwconfig -->
 
 * wi-fi CLI
 
