@@ -1,268 +1,12 @@
+<!-- Trocar todos os titulos por titulos html para colocar alguma cor para poder tirar as divisões de linhas sempre -->
+
 # >>> Comandos Aleatoriamente úteis!
 
-## > GIT
-
-Renomear repositório remoto:
-
-```bash
-git remote rename <nome_atual> <novo_nome>
-```
-
-Pasta inacessível (pasta com *submodule*):
-
-1. `git rm --cached <folder_name>`
-1. `rm -rf <folder_name>/.git`
-1. `git add .`
-1. `git push origin master`
-
-### Manipulação de branchs
-
-#### Mostrar branchs
-
-Locais:
-
-```bash
-git branch [--list|-l]
-```
-
-Remotas:
-
-```bash
-git branch {--remotes|-r} {--list|-l}
-```
-
-Mostra além das branchs remotas, outras infos:
-
-```bash
-git remote show <remote_name>
-```
-
-#### Trocar de branch
-
-Com *checkout*:
-
-```bash
-git checkout <branch_name>
-```
-
-Com *switch*:
-
-```bash
-git switch <branch_name>
-```
-
-#### Criar e mudar para a nova branch
-
-Com *checkout*:
-
-```bash
-git checkout -b <nova_branch> 
-```
-
-Com *switch*:
-
-```bash
-git switch -c <branch_name>
-```
-
-#### Remoção de branchs
-
-##### Local
-
-Remover:
-
-```bash
-git branch -d <branch_name> 
-```
-
-Forçando:
-
-```bash
-git branch -D <branch_name>
-```
-
-##### Remoto
-
-Remover:
-
-```bash
-git push origin {:<remote_branch>|--delete <remote_branch>}
-```
-
-### Visualização de log's
-
-Mostra o log de commits:
-
-```bash
-git log
-```
-
-Mostra o log resumido:
-
-```bash
-git log --oneline
-```
-
-Mostra por completo o gráfico de nodles:
-
-```bash
-git log --graph --all
-```
-
-Mostra de forma resumida o gráfico de nodles:
-
-```bash
-git log --oneline --graph --all
-```
-
-#### Blame
-
-Mostra um histórico de alteraçẽos realizadas:
-
-- -w: remove espaços em branco
-- -L: limita a faixa de linhas
-
-```bash
-git blame [-w|-L 1,12] <file_name>
-```
-
-### Clonagem de repositórios
-
-Clonar:
-
-```bash
-git clone <url>
-```
-
-Clonar de uma branch específica:
-
-```bash
-git clone -b <branch_name> <url>
-```
-
-### Manipular informações do usuário
-
-```
-~/.gitconfig
-```
-
-### Reverter commits
-
-Apenas desfazer o commit (sem perder as alteraçẽos):
-
-```bash
-git reset --soft <hash_commit>
-```
-
-Desfazer os commits (sem manter as alterações):
-
-```bash
-git reset --hard <hash_commit>
-```
-
-### .gitignore
-
-#### Arquivos
-
-Arquivo **global**: pode estar alocado em qualquer lugar e vale para qualquer repositório na máquina.
-
-```
-~/.gitignore
-```
-
-Arquivo **local**: deve estar na raiz do projeto e vale somente para aquele projeto e todos que contribuem.
-
-```
-/path/to/project/.gitignore
-```
-
-Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionado pelo código.
-
-```
-/path/to/project/.git/info/exclude
-```
-
-#### Comandos
-
-Depois de ignorar qualquer arquivo deve-se removelo do índice:
-
-```bash
-git rm --cached file.txt
-```
-
-Setar o `.gitignore` global:
-
-```bash
-git config --global core.excludesfile ~/.gitignore
-```
-
-Adicionar algum arquivo que esteja sendo ignorado:
-
-```bash
-git add -f file.txt
-```
-
-#### Skip Work Tree
-
-Remover da árvore de trabalho:
-
-```bash
-git update-index --skip-worktree file.txt
-```
-
-Retornar para a árvore de trabalho:
-
-```bash
-git update-index --no-skip-worktree file.txt
-```
-
-Listar os arquivos *skipados*:
-
-```bash
-git ls-files -v | grep -E '^S'
-```
-
-## > GITHUB CLI
-
-Ver os repositórios remotos:
-
-```bash
-gh repo list
-```
-
-### Pull request's
-
-Criar pull request:
-
-1. Entrar na ramificação em desenvolvimento e commitar as alterações
-
-	1. `git switch dev`
-	1. `git add .`
-	1. `git commit -m "<message_commit>"`
-
-1. Criar o pull request informando a branch que ele será mergeado
-
-	1. `gh pr create --base master`
-
-Listar os pr's ativos:
-
-```bash
-gh pr list
-```
-
-Listar todos os pr's:
-
-```bash
-gh pr view
-```
-
-Aceitar o pull request:
-
-```bash
-gh pr review --aprrove
-```
-
 ## > Debian base
+
+---
+
+[<span style="font-size:14px;">Customização</span>](#menu)
 
 ### Manipulando variável PS1 (PROMPT)
 
@@ -300,6 +44,24 @@ Colocar oh-my-zsh no root:
 
 ---
 
+[<span style="font-size:14px;">Pacotes</span>](#menu)
+
+### Comando *apt*
+
+Remover completamente o programa:
+
+```bash
+sudo apt purge <package>
+```
+
+### Comando *dpkg*
+
+Listar todos os programas instalados:
+
+```bash
+sudo dpkg -l
+```
+
 ### Ppa's
 
 Baixar ppa pelo terminal:
@@ -315,6 +77,8 @@ sudo add-apt-repository -r ppa:<ppa_name>
 ```
 
 ---
+
+[<span style="font-size:14px;">Programas</span>](#menu)
 
 ### Instalar Wine
 
@@ -366,12 +130,492 @@ OBS: Verificar se os links estão atualizado
 
 ---
 
-### Comando acpi
+[<span style="font-size:14px;">Sistema</span>](#menu)
+
+### Comando *acpi*
 
 Ver porcentagem da bateria (notebooks):
 
 ```bash
 acpi
+```
+
+---
+
+### Comando *parted*
+
+Lista os discos na máquina (saber se é HDD ou SSD pelo modelo):
+
+```bash
+parted -l
+```
+
+---
+
+### Gravador nativo do linux?
+
+Deixar tempo ilimitado de gravação:
+
+```bash
+gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0
+```
+
+Inicia gravação:
+
+```bash
+ctrl + alt + shift + r
+```
+
+Encerra gravação:
+
+```bash
+ctrl + alt + shift + r
+```
+
+---
+
+### Variáveis de ambiente (escopo global)
+	
+Mostrar variáveis de ambiente (do usuario corrente):
+	
+```bash
+env
+```
+
+Criar variável de ambiente (escopo global):
+
+```bash
+export FOO="BAR"
+```
+
+---
+
+### Mapear teclas e ações 
+
+Comando:
+
+```bash
+xev | sed -ne '/^KeyPress/,/^$/p'
+```
+
+---
+
+### Dispositivos
+
+#### Xinput
+
+Listar e descobrir os códigos dos dispositivos:
+
+```bash
+xinput
+```
+
+Listar as propriedades do dispositivo:
+
+```bash
+xinput list-props <device_id>
+```
+
+Alterar o valor da respectiva propriedade:
+
+```bash
+xinput set-prop <device_id> <property_id> <value>
+```
+
+OBS: Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
+
+#### Lsusb
+
+Listagem dos dispositivos:
+
+```bash
+lsusb
+```
+
+---
+
+### Reiniciar o sistema
+
+Reboot:
+
+```bash
+reboot
+```
+
+Shutdown:
+
+```bash
+shutdown -r now
+```
+
+#### Systemctl
+
+Leve:
+
+```bash
+systemctl reboot
+```
+
+Forçado:
+
+```bash
+systemctl reboot -i
+```
+
+---
+
+[<span style="font-size:14px;">SysAdmin</span>](#menu)
+
+### Comando *tree*
+
+Listagem de diretorios em árvore:
+
+```bash
+tree
+```
+
+Passando path:
+
+```bash
+tree <path>
+```
+
+Limitar a recursividade:
+
+```bash
+tree -L 2
+```
+
+---
+
+### Comando *du*
+
+Mostra o tamanho dos direitos:
+
+```bash
+du -sch ./*
+```
+
+---
+
+### Comando *df*
+
+Mostra partições e tamanho dos discos:
+
+```bash
+sudo df -h
+```
+
+---
+
+### Comando *ncdu*
+
+Ver tamanho de diretorios (CLI):
+
+```bash
+ncdu [<path>]
+```
+
+---
+
+### Comando *grep*
+
+- i: *Case insensitive*
+- n: Número da linhas da ocorrência
+- o: Somente a ocorrência e não a linha toda da mesma
+- E: Expressão regular extendida
+- R: Recursividade em arquivos
+
+```bash
+grep -inoER '^(hello|world)' {/some/path/file.txt|/some/path/*}
+```
+
+---
+
+### Comando *hostname*
+
+Saber hostname:
+
+```bash
+hostname
+```
+
+Ip interno:
+
+```bash
+hostname -I
+```
+
+---
+
+### Comando *ls*
+
+Mostra o *inode* do arquivo:
+
+```bash
+ls -i ~/file.txt
+```
+
+---
+
+### Comando *file*
+
+Mostra o tipo do arquivo e seu path:
+
+```bash
+file ~/file.txt
+```
+
+---
+
+### Comando *ln*
+
+#### Hard link (link físico)
+
+- Hard links não podem ser feitos por arquivos que estão em pontos de montagem separados.
+
+- O hard link tem o mesmo inode do original e se o original for corrompido o link fica independente.
+
+```bash
+ln ~/path/to/file.txt ~/path/hard_link_name
+```
+		
+#### Symlink (link simbólico)
+
+- Tem que passar o path completo para esta operação.
+
+- O link simbólico terá um inode diferente do arquivo original e se arquivo original for corrompido o link quebrará.
+
+```bash
+ln -s ~/path/to/file.txt ~/path/symlink_name
+```
+
+---
+
+### Comando *update-alternatives*
+
+#### Editor de texto padrão
+
+Para saber qual:
+
+```bash
+cat /usr/share/applications/defaults.list
+```
+
+Para escolher o editor padrão modo texto/ver o editor padrão modo texto:
+
+```bash
+sudo update-alternatives --config editor
+```
+
+#### Terminal padrão
+
+Comando:
+
+```bash
+sudo update-alternatives --config x-terminal-emulator
+```
+
+---
+
+### Comando *cal*
+
+Calendário:
+
+```bash
+cal [<month>] [<year>]
+```
+
+### Comando *date*
+
+Data/hora:
+
+```bash
+date
+```
+
+---
+
+### Comando *sudo*
+
+Passar senha de forma automática:
+
+- -S: aceita que a STDIN seja diferente e espera receber no final da string uma nova linha
+
+```bash
+echo -e "<password>\n" | sudo -S <command>
+```
+
+#### Não guardar a senha em cache:
+
+Direto na linha de comando:
+
+```bash
+sudo -k <command>
+```
+
+Definir permanentemente:
+
+1. Edite o arquivo de alterações do sudoers:
+	`sudo visudo -f /etc/sudoers.d/users`
+1. Colocar o seguinte conteúdo:
+	`Defaults:ALL timestamp_timeout=0`
+	
+---
+
+### Comando *exec*
+
+Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
+
+```bash
+exec <command>
+```
+
+---
+
+### Comando *xdotool*
+
+Minimizar tela do terminal corrente:
+
+1. `var=$(xdotool getactivewindow)`
+1. `xdotool windowminimize $var`
+
+---
+
+### Comando *su*
+
+Trocar de usuário:
+
+```bash
+su <user>
+```
+
+Trocar para o usuário root sem senha definida:
+
+```bash
+sudo su - root
+```
+
+Rodar um comando como se estivesse logado como root:
+
+```bash
+su -c "<command>"
+```
+
+---
+
+### Comando *cd*
+
+##### Voltar para o diretorio anterior
+
+Com o caracter **-**:
+
+```bash
+cd -
+```
+
+Com a variável **$OLDPWD**:
+
+```bash
+cd $OLDPWD
+```
+
+---
+
+### Comando *head*
+
+Mostrar *x* primeiras linhas de um arquivo:
+
+```bash
+head -5 /etc/passwd
+```
+
+---
+
+### Comando *column*
+
+Organizar a saida em colunas:
+
+- -s: Delimitador
+- -t: Cria a tabela
+
+```bash
+column -s ':' -t /etc/passwd
+```
+
+---
+
+### Comando *xclip*
+
+#### Copiar para a área de transferência
+
+Copiar:
+
+```bash
+<command> | xclip -selection clipboard
+```
+
+Removendo a *new line* (\n):
+
+```bash
+<command> | tr -d '\n' | xclip -selection clipboard
+```
+
+##### Alias'es
+
+Definição:
+
+```bash
+alias cb="tr -d '\n' | xclip -selection clipboard"
+```
+
+Exemplo:
+
+```bash
+<command> | cb
+```
+
+	
+#### Copiar somente para dentro da sessão do shell
+
+Copiar:
+
+```bash
+<command> | xclip
+```
+
+Colar:
+
+```bash
+xclip -o
+```
+
+##### Alias'es
+
+Para copiar:
+
+```bash
+alias c='xclip'
+```
+
+Para colar:
+
+```bash
+alias v='xclip -o'
+```
+
+Exemplo:
+
+Para copiar:
+
+```bash
+<command> | c
+```
+
+Para colar:
+
+```bash
+<command> {`v`|$(v)}
 ```
 
 ---
@@ -398,41 +642,9 @@ killall <process_name>
 
 ---
 
-### Limpar memória cache
-
-Comando:
-
-```bash
-sync; echo 3 > /proc/sys/vm/drop_caches
-```
-
----
-
-### Comando tree
-
-Listagem de diretorios em árvore:
-
-```bash
-tree
-```
-
-Passando path:
-
-```bash
-tree <path>
-```
-
-Limitar a recursividade:
-
-```bash
-tree -L 2
-```
-
----
-
 ### Busca de arquivos e diretorios
 
-#### Comando find
+#### Comando *find*
 
 Sintaxe:
 
@@ -464,7 +676,7 @@ Excluir vários paths da busca e limitar a recursivedade:
 find ./ -maxdepth 2 \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
 ```
 
-#### Comando locate
+#### Comando *locate*
 	
 Sintaxe:
 
@@ -482,7 +694,7 @@ locate -b '\file.txt'
 
 ### Compactação de arquivos
 
-#### Comando tar
+#### Comando *tar*
 
 Compactar em .tar.gz:
 
@@ -508,7 +720,7 @@ Descompactar de .tar.xz:
 tar -xvf compressed_folder.tar.gz
 ```
 
-#### Comando zip
+#### Comando *zip*
 
 Compactar em .zip:
 
@@ -526,19 +738,19 @@ unzip compressed_folder.zip
 
 ### Uso memória RAM
 
-Comando free:
+Comando *free*:
 
 ```bash
 free -h
 ```
 
-Comando top:
+Comando *top*:
 
 ```bash
 top
 ```
 
-Comando smem:
+Comando *smem*:
 
 ```bash
 smem -akt -P <program_name>
@@ -546,121 +758,90 @@ smem -akt -P <program_name>
 
 ---
 
-### Mostra o tamanho dos direitos
+### Limpar memória cache
 
 Comando:
 
 ```bash
-du -sch ./*
+sync; echo 3 > /proc/sys/vm/drop_caches
 ```
 
 ---
 
-### Mostra partições e tamanho dos discos:
-
-Comando:
+### Kernel do sistema
 
 ```bash
-df -h
+uname -r
 ```
 
 ---
 
-### Lista os discos na máquina (saber se é HDD ou SSD pelo modelo):
+### Rodar um comando em outra janela de terminal
 
-Comando:
+#### Gnome-terminal
+
+Abrindo em outra guia:
 
 ```bash
-parted -l
+gnome-terminal -x sh -c "<command>; bash"
+```
+
+Abrindo em outra janela:
+
+```bash
+gnome-terminal -- sh -c "<command>; bash"
+```
+
+#### Terminator
+
+Abrindo em outra janela:
+
+```bash
+terminator --command='<command>; bash'
 ```
 
 ---
 
-### Apt
+### Rodar programas ou comandos em segundo plano
 
-Remover completamente o programa:
+- Chamar o programa com *e comercial*:
+	`<program> &`
+
+- Dar `bg` com o programa em execução
+
+- Dar `ctrl+z` com o programa em execução
+
+Mostrar programas em segundo plano: 
 
 ```bash
-sudo apt purge <package>
+jobs
 ```
 
-Lista todos os programas instalados:
+Para trazer um programa para primeiro plano:
 
 ```bash
-sudo dpkg -l
-```
-
----
-
-### Ver tamanho de diretorios (CLI)
-
-```bash
-ncdu [<path>]
-```
-
----
-
-### Gravador nativo do linux?
-
-Deixar tempo ilimitado de gravação:
-
-```bash
-gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0
-```
-
-Inicia gravação:
-
-```bash
-ctrl + alt + shift + r
-```
-
-Encerra gravação:
-
-```bash
-ctrl + alt + shift + r
+fg <program>
 ```
 
 ---
 
-### Comando grep
+### Debugar scripts
 
-Sintexe:
+Bash:
 
 ```bash
-grep -Ri 'ocorrência' {/some/path/*|~/Documentos/teste.txt}
+bash -x script.sh
 ```
 
-OBS: Ele vai buscar recursivamente (-R), sem case sensitive (-i) a palavra ou frase dentro de aspas duplas no diretorio tal com todos arquivos ou em um documento especifico
-
-Para saber quantidade da ocorrência solicitada:
+Zsh:
 
 ```bash
-grep -o 'bash' /etc/passwd | wc -l
-```
-
-Pesquisando mais de uma ocorrência (utilizando parâmetro de RegEx):
-
-```bash
-grep --color -E "(vmx|svm)" /proc/cpuinfo
+zsh -xtrace script.sh
 ```
 
 ---
 
-### Comando *hostname*
-
-Hostname:
-
-```bash
-hostname
-```
-
-Ip interno:
-
-```bash
-hostname -I
-```
-
----
+[<span style="font-size:14px;">Tutoriais</span>](#menu)
 
 ### Como inserir icones no "menu de aplicativos"
 
@@ -740,100 +921,6 @@ lsb_release -a
 
 ---
 
-### Variáveis de ambiente (escopo global)
-	
-Mostrar variáveis de ambiente (do usuario corrente):
-	
-```bash
-env
-```
-
-Criar variável de ambiente (escopo global):
-
-```bash
-export FOO="BAR"
-```
-
----
-
-### Mapear teclas e ações 
-
-Comando:
-
-```bash
-xev | sed -ne '/^KeyPress/,/^$/p'
-```
-
----
-
-### Dispositivos
-
-#### Xinput
-
-Listar e descobrir os códigos dos dispositivos:
-
-```bash
-xinput
-```
-
-Listar as propriedades do dispositivo:
-
-```bash
-xinput list-props <device_id>
-```
-
-Alterar o valor da respectiva propriedade:
-
-```bash
-xinput set-prop <device_id> <property_id> <value>
-```
-
-OBS: Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
-
-#### Lsusb
-
-Listagem dos dispositivos:
-
-```bash
-lsusb
-```
-
----
-
-### Kernel do sistema
-
-```bash
-uname -r
-```
-
----
-
-### Comando *update-alternatives*
-
-#### Editor de texto padrão
-
-Para saber qual:
-
-```bash
-cat /usr/share/applications/defaults.list
-```
-
-Para escolher o editor padrão modo texto/ver o editor padrão modo texto:
-
-```bash
-sudo update-alternatives --config editor
-```
-
-#### Terminal padrão
-
-Comando:
-
-```bash
-sudo update-alternatives --config x-terminal-emulator
-```
-
----
-
 ### Mudar shell padrão
 
 Mudando diretamente no arquivo:
@@ -842,7 +929,7 @@ Mudando diretamente no arquivo:
 sudo vim /etc/passwd
 ```
 
-Com variável de ambiente USER (opção curta):
+Via linha de comando:
 
 ```bash
 sudo chsh {--shell|-s} $(which zsh) {$(whoami)|${USER}}
@@ -935,58 +1022,6 @@ remountt() {
 
 ---
 
-### Comando *lspci*
-
-Saber qual a placa de vídeo:
-
-```bash
-lspci | grep -iF 'VGA'
-```
-
----
-
-### Comando *xrandr*
-
-#### Mudar resolução da tela via terminal:
-
-1. Verificar as saidas de vídeos possíveis:
-
-```bash
-xrandr
-```
-
-OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode ser DP1, VGA1 ou HDM1 por exemplo.
-
-2. Caso a resolução desejada já esteja disponível, pode aplica-la
-
-	1. Seta nova resolução:
-		`xrandr -s 1920x1080`
-
-1. Caso ainda não tenha a resolução desejada, adicione um novo modo com a desejada
-
-	1. Pegando as cordenadas da tela informando a **resolução** e **hz** desejados:
-		`cvt 1920 1080 90`
-	1. Copie tudo o que estiver depois de *"Modeline "*:
-		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora criamos um novo modo com a informação coletada
-		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora adicionamos o novo modo criado ao *xrandr*:
-		`xrandr --addmode Virtual1 1920x1080_90.00`
-	1. Caso o passo anterior também já não sete a resolução de forma automática, setar manualmente o novo modo adicionado:
-		`xrandr --output Virtual1 --mode 1920x1080_90.00`
-
-##### Adicionar alterações de forma permanente
-
-Adicione os comandos de criação, adição e definição do novo modo no *profile file*:
-
-```
-xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync
-xrandr --addmode Virtual1 1920x1080_90.00
-xrandr --output Virtual1 --mode 1920x1080_90.00
-```
-
----
-
 ### Colocar programas no autostart (inicia junto com a sessão do usuário)
 
 1. Crie um arquivo ".desktop" dentro da pasta "~/.config/autostart/"
@@ -1046,162 +1081,14 @@ select-editor
 
 ---
 
-### Comando *ln*
+[<span style="font-size:14px;">Hardware</span>](#menu)
 
-#### Hard link (link físico)
+### Comando *lspci*
 
-- Hard links não podem ser feitos por arquivos que estão em pontos de montagem separados.
-
-- O hard link tem o mesmo inode do original e se o original for corrompido o link fica independente.
+Saber qual a placa de vídeo:
 
 ```bash
-ln ~/path/to/file.txt ~/path/hard_link_name
-```
-		
-#### Symlink (link simbólico)
-
-- Tem que passar o path completo para esta operação.
-
-- O link simbólico terá um inode diferente do arquivo original e se arquivo original for corrompido o link quebrará.
-
-```bash
-ln -s ~/path/to/file.txt ~/path/symlink_name
-```
-
----
-
-### Comando *ls*
-
-Mostra o *inode* do arquivo:
-
-```bash
-ls -i ~/file.txt
-```
-
----
-
-### Comando *file*
-
-Mostra o tipo do arquivo e seu path:
-
-```bash
-file ~/file.txt
-```
-
----
-
-### Rodar um comando em outra janela de terminal
-
-#### Gnome-terminal
-
-Abrindo em outra guia:
-
-```bash
-gnome-terminal -x sh -c "<command>; bash"
-```
-
-Abrindo em outra janela:
-
-```bash
-gnome-terminal -- sh -c "<command>; bash"
-```
-
-#### Terminator
-
-Abrindo em outra janela:
-
-```bash
-terminator --command='<command>; bash'
-```
-
----
-
-### Comando *cal*
-
-Calendário:
-
-```bash
-cal [<month>] [<year>]
-```
-
-### Comando *date*
-
-Data/hora:
-
-```bash
-date
-```
-
----
-
-### Variável *$PATH*
-
-Adicionando diretórios ao *$PATH*:
-
-```bash
-export PATH=${PATH}:/home/user/scripts
-```
-
-OBS: Para adicionar permanentemente, insira o comando na última linha do rc do seu shell
-
----
-
-### Comando *sudo*
-
-Passar senha de forma automática:
-
-- -S: aceita que a STDIN seja diferente e espera receber no final da string uma nova linha
-
-```bash
-echo -e "<password>\n" | sudo -S <command>
-```
-
-#### Não guardar a senha em cache:
-
-Direto na linha de comando:
-
-```bash
-sudo -k <command>
-```
-
-Definir permanentemente:
-
-1. Edite o arquivo de alterações do sudoers:
-	`sudo visudo -f /etc/sudoers.d/users`
-1. Colocar o seguinte conteúdo:
-	`Defaults:ALL timestamp_timeout=0`
-	
----
-
-### Comando *exec*
-
-Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
-
-```bash
-exec <command>
-```
-
----
-
-### Rodar programas ou comandos em segundo plano
-
-- Chamar o programa com *e comercial*:
-	`<program> &`
-
-- Dar `bg` com o programa em execução
-
-- Dar `ctrl+z` com o programa em execução
-
-Mostrar programas em segundo plano: 
-
-```bash
-jobs
-```
-
-Para trazer um programa para primeiro plano:
-
-```bash
-fg <program>
+lspci | grep -iF 'VGA'
 ```
 
 ---
@@ -1222,185 +1109,31 @@ screenfetch
 
 ---
 
-### Comando *xdotool*
-
-Minimizar tela do terminal corrente:
-
-1. `var=$(xdotool getactivewindow)`
-1. `xdotool windowminimize $var`
-
----
-
-### Comando *su*
-
-Trocar de usuário:
-
-```bash
-su <user>
-```
-
-Trocar para o usuário root sem senha definida:
-
-```bash
-sudo su - root
-```
-
-Rodar um comando como se estivesse logado como root:
-
-```bash
-su -c "<command>"
-```
-
----
-
-### Reiniciar o sistema
-
-Reboot:
-
-```bash
-reboot
-```
-
-Shutdown:
-
-```bash
-shutdown -r now
-```
-
-#### Systemctl
-
-Leve:
-
-```bash
-systemctl reboot
-```
-
-Forçado:
-
-```bash
-systemctl reboot -i
-```
-
----
-
-### Comando *xclip*
-
-#### Copiar para a área de transferência
-
-Copiar:
-
-```bash
-<command> | xclip -selection clipboard
-```
-
-Removendo a *new line* (\n):
-
-```bash
-<command> | tr -d '\n' | xclip -selection clipboard
-```
-
-##### Alias'es
-
-Definição:
-
-```bash
-alias cb="tr -d '\n' | xclip -selection clipboard"
-```
-
-Exemplo:
-
-```bash
-<command> | cb
-```
-
-	
-#### Copiar somente para dentro da sessão do shell
-
-Copiar:
-
-```bash
-<command> | xclip
-```
-
-Colar:
-
-```bash
-xclip -o
-```
-
-##### Alias'es
-
-Para copiar:
-
-```bash
-alias c='xclip'
-```
-
-Para colar:
-
-```bash
-alias v='xclip -o'
-```
-
-Exemplo:
-
-Para copiar:
-
-```bash
-<command> | c
-```
-
-Para colar:
-
-```bash
-<command> {`v`|$(v)}
-```
-
----
-
-### Debugar scripts
-
-Bash:
-
-```bash
-bash -x script.sh
-```
-
-Zsh:
-
-```bash
-zsh -xtrace script.sh
-```
-
----
-
-### Sobre o sistema
-
-#### Infos do sistema
+### Infos do sistema
 
 - `lshw`
 - `inxi -Fxz`
 - `hwinfo --short`
 
-#### Número de núcleos (cores) do processador
+### Número de núcleos (cores) do processador
 
 ```bash
 nproc
 ```
 
-#### Arquitetura do sistema
+### Arquitetura do sistema
 
 ```bash
 uname -m
 ```
 
-#### Interface gráfica atual
+### Interface gráfica atual
 
 ```bash
 echo $XDG_CURRENT_DESKTOP
 ```
 
-#### Distro
+### Distro
 
 Info geral da distro:
 
@@ -1416,44 +1149,59 @@ lsb_release -cs
 
 ---
 
-### Comando *cd*
+[<span style="font-size:14px;">Configuração</span>](#menu)
 
-##### Voltar para o diretorio anterior
+### Comando *xrandr*
 
-Com o caracter **-**:
+#### Mudar resolução da tela via terminal:
+
+1. Verificar as saidas de vídeos possíveis:
 
 ```bash
-cd -
+xrandr
 ```
 
-Com a variável **$OLDPWD**:
+OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode ser DP1, VGA1 ou HDM1 por exemplo.
 
-```bash
-cd $OLDPWD
+2. Caso a resolução desejada já esteja disponível, pode aplica-la
+
+	1. Seta nova resolução:
+		`xrandr -s 1920x1080`
+
+1. Caso ainda não tenha a resolução desejada, adicione um novo modo com a desejada
+
+	1. Pegando as cordenadas da tela informando a **resolução** e **hz** desejados:
+		`cvt 1920 1080 90`
+	1. Copie tudo o que estiver depois de *"Modeline "*:
+		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
+	1. Agora criamos um novo modo com a informação coletada
+		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
+	1. Agora adicionamos o novo modo criado ao *xrandr*:
+		`xrandr --addmode Virtual1 1920x1080_90.00`
+	1. Caso o passo anterior também já não sete a resolução de forma automática, setar manualmente o novo modo adicionado:
+		`xrandr --output Virtual1 --mode 1920x1080_90.00`
+
+##### Adicionar alterações de forma permanente
+
+Adicione os comandos de criação, adição e definição do novo modo no *profile file*:
+
+```
+xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync
+xrandr --addmode Virtual1 1920x1080_90.00
+xrandr --output Virtual1 --mode 1920x1080_90.00
 ```
 
 ---
 
-### Comando *head*
+### Variável *$PATH*
 
-Mostrar *x* primeiras linhas de um arquivo:
-
-```bash
-head -5 /etc/passwd
-```
-
----
-
-### Comando *column*
-
-Organizar a saida em colunas:
-
-- -s: Delimitador
-- -t: Cria a tabela
+Adicionando diretórios ao *$PATH*:
 
 ```bash
-column -s ':' -t /etc/passwd
+export PATH=${PATH}:/home/user/scripts
 ```
+
+OBS: Para adicionar permanentemente, insira o comando na última linha do rc do seu shell
 
 ---
 
@@ -1470,10 +1218,10 @@ Atualizar hora automática:
 ```bash
 sudo hwclock -s
 ```
-
+<!-- continuar daqui -->
 ---
 
-### Saber todos os probrmas que já foram instalados?
+### Saber todos os programas que já foram instalados?
 
 ```bash
 for history_file in $(ls ~/.*_history); do grep -Ei '(apt-get|apt) install' ${history_file}; done
@@ -1937,60 +1685,122 @@ qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda
 
 ---
 
-<!-- colocar o tuto do iwconfig -->
+### Wi-fi CLI
 
-* wi-fi CLI
+#### Comando *iw*
 
-# conectar rede wi-fi via CLI
+Instalação:
 
+```bash
+sudo apt install wireless-tools -y
+```
+
+1. Verificar interfaces wireless:
+	`iwconfig`
+1. Verifique as redes disponíveis:
+	`iwlist <interface> scan | grep -iF essid`
+1. Rode o comando:
+	`iwconfig <interface> essid <network_name> mode managed`
+1. Gere o IP na rede:
+	`dhclient <interface>`
+1. Configure o arquivo *config file* de interfaces de rede:
+	1. Edite o arquivo `/etc/network/interfaces` com seu editor a escolha:
+		`sudo vim /etc/network/interfaces`
+	1. Insira as seguintes linhas no arquivo:
+
+```
+auto wlan0
+iface wlan0 inet dhcp
+wpa-ssid <network_name>
+wpa-psk <network_password>
+```
+
+6. Altere as permissões do arquivo pois deixará a senha exposta:
+	`sudo chmod 600 /etc/network/interfaces`
+1. Reinicie o serviço:
+	`sudo service networking restart`
+
+#### Comando *nmtui*
+
+Instalação:
+
+```bash
+sudo apt install network-manager -y
+```
+
+Conectar rede wi-fi via CLI:
+
+```bash
 nmtui-connect
+```
 
-# saber ips conectados a minha rede
+#### Comando *nmap*
 
+Instalação:
+
+```bash
 sudo apt install nmap -y
-ip address
-sudo nmap -sn 192.168.0.255/24 
+```
 
------------------------------------------------------------------------------------------------------
+Saber ips conectados a minha rede:
 
-* ver info e metadados de arquivos?
+1. Saiba primeiro seu ip:
+	`ip address`
 
+1. Coloque no *nmap*:
+	`sudo nmap -sn 192.168.0.1/24`
+
+---
+
+### Comando *stat*
+
+Ver info e metadados de arquivos:
+
+```bash
 stat arquivo.txt
+```
 
------------------------------------------------------------------------------------------------------
+---
 
-# gerador de arquivo com nome aleatório
+### Comando *mktemp*
 
-TMPFILE=$(mktemp RAM-XXXXX.tmp)
+Gerar arquivos com nomes aleatórios:
 
------------------------------------------------------------------------------------------------------
+```bash
+mktemp XXXXXXX.tmp
+```
 
-* comando apt
+---
 
-# apenas fazer download do programa e suas dependências sem instalar
+### Comando *apt*
 
+Fazer apenas o download do programa e suas dependências sem instalar:
+
+```bash
 sudo apt install --download-only package
+```
 
-obs: será salvo em "/var/cache/apt/archives"
+OBS: Será salvo em `/var/cache/apt/archives`
 
------------------------------------------------------------------------------------------------------
+---
 
-#### DISPOSITIVOS DE ENTRADA - TOUCHPAD
+### Dispositivos de entrada
 
-##### Alterar velocidade do ponteiro
+#### Alterar velocidade do ponteiro
 
-###### Descobrir o código do dispositivo de entrada do *touch*
+Descobrir o código do dispositivo de entrada do *touch*:
 
 ```bash
 xinput
 ```
-###### Listar as propriedades do dispositivo grepando por *speed*
+
+Listar as propriedades do dispositivo grepando por *speed*:
 
 ```bash
 xinput list-props <device_id> | grep -iF speed
 ```
 
-###### Alterar o valor da respectiva propriedade
+Alterar o valor da respectiva propriedade:
 
 ```bash
 xinput set-prop <device_id> <propertie_id> <value>
@@ -1998,151 +1808,412 @@ xinput set-prop <device_id> <propertie_id> <value>
 
 > Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
 
-#### FILE MANAGER (THUNAR)
+### File Manager's
+
+#### Thunar
 
 ##### Configurar "Open Terminal Here"
 
-Edit » "Configure custom actions..." » "Open Terminal Here" » *engrenagem* » Command:
+1. Entre em:
+	`Edit » Configure custom actions... » Open Terminal Here » *engrenagem* » Command:`
+1. Colocar o seguinte valor:
+	`terminator --working-directory=%f`
 
-```bash
-terminator --working-directory=%f
-```
+### Fonts
 
-#### FONTS
+#### Diretórios
 
-##### Diretórios
-
-Path de todos os usuários
+Path de todos os usuários:
 
 ```bash
 /usr/share/fonts
 ```
 
-Path pessoal do usuário (${XDG\_CONFIG})
+Path pessoal do usuário (${XDG_CONFIG}):
 
 ```bash
 ~/.local/share/fonts
 ```
 
-##### Comandos
+#### Comandos
 
-Listar todas as fontes
+Listar todas as fontes:
 
 ```bash
 fc-list
 ```
 
-Atualizar o cache de fontes
+Atualizar o cache de fontes:
 
 ```bash
 fc-cache
 ```
 
-##### Instalação
+#### Instalação
 
-Instalar no path do usuário
+Instalar no path do usuário:
 
 ```bash
 cp *.ttf ~/.local/share/fonts/truetype/<directorie_font_name>/
 ```
 
-Instalar no path global
+Instalar no path global:
 
 ```bash
 sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 ```
 
-### UBUNTU
+### Ubuntu
 
-#### Pesquisar pacotes:
+#### Pesquisar pacotes
 
 ```
 https://packages.ubuntu.com/
 ```
 
-#### Pesquisar manpages:
+#### Pesquisar manpages
 
-Pesquisar na barrar de pesquisa da página
+Pesquisar na barrar de pesquisa da página:
 
 ```
 https://manpages.ubuntu.com/manpages/
 ```
 
-Pesquisar diretamente pela URL
+Pesquisar diretamente pela URL:
 
 ```
 https://manpages.ubuntu.com/manpages/cgi-bin/search.py?q=<package_name>
 ```
 
-#### Pesquisar ppa's:
+#### Pesquisar ppa's
 
 ```
 https://launchpad.net/ubuntu/+ppas
 ```
 
-#### Pesquisar por ppas
-
 ---
 
-### > Arch Base
+## > Git
 
-#### PACMAN
+Renomear repositório remoto:
 
-Sincronização total/procura por atualização
+```bash
+git remote rename <nome_atual> <novo_nome>
+```
+
+Pasta inacessível (pasta com *submodule*):
+
+1. `git rm --cached <folder_name>`
+1. `rm -rf <folder_name>/.git`
+1. `git add .`
+1. `git push origin master`
+
+### Manipulação de branchs
+
+#### Mostrar branchs
+
+Locais:
+
+```bash
+git branch [--list|-l]
+```
+
+Remotas:
+
+```bash
+git branch {--remotes|-r} {--list|-l}
+```
+
+Mostra além das branchs remotas, outras infos:
+
+```bash
+git remote show <remote_name>
+```
+
+#### Trocar de branch
+
+Com *checkout*:
+
+```bash
+git checkout <branch_name>
+```
+
+Com *switch*:
+
+```bash
+git switch <branch_name>
+```
+
+#### Criar e mudar para a nova branch
+
+Com *checkout*:
+
+```bash
+git checkout -b <nova_branch> 
+```
+
+Com *switch*:
+
+```bash
+git switch -c <branch_name>
+```
+
+#### Remoção de branchs
+
+##### Local
+
+Remover:
+
+```bash
+git branch -d <branch_name> 
+```
+
+Forçando:
+
+```bash
+git branch -D <branch_name>
+```
+
+##### Remoto
+
+Remover:
+
+```bash
+git push origin {:<remote_branch>|--delete <remote_branch>}
+```
+
+### Visualização de log's
+
+Mostra o log de commits:
+
+```bash
+git log
+```
+
+Mostra o log resumido:
+
+```bash
+git log --oneline
+```
+
+Mostra por completo o gráfico de nodles:
+
+```bash
+git log --graph --all
+```
+
+Mostra de forma resumida o gráfico de nodles:
+
+```bash
+git log --oneline --graph --all
+```
+
+#### Blame
+
+Mostra um histórico de alteraçẽos realizadas:
+
+- -w: remove espaços em branco
+- -L: limita a faixa de linhas
+
+```bash
+git blame [-w|-L 1,12] <file_name>
+```
+
+### Clonagem de repositórios
+
+Clonar:
+
+```bash
+git clone <url>
+```
+
+Clonar de uma branch específica:
+
+```bash
+git clone -b <branch_name> <url>
+```
+
+### Manipular informações do usuário
+
+```
+~/.gitconfig
+```
+
+### Reverter commits
+
+Apenas desfazer o commit (sem perder as alteraçẽos):
+
+```bash
+git reset --soft <hash_commit>
+```
+
+Desfazer os commits (sem manter as alterações):
+
+```bash
+git reset --hard <hash_commit>
+```
+
+### .gitignore
+
+#### Arquivos
+
+Arquivo **global**: pode estar alocado em qualquer lugar e vale para qualquer repositório na máquina.
+
+```
+~/.gitignore
+```
+
+Arquivo **local**: deve estar na raiz do projeto e vale somente para aquele projeto e todos que contribuem.
+
+```
+/path/to/project/.gitignore
+```
+
+Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionado pelo código.
+
+```
+/path/to/project/.git/info/exclude
+```
+
+#### Comandos
+
+Depois de ignorar qualquer arquivo deve-se removelo do índice:
+
+```bash
+git rm --cached file.txt
+```
+
+Setar o `.gitignore` global:
+
+```bash
+git config --global core.excludesfile ~/.gitignore
+```
+
+Adicionar algum arquivo que esteja sendo ignorado:
+
+```bash
+git add -f file.txt
+```
+
+#### Skip Work Tree
+
+Remover da árvore de trabalho:
+
+```bash
+git update-index --skip-worktree file.txt
+```
+
+Retornar para a árvore de trabalho:
+
+```bash
+git update-index --no-skip-worktree file.txt
+```
+
+Listar os arquivos *skipados*:
+
+```bash
+git ls-files -v | grep -E '^S'
+```
+
+## > Github CLI
+
+Ver os repositórios remotos:
+
+```bash
+gh repo list
+```
+
+### Pull request's
+
+Criar pull request:
+
+1. Entrar na ramificação em desenvolvimento e commitar as alterações
+
+	1. `git switch dev`
+	1. `git add .`
+	1. `git commit -m "<message_commit>"`
+
+1. Criar o pull request informando a branch que ele será mergeado
+
+	1. `gh pr create --base master`
+
+Listar os pr's ativos:
+
+```bash
+gh pr list
+```
+
+Listar todos os pr's:
+
+```bash
+gh pr view
+```
+
+Aceitar o pull request:
+
+```bash
+gh pr review --aprrove
+```
+
+## > Arch Base
+
+### PACMAN
+
+Sincronização total/procura por atualização:
 
 ```bash
 pacman -Syyu
 ```
 
-Procura por um pacote
+Procura por um pacote:
 
 ```bash
 pacman -Ss <package>
 ```
 
-Instala um pacote
+Instala um pacote:
 
 ```bash
 pacman -S <package>
 ```
 
-Apenas baixa o pacote e não o instala
+Apenas baixa o pacote e não o instala:
 
 ```bash
 pacman -Sw <package>
 ```
 
-Mostra informações de um pacote não instalado
+Mostra informações de um pacote não instalado:
 
 ```bash
 pacman -Si <package>
 ```
 
-Mostra informações do pacote já instalado
+Mostra informações do pacote já instalado:
 
 ```bash
 pacman -Qi <package>
 ```
 
-Instala apenas as dependências
+Instala apenas as dependências:
 
 ```bash
 pacman -Se <package>
 ```
 
-Remove um pacote
+Remove um pacote:
 
 ```bash
 pacman -R <package>
 ```
 
-Remove o pacote junto com as dependências não usadas por outros pacotes
+Remove o pacote junto com as dependências não usadas por outros pacotes:
 
 ```bash
 pacman -Rs <package>
 ```
 
-#### IWD
+### IWD
 
 Editar o arquivo: /etc/iwd/main.conf
 
@@ -2153,7 +2224,7 @@ EnableNetworkConfiguration=true
 NameResolvingService=systemd
 ```
 
-Habilitar e iniciar os seguintes serviços
+Habilitar e iniciar os seguintes serviços:
 
 ```bash
 systemctl start iwd.service && systemctl enable iwd.service &&; \
