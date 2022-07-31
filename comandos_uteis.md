@@ -1,11 +1,27 @@
-<!-- Trocar todos os titulos por titulos html para colocar alguma cor para poder tirar as divisões de linhas sempre -->
-
+<a id="menu"></a>
 # >>> Comandos Aleatoriamente úteis!
 
-## > Debian base
+- [Debian base](#debian_base)
+	- [Customização](#db_customizacao)
+	- [Pacotes](#db_pacotes)
+	- [Programas](#db_programas)
+	- [Sistema](#db_sistema)
+	- [SysAdmin](#db_sysadmin)
+	- [Configuração](#db_configuracao)
+	- [Hardware](#db_hardware)
+	- [Tutoriais](#db_tutoriais)
+- [Ubuntu](#ubuntu)
+- [Git](#git)
+- [GitHub CLI](#github_cli)
+- [Arch base](#arch_base)
+- [Estudos](#estudos)
+
+<a id="debian_base"></a>
+## [<span style="font-size:14px;">> Debian base</span>](#menu)
 
 ---
 
+<a id="db_customizacao"></a>
 [<span style="font-size:14px;">Customização</span>](#menu)
 
 ### Manipulando variável PS1 (PROMPT)
@@ -44,6 +60,7 @@ Colocar oh-my-zsh no root:
 
 ---
 
+<a id="db_pacotes"></a>
 [<span style="font-size:14px;">Pacotes</span>](#menu)
 
 ### Comando *apt*
@@ -53,6 +70,13 @@ Remover completamente o programa:
 ```bash
 sudo apt purge <package>
 ```
+Fazer apenas o download do programa e suas dependências sem instalar:
+
+```bash
+sudo apt install --download-only <package>
+```
+
+OBS: Será salvo em `/var/cache/apt/archives`
 
 ### Comando *dpkg*
 
@@ -78,6 +102,7 @@ sudo add-apt-repository -r ppa:<ppa_name>
 
 ---
 
+<a id="db_programas"></a>
 [<span style="font-size:14px;">Programas</span>](#menu)
 
 ### Instalar Wine
@@ -130,6 +155,7 @@ OBS: Verificar se os links estão atualizado
 
 ---
 
+<a id="db_sistema"></a>
 [<span style="font-size:14px;">Sistema</span>](#menu)
 
 ### Comando *acpi*
@@ -264,6 +290,53 @@ systemctl reboot -i
 
 ---
 
+### Fonts
+
+#### Diretórios
+
+Path de todos os usuários:
+
+```bash
+/usr/share/fonts
+```
+
+Path pessoal do usuário (${XDG_CONFIG}):
+
+```bash
+~/.local/share/fonts
+```
+
+#### Comandos
+
+Listar todas as fontes:
+
+```bash
+fc-list
+```
+
+Atualizar o cache de fontes:
+
+```bash
+fc-cache
+```
+
+#### Instalação
+
+Instalar no path do usuário:
+
+```bash
+cp *.ttf ~/.local/share/fonts/truetype/<directorie_font_name>/
+```
+
+Instalar no path global:
+
+```bash
+sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
+```
+
+---
+
+<a id="db_sysadmin"></a>
 [<span style="font-size:14px;">SysAdmin</span>](#menu)
 
 ### Comando *tree*
@@ -545,6 +618,264 @@ column -s ':' -t /etc/passwd
 
 ---
 
+### Comando *du*
+
+Mostra o tamanho de um arquivo ou pasta:
+
+```bash
+du -sh /path/to/file_or_folder
+```
+
+Mostra o tamanho de todos os arquivos de uma pasta com o total:
+
+```bash
+du -sch /path/to/folder/*
+```
+
+---
+
+### Comando *tail*
+ 
+Mostra a última linha do arquivo:
+
+```bash
+tail -1 file.txt
+```
+
+Monitora o arquivo em tempo real:
+
+```bash
+tail -f file.txt 
+```
+
+---
+
+### Comando *ssh*
+
+Instalação:
+
+```bash
+sudo apt install ssh openssh-server -y
+```
+
+#### Conexões
+
+Apenas "CLI":
+
+```bash
+ssh user@192.168.0.1
+```
+
+Acessar "GUI":
+
+```bash
+ssh -X -C user@192.168.0.1
+```
+
+OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
+
+```bash
+rm -rfv ~/.Xauthority
+```
+
+### Comando *scp*
+
+Local -> Remoto
+
+```bash
+scp -r /local/path user@192.168.0.1:/remote/path
+```
+
+Remoto -> Local
+
+```bash
+scp -r user@192.168.0.1:/remote/path /local/path
+```
+
+---
+
+### Comando *gsettings*
+
+Mudar tema via CLI:
+
+```bash
+gsettings set org.gnome.desktop.interface gtk-theme "theme_name"
+```
+
+Mudar icone via CLI:
+
+```bash
+gsettings set org.gnome.desktop.interface icon-theme "icon_name" 
+```
+
+---
+
+### Comando *history*
+
+Limpar histórico do terminal:
+
+```bash
+history -c
+```
+
+Não gravar comando no histórico (dê um espaço antes do comando):
+
+```bash
+ ls /home
+```
+
+#### Plus
+
+Pesquisar algum comando no histórico:
+
+```bash
+ctrl+r
+```
+
+---
+
+### Comando *yes*
+
+Loop infinito de "echo" (por default printa "y" na tela)?:
+
+```bash
+yes
+```
+
+Passando alguma string:
+
+```bash
+yes "no"
+```
+
+---
+
+### Comando *cat*
+
+Mostra a quantidade de linhas:
+
+```bash
+cat -n file.md
+```
+
+Utilizando com *heredocument*:
+
+```bash
+cat << EOF > file.txt
+```
+
+---
+
+### Comando *progress*
+
+```bash
+<command> | progress -m
+```
+
+---
+
+### Comando *cut*
+
+Pegar a coluna 1 e 7 do arquivo "/etc/passwd" pelo delimitador ":":
+
+```bash
+cut -d ':' -f 1,7 /etc/passwd
+```
+
+Pegar do 1º até o 3º caractere de cada linha:
+
+```bash
+cut -c 1-3 /etc/passwd
+```
+
+Mudar o delimitador padrão:
+
+```bash
+cut -d ' ' -f 3,4 --output-delimiter=',' arquivo.txt
+```
+
+---
+
+### Comando *dpkg*
+
+Instalar pacotes .deb:
+
+```bash
+sudo dpkg {--install|-i} package.deb
+```
+
+Saber arquitetura do sistema:
+
+```bash
+dpkg --print-architecture
+```
+
+Saber se há outra arquitetura disponível para ser habilitada:
+
+```bash
+dpkg --print-foreign-architectures
+```
+
+Adicionar arquitetura:
+
+```bash
+sudo dpkg --add-architecture i386
+```
+
+Remover arquitetura:
+
+```bash
+sudo dpkg --remove-architecture i386
+```
+
+---
+
+### Comando *ss*
+
+Verificar portas usadas no sistema:
+
+```bash
+sudo ss -ntpl
+```
+
+---
+
+### Comando *trans*
+
+Sintaxe:
+
+```bash
+trans -b en:pt-br 'The books on the table!'
+```
+
+Traduzir arquivos:
+
+```bash
+trans -b en:pt-br -i file.txt
+```
+
+---
+
+### Comando *stat*
+
+Ver info e metadados de arquivos:
+
+```bash
+stat arquivo.txt
+```
+
+---
+
+### Comando *mktemp*
+
+Gerar arquivos com nomes aleatórios:
+
+```bash
+mktemp XXXXXXX.tmp
+```
+
+---
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -574,7 +905,6 @@ Exemplo:
 ```bash
 <command> | cb
 ```
-
 	
 #### Copiar somente para dentro da sessão do shell
 
@@ -841,6 +1171,450 @@ zsh -xtrace script.sh
 
 ---
 
+### Saber todos os programas que já foram instalados?
+
+```bash
+for history_file in $(ls ~/.*_history); do grep -Ei '(apt-get|apt) install' ${history_file}; done
+```
+
+---
+
+### Atributos
+
+Listar atributos:
+
+```bash
+lsattr
+```
+
+Adicionar atributo de imutabilidade:
+
+```bash
+sudo chattr +i file.txt
+```
+
+Removendo atributo de imutabilidade:
+
+```bash
+sudo chattr -i file.txt
+```
+
+Adicionar ou remover atributos recusivamente:
+
+```bash
+sudo chattr -R +i /path
+```
+
+---
+
+### Manipulação de linhas
+
+Excluir a última linha de um arquivo:
+
+```bash
+sed -i "$(wc -l < file.txt)d" file.txt
+```
+
+Recortar primeira linha de um arquivo:
+
+```bash
+head -1 file.txt > new_file.txt
+```
+
+Recortar primeira linha de um arquivo (para o mesmo arquivo):
+
+```bash
+echo $(head -1 file.txt) > file.txt
+```
+
+Recortar última linha de um arquivo:
+
+```bash
+tail -n 1 file.txt > new_file.txt
+```
+
+Recortar última linha de um arquivo (para o mesmo arquivo):
+
+```bash
+echo $(tail -n 1 file.txt) > file.txt
+```
+
+---
+
+### Montagem/desmontagem e ejeção de dispositivos
+
+- X: Letra da partição
+- Y: Número da partição
+
+Montar:
+
+```bash
+sudo mount /dev/sdXY /mnt
+```
+
+Desmontar:
+
+```bash
+sudo umount /mnt
+```
+
+Ejetar:
+
+```bash
+sudo eject /dev/sdXY
+```
+
+---
+
+### Manipulação de discos
+
+- X: Letra do disco
+
+#### Comando *fdisk*
+
+Lista infos de todos os disco:
+
+```bash
+sudo fdisk -l
+```
+
+Lista infos de um disco específico:
+
+```bash
+sudo fdisk -l /dev/sdX
+```
+
+Criação de tabelas de partição e partições:
+
+```bash
+sudo fdisk /dev/sdX
+```
+
+#### Comando *mkfs*
+
+Formatar em **ext4**:
+
+```bash
+sudo mkfs.ext4 /dev/sdX
+```
+
+Formatar em **fat32**:
+
+```bash
+sudo mkfs.fat -F 32 /dev/sdX
+```
+
+---
+
+### Qemu
+
+- X: Letra do disco
+- -m: Memória RAM em MB
+- -smp: Núcles do processador
+
+Instalação:
+
+```bash
+sudo apt install qemu qemu-utils qemu-system-x86 -y
+```
+
+Criar disco:
+
+```bash
+qemu-img create -f qcow2 virtual_disk.qcow2 15G
+```
+
+#### BIOS (Legacy)
+
+Subir VM:
+
+```bash
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
+```
+
+Iniciar o disco:
+
+```bash
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
+```
+
+#### UEFI
+
+Dependência:
+
+```bash
+sudo apt install ovmf -y
+```
+
+Subir VM:
+
+```bash
+qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
+```
+
+Iniciar o disco:
+
+```bash
+qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
+```
+
+---
+
+### Wi-fi CLI
+
+#### Comando *iw*
+
+Instalação:
+
+```bash
+sudo apt install wireless-tools -y
+```
+
+1. Verificar interfaces wireless:
+	`iwconfig`
+1. Verifique as redes disponíveis:
+	`iwlist <interface> scan | grep -iF essid`
+1. Rode o comando:
+	`iwconfig <interface> essid <network_name> mode managed`
+1. Gere o IP na rede:
+	`dhclient <interface>`
+1. Configure o arquivo *config file* de interfaces de rede:
+	1. Edite o arquivo `/etc/network/interfaces` com seu editor a escolha:
+		`sudo vim /etc/network/interfaces`
+	1. Insira as seguintes linhas no arquivo:
+
+```
+auto wlan0
+iface wlan0 inet dhcp
+wpa-ssid <network_name>
+wpa-psk <network_password>
+```
+
+6. Altere as permissões do arquivo pois deixará a senha exposta:
+	`sudo chmod 600 /etc/network/interfaces`
+1. Reinicie o serviço:
+	`sudo service networking restart`
+
+#### Comando *nmtui*
+
+Instalação:
+
+```bash
+sudo apt install network-manager -y
+```
+
+Conectar rede wi-fi via CLI:
+
+```bash
+nmtui-connect
+```
+
+#### Comando *nmap*
+
+Instalação:
+
+```bash
+sudo apt install nmap -y
+```
+
+Saber ips conectados a minha rede:
+
+1. Saiba primeiro seu ip:
+	`ip address`
+
+1. Coloque no *nmap*:
+	`sudo nmap -sn 192.168.0.1/24`
+
+---
+
+### Dispositivos de entrada
+
+#### Alterar velocidade do ponteiro
+
+Descobrir o código do dispositivo de entrada do *touch*:
+
+```bash
+xinput
+```
+
+Listar as propriedades do dispositivo grepando por *speed*:
+
+```bash
+xinput list-props <device_id> | grep -iF speed
+```
+
+Alterar o valor da respectiva propriedade:
+
+```bash
+xinput set-prop <device_id> <propertie_id> <value>
+```
+
+> Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
+
+---
+
+<a id="db_configuracao"></a>
+[<span style="font-size:14px;">Configuração</span>](#menu)
+
+### Comando *xrandr*
+
+#### Mudar resolução da tela via terminal:
+
+1. Verificar as saidas de vídeos possíveis:
+
+```bash
+xrandr
+```
+
+OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode ser DP1, VGA1 ou HDM1 por exemplo.
+
+2. Caso a resolução desejada já esteja disponível, pode aplica-la
+
+	1. Seta nova resolução:
+		`xrandr -s 1920x1080`
+
+1. Caso ainda não tenha a resolução desejada, adicione um novo modo com a desejada
+
+	1. Pegando as cordenadas da tela informando a **resolução** e **hz** desejados:
+		`cvt 1920 1080 90`
+	1. Copie tudo o que estiver depois de *"Modeline "*:
+		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
+	1. Agora criamos um novo modo com a informação coletada
+		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
+	1. Agora adicionamos o novo modo criado ao *xrandr*:
+		`xrandr --addmode Virtual1 1920x1080_90.00`
+	1. Caso o passo anterior também já não sete a resolução de forma automática, setar manualmente o novo modo adicionado:
+		`xrandr --output Virtual1 --mode 1920x1080_90.00`
+
+##### Adicionar alterações de forma permanente
+
+Adicione os comandos de criação, adição e definição do novo modo no *profile file*:
+
+```
+xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync
+xrandr --addmode Virtual1 1920x1080_90.00
+xrandr --output Virtual1 --mode 1920x1080_90.00
+```
+
+---
+
+### Variável *$PATH*
+
+Adicionando diretórios ao *$PATH*:
+
+```bash
+export PATH=${PATH}:/home/user/scripts
+```
+
+OBS: Para adicionar permanentemente, insira o comando na última linha do rc do seu shell
+
+---
+
+### Data/Hora do sistema
+
+Atualizando os dois manualmente:
+
+```bash
+sudo date -s "mes/dia/ano 13:30"
+```
+
+Atualizar hora automática:
+
+```bash
+sudo hwclock -s
+```
+
+---
+
+### Layout do teclado
+
+1. Edite o arquivo de configuração com seu editor de preferência:
+	`sudo vim /etc/default/keyboard`
+1. Altere o valor da variável *XKBLAYOUT* para o layout desejado (**abnt2** é o valor *br*):
+	`XKBLAYOUT="br"`
+
+---
+
+### Mudar a "furtividade" de senhas
+
+1. Edite o arquivo de alterações do sudoers:
+	`sudo visudo -f /etc/sudoers.d/users`
+
+1. Insira o conteúdo:
+	`Defaults pwfeedback`
+
+---
+
+<a id="db_hardware"></a>
+[<span style="font-size:14px;">Hardware</span>](#menu)
+
+### Comando *lspci*
+
+Saber qual a placa de vídeo:
+
+```bash
+lspci | grep -iF 'VGA'
+```
+
+---
+
+### Mostra infos do sistema
+
+Neofetch:
+
+```bash
+neofetch
+```
+
+Screenfecht:
+
+```bash
+screenfetch
+```
+
+---
+
+### Infos do sistema
+
+- `lshw`
+- `inxi -Fxz`
+- `hwinfo --short`
+
+### Número de núcleos (cores) do processador
+
+```bash
+nproc
+```
+
+### Arquitetura do sistema
+
+```bash
+uname -m
+```
+
+### Interface gráfica atual
+
+```bash
+echo $XDG_CURRENT_DESKTOP
+```
+
+### Distro
+
+Info geral da distro:
+
+```bash
+lsb_release -a
+```
+
+Somente o nome da distro:
+
+```bash
+lsb_release -cs
+```
+
+---
+
+<a id="db_tutoriais"></a>
 [<span style="font-size:14px;">Tutoriais</span>](#menu)
 
 ### Como inserir icones no "menu de aplicativos"
@@ -1081,538 +1855,6 @@ select-editor
 
 ---
 
-[<span style="font-size:14px;">Hardware</span>](#menu)
-
-### Comando *lspci*
-
-Saber qual a placa de vídeo:
-
-```bash
-lspci | grep -iF 'VGA'
-```
-
----
-
-### Mostra infos do sistema
-
-Neofetch:
-
-```bash
-neofetch
-```
-
-Screenfecht:
-
-```bash
-screenfetch
-```
-
----
-
-### Infos do sistema
-
-- `lshw`
-- `inxi -Fxz`
-- `hwinfo --short`
-
-### Número de núcleos (cores) do processador
-
-```bash
-nproc
-```
-
-### Arquitetura do sistema
-
-```bash
-uname -m
-```
-
-### Interface gráfica atual
-
-```bash
-echo $XDG_CURRENT_DESKTOP
-```
-
-### Distro
-
-Info geral da distro:
-
-```bash
-lsb_release -a
-```
-
-Somente o nome da distro:
-
-```bash
-lsb_release -cs
-```
-
----
-
-[<span style="font-size:14px;">Configuração</span>](#menu)
-
-### Comando *xrandr*
-
-#### Mudar resolução da tela via terminal:
-
-1. Verificar as saidas de vídeos possíveis:
-
-```bash
-xrandr
-```
-
-OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode ser DP1, VGA1 ou HDM1 por exemplo.
-
-2. Caso a resolução desejada já esteja disponível, pode aplica-la
-
-	1. Seta nova resolução:
-		`xrandr -s 1920x1080`
-
-1. Caso ainda não tenha a resolução desejada, adicione um novo modo com a desejada
-
-	1. Pegando as cordenadas da tela informando a **resolução** e **hz** desejados:
-		`cvt 1920 1080 90`
-	1. Copie tudo o que estiver depois de *"Modeline "*:
-		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora criamos um novo modo com a informação coletada
-		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora adicionamos o novo modo criado ao *xrandr*:
-		`xrandr --addmode Virtual1 1920x1080_90.00`
-	1. Caso o passo anterior também já não sete a resolução de forma automática, setar manualmente o novo modo adicionado:
-		`xrandr --output Virtual1 --mode 1920x1080_90.00`
-
-##### Adicionar alterações de forma permanente
-
-Adicione os comandos de criação, adição e definição do novo modo no *profile file*:
-
-```
-xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync
-xrandr --addmode Virtual1 1920x1080_90.00
-xrandr --output Virtual1 --mode 1920x1080_90.00
-```
-
----
-
-### Variável *$PATH*
-
-Adicionando diretórios ao *$PATH*:
-
-```bash
-export PATH=${PATH}:/home/user/scripts
-```
-
-OBS: Para adicionar permanentemente, insira o comando na última linha do rc do seu shell
-
----
-
-### Data/Hora do sistema
-
-Atualizando os dois manualmente:
-
-```bash
-sudo date -s "mes/dia/ano 13:30"
-```
-
-Atualizar hora automática:
-
-```bash
-sudo hwclock -s
-```
-<!-- continuar daqui -->
----
-
-### Saber todos os programas que já foram instalados?
-
-```bash
-for history_file in $(ls ~/.*_history); do grep -Ei '(apt-get|apt) install' ${history_file}; done
-```
-
----
-
-### Comando *du*
-
-Mostra o tamanho de um arquivo ou pasta:
-
-```bash
-du -sh /path/to/file_or_folder
-```
-
-Mostra o tamanho de todos os arquivos de uma pasta com o total:
-
-```bash
-du -sch /path/to/folder/*
-```
-
----
-
-### Comando *tail*
- 
-Mostra a última linha do arquivo:
-
-```bash
-tail -1 file.txt
-```
-
-Monitora o arquivo em tempo real:
-
-```bash
-tail -f file.txt 
-```
-
----
-
-### Comando *ssh*
-
-Instalação:
-
-```bash
-sudo apt install ssh openssh-server -y
-```
-
-#### Conexões
-
-Apenas "CLI":
-
-```bash
-ssh user@192.168.0.1
-```
-
-Acessar "GUI":
-
-```bash
-ssh -X -C user@192.168.0.1
-```
-
-OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
-
-```bash
-rm -rfv ~/.Xauthority
-```
-
-### Comando *scp*
-
-Local -> Remoto
-
-```bash
-scp -r /local/path user@192.168.0.1:/remote/path
-```
-
-Remoto -> Local
-
-```bash
-scp -r user@192.168.0.1:/remote/path /local/path
-```
-
----
-
-### Comando *gsettings*
-
-Mudar tema via CLI:
-
-```bash
-gsettings set org.gnome.desktop.interface gtk-theme "theme_name"
-```
-
-Mudar icone via CLI:
-
-```bash
-gsettings set org.gnome.desktop.interface icon-theme "icon_name" 
-```
-
----
-
-### Comando *history*
-
-Limpar histórico do terminal:
-
-```bash
-history -c
-```
-
-Não gravar comando no histórico (dê um espaço antes do comando):
-
-```bash
- ls /home
-```
-
-#### Plus
-
-Pesquisar algum comando no histórico:
-
-```bash
-ctrl+r
-```
-
----
-
-### Comando *yes*
-
-Loop infinito de "echo" (por default printa "y" na tela)?:
-
-```bash
-yes
-```
-
-Passando alguma string:
-
-```bash
-yes "no"
-```
-
----
-
-### Atributos
-
-Listar atributos:
-
-```bash
-lsattr
-```
-
-Adicionar atributo de imutabilidade:
-
-```bash
-sudo chattr +i file.txt
-```
-
-Removendo atributo de imutabilidade:
-
-```bash
-sudo chattr -i file.txt
-```
-
-Adicionar ou remover atributos recusivamente:
-
-```bash
-sudo chattr -R +i /path
-```
-
----
-
-### Comando *cat*
-
-Mostra a quantidade de linhas:
-
-```bash
-cat -n file.md
-```
-
-Utilizando com *heredocument*:
-
-```bash
-cat << EOF > file.txt
-```
-
----
-
-### Comando *progress*
-
-```bash
-<command> | progress -m
-```
-
----
-
-### Comando *cut*
-
-Pegar a coluna 1 e 7 do arquivo "/etc/passwd" pelo delimitador ":":
-
-```bash
-cut -d ':' -f 1,7 /etc/passwd
-```
-
-Pegar do 1º até o 3º caractere de cada linha:
-
-```bash
-cut -c 1-3 /etc/passwd
-```
-
-Mudar o delimitador padrão:
-
-```bash
-cut -d ' ' -f 3,4 --output-delimiter=',' arquivo.txt
-```
-
----
-
-### Manipulação de linhas
-
-Excluir a última linha de um arquivo:
-
-```bash
-sed -i "$(wc -l < file.txt)d" file.txt
-```
-
-Recortar primeira linha de um arquivo:
-
-```bash
-head -1 file.txt > new_file.txt
-```
-
-Recortar primeira linha de um arquivo (para o mesmo arquivo):
-
-```bash
-echo $(head -1 file.txt) > file.txt
-```
-
-Recortar última linha de um arquivo:
-
-```bash
-tail -n 1 file.txt > new_file.txt
-```
-
-Recortar última linha de um arquivo (para o mesmo arquivo):
-
-```bash
-echo $(tail -n 1 file.txt) > file.txt
-```
-
----
-
-### Comando *dpkg*
-
-Instalar pacotes .deb:
-
-```bash
-sudo dpkg {--install|-i} package.deb
-```
-
-Saber arquitetura do sistema:
-
-```bash
-dpkg --print-architecture
-```
-
-Saber se há outra arquitetura disponível para ser habilitada:
-
-```bash
-dpkg --print-foreign-architectures
-```
-
-Adicionar arquitetura:
-
-```bash
-sudo dpkg --add-architecture i386
-```
-
-Remover arquitetura:
-
-```bash
-sudo dpkg --remove-architecture i386
-```
-
----
-
-### Montagem/desmontagem e ejeção de dispositivos
-
-- X: Letra da partição
-- Y: Número da partição
-
-Montar:
-
-```bash
-sudo mount /dev/sdXY /mnt
-```
-
-Desmontar:
-
-```bash
-sudo umount /mnt
-```
-
-Ejetar:
-
-```bash
-sudo eject /dev/sdXY
-```
-
----
-
-### Layout do teclado
-
-1. Edite o arquivo de configuração com seu editor de preferência:
-	`sudo vim /etc/default/keyboard`
-1. Altere o valor da variável *XKBLAYOUT* para o layout desejado (**abnt2** é o valor *br*):
-	`XKBLAYOUT="br"`
-
----
-
-### Mudar a "furtividade" de senhas
-
-1. Edite o arquivo de alterações do sudoers:
-	`sudo visudo -f /etc/sudoers.d/users`
-
-1. Insira o conteúdo:
-	`Defaults pwfeedback`
-
----
-
-### Manipulação de discos
-
-- X: Letra do disco
-
-#### Comando *fdisk*
-
-Lista infos de todos os disco:
-
-```bash
-sudo fdisk -l
-```
-
-Lista infos de um disco específico:
-
-```bash
-sudo fdisk -l /dev/sdX
-```
-
-Criação de tabelas de partição e partições:
-
-```bash
-sudo fdisk /dev/sdX
-```
-
-#### Comando *mkfs*
-
-Formatar em **ext4**:
-
-```bash
-sudo mkfs.ext4 /dev/sdX
-```
-
-Formatar em **fat32**:
-
-```bash
-sudo mkfs.fat -F 32 /dev/sdX
-```
-
----
-
-### Comando *ss*
-
-Verificar portas usadas no sistema:
-
-```bash
-sudo ss -ntpl
-```
-
----
-
-### Comando *trans*
-
-Sintaxe:
-
-```bash
-trans -b en:pt-br 'The books on the table!'
-```
-
-Traduzir arquivos:
-
-```bash
-trans -b en:pt-br -i file.txt
-```
-
----
-
 ### Caixas de diálogo
 
 #### Notify-send
@@ -1631,183 +1873,6 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 
 ---
 
-### Qemu
-
-- X: Letra do disco
-- -m: Memória RAM em MB
-- -smp: Núcles do processador
-
-Instalação:
-
-```bash
-sudo apt install qemu qemu-utils qemu-system-x86 -y
-```
-
-Criar disco:
-
-```bash
-qemu-img create -f qcow2 virtual_disk.qcow2 15G
-```
-
-#### BIOS (Legacy)
-
-Subir VM:
-
-```bash
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
-```
-
-Iniciar o disco:
-
-```bash
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
-```
-
-#### UEFI
-
-Dependência:
-
-```bash
-sudo apt install ovmf -y
-```
-
-Subir VM:
-
-```bash
-qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
-```
-
-Iniciar o disco:
-
-```bash
-qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
-```
-
----
-
-### Wi-fi CLI
-
-#### Comando *iw*
-
-Instalação:
-
-```bash
-sudo apt install wireless-tools -y
-```
-
-1. Verificar interfaces wireless:
-	`iwconfig`
-1. Verifique as redes disponíveis:
-	`iwlist <interface> scan | grep -iF essid`
-1. Rode o comando:
-	`iwconfig <interface> essid <network_name> mode managed`
-1. Gere o IP na rede:
-	`dhclient <interface>`
-1. Configure o arquivo *config file* de interfaces de rede:
-	1. Edite o arquivo `/etc/network/interfaces` com seu editor a escolha:
-		`sudo vim /etc/network/interfaces`
-	1. Insira as seguintes linhas no arquivo:
-
-```
-auto wlan0
-iface wlan0 inet dhcp
-wpa-ssid <network_name>
-wpa-psk <network_password>
-```
-
-6. Altere as permissões do arquivo pois deixará a senha exposta:
-	`sudo chmod 600 /etc/network/interfaces`
-1. Reinicie o serviço:
-	`sudo service networking restart`
-
-#### Comando *nmtui*
-
-Instalação:
-
-```bash
-sudo apt install network-manager -y
-```
-
-Conectar rede wi-fi via CLI:
-
-```bash
-nmtui-connect
-```
-
-#### Comando *nmap*
-
-Instalação:
-
-```bash
-sudo apt install nmap -y
-```
-
-Saber ips conectados a minha rede:
-
-1. Saiba primeiro seu ip:
-	`ip address`
-
-1. Coloque no *nmap*:
-	`sudo nmap -sn 192.168.0.1/24`
-
----
-
-### Comando *stat*
-
-Ver info e metadados de arquivos:
-
-```bash
-stat arquivo.txt
-```
-
----
-
-### Comando *mktemp*
-
-Gerar arquivos com nomes aleatórios:
-
-```bash
-mktemp XXXXXXX.tmp
-```
-
----
-
-### Comando *apt*
-
-Fazer apenas o download do programa e suas dependências sem instalar:
-
-```bash
-sudo apt install --download-only package
-```
-
-OBS: Será salvo em `/var/cache/apt/archives`
-
----
-
-### Dispositivos de entrada
-
-#### Alterar velocidade do ponteiro
-
-Descobrir o código do dispositivo de entrada do *touch*:
-
-```bash
-xinput
-```
-
-Listar as propriedades do dispositivo grepando por *speed*:
-
-```bash
-xinput list-props <device_id> | grep -iF speed
-```
-
-Alterar o valor da respectiva propriedade:
-
-```bash
-xinput set-prop <device_id> <propertie_id> <value>
-```
-
-> Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
-
 ### File Manager's
 
 #### Thunar
@@ -1819,59 +1884,18 @@ xinput set-prop <device_id> <propertie_id> <value>
 1. Colocar o seguinte valor:
 	`terminator --working-directory=%f`
 
-### Fonts
+---
 
-#### Diretórios
+<a id="ubuntu"></a>
+## [<span style="font-size:14px;">> Ubuntu</span>](#menu)
 
-Path de todos os usuários:
-
-```bash
-/usr/share/fonts
-```
-
-Path pessoal do usuário (${XDG_CONFIG}):
-
-```bash
-~/.local/share/fonts
-```
-
-#### Comandos
-
-Listar todas as fontes:
-
-```bash
-fc-list
-```
-
-Atualizar o cache de fontes:
-
-```bash
-fc-cache
-```
-
-#### Instalação
-
-Instalar no path do usuário:
-
-```bash
-cp *.ttf ~/.local/share/fonts/truetype/<directorie_font_name>/
-```
-
-Instalar no path global:
-
-```bash
-sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
-```
-
-### Ubuntu
-
-#### Pesquisar pacotes
+### Pesquisar pacotes
 
 ```
 https://packages.ubuntu.com/
 ```
 
-#### Pesquisar manpages
+### Pesquisar manpages
 
 Pesquisar na barrar de pesquisa da página:
 
@@ -1885,7 +1909,7 @@ Pesquisar diretamente pela URL:
 https://manpages.ubuntu.com/manpages/cgi-bin/search.py?q=<package_name>
 ```
 
-#### Pesquisar ppa's
+### Pesquisar ppa's
 
 ```
 https://launchpad.net/ubuntu/+ppas
@@ -1893,7 +1917,8 @@ https://launchpad.net/ubuntu/+ppas
 
 ---
 
-## > Git
+<a id="git"></a>
+## [<span style="font-size:14px;">> Git</span>](#menu)
 
 Renomear repositório remoto:
 
@@ -2115,7 +2140,10 @@ Listar os arquivos *skipados*:
 git ls-files -v | grep -E '^S'
 ```
 
-## > Github CLI
+---
+
+<a id="github_cli"></a>
+## [<span style="font-size:14px;">> Github CLI</span>](#menu)
 
 Ver os repositórios remotos:
 
@@ -2155,7 +2183,10 @@ Aceitar o pull request:
 gh pr review --aprrove
 ```
 
-## > Arch Base
+---
+
+<a id="arch_base"></a>
+## [<span style="font-size:14px;">> Arch Base</span>](#menu)
 
 ### PACMAN
 
@@ -2232,7 +2263,10 @@ systemctl start systemd-networkd.service && systemctl enable systemd-networkd.se
 systemctl start systemd-resolved.service && systemctl enable systemd-resolved.service
 ```
 
-## > Estudos
+---
+
+<a id="estudos"></a>
+## [<span style="font-size:14px;">> Estudos</span>](#menu)
 
 ### Tipos de datas
 
