@@ -403,7 +403,7 @@ file ~/file.txt
 
 ### Comando *ln*
 
-#### Hard link (link físico)
+Hard link (link físico)
 
 - Hard links não podem ser feitos por arquivos que estão em pontos de montagem separados.
 
@@ -413,7 +413,7 @@ file ~/file.txt
 ln ~/path/to/file.txt ~/path/hard_link_name
 ```
 		
-#### Symlink (link simbólico)
+Symlink (link simbólico)
 
 - Tem que passar o path completo para esta operação.
 
@@ -473,7 +473,7 @@ Passar senha de forma automática:
 echo -e "<password>\n" | sudo -S <command>
 ```
 
-#### Não guardar a senha em cache:
+#### Não guardar a senha em cache
 
 Direto na linha de comando:
 
@@ -610,19 +610,17 @@ ssh -X -C user@192.168.0.1
 
 OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
 
-```bash
-rm -rfv ~/.Xauthority
-```
+- `rm -rfv ~/.Xauthority`
 
 ### Comando *scp*
 
-Local -> Remoto
+Local -> Remoto:
 
 ```bash
 scp -r /local/path user@192.168.0.1:/remote/path
 ```
 
-Remoto -> Local
+Remoto -> Local:
 
 ```bash
 scp -r user@192.168.0.1:/remote/path /local/path
@@ -958,13 +956,13 @@ tar -xvf compressed_folder.tar.gz
 
 #### Comando *zip*
 
-Compactar em .zip:
+Compactar:
 
 ```bash
 zip target_folder.zip /folder/to/be/compressed_1 /folder/to/be/compressed_2 /file/to/be/compressed /for/compressed/multiples/*
 ```
 
-Descompactar de .zip:
+Descompactar:
 
 ```bash
 unzip compressed_folder.zip 
@@ -1357,7 +1355,7 @@ OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode se
 		`cvt 1920 1080 90`
 	1. Copie tudo o que estiver depois de *"Modeline "*:
 		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora criamos um novo modo com a informação coletada
+	1. Agora criamos um novo modo com a informação coletada:
 		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
 	1. Agora adicionamos o novo modo criado ao *xrandr*:
 		`xrandr --addmode Virtual1 1920x1080_90.00`
@@ -1654,7 +1652,7 @@ remountt() {
 
 ### Colocar programas no autostart (inicia junto com a sessão do usuário)
 
-1. Crie um arquivo ".desktop" dentro da pasta "~/.config/autostart/"
+1. Crie um arquivo ".desktop" dentro da pasta `~/.config/autostart/`
 
 1. Coloque nesse arquivo:
 
@@ -2038,7 +2036,7 @@ gh pr review --aprrove
 <a id="arch_base"></a>
 ## [> Arch Base](#menu)
 
-### PACMAN
+### Pacman
 
 Sincronização total/procura por atualização:
 
@@ -2094,7 +2092,7 @@ Remove o pacote junto com as dependências não usadas por outros pacotes:
 pacman -Rs <package>
 ```
 
-### IWD
+### Iwd
 
 Editar o arquivo: /etc/iwd/main.conf
 
