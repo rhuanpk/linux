@@ -17,14 +17,12 @@
 - [Estudos](#estudos)
 
 <a id="debian_base"></a>
-## [<span style="font-size:14px;">> Debian base</span>](#menu)
-
----
+## [> Debian base](#menu)
 
 <a id="db_customizacao"></a>
 [<span style="font-size:14px;">Customização</span>](#menu)
 
-### Manipulando variável PS1 (PROMPT)
+<h3 style="color:red;">Manipulando variável PS1 (PROMPT)</h3>
 
 Exibir branch no terminal (bash):
 
@@ -49,9 +47,7 @@ Valores:
 
 OBS: Para setar permanentemente, adicione essa script na última linha do arquivo ~/.bashrc (tanto na home do usuario normal quanto na home do root)
 
----
-
-### Zsh
+<h3 style="color:red;">Zsh</h3>
 
 Colocar oh-my-zsh no root:
 
@@ -63,7 +59,7 @@ Colocar oh-my-zsh no root:
 <a id="db_pacotes"></a>
 [<span style="font-size:14px;">Pacotes</span>](#menu)
 
-### Comando *apt*
+<h3 style="color:red;">Comando *apt*</h3>
 
 Remover completamente o programa:
 
@@ -78,7 +74,7 @@ sudo apt install --download-only <package>
 
 OBS: Será salvo em `/var/cache/apt/archives`
 
-### Comando *dpkg*
+<h3 style="color:red;">Comando *dpkg*</h3>
 
 Listar todos os programas instalados:
 
@@ -86,7 +82,7 @@ Listar todos os programas instalados:
 sudo dpkg -l
 ```
 
-### Ppa's
+<h3 style="color:red;">Ppa's</h3>
 
 Baixar ppa pelo terminal:
 
@@ -105,7 +101,7 @@ sudo add-apt-repository -r ppa:<ppa_name>
 <a id="db_programas"></a>
 [<span style="font-size:14px;">Programas</span>](#menu)
 
-### Instalar Wine
+<h3 style="color:red;">Instalar Wine</h3>
 
 1. `sudo dpkg --add-architecture i386`
 1. `wget -nc https://dl.winehq.org/wine-builds/winehq.key && sudo mv winehq.key /usr/share/keyrings/winehq-archive.key`
@@ -115,16 +111,12 @@ sudo add-apt-repository -r ppa:<ppa_name>
 	1. `sudo apt install --install-recommends winehq-(stable|devel) -y`
 1. `winecfg` ou `sudo apt install wine -y`
 
----
-
-### Instalar Plank
+<h3 style="color:red;">Instalar Plank</h3>
 
 1. `sudo apt install chrome-gnome-shell plank -y`
 1. https://extensions.gnome.org/extension/4198/dash-to-plank/
 
----
-
-### Instalar VirtualBox (VB)
+<h3 style="color:red;">Instalar VirtualBox (VB)</h3>
 
 Software properties common (obrigatório):
 
@@ -145,9 +137,7 @@ Extension packs (opcional):
 
 OBS: Verificar se os links estão atualizado
 
----
-
-### Instalar Vagrant
+<h3 style="color:red;">Instalar Vagrant</h3>
 
 1. `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`
 1. `sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`
@@ -158,7 +148,7 @@ OBS: Verificar se os links estão atualizado
 <a id="db_sistema"></a>
 [<span style="font-size:14px;">Sistema</span>](#menu)
 
-### Comando *acpi*
+<h3 style="color:red;">Comando *acpi*</h3>
 
 Ver porcentagem da bateria (notebooks):
 
@@ -166,9 +156,7 @@ Ver porcentagem da bateria (notebooks):
 acpi
 ```
 
----
-
-### Comando *parted*
+<h3 style="color:red;">Comando *parted*</h3>
 
 Lista os discos na máquina (saber se é HDD ou SSD pelo modelo):
 
@@ -176,9 +164,7 @@ Lista os discos na máquina (saber se é HDD ou SSD pelo modelo):
 parted -l
 ```
 
----
-
-### Gravador nativo do linux?
+<h3 style="color:red;">Gravador nativo do linux?</h3>
 
 Deixar tempo ilimitado de gravação:
 
@@ -198,9 +184,7 @@ Encerra gravação:
 ctrl + alt + shift + r
 ```
 
----
-
-### Variáveis de ambiente (escopo global)
+<h3 style="color:red;">Variáveis de ambiente (escopo global)</h3>
 	
 Mostrar variáveis de ambiente (do usuario corrente):
 	
@@ -214,9 +198,7 @@ Criar variável de ambiente (escopo global):
 export FOO="BAR"
 ```
 
----
-
-### Mapear teclas e ações 
+<h3 style="color:red;">Mapear teclas e ações </h3>
 
 Comando:
 
@@ -224,9 +206,7 @@ Comando:
 xev | sed -ne '/^KeyPress/,/^$/p'
 ```
 
----
-
-### Dispositivos
+<h3 style="color:red;">Dispositivos</h3>
 
 #### Xinput
 
@@ -258,9 +238,7 @@ Listagem dos dispositivos:
 lsusb
 ```
 
----
-
-### Reiniciar o sistema
+<h3 style="color:red;">Reiniciar o sistema</h3>
 
 Reboot:
 
@@ -288,9 +266,7 @@ Forçado:
 systemctl reboot -i
 ```
 
----
-
-### Fonts
+<h3 style="color:red;">Fonts</h3>
 
 #### Diretórios
 
@@ -339,7 +315,7 @@ sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 <a id="db_sysadmin"></a>
 [<span style="font-size:14px;">SysAdmin</span>](#menu)
 
-### Comando *tree*
+<h3 style="color:red;">Comando *tree*</h3>
 
 Listagem de diretorios em árvore:
 
@@ -359,9 +335,7 @@ Limitar a recursividade:
 tree -L 2
 ```
 
----
-
-### Comando *du*
+<h3 style="color:red;">Comando *du*</h3>
 
 Mostra o tamanho dos direitos:
 
@@ -369,9 +343,7 @@ Mostra o tamanho dos direitos:
 du -sch ./*
 ```
 
----
-
-### Comando *df*
+<h3 style="color:red;">Comando *df*</h3>
 
 Mostra partições e tamanho dos discos:
 
@@ -379,9 +351,7 @@ Mostra partições e tamanho dos discos:
 sudo df -h
 ```
 
----
-
-### Comando *ncdu*
+<h3 style="color:red;">Comando *ncdu*</h3>
 
 Ver tamanho de diretorios (CLI):
 
@@ -389,9 +359,7 @@ Ver tamanho de diretorios (CLI):
 ncdu [<path>]
 ```
 
----
-
-### Comando *grep*
+<h3 style="color:red;">Comando *grep*</h3>
 
 - i: *Case insensitive*
 - n: Número da linhas da ocorrência
@@ -403,9 +371,7 @@ ncdu [<path>]
 grep -inoER '^(hello|world)' {/some/path/file.txt|/some/path/*}
 ```
 
----
-
-### Comando *hostname*
+<h3 style="color:red;">Comando *hostname*</h3>
 
 Saber hostname:
 
@@ -419,9 +385,7 @@ Ip interno:
 hostname -I
 ```
 
----
-
-### Comando *ls*
+<h3 style="color:red;">Comando *ls*</h3>
 
 Mostra o *inode* do arquivo:
 
@@ -429,9 +393,7 @@ Mostra o *inode* do arquivo:
 ls -i ~/file.txt
 ```
 
----
-
-### Comando *file*
+<h3 style="color:red;">Comando *file*</h3>
 
 Mostra o tipo do arquivo e seu path:
 
@@ -439,9 +401,7 @@ Mostra o tipo do arquivo e seu path:
 file ~/file.txt
 ```
 
----
-
-### Comando *ln*
+<h3 style="color:red;">Comando *ln*</h3>
 
 #### Hard link (link físico)
 
@@ -463,9 +423,7 @@ ln ~/path/to/file.txt ~/path/hard_link_name
 ln -s ~/path/to/file.txt ~/path/symlink_name
 ```
 
----
-
-### Comando *update-alternatives*
+<h3 style="color:red;">Comando *update-alternatives*</h3>
 
 #### Editor de texto padrão
 
@@ -489,9 +447,7 @@ Comando:
 sudo update-alternatives --config x-terminal-emulator
 ```
 
----
-
-### Comando *cal*
+<h3 style="color:red;">Comando *cal*</h3>
 
 Calendário:
 
@@ -499,7 +455,7 @@ Calendário:
 cal [<month>] [<year>]
 ```
 
-### Comando *date*
+<h3 style="color:red;">Comando *date*</h3>
 
 Data/hora:
 
@@ -507,9 +463,7 @@ Data/hora:
 date
 ```
 
----
-
-### Comando *sudo*
+<h3 style="color:red;">Comando *sudo*</h3>
 
 Passar senha de forma automática:
 
@@ -534,9 +488,7 @@ Definir permanentemente:
 1. Colocar o seguinte conteúdo:
 	`Defaults:ALL timestamp_timeout=0`
 	
----
-
-### Comando *exec*
+<h3 style="color:red;">Comando *exec*</h3>
 
 Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
 
@@ -544,18 +496,14 @@ Usando o *exec* junto com algum comando, depois de executado a sessão de termin
 exec <command>
 ```
 
----
-
-### Comando *xdotool*
+<h3 style="color:red;">Comando *xdotool*</h3>
 
 Minimizar tela do terminal corrente:
 
 1. `var=$(xdotool getactivewindow)`
 1. `xdotool windowminimize $var`
 
----
-
-### Comando *su*
+<h3 style="color:red;">Comando *su*</h3>
 
 Trocar de usuário:
 
@@ -575,9 +523,7 @@ Rodar um comando como se estivesse logado como root:
 su -c "<command>"
 ```
 
----
-
-### Comando *cd*
+<h3 style="color:red;">Comando *cd*</h3>
 
 ##### Voltar para o diretorio anterior
 
@@ -593,9 +539,7 @@ Com a variável **$OLDPWD**:
 cd $OLDPWD
 ```
 
----
-
-### Comando *head*
+<h3 style="color:red;">Comando *head*</h3>
 
 Mostrar *x* primeiras linhas de um arquivo:
 
@@ -603,9 +547,7 @@ Mostrar *x* primeiras linhas de um arquivo:
 head -5 /etc/passwd
 ```
 
----
-
-### Comando *column*
+<h3 style="color:red;">Comando *column*</h3>
 
 Organizar a saida em colunas:
 
@@ -616,9 +558,7 @@ Organizar a saida em colunas:
 column -s ':' -t /etc/passwd
 ```
 
----
-
-### Comando *du*
+<h3 style="color:red;">Comando *du*</h3>
 
 Mostra o tamanho de um arquivo ou pasta:
 
@@ -632,9 +572,7 @@ Mostra o tamanho de todos os arquivos de uma pasta com o total:
 du -sch /path/to/folder/*
 ```
 
----
-
-### Comando *tail*
+<h3 style="color:red;">Comando *tail*</h3>
  
 Mostra a última linha do arquivo:
 
@@ -648,9 +586,7 @@ Monitora o arquivo em tempo real:
 tail -f file.txt 
 ```
 
----
-
-### Comando *ssh*
+<h3 style="color:red;">Comando *ssh*</h3>
 
 Instalação:
 
@@ -678,7 +614,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 rm -rfv ~/.Xauthority
 ```
 
-### Comando *scp*
+<h3 style="color:red;">Comando *scp*</h3>
 
 Local -> Remoto
 
@@ -692,9 +628,7 @@ Remoto -> Local
 scp -r user@192.168.0.1:/remote/path /local/path
 ```
 
----
-
-### Comando *gsettings*
+<h3 style="color:red;">Comando *gsettings*</h3>
 
 Mudar tema via CLI:
 
@@ -708,9 +642,7 @@ Mudar icone via CLI:
 gsettings set org.gnome.desktop.interface icon-theme "icon_name" 
 ```
 
----
-
-### Comando *history*
+<h3 style="color:red;">Comando *history*</h3>
 
 Limpar histórico do terminal:
 
@@ -732,9 +664,7 @@ Pesquisar algum comando no histórico:
 ctrl+r
 ```
 
----
-
-### Comando *yes*
+<h3 style="color:red;">Comando *yes*</h3>
 
 Loop infinito de "echo" (por default printa "y" na tela)?:
 
@@ -748,9 +678,7 @@ Passando alguma string:
 yes "no"
 ```
 
----
-
-### Comando *cat*
+<h3 style="color:red;">Comando *cat*</h3>
 
 Mostra a quantidade de linhas:
 
@@ -764,17 +692,13 @@ Utilizando com *heredocument*:
 cat << EOF > file.txt
 ```
 
----
-
-### Comando *progress*
+<h3 style="color:red;">Comando *progress*</h3>
 
 ```bash
 <command> | progress -m
 ```
 
----
-
-### Comando *cut*
+<h3 style="color:red;">Comando *cut*</h3>
 
 Pegar a coluna 1 e 7 do arquivo "/etc/passwd" pelo delimitador ":":
 
@@ -794,9 +718,7 @@ Mudar o delimitador padrão:
 cut -d ' ' -f 3,4 --output-delimiter=',' arquivo.txt
 ```
 
----
-
-### Comando *dpkg*
+<h3 style="color:red;">Comando *dpkg*</h3>
 
 Instalar pacotes .deb:
 
@@ -828,9 +750,7 @@ Remover arquitetura:
 sudo dpkg --remove-architecture i386
 ```
 
----
-
-### Comando *ss*
+<h3 style="color:red;">Comando *ss*</h3>
 
 Verificar portas usadas no sistema:
 
@@ -838,9 +758,7 @@ Verificar portas usadas no sistema:
 sudo ss -ntpl
 ```
 
----
-
-### Comando *trans*
+<h3 style="color:red;">Comando *trans*</h3>
 
 Sintaxe:
 
@@ -854,9 +772,7 @@ Traduzir arquivos:
 trans -b en:pt-br -i file.txt
 ```
 
----
-
-### Comando *stat*
+<h3 style="color:red;">Comando *stat*</h3>
 
 Ver info e metadados de arquivos:
 
@@ -864,9 +780,7 @@ Ver info e metadados de arquivos:
 stat arquivo.txt
 ```
 
----
-
-### Comando *mktemp*
+<h3 style="color:red;">Comando *mktemp*</h3>
 
 Gerar arquivos com nomes aleatórios:
 
@@ -874,9 +788,7 @@ Gerar arquivos com nomes aleatórios:
 mktemp XXXXXXX.tmp
 ```
 
----
-
-### Comando *xclip*
+<h3 style="color:red;">Comando *xclip*</h3>
 
 #### Copiar para a área de transferência
 
@@ -948,9 +860,7 @@ Para colar:
 <command> {`v`|$(v)}
 ```
 
----
-
-### Matar processos no linux
+<h3 style="color:red;">Matar processos no linux</h3>
 
 Mostra todos os processos e id's:
 
@@ -970,9 +880,7 @@ Mata todos os processos com tal nome:
 killall <process_name>
 ```
 
----
-
-### Busca de arquivos e diretorios
+<h3 style="color:red;">Busca de arquivos e diretorios</h3>
 
 #### Comando *find*
 
@@ -1020,9 +928,7 @@ Buscar por nome exato:
 locate -b '\file.txt'
 ```
 
----
-
-### Compactação de arquivos
+<h3 style="color:red;">Compactação de arquivos</h3>
 
 #### Comando *tar*
 
@@ -1064,9 +970,7 @@ Descompactar de .zip:
 unzip compressed_folder.zip 
 ```
 
----
-
-### Uso memória RAM
+<h3 style="color:red;">Uso memória RAM</h3>
 
 Comando *free*:
 
@@ -1086,9 +990,7 @@ Comando *smem*:
 smem -akt -P <program_name>
 ```
 
----
-
-### Limpar memória cache
+<h3 style="color:red;">Limpar memória cache</h3>
 
 Comando:
 
@@ -1096,17 +998,13 @@ Comando:
 sync; echo 3 > /proc/sys/vm/drop_caches
 ```
 
----
-
-### Kernel do sistema
+<h3 style="color:red;">Kernel do sistema</h3>
 
 ```bash
 uname -r
 ```
 
----
-
-### Rodar um comando em outra janela de terminal
+<h3 style="color:red;">Rodar um comando em outra janela de terminal</h3>
 
 #### Gnome-terminal
 
@@ -1130,9 +1028,7 @@ Abrindo em outra janela:
 terminator --command='<command>; bash'
 ```
 
----
-
-### Rodar programas ou comandos em segundo plano
+<h3 style="color:red;">Rodar programas ou comandos em segundo plano</h3>
 
 - Chamar o programa com *e comercial*:
 	`<program> &`
@@ -1153,9 +1049,7 @@ Para trazer um programa para primeiro plano:
 fg <program>
 ```
 
----
-
-### Debugar scripts
+<h3 style="color:red;">Debugar scripts</h3>
 
 Bash:
 
@@ -1169,17 +1063,13 @@ Zsh:
 zsh -xtrace script.sh
 ```
 
----
-
-### Saber todos os programas que já foram instalados?
+<h3 style="color:red;">Saber todos os programas que já foram instalados?</h3>
 
 ```bash
 for history_file in $(ls ~/.*_history); do grep -Ei '(apt-get|apt) install' ${history_file}; done
 ```
 
----
-
-### Atributos
+<h3 style="color:red;">Atributos</h3>
 
 Listar atributos:
 
@@ -1205,9 +1095,7 @@ Adicionar ou remover atributos recusivamente:
 sudo chattr -R +i /path
 ```
 
----
-
-### Manipulação de linhas
+<h3 style="color:red;">Manipulação de linhas</h3>
 
 Excluir a última linha de um arquivo:
 
@@ -1239,9 +1127,7 @@ Recortar última linha de um arquivo (para o mesmo arquivo):
 echo $(tail -n 1 file.txt) > file.txt
 ```
 
----
-
-### Montagem/desmontagem e ejeção de dispositivos
+<h3 style="color:red;">Montagem/Desmontagem e ejeção de dispositivos</h3>
 
 - X: Letra da partição
 - Y: Número da partição
@@ -1264,9 +1150,7 @@ Ejetar:
 sudo eject /dev/sdXY
 ```
 
----
-
-### Manipulação de discos
+<h3 style="color:red;">Manipulação de discos</h3>
 
 - X: Letra do disco
 
@@ -1304,9 +1188,7 @@ Formatar em **fat32**:
 sudo mkfs.fat -F 32 /dev/sdX
 ```
 
----
-
-### Qemu
+<h3 style="color:red;">Qemu</h3>
 
 - X: Letra do disco
 - -m: Memória RAM em MB
@@ -1358,9 +1240,7 @@ Iniciar o disco:
 qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
 ```
 
----
-
-### Wi-fi CLI
+<h3 style="color:red;">Wi-fi CLI</h3>
 
 #### Comando *iw*
 
@@ -1425,9 +1305,7 @@ Saber ips conectados a minha rede:
 1. Coloque no *nmap*:
 	`sudo nmap -sn 192.168.0.1/24`
 
----
-
-### Dispositivos de entrada
+<h3 style="color:red;">Dispositivos de entrada</h3>
 
 #### Alterar velocidade do ponteiro
 
@@ -1456,7 +1334,7 @@ xinput set-prop <device_id> <propertie_id> <value>
 <a id="db_configuracao"></a>
 [<span style="font-size:14px;">Configuração</span>](#menu)
 
-### Comando *xrandr*
+<h3 style="color:red;">Comando *xrandr*</h3>
 
 #### Mudar resolução da tela via terminal:
 
@@ -1496,9 +1374,7 @@ xrandr --addmode Virtual1 1920x1080_90.00
 xrandr --output Virtual1 --mode 1920x1080_90.00
 ```
 
----
-
-### Variável *$PATH*
+<h3 style="color:red;">Variável *$PATH*</h3>
 
 Adicionando diretórios ao *$PATH*:
 
@@ -1508,9 +1384,7 @@ export PATH=${PATH}:/home/user/scripts
 
 OBS: Para adicionar permanentemente, insira o comando na última linha do rc do seu shell
 
----
-
-### Data/Hora do sistema
+<h3 style="color:red;">Data/Hora do sistema</h3>
 
 Atualizando os dois manualmente:
 
@@ -1524,18 +1398,14 @@ Atualizar hora automática:
 sudo hwclock -s
 ```
 
----
-
-### Layout do teclado
+<h3 style="color:red;">Layout do teclado</h3>
 
 1. Edite o arquivo de configuração com seu editor de preferência:
 	`sudo vim /etc/default/keyboard`
 1. Altere o valor da variável *XKBLAYOUT* para o layout desejado (**abnt2** é o valor *br*):
 	`XKBLAYOUT="br"`
 
----
-
-### Mudar a "furtividade" de senhas
+<h3 style="color:red;">Mudar a "furtividade" de senhas</h3>
 
 1. Edite o arquivo de alterações do sudoers:
 	`sudo visudo -f /etc/sudoers.d/users`
@@ -1548,7 +1418,7 @@ sudo hwclock -s
 <a id="db_hardware"></a>
 [<span style="font-size:14px;">Hardware</span>](#menu)
 
-### Comando *lspci*
+<h3 style="color:red;">Comando *lspci*</h3>
 
 Saber qual a placa de vídeo:
 
@@ -1556,9 +1426,7 @@ Saber qual a placa de vídeo:
 lspci | grep -iF 'VGA'
 ```
 
----
-
-### Mostra infos do sistema
+<h3 style="color:red;">Mostra infos do sistema</h3>
 
 Neofetch:
 
@@ -1572,33 +1440,31 @@ Screenfecht:
 screenfetch
 ```
 
----
-
-### Infos do sistema
+<h3 style="color:red;">Infos do sistema</h3>
 
 - `lshw`
 - `inxi -Fxz`
 - `hwinfo --short`
 
-### Número de núcleos (cores) do processador
+<h3 style="color:red;">Número de núcleos (cores) do processador</h3>
 
 ```bash
 nproc
 ```
 
-### Arquitetura do sistema
+<h3 style="color:red;">Arquitetura do sistema</h3>
 
 ```bash
 uname -m
 ```
 
-### Interface gráfica atual
+<h3 style="color:red;">Interface gráfica atual</h3>
 
 ```bash
 echo $XDG_CURRENT_DESKTOP
 ```
 
-### Distro
+<h3 style="color:red;">Distro</h3>
 
 Info geral da distro:
 
@@ -1617,7 +1483,7 @@ lsb_release -cs
 <a id="db_tutoriais"></a>
 [<span style="font-size:14px;">Tutoriais</span>](#menu)
 
-### Como inserir icones no "menu de aplicativos"
+<h3 style="color:red;">Como inserir icones no "menu de aplicativos"</h3>
 
 1. Crie um arquivo .desktop em: ~/.local/share/applications:
 
@@ -1645,9 +1511,7 @@ Categories=Development
 chmod +x ~/.local/share/applications/file_name.desktop
 ```
 
----
-
-### Atualizar a versão da distro
+<h3 style="color:red;">Atualizar a versão da distro</h3>
 
 1. Atualize e limpe o sistema:
 
@@ -1693,9 +1557,7 @@ sudo shutdown -r now
 lsb_release -a
 ```
 
----
-
-### Mudar shell padrão
+<h3 style="color:red;">Mudar shell padrão</h3>
 
 Mudando diretamente no arquivo:
 
@@ -1709,9 +1571,7 @@ Via linha de comando:
 sudo chsh {--shell|-s} $(which zsh) {$(whoami)|${USER}}
 ```
 
----
-
-### Alias'es (definir permanente)
+<h3 style="color:red;">Alias'es (definir permanente)</h3>
 	
 1. Edite o rc do seu shell:
 
@@ -1731,9 +1591,7 @@ alias <shortcut_name>='<command>'
 source .bashrc
 ```
 
----
-
-### Sistema de arquivos criptografado
+<h3 style="color:red;">Sistema de arquivos criptografado</h3>
 	
 1. Crie a privada que guardara os arquivos:
 
@@ -1794,9 +1652,7 @@ remountt() {
 }
 ```
 
----
-
-### Colocar programas no autostart (inicia junto com a sessão do usuário)
+<h3 style="color:red;">Colocar programas no autostart (inicia junto com a sessão do usuário)</h3>
 
 1. Crie um arquivo ".desktop" dentro da pasta "~/.config/autostart/"
 
@@ -1817,9 +1673,7 @@ Caso a pasta ainda não exista, basta cria-la:
 mkdir ~/.config/autostart/
 ```
 
----
-
-### Cron
+<h3 style="color:red;">Cron</h3>
 
 #### Sintaxe e exemplo
 
@@ -1853,9 +1707,7 @@ Para mudar o editor do cron:
 select-editor
 ```
 
----
-
-### Caixas de diálogo
+<h3 style="color:red;">Caixas de diálogo</h3>
 
 #### Notify-send
 
@@ -1871,9 +1723,7 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 
 #### Toilet
 
----
-
-### File Manager's
+<h3 style="color:red;">File Manager's</h3>
 
 #### Thunar
 
@@ -1887,15 +1737,15 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 ---
 
 <a id="ubuntu"></a>
-## [<span style="font-size:14px;">> Ubuntu</span>](#menu)
+## [> Ubuntu](#menu)
 
-### Pesquisar pacotes
+<h3 style="color:red;">Pesquisar pacotes</h3>
 
 ```
 https://packages.ubuntu.com/
 ```
 
-### Pesquisar manpages
+<h3 style="color:red;">Pesquisar manpages</h3>
 
 Pesquisar na barrar de pesquisa da página:
 
@@ -1909,7 +1759,7 @@ Pesquisar diretamente pela URL:
 https://manpages.ubuntu.com/manpages/cgi-bin/search.py?q=<package_name>
 ```
 
-### Pesquisar ppa's
+<h3 style="color:red;">Pesquisar ppa's</h3>
 
 ```
 https://launchpad.net/ubuntu/+ppas
@@ -1918,7 +1768,7 @@ https://launchpad.net/ubuntu/+ppas
 ---
 
 <a id="git"></a>
-## [<span style="font-size:14px;">> Git</span>](#menu)
+## [> Git](#menu)
 
 Renomear repositório remoto:
 
@@ -1933,7 +1783,7 @@ Pasta inacessível (pasta com *submodule*):
 1. `git add .`
 1. `git push origin master`
 
-### Manipulação de branchs
+<h3 style="color:red;">Manipulação de branchs</h3>
 
 #### Mostrar branchs
 
@@ -2007,7 +1857,7 @@ Remover:
 git push origin {:<remote_branch>|--delete <remote_branch>}
 ```
 
-### Visualização de log's
+<h3 style="color:red;">Visualização de log's</h3>
 
 Mostra o log de commits:
 
@@ -2044,7 +1894,7 @@ Mostra um histórico de alteraçẽos realizadas:
 git blame [-w|-L 1,12] <file_name>
 ```
 
-### Clonagem de repositórios
+<h3 style="color:red;">Clonagem de repositórios</h3>
 
 Clonar:
 
@@ -2058,13 +1908,13 @@ Clonar de uma branch específica:
 git clone -b <branch_name> <url>
 ```
 
-### Manipular informações do usuário
+<h3 style="color:red;">Manipular informações do usuário</h3>
 
 ```
 ~/.gitconfig
 ```
 
-### Reverter commits
+<h3 style="color:red;">Reverter commits</h3>
 
 Apenas desfazer o commit (sem perder as alteraçẽos):
 
@@ -2078,7 +1928,7 @@ Desfazer os commits (sem manter as alterações):
 git reset --hard <hash_commit>
 ```
 
-### .gitignore
+<h3 style="color:red;">.gitignore</h3>
 
 #### Arquivos
 
@@ -2143,7 +1993,7 @@ git ls-files -v | grep -E '^S'
 ---
 
 <a id="github_cli"></a>
-## [<span style="font-size:14px;">> Github CLI</span>](#menu)
+## [> GitHub CLI](#menu)
 
 Ver os repositórios remotos:
 
@@ -2151,7 +2001,7 @@ Ver os repositórios remotos:
 gh repo list
 ```
 
-### Pull request's
+<h3 style="color:red;">Pull request's</h3>
 
 Criar pull request:
 
@@ -2186,9 +2036,9 @@ gh pr review --aprrove
 ---
 
 <a id="arch_base"></a>
-## [<span style="font-size:14px;">> Arch Base</span>](#menu)
+## [> Arch Base](#menu)
 
-### PACMAN
+<h3 style="color:red;">PACMAN</h3>
 
 Sincronização total/procura por atualização:
 
@@ -2244,7 +2094,7 @@ Remove o pacote junto com as dependências não usadas por outros pacotes:
 pacman -Rs <package>
 ```
 
-### IWD
+<h3 style="color:red;">IWD</h3>
 
 Editar o arquivo: /etc/iwd/main.conf
 
@@ -2266,9 +2116,9 @@ systemctl start systemd-resolved.service && systemctl enable systemd-resolved.se
 ---
 
 <a id="estudos"></a>
-## [<span style="font-size:14px;">> Estudos</span>](#menu)
+## [> Estudos](#menu)
 
-### Tipos de datas
+<h3 style="color:red;">Tipos de datas</h3>
 
 - Access time
 	- Explicação: data que o arquivo foi acessado ou lido pela última vez (sem modificações)
