@@ -10,6 +10,7 @@
 	- [Configuração](#db_configuracao)
 	- [Hardware](#db_hardware)
 	- [Tutoriais](#db_tutoriais)
+	- [Any command](#db_any_command)
 - [Ubuntu](#ubuntu)
 - [Git](#git)
 - [GitHub CLI](#github_cli)
@@ -1731,6 +1732,17 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 	`Edit » Configure custom actions... » Open Terminal Here » *engrenagem* » Command:`
 1. Colocar o seguinte valor:
 	`terminator --working-directory=%f`
+
+---
+
+<a id="db_any_command"></a>
+[<span style="font-size:14px;">Any command</span>](#menu)
+
+### Comando *yt-dlp*
+
+```bash
+yt-dlp -S "ext:mp4,res:1080" <url>
+```
 
 ---
 
