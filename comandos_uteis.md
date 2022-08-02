@@ -526,7 +526,7 @@ su -c "<command>"
 
 ### Comando *cd*
 
-##### Voltar para o diretorio anterior
+#### Voltar para o diretorio anterior
 
 Com o caracter **-**:
 
@@ -757,20 +757,6 @@ Verificar portas usadas no sistema:
 sudo ss -ntpl
 ```
 
-### Comando *trans*
-
-Sintaxe:
-
-```bash
-trans -b en:pt-br 'The books on the table!'
-```
-
-Traduzir arquivos:
-
-```bash
-trans -b en:pt-br -i file.txt
-```
-
 ### Comando *stat*
 
 Ver info e metadados de arquivos:
@@ -785,6 +771,20 @@ Gerar arquivos com nomes aleatórios:
 
 ```bash
 mktemp XXXXXXX.tmp
+```
+
+### Comando *shuf*
+
+Embaralhar linhas do arquivo:
+
+```bash
+shuf file.txt
+```
+
+Embaralhar, pegar a última linha e excluila:
+
+```bash
+random_word=$(shuf file.txt | tail -1); echo $random_word; sed -in "/${random_word}/d" file.txt
 ```
 
 ### Comando *xclip*
@@ -1742,6 +1742,20 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 
 ```bash
 yt-dlp -S "ext:mp4,res:1080" <url>
+```
+
+### Comando *trans*
+
+Sintaxe:
+
+```bash
+trans -b en:pt-br 'The books on the table!'
+```
+
+Traduzir arquivos:
+
+```bash
+trans -b en:pt-br -i file.txt
 ```
 
 ---
