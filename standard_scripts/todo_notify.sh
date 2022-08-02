@@ -25,4 +25,4 @@ verify_privileges
 # cron: * */1 * * * /usr/local/bin/pk-todo_notify 2>/tmp/cron_error.log
 
 message=$(cat ~/Documents/anotacoes/.todo_list.txt)
-notify-send '>>> ToDo List !' ${message}
+notify-send '>>> ToDo List !' "${message}"
