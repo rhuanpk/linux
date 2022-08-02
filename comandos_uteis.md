@@ -787,6 +787,14 @@ Embaralhar, pegar a última linha e excluila:
 random_word=$(shuf file.txt | tail -1); echo $random_word; sed -in "/${random_word}/d" file.txt
 ```
 
+### Comando *dd*
+
+Criar pendrive bootavel:
+
+```bash
+sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=256159 conv=fdatasync status=progress; sync
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
