@@ -1788,6 +1788,48 @@ Atualizar o grub:
 sudo update-grub
 ```
 
+### Ventoy
+
+Criar pendrive bootavel com ventoy:
+
+```bash
+sudo ./Ventoy2Disk.sh -g -i /dev/sdx
+```
+
+Opções:
+
+```
+Ventoy2Disk.sh CMD [ OPTION ] /dev/sdX
+  CMD:
+    -i   install ventoy to sdX (fail if disk already installed with ventoy)
+    -I   force install ventoy to sdX (no matter installed or not)
+    -u   update ventoy in sdX
+    
+  OPTION: (optional)
+   -r SIZE_MB  preserve some space at the bottom of the disk (only for install)
+   -s          enable secure boot support (default is disabled)
+   -g          use GPT partition style, default is MBR style (only for install)
+```
+
+Pc com secure boot (precisa fazer o procedimento somente a primeira vez):
+
+```
+OK -> "any key" -> Enroll Key From Disk -> VTOYEFI -> ENROLL_THIS_KEY_IN_MOKMANAGER.cer-> Cotinue -> Yes -> Reboot
+```
+
+OBS: O binário do ventoy tem que rodar estando na pasta com seus arquivos
+
+### File Manager's
+
+#### Thunar
+
+Configurar "Open Terminal Here":
+
+1. Entre em:
+	`Edit » Configure custom actions... » Open Terminal Here » *engrenagem* » Command:`
+1. Colocar o seguinte valor:
+	`terminator --working-directory=%f`
+
 ### Caixas de diálogo
 
 #### Notify-send
@@ -1803,17 +1845,6 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 #### Whiptail
 
 #### Toilet
-
-### File Manager's
-
-#### Thunar
-
-##### Configurar "Open Terminal Here"
-
-1. Entre em:
-	`Edit » Configure custom actions... » Open Terminal Here » *engrenagem* » Command:`
-1. Colocar o seguinte valor:
-	`terminator --working-directory=%f`
 
 ---
 
