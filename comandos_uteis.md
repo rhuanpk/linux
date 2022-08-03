@@ -1752,7 +1752,7 @@ OBS:
 
 - Os arquivo das opções **-c**, **-b** e **-e** estão implicitamente já dentro da pasta aonde descompactamos a iso (no exemplo em: `/tmp/uefi_iso_folder/`)
 - A opção **-isohybrid-mbr** que busca o arquivo `isohdpfx.bin`, você pode confirmar se na sua distro ele ficou no mesmo caminho com o seguinte comando: `find / \( -path /proc -o -path /sys \) -prune -o -iname 'isohdpfx.bin' 2>&- | sed -E '/sys|proc/d'`
-- A opção **-o ** é o nome da nova iso que vai ser gerado e o seu caminho
+- A opção **-o** é o nome da nova iso que vai ser gerado e o seu caminho
 
 ### Instalçao e atualização do *grub*
 
