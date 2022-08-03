@@ -795,6 +795,14 @@ Criar pendrive bootavel:
 sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=256159 conv=fdatasync status=progress; sync
 ```
 
+### Comando *sed*
+
+Substituir nova linha por algum caracter:
+
+```bash
+sed -z's/\n/; /g' file.txt
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
