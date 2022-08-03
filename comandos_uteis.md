@@ -1714,6 +1714,72 @@ Para mudar o editor do cron:
 select-editor
 ```
 
+### Criar UEFI *iso file* a partir de uma iso BIOS
+
+Instalação dos programas:
+
+```bash
+sudo apt install mkisofs xorriso isolinux p7zip-full p7zip-rar -y
+```
+
+1. Crie uma pasta para descompatar a iso dentro:
+	`mkdir /tmp/uefi_iso_folder`
+1. Mova a iso para dentro da pasta criada:
+	`mv /path/to/iso_file.iso /tmp/uefi_iso_folder/`
+1. Entre na pasta da iso:
+	`cd /tmp/uefi_iso_folder`
+1. Descompacte a iso:
+	`7z x iso_file.iso`
+1. Exclua a iso:
+	`rm ./iso_file.iso`
+1. Saia da pasta:
+	`cd ../`
+1. Crite a iso hybrida:
+
+```bash
+xorriso -as mkisofs \
+	-o ./iso_file_uefi.iso \
+	-c boot.cat \
+	-b isolinux.bin \
+	-no-emul-boot -boot-load-size 4 -boot-info-table \
+	-isohybrid-mbr /usr/lib/ISOLINUX/isohdpfx.bin \
+	-eltorito-alt-boot -e boot/grub/efi.img \
+	-no-emul-boot -isohybrid-gpt-basdat \
+	./uefi_iso_folder/
+```
+
+OBS:
+
+- Os arquivo das opções **-c**, **-b** e **-e** estão implicitamente já dentro da pasta aonde descompactamos a iso (no exemplo em: `/tmp/uefi_iso_folder/`)
+- A opção **-isohybrid-mbr** que busca o arquivo `isohdpfx.bin`, você pode confirmar se na sua distro ele ficou no mesmo caminho com o seguinte comando: `find / \( -path /proc -o -path /sys \) -prune -o -iname 'isohdpfx.bin' 2>&- | sed -E '/sys|proc/d'`
+- A opção **-o ** é o nome da nova iso que vai ser gerado e o seu caminho
+
+### Instalçao e atualização do *grub*
+
+Programas necessários:
+
+```bash
+sudo apt install grub-common grub-efi-amd64 grub-efi-amd64-bin grub-efi-amd64-signed grub2-common -y
+```
+
+Instalar o grub no disco:
+
+```bash
+sudo grub-install /dev/sda --root-directory=/
+```
+
+Gerar arquivo de configuração:
+
+```bash
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Atualizar o grub:
+
+```bash
+sudo update-grub
+```
+
 ### Caixas de diálogo
 
 #### Notify-send
