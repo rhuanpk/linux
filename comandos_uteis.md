@@ -1832,6 +1832,20 @@ Traduzir arquivos:
 trans -b en:pt-br -i file.txt
 ```
 
+### Extrair arquivo iso
+
+Programas necessários:
+
+```bash
+sudo apt install p7zip-full p7zip-rar -y
+```
+
+Extração:
+
+```bash
+7z x file.iso
+```
+
 ---
 
 <a id="ubuntu"></a>
