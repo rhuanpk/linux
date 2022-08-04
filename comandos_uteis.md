@@ -1856,6 +1856,20 @@ Atualizar o grub:
 sudo update-grub
 ```
 
+#### os-prober
+
+Path:
+
+```
+/etc/default/grub
+```
+
+Variável do os-prober:
+
+```bash
+GRUB_DISABLE_OS_PROBER=false
+```
+
 ### Compilar da fonte
 
 Programas necessários (fora as libs de cada particular):
