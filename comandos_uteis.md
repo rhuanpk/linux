@@ -144,6 +144,20 @@ OBS: Verificar se os links estão atualizado
 1. `sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`
 1. `sudo apt update && sudo apt install vagrant`
 
+### Instalar AbiWord
+
+1. Instale as dependências:
+
+```bash
+sudo apt install libfribidi-dev libglib2.0-dev libwv-dev libxslt1-dev libgio2.0-cil-dev libgtk3.0-cil-dev libgtk-3-dev librsvg2-dev libabiword-3.0 -y
+```
+
+2. Baixe, compile e instale o programa:
+
+```bash
+mkdir /tmp/abiword && cd /tmp/abiword && wget 'http://www.abisource.com/downloads/abiword/3.0.5/source/abiword-3.0.5.tar.gz' && tar -zxvf abiword-3.0.5.tar.gz && cd abiword-3.0.5 && ./configure && sudo make -j8 && sudo make install
+```
+
 ---
 
 <a id="db_sistema"></a>
@@ -1344,6 +1358,60 @@ xinput set-prop <device_id> <propertie_id> <value>
 
 > Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
 
+### Label de partições
+
+Litar dispositivos e pontos de montagem com informações extras como LABEL e UUID:
+
+```bash
+lsblk --fs
+```
+
+#### Formatar adicionando a label:
+
+- X: Letra da partição
+- Y: Número da partição
+
+Para ext4:
+
+```bash
+sudo mkfs.ext4 /dev/sdXY -L "label_name"
+```
+
+Para fat32:
+
+```bash
+sudo mkfs.fat -F 32 /dev/sdc1 -n "label_name"
+```
+
+#### Saber ou renomear
+
+- X: Letra da partição
+- Y: Número da partição
+
+Saber (ext4):
+
+```bash
+sudo e2label /dev/sdXY
+```
+
+Mudar (ext4):
+
+```bash
+sudo e2label /dev/sdXY label_name
+```
+
+Saber (fat32):
+
+```bash
+sudo mlabel -i /dev/sda1 -s ::
+```
+
+Mudar (fat32):
+
+```bash
+sudo mlabel -i /dev/sda1 ::nome-label
+```
+
 ---
 
 <a id="db_configuracao"></a>
@@ -1786,6 +1854,36 @@ Atualizar o grub:
 
 ```bash
 sudo update-grub
+```
+
+### Compilar da fonte
+
+Programas necessários (fora as libs de cada particular):
+
+```bash
+sudo apt install build-essential -y
+```
+
+1. Executar o **"configure"** que veio na pasta do código fonte com "**./**":
+
+```bash
+./configure
+```
+
+OBS: Se retornar algum erro referente a falta de lib, simplesmente instale-a (sempre na versão dev da lib).
+
+2. Execute o comando "**make**" no diretório do fonte em questão aonde está o "**Makefile**" que foi gerado a partir do "**configure**":
+
+```bash
+sudo make -j8
+```
+
+OBS: Se acusar algum erro de lib, instale-a e limpe o **make** com `sudo make clean all` e execute o `./configure` novamente.
+
+3. Instale de fato o programa com:
+
+```bash
+sudo make install
 ```
 
 ### Ventoy
