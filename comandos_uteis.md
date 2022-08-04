@@ -1790,6 +1790,20 @@ Para mudar o editor do cron:
 select-editor
 ```
 
+#### Problemas
+
+Para alguns tipos de scripts pode ser que seja necessário a instalação do pacote **dbus-x11** (caso nos logs do cron acuse):
+
+```bash
+sudo apt install dbus-x11 -y
+```
+
+Para alguns tipos de scripts pode ser que seja necessário explicitar a variável **$DISPLAY** junto com o comando do cron:
+
+```bash
+* * * * * export DISPLAY=:0; /absolute/path/to/script.sh
+```
+
 ### Criar UEFI *iso file* a partir de uma iso BIOS
 
 Instalação dos programas:
