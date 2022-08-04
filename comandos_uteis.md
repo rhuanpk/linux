@@ -1798,7 +1798,7 @@ Para alguns tipos de scripts pode ser que seja necessário a instalação do pac
 sudo apt install dbus-x11 -y
 ```
 
-Para alguns tipos de scripts pode ser que seja necessário explicitar a variável **$DISPLAY** junto com o comando do cron:
+Para alguns tipos de scripts pode ser que seja necessário explicitar a variável **$DISPLAY** junto com o comando do cron (quando há a necessidade de printar notificações ou interações GUI?):
 
 ```bash
 * * * * * export DISPLAY=:0; /absolute/path/to/script.sh
