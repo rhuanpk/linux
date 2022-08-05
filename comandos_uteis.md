@@ -215,10 +215,16 @@ export FOO="BAR"
 
 ### Mapear teclas e ações
 
-Comando:
+Comando *xev*:
 
 ```bash
 xev | sed -ne '/^KeyPress/,/^$/p'
+```
+
+Comando *xmodmap*:
+
+```bash
+xmodmap -pke
 ```
 
 ### Dispositivos
