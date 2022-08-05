@@ -2003,6 +2003,22 @@ Traduzir arquivos:
 trans -b en:pt-br -i file.txt
 ```
 
+### Comando *jq*
+
+#### Pretty Printer Formatter for JSON files:
+
+Completo:
+
+- `jq . file.json`
+- `cat file.json | jq`
+- `jq . file.json > pretty.json`
+- `curl -fsSL --request GET --url 'https://jsonplaceholder.typicode.com/posts' --header 'Content-Type: application/json' | jq`
+
+Mimificado:
+
+- `jq -c < file.json`
+- `cat file.json | jq -c`
+
 ### Extrair arquivo iso
 
 Programas necessários:
