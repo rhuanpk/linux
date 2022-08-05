@@ -2419,7 +2419,7 @@ No final desse post eu dei minha conclusão **PESSOAL**, não tenho LPIC 3, sou 
 
 Para realizar os mesmo teste, basta cirar e entrar na pasta `/tmp/tmp` como segue na *gif* de exemplo:
 
-![barra_final_path](/assets/img/comandos_uteis_barra_final_path.git)
+![barra_final_path](/assets/images/barra_final_path.gif)
 
 Deixarei o script que montei para o teste [nesse link](), basta executa-lo estando dentro de `/tmp/tmp`.
 
