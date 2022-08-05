@@ -30,7 +30,7 @@ Exibir branch no terminal (bash):
 ```bash
 export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
 ```
-	
+
 Cor para usuário root (bash):
 
 ```bash
@@ -200,9 +200,9 @@ ctrl + alt + shift + r
 ```
 
 ### Variáveis de ambiente (escopo global)
-	
+
 Mostrar variáveis de ambiente (do usuario corrente):
-	
+
 ```bash
 env
 ```
@@ -213,7 +213,7 @@ Criar variável de ambiente (escopo global):
 export FOO="BAR"
 ```
 
-### Mapear teclas e ações 
+### Mapear teclas e ações
 
 Comando:
 
@@ -427,7 +427,7 @@ Hard link (link físico)
 ```bash
 ln ~/path/to/file.txt ~/path/hard_link_name
 ```
-		
+
 Symlink (link simbólico)
 
 - Tem que passar o path completo para esta operação.
@@ -502,7 +502,7 @@ Definir permanentemente:
 	`sudo visudo -f /etc/sudoers.d/users`
 1. Colocar o seguinte conteúdo:
 	`Defaults:ALL timestamp_timeout=0`
-	
+
 ### Comando *exec*
 
 Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
@@ -588,7 +588,7 @@ du -sch /path/to/folder/*
 ```
 
 ### Comando *tail*
- 
+
 Mostra a última linha do arquivo:
 
 ```bash
@@ -598,7 +598,7 @@ tail -1 file.txt
 Monitora o arquivo em tempo real:
 
 ```bash
-tail -f file.txt 
+tail -f file.txt
 ```
 
 ### Comando *ssh*
@@ -652,7 +652,7 @@ gsettings set org.gnome.desktop.interface gtk-theme "theme_name"
 Mudar icone via CLI:
 
 ```bash
-gsettings set org.gnome.desktop.interface icon-theme "icon_name" 
+gsettings set org.gnome.desktop.interface icon-theme "icon_name"
 ```
 
 ### Comando *history*
@@ -846,7 +846,7 @@ Exemplo:
 ```bash
 <command> | cb
 ```
-	
+
 #### Copiar somente para dentro da sessão do shell
 
 Copiar:
@@ -894,7 +894,7 @@ Para colar:
 Mostra todos os processos e id's:
 
 ```bash
-ps -A 
+ps -A
 ```
 
 Mata o processo pelo id:
@@ -944,7 +944,7 @@ find ./ -maxdepth 2 \( -path ./first/path -o -path ./second/path \) -prune -o -n
 ```
 
 #### Comando *locate*
-	
+
 Sintaxe:
 
 ```bash
@@ -996,7 +996,7 @@ zip target_folder.zip /folder/to/be/compressed_1 /folder/to/be/compressed_2 /fil
 Descompactar:
 
 ```bash
-unzip compressed_folder.zip 
+unzip compressed_folder.zip
 ```
 
 ### Uso memória RAM
@@ -1066,7 +1066,7 @@ terminator --command='<command>; bash'
 
 - Dar `ctrl+z` com o programa em execução
 
-Mostrar programas em segundo plano: 
+Mostrar programas em segundo plano:
 
 ```bash
 jobs
@@ -1571,7 +1571,7 @@ lsb_release -cs
 1. Crie um arquivo .desktop em: ~/.local/share/applications:
 
 ```bash
-touch ~/.local/share/applications/nome_arquivo.desktop 
+touch ~/.local/share/applications/nome_arquivo.desktop
 ```
 
 2. Edite o arquivo inserindo as seguintes linhas:
@@ -1644,7 +1644,7 @@ lsb_release -a
 
 Mudando diretamente no arquivo:
 
-```bash		
+```bash
 sudo vim /etc/passwd
 ```
 
@@ -1655,7 +1655,7 @@ sudo chsh {--shell|-s} $(which zsh) {$(whoami)|${USER}}
 ```
 
 ### Alias'es (definir permanente)
-	
+
 1. Edite o rc do seu shell:
 
 ```bash
@@ -1675,7 +1675,7 @@ source .bashrc
 ```
 
 ### Sistema de arquivos criptografado
-	
+
 1. Crie a privada que guardara os arquivos:
 
 ```bash
@@ -1723,7 +1723,7 @@ Para montar:
 
 ```bash
 mountt() {
-	sudo mount -t ecryptfs "$1" "$2"; 
+	sudo mount -t ecryptfs "$1" "$2";
 }
 ```
 
@@ -1749,7 +1749,7 @@ Exec=/path/to/binary
 StartupNotify=false
 Terminal=false
 ```
-	
+
 Caso a pasta ainda não exista, basta cria-la:
 
 ```bash
@@ -1930,7 +1930,7 @@ Ventoy2Disk.sh CMD [ OPTION ] /dev/sdX
     -i   install ventoy to sdX (fail if disk already installed with ventoy)
     -I   force install ventoy to sdX (no matter installed or not)
     -u   update ventoy in sdX
-    
+
   OPTION: (optional)
    -r SIZE_MB  preserve some space at the bottom of the disk (only for install)
    -s          enable secure boot support (default is disabled)
@@ -2101,7 +2101,7 @@ git switch <branch_name>
 Com *checkout*:
 
 ```bash
-git checkout -b <nova_branch> 
+git checkout -b <nova_branch>
 ```
 
 Com *switch*:
@@ -2117,7 +2117,7 @@ git switch -c <branch_name>
 Remover:
 
 ```bash
-git branch -d <branch_name> 
+git branch -d <branch_name>
 ```
 
 Forçando:
@@ -2408,3 +2408,160 @@ systemctl start systemd-resolved.service && systemctl enable systemd-resolved.se
 - Change time
 	- Explicação: data que o inode do arquivo é modificado
 	- Exemplo: alterando permissões, propriedade, nome do arquivo ou número de links físicos
+
+---
+
+### "/" no final da passagem de algum PATH
+
+Estou fazendo esse artigo pois eu tive essa dúvida recentemente... em que casos e porque era ou não necessário a utilização da "/" no final de algum path na hora de passar na linha comdando? Por fim, em conversa com colegas da comunidade **slackjeff** e outros, fiz esses testes por conta própria e achei que poderia ser a dúvida de outros também.
+
+No final desse post eu dei minha conclusão **PESSOAL**, não tenho LPIC 3, sou apenas um *jovem padawan* em evolução ainda, então, caso tenho cometido algum deslize, estou totalmente aberto a correções.
+
+Para realizar os mesmo teste, basta cirar e entrar na pasta `/tmp/tmp` como segue na *gif* de exemplo:
+
+![barra_final_path](/assets/img/comandos_uteis_barra_final_path.git)
+
+Deixarei o script que montei para o teste [nesse link](), basta executa-lo estando dentro de `/tmp/tmp`.
+
+#### SEM a "/" no final e com uma PASTA já existente.
+
+Path atual: `/tmp/tmp`
+
+Conteúdo path atual: `file.txt, tmp/`
+Conteúdo pasta já existente (tmp/):
+
+Comando:
+
+```bash
+cp ./file.txt ./tmp
+```
+
+Retorno:
+
+Conteúdo path atual: `file.txt, tmp/`
+Conteúdo da pasta já existente (tmp/): `file.txt`
+
+**RESULTADO**: Como já existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele) e era uma pasta, copiou para dentro dela.
+
+#### SEM a "/" no final e com um ARQUIVO já existente (tmp).
+
+Path atual: `/tmp/tmp`
+Conteúdo path atual: `file.txt, tmp`
+
+Conteúdo de **file.txt**: `"hello world?"`
+Conteúdo de **tmp**:
+
+Comando:
+
+```bash
+cp ./file.txt ./tmp
+```
+
+Retorno:
+
+Conteúdo path atual: `file.txt, tmp`
+
+Conteúdo de **file.txt**: `"hello world?"`
+Conteúdo de **tmp**: `"hello world?"`
+
+**RESULTADO**: Como já existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele) e era um arquivo, ele sobrescreveu o conteúdo.
+
+#### SEM a "/" no final e sem nenhum ARQUIVO ou PASTA já existente.
+
+Path atual: `/tmp/tmp`
+Conteúdo path atual: `file.txt`
+
+Conteúdo de **file.txt**: `"hello world?"`
+
+Comando:
+
+```bash
+cp ./file.txt ./tmp
+```
+
+Retorno:
+
+Conteúdo path atual: `file.txt, tmp`
+
+Conteúdo de **file.txt**: `"hello world?"`
+Conteúdo de **tmp**: `"hello world?"`
+
+**RESULTADO**: Como não existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele), ele criou o arquivo.
+
+#### COM a "/" no final e com uma PASTA já existente.
+
+Path atual: `/tmp/tmp`
+
+Conteúdo path atual: `file.txt, tmp/`
+Conteúdo pasta já existente (tmp/):
+
+Comando:
+
+```bash
+cp ./file.txt ./tmp/
+```
+
+Retorno:
+
+Conteúdo path atual: `file.txt, tmp/`
+Conteúdo da pasta já existente (tmp/): `file.txt`
+
+**RESULTADO**: Como já existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele) e era uma pasta, copiou para dentro dela.
+
+#### COM a "/" no final e com um ARQUIVO já existente (tmp).
+
+Path atual: `/tmp/tmp`
+Conteúdo path atual: `file.txt, tmp`
+
+Conteúdo de **file.txt**: `"hello world?"`
+Conteúdo de **tmp**:
+
+Comando:
+
+```bash
+cp ./file.txt ./tmp/
+```
+
+Retorno:
+
+```bash
+cp: failed to access './tmp/': Not a directory
+```
+
+Conteúdo path atual: `file.txt, tmp`
+
+Conteúdo de **file.txt**: `"hello world?"`
+Conteúdo de **tmp**:
+
+**RESULTADO**: Como já existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele) porém, como não era uma pasta, retornou erro e não copiou.
+
+#### COM a "/" no final e sem nenhum ARQUIVO ou PASTA já existente.
+
+Path atual: `/tmp/tmp`
+Conteúdo path atual: `file.txt`
+
+Conteúdo de **file.txt**: `"hello world?"`
+
+Comando:
+
+```bash
+cp ./file.txt ./tmp/
+```
+
+Retorno:
+
+```bash
+cp: cannot create regular file './tmp/': Not a directory
+```
+
+Conteúdo path atual: `file.txt`
+
+Conteúdo de **file.txt**: `"hello world?"`
+
+**RESULTADO**: Como não existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele) e não era uma pasta, retornou erro e não copiou.
+
+#### Conclusão:
+
+Quando usamos "**/**" ao passar algum *path*, deixamos explícito que o alvo é uma **pasta/diretório** e não um arquivo **comum/regular**.
+
+Porém, se usamos sem a "**/**", em tese, deixamos explícito que é um arquivo **regular** (já que com a "**/**" dizemos que **é**), mas, dependendo da situação, se o alvo for mesmo um diretório e não especificarmos a "**/**", ele conseguirá executar a ação (levando em consideração é claro que o esperado fosse que o alvo seja uma pasta mesmo).
