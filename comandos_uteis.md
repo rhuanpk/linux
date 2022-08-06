@@ -149,7 +149,7 @@ OBS: Verificar se os links estão atualizado
 1. Instale as dependências:
 
 ```bash
-sudo apt install libfribidi-dev libglib2.0-dev libwv-dev libxslt1-dev libgio2.0-cil-dev libgtk3.0-cil-dev libgtk-3-dev librsvg2-dev libabiword-3.0 -y
+sudo apt install libfribidi-dev libglib2.0-dev libwv-dev libxslt1-dev libgio2.0-cil-dev libgtk3.0-cil-dev libgtk-3-dev librsvg2-dev libabiword-3.0 libboost-dev -y
 ```
 
 2. Baixe, compile e instale o programa:
