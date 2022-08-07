@@ -2311,6 +2311,34 @@ Listar os arquivos *skipados*:
 git ls-files -v | grep -E '^S'
 ```
 
+### Flag's
+
+Colocar tag em commits (da para clonar de um commit específico):
+
+```bash
+git tag -a -m "first tag" nametag 12a34b5
+```
+
+Remover tag:
+
+```bash
+git tag -d nametag
+```
+
+#### Clonando a partir
+
+1. Clonar de uma tag:
+
+```bash
+git clone -b nametag 'git@github.com:rhuan-pk/teste.git'
+```
+
+2. Logo depois de clonar dessa forma, pode ser que clone sem branch, nesse caso:
+
+```bash
+git switch -c newbranch
+```
+
 ---
 
 <a id="github_cli"></a>
