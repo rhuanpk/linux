@@ -1502,14 +1502,14 @@ sudo apt install testdisk -y
 
 Chame o comando e siga o procedimento para recuperação dos arquivos:
 
-1. > `Create`
-1. > `/dev/sdXY`
-1. > `{DOS|GTP}`
-1. > `Analyse`
-1. > `Quick Search`
-1. > `P`
-1. > `c`
-1. > `C`
+1. `Create`
+1. `/dev/sdXY`
+1. `{DOS|GTP}`
+1. `Analyse`
+1. `Quick Search`
+1. `P`
+1. `c`
+1. `C`
 
 OBS: Depois da opção "**P**", ler as opções dos comandos.
 
