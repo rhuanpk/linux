@@ -1440,6 +1440,100 @@ Mudar (fat32):
 sudo mlabel -i /dev/sdXY ::nome-label
 ```
 
+<a id="forense"></a>
+### Forense
+
+#### Comando *shred*
+
+- -v: Verboso
+- -n: Número de vezes que passando sobrescrevendo com conteúdo randômico
+- -z: Jogar zeros no final do procedimento
+- -u: Remove o arquivo no final do procedimento
+
+Sobrescrever o bloco (apagar o arquivo):
+
+```bash
+shred [-v|-n N|-z|-u] ./file.txt
+```
+
+Alias:
+
+```bash
+alias rms='shred -zuv'
+```
+
+OBS: Por padrão o comando shred sobrescreve o conteúdo do blocl 3x com conteúdo randômico.
+
+#### Comando *sleuthkit*
+
+Verificar partições e seus blocos:
+
+```bash
+sudo mmls /dev/sdX
+```
+
+Verificar tipo de tabela de partição:
+
+```bash
+sudo mmstat /dev/sdX
+```
+
+Verificar todos os arquivo de determinado disco a partir do bloco:
+
+```bash
+sudo fls -o <block_start> /dev/sdX
+```
+
+OBS: Os marcados com "*****" são arquivos a serem recuperados.
+
+Recuperar:
+
+```bash
+sudo icat -o <block_start> /dev/sdX <inode_file> > /tmp/recovered-file.txt
+```
+
+#### Comando *testdisk*
+
+Programas necessários:
+
+```bash
+sudo apt install testdisk -y
+```
+
+Chame o comando e siga o procedimento para recuperação dos arquivos:
+
+1. > `Create`
+1. > `/dev/sdXY`
+1. > `{DOS|GTP}`
+1. > `Analyse`
+1. > `Quick Search`
+1. > `P`
+1. > `c`
+1. > `C`
+
+OBS: Depois da opção "**P**", ler as opções dos comandos.
+
+#### Comando *photorec*
+
+Programas necessários:
+
+```bash
+sudo apt install testdisk -y
+```
+
+Chame o comando e siga o procedimento para recuperação completa de HD:
+
+```bash
+photorec
+```
+
+##### Recuperação de HDD/SSD?
+
+1. Boot pela *iso live*
+1. Conecte o HD externo que receberá os arquivo recuperados do HD comrrompido
+1. Crite uma pasta no HD alvo que guardará os arquivos recuperados
+1. Inicie o procedimento com o *photorec*
+
 ---
 
 <a id="db_configuracao"></a>
@@ -2480,6 +2574,12 @@ systemctl start systemd-resolved.service && systemctl enable systemd-resolved.se
 - Change time
 	- Explicação: data que o inode do arquivo é modificado
 	- Exemplo: alterando permissões, propriedade, nome do arquivo ou número de links físicos
+
+---
+
+### Arquivos removidos
+
+Quando removemos algum arquivo, na verdade o que acontece é que o bloco no disco fica liberado para ser gravado outro conteúdo por cima ([conteúdo relacionado](#forense)).
 
 ---
 
