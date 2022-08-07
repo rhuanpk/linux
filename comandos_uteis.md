@@ -1484,7 +1484,7 @@ Verificar todos os arquivo de determinado disco a partir do bloco:
 sudo fls -o <block_start> /dev/sdX
 ```
 
-OBS: Os marcados com "*****" são arquivos a serem recuperados.
+OBS: Os marcados com "**\***" são arquivos a serem recuperados.
 
 Recuperar:
 
