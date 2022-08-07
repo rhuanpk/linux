@@ -1408,7 +1408,7 @@ sudo mkfs.ext4 /dev/sdXY -L "label_name"
 Para fat32:
 
 ```bash
-sudo mkfs.fat -F 32 /dev/sdc1 -n "label_name"
+sudo mkfs.fat -F 32 /dev/sdXY -n "label_name"
 ```
 
 #### Saber ou renomear
@@ -1431,13 +1431,13 @@ sudo e2label /dev/sdXY label_name
 Saber (fat32):
 
 ```bash
-sudo mlabel -i /dev/sda1 -s ::
+sudo mlabel -i /dev/sdXY -s ::
 ```
 
 Mudar (fat32):
 
 ```bash
-sudo mlabel -i /dev/sda1 ::nome-label
+sudo mlabel -i /dev/sdXY ::nome-label
 ```
 
 ---
