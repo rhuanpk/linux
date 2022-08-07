@@ -528,7 +528,7 @@ user ALL=/usr/bin/dmesg,/usr/sbin/fdisk
 Para não precisar de senha:
 
 ```bash
-user ALL=NOPASSWD:/usr/bin/dmesg,/usr/sbin/fdisk"
+user ALL=NOPASSWD:/usr/bin/dmesg,/usr/sbin/fdisk
 ```
 
 ### Comando *exec*
