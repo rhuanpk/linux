@@ -509,6 +509,28 @@ Definir permanentemente:
 1. Colocar o seguinte conteúdo:
 	`Defaults:ALL timestamp_timeout=0`
 
+#### Arquivo **sudoers**
+
+- Sempre editar o arquivo com o comando `visudo`
+- Caso precise fazer alguma alteração nesse arquivo, altere o `/etc/sudoers.d`
+
+Para criar um novo arquivo de config para poder manipular as configs:
+
+```bash
+sudo visudo -f /etc/sudoers.d/users
+```
+Para dizer que tal usuário pode executar somente alguns comandos como sudo:
+
+```bash
+user ALL=/usr/bin/dmesg,/usr/sbin/fdisk
+```
+
+Para não precisar de senha:
+
+```bash
+user ALL=NOPASSWD:/usr/bin/dmesg,/usr/sbin/fdisk"
+```
+
 ### Comando *exec*
 
 Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
