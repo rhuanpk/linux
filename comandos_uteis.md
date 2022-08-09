@@ -1773,8 +1773,10 @@ sudo vim /etc/passwd
 Via linha de comando:
 
 ```bash
-sudo chsh {--shell|-s} $(which zsh) {$(whoami)|${USER}}
+sudo chsh {--shell|-s} $(which <shell>) {$(whoami)|${USER}}
 ```
+
+OBS: Depois de realizar o procedimento reinicie a sessão.
 
 ### Alias'es (definir permanente)
 
