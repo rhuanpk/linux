@@ -1322,15 +1322,16 @@ nmcli device wifi connect <ssid> password <password> ifname <network_interface>
 Conectar em rede empresarial (enterprise WPA2 EAP):
 
 ```bash
-# nmcli con add type wifi ifname wlan0 con-name <connection_name> ssid <ssid>
-# nmcli con edit id <connection_name>
+$ nmcli con add type wifi ifname wlan0 [con-name <connection_name>] ssid <ssid>
+$ nmcli con edit {id|ssid <connection_name>|<ssid>}
 nmcli> set ipv4.method auto
 nmcli> set wifi-sec.key-mgmt wpa-eap
 nmcli> set 802-1x.eap peap
 nmcli> set 802-1x.phase2-auth mschapv2
 nmcli> set 802-1x.identity <username>
 nmcli> set 802-1x.password <password>
-nmcli> set 802-1x.anonymous-identity ANONYMOUS-IDENTITY <anonymous_identity>
+nmcli> set 802-1x.ca-cert <certificate>
+nmcli> set 802-1x.anonymous-identity <anonymous_identity>
 nmcli> save
 nmcli> activate
 ```
