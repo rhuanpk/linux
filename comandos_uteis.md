@@ -845,6 +845,14 @@ Substituir nova linha por algum caracter:
 sed -z's/\n/; /g' file.txt
 ```
 
+### Comando *xargs*
+
+- `cat file.txt | xargs sudo apt install -y`
+- `xargs -a file.txt sudo apt install -y`
+- `find ./ -iname '*.mp3' | xargs rm -f`
+
+OBS: Pega a saida do pipe e concatena no final do comando que está a frente dele.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
