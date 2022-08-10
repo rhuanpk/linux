@@ -1299,6 +1299,48 @@ qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda
 
 ### Wi-fi CLI
 
+#### Comando *nmcli*
+
+Programa necessário:
+
+```bash
+sudo apt install network-amanger -y
+```
+
+Listar redes dispníveis:
+
+```bash
+nmcli device wifi list ifname wlp2s0
+```
+
+Conectar em rede simples (comum WPA2):
+
+```bash
+nmcli device wifi connect <ssid> password <password> ifname <network_interface>
+```
+
+Conectar em rede empresarial (enterprise WPA2 EAP):
+
+```bash
+# nmcli con add type wifi ifname wlan0 con-name <connection_name> ssid <ssid>
+# nmcli con edit id <connection_name>
+nmcli> set ipv4.method auto
+nmcli> set wifi-sec.key-mgmt wpa-eap
+nmcli> set 802-1x.eap peap
+nmcli> set 802-1x.phase2-auth mschapv2
+nmcli> set 802-1x.identity <username>
+nmcli> set 802-1x.password <password>
+nmcli> set 802-1x.anonymous-identity ANONYMOUS-IDENTITY <anonymous_identity>
+nmcli> save
+nmcli> activate
+```
+
+Simplesmente trocar de rede:
+
+```bash
+nmcli device wifi connect <ssid>
+```
+
 #### Comando *iw*
 
 Instalação:
