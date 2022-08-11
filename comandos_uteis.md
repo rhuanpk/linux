@@ -1350,6 +1350,12 @@ Simplesmente trocar de rede:
 nmcli device wifi connect <ssid>
 ```
 
+- Gerenciador simples gráfico do network-manager:
+	`nm-applet`
+	
+- Editor simples gráfico do network-manager:
+	`nm-connection-editor`
+
 #### Comando *iw*
 
 Instalação:
