@@ -1352,7 +1352,7 @@ nmcli device wifi connect <ssid>
 
 - Gerenciador simples gráfico do network-manager:
 	`nm-applet`
-	
+
 - Editor simples gráfico do network-manager:
 	`nm-connection-editor`
 
