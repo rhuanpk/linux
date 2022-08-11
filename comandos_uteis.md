@@ -648,12 +648,20 @@ ssh user@192.168.0.1
 Acessar "GUI":
 
 ```bash
-ssh -X -C user@192.168.0.1
+ssh {-X|-Y|-C} user@192.168.0.1
 ```
 
 OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
 
 - `rm -rfv ~/.Xauthority`
+
+#### Comando *ssh-keygen*
+
+Remover *fingerprint* depreciado:
+
+```bash
+ssh-keygen [-f /home/${USER}/.ssh/known_hosts] -R <host>
+```
 
 ### Comando *scp*
 
