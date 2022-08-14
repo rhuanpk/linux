@@ -58,4 +58,5 @@ for deb_file in $(ls -1); do
 	xz data.tar
 	rm $deb_file
 	ar cr $deb_file debian-binary control.tar.xz data.tar.xz
+	rm *.{xz,zst}; rm debian-binary
 done
