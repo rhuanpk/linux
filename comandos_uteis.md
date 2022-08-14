@@ -2041,11 +2041,21 @@ Programas necessários:
 sudo apt install grub-common grub-efi-amd64 grub-efi-amd64-bin grub-efi-amd64-signed grub2-common -y
 ```
 
-Instalar o grub no disco:
+#### Instalação
+
+Instalar o grub no disco (DOS/Mbr):
 
 ```bash
-sudo grub-install /dev/sda --root-directory=/
+sudo grub-install --target=x86_64-pc /dev/sda --root-directory=/
 ```
+
+Instalar o grub no disco (GPT):
+
+```bash
+sudo grub-install --target=x86_64-efi /dev/sda --efi-directory=/boot/efi
+```
+
+#### Configuração
 
 Gerar arquivo de configuração:
 
@@ -2053,11 +2063,49 @@ Gerar arquivo de configuração:
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
+#### Atualização
+
 Atualizar o grub:
 
 ```bash
 sudo update-grub
 ```
+
+#### Reinstalar o grub (via *live*)
+
+##### GPT
+
+Se a tabela de partição do principal for GPT, boota UEFI:
+
+1. `mount /dev/sda2 (root) /mnt/`
+1. `monta /dev/sda1 (esp) /mnt/boot/efi`
+1. `monta --bind /dev/ /mnt/dev/`
+1. `monta --bind /proc/ /mnt/proc/`
+1. `monta --bind /sys/ /mnt/sys/`
+1. `monta --bind /var/ /mnt/var/`
+1. `monta --bind /sys/firmware/efi/efivars/ /mnt/sys/firmware/efi/efivars/ (se não pegar a variáveis efi)`
+
+1. `chroot /mnt`
+
+1. `update-grub`
+1. `grub-install --target=x86_64-efi /dev/sda --efi-directory=/boot/efi`
+
+##### DOS/Mbr
+
+Se a tabela de partição do principal for DOS/Mbr, boota BIOS/Legacy:
+
+1. `monta /dev/sda1 (root) /mnt/`
+1. `monta --bind /dev/ /mnt/dev/`
+1. `monta --bind /proc/ /mnt/proc/`
+1. `monta --bind /sys/ /mnt/sys/`
+1. `monta --bind /var/ /mnt/var/`
+
+1. `chroot /mnt`
+
+1. `update-grub`
+1. `grub-install --target=x86_64-pc /dev/sda --root-directory=/`
+
+OBS: Independente do processo, depois caso ainda não boote (modo de emergência?) verificar o fstab.
 
 #### os-prober
 
@@ -2133,6 +2181,61 @@ OK -> "any key" -> Enroll Key From Disk -> VTOYEFI -> ENROLL_THIS_KEY_IN_MOKMANA
 ```
 
 OBS: O binário do ventoy tem que rodar estando na pasta com seus arquivos
+
+### Multipass
+
+Programas necessários:
+
+```bash
+sudo snap install multipass
+```
+
+Criar e já subir a *vm*:
+
+```bash
+multipass launch {<ubuntu_version>|<image_name>} --name <vm_name>
+```
+
+Listagem das *vm's*:
+
+```bash
+multipass list
+```
+
+Listar *vm's* disponíveis para *lauchear*:
+
+```bash
+multipass find
+```
+
+Executar comandos na *vm* "por fora":
+
+```bash
+multipass exec <vm_name> -- <command>
+```
+
+Logar no shell da *vm*:
+
+```bash
+multipass shell <vm_name>
+```
+
+Parar *vm*:
+
+```bash
+multipass stop <vm_name>
+```
+
+Deletar *vm* (quando estiver parada):
+
+```bash
+multipass delete <vm_name>
+```
+
+Atualiza a listagem das *vm's*:
+
+```bash
+multipass purge
 
 ### File Manager's
 
