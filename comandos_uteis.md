@@ -1372,6 +1372,8 @@ Instalação:
 sudo apt install wireless-tools -y
 ```
 
+OBS: Caso a interface esteja *down*: `ip link set <interface> up`
+
 1. Verificar interfaces wireless:
 	`iwconfig`
 1. Verifique as redes disponíveis:
