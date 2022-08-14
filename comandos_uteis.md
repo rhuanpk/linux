@@ -1670,10 +1670,20 @@ sudo hwclock -s
 
 ### Layout do teclado
 
+#### Config file
+
 1. Edite o arquivo de configuração com seu editor de preferência:
 	`sudo vim /etc/default/keyboard`
 1. Altere o valor da variável *XKBLAYOUT* para o layout desejado (**abnt2** é o valor *br*):
 	`XKBLAYOUT="br"`
+
+#### Comando *setxkbmap*
+
+Comando:
+
+```bash
+setxkbmap -layout br [-model abnt2] [-variant abnt2]
+```
 
 ### Mudar a "furtividade" de senhas
 
