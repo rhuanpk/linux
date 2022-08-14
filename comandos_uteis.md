@@ -1507,6 +1507,14 @@ Mudar (fat32):
 sudo mlabel -i /dev/sdXY ::nome-label
 ```
 
+### Shell
+
+Saber shell atual:
+
+```bash
+ps -o comm= $$
+```
+
 <a id="forense"></a>
 ### Forense
 
