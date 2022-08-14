@@ -2236,6 +2236,7 @@ Atualiza a listagem das *vm's*:
 
 ```bash
 multipass purge
+```
 
 ### File Manager's
 
