@@ -62,7 +62,7 @@ Colocar oh-my-zsh no root:
 Comando *[update-alternatives](#update-alternatives)*:
 
 ```bash
-sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /home/marknet06/.icons/cursor_volantes_cursors/index.theme 722
+sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /path/to/folder/your/cursor/index.theme 722
 ```
 
 OBS: O arquivo ".theme" do cursor deve conter no início da sessão a seguinte propriedade: `Inherits=<name_root_directory>`
@@ -2280,7 +2280,7 @@ Atualiza a listagem das *vm's*:
 multipass purge
 ```
 
-### Uupdate-alternatives
+### Update-alternatives
 
 Instalando um novo programa no *update-alternatives*:
 
