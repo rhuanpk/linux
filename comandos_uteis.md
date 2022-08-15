@@ -55,6 +55,28 @@ Colocar oh-my-zsh no root:
 1. `sudo cp ${HOME}/.zshrc /root`
 1. `sudo cp -r ${HOME}/.oh-my-zsh /root`
 
+### Cursor
+
+#### Instalar novo tema de cursor
+
+Comando *[update-alternatives](#update-alternatives)*:
+
+```bash
+sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /home/marknet06/.icons/cursor_volantes_cursors/index.theme 722
+```
+
+OBS: O arquivo ".theme" do cursor deve conter no início da sessão a seguinte propriedade: `Inherits=<name_root_directory>`
+
+#### Aplicar novo tema de cursor
+
+Comando *[update-alternatives](#update-alternatives)*:
+
+```bash
+sudo update-alternatives --config x-cursor-theme
+```
+
+OBS: Precisa reiniciar a sessão para aplicar
+
 ---
 
 <a id="db_pacotes"></a>
@@ -2258,6 +2280,25 @@ Atualiza a listagem das *vm's*:
 multipass purge
 ```
 
+### Uupdate-alternatives
+
+Instalando um novo programa no *update-alternatives*:
+
+- link: link simbólico genérico já usado
+- name: propriedade do update-alternative que está modificando
+- path: caminho absoluto do programa original
+- priority: prioridade de utilização sobre outros
+
+```bash
+sudo update-alternatives --install <link> <name> <path> <priority>
+```
+
+Exemplo de **análise** via print:
+
+![instalacao_novo_update_alternatives](/assets/images/instalacao_novo_update_alternatives.png)
+
+Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
+
 ### File Manager's
 
 #### Thunar
@@ -2782,7 +2823,7 @@ No final desse post eu dei minha conclusão **PESSOAL**, não tenho LPIC 3, sou 
 
 Para realizar os mesmo teste, basta cirar e entrar na pasta `/tmp/tmp` como segue na *gif* de exemplo:
 
-![barra_final_path](/assets/images/barra_final_path.gif)
+![barra_final_path](/assets/gifs/barra_final_path.gif)
 
 Deixarei o script que montei para o teste [nesse link](), basta executa-lo estando dentro de `/tmp/tmp`.
 
