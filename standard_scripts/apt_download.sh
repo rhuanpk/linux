@@ -42,8 +42,8 @@ packages_file=${work_path}/packages_file.txt
 
 define_work_dir $work_path
 
-apt-cache depends --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances $package > $packages_file
-apt-cache rdepends --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances  $package >> $packages_file
+apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances $package > $packages_file
+apt-cache rdepends --recurse --no-recommends --no-suggests --no-conflicts --no-breaks --no-replaces --no-enhances  $package >> $packages_file
 
 tr -d '^[[:blank:]]' < $packages_file | grep -vF i386 | cut -d ':' -f 2 | grep -E '^\w' | sort -u | xargs sudo apt download -y
 
