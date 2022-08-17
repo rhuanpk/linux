@@ -883,6 +883,26 @@ sed -z's/\n/; /g' file.txt
 
 OBS: Pega a saida do pipe e concatena no final do comando que está a frente dele.
 
+### Comando *shc*
+
+- -o: Output, pode mudar o nome e path de saida
+- -r: Deixa portável para outras distros
+- -f: Informa qual o arquivo que será compilado
+
+Compilar (transformar o script em binário):
+
+```bash
+shc -rf script.sh [-o binary.sh]
+```
+
+Compilar com data de expiração e informando uma mensagem:
+
+```bash
+shc -e 01/01/1991 -m 'Expirou, contate "rhuan.pksf@gmail.com".' -rf script.sh [-o binary.sh]
+```
+
+Será gerado dois arquivos, o binário propriamente dito e o código fonte em C que pode ser exlcuido ou você pode compila-lo também com `gcc script.sh.x.c`.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -1789,6 +1809,19 @@ Somente o nome da distro:
 ```bash
 lsb_release -cs
 ```
+
+### Fechar a tampa do notebook e não suspender
+
+1. Editar o arquivo de configuração:
+	`sudo vim /etc/systemd/logind.conf`
+
+2. Descomente e deixe o valor das seguintes variáveis iguais:
+	- `HandleLidSwitch=ignore`
+	- `HandleLidSwitchExternalPower=ignore`
+	- `HandleLidSwitchDocked=ignore`
+
+3. Restarte o serviço responsável:
+	`sudo systemctl restart systemd-logind.service`
 
 ---
 
