@@ -2421,8 +2421,16 @@ Extração:
 
 ### Pesquisar pacotes
 
+Ubuntu:
+
 ```
 https://packages.ubuntu.com/
+```
+
+Gnome:
+
+```
+https://download.gnome.org/sources/
 ```
 
 ### Pesquisar manpages
