@@ -2332,6 +2332,23 @@ Exemplo de **análise** via print:
 
 Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
 
+### Instalar Slax
+
+Instalação padrão:
+
+1. Crie uma partição para colocar o Slax, que seja fat32 e que seja tabela de partição de preferencia que seja MSDOS
+1. Copia todos os arquivos do Slax para a partição
+1. Rode o script de instalação do Slax dentro de /boot da pasta do Slax
+
+Fazendo instalação no pendrive (mesmo proscedimento?):
+
+1. Crie tabela de partição MSDOS
+1. Crie uma partição do tamanho que quiser e formate em fat32 ou ext4
+1. Extraia a iso do Slax
+1. copie todo o conteúdo dela para dentro da partição
+1. Vá para a pasta aonde a partição foi montada
+1. Rode: `sudo bash ./slax/boot/bootinst.sh`
+
 ### File Manager's
 
 #### Thunar
@@ -2342,6 +2359,10 @@ Configurar "Open Terminal Here":
 	`Edit » Configure custom actions... » Open Terminal Here » *engrenagem* » Command:`
 1. Colocar o seguinte valor:
 	`terminator --working-directory=%f`
+
+Adicionar pastas em "Palces":
+
+1. `*botão direito na pasta* » Send To » Side Pane (Create Shortcurt)`
 
 ### Caixas de diálogo
 
