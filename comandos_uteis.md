@@ -1291,6 +1291,12 @@ sudo fdisk /dev/sdX
 
 #### Comando *mkfs*
 
+Programas necessários para `exfat`:
+
+```bash
+sudo apt install exfat-fuse -y
+```
+
 Formatar em **ext4**:
 
 ```bash
@@ -1301,6 +1307,12 @@ Formatar em **fat32**:
 
 ```bash
 sudo mkfs.fat -F 32 /dev/sdX
+```
+
+Formatar em **exfat**:
+
+```bash
+sudo mkfs.exfat /dev/sdX
 ```
 
 ### Qemu
@@ -1505,22 +1517,40 @@ lsblk --fs
 
 #### Formatar adicionando a label:
 
+Programas necessários para `exfat`:
+
+```bash
+sudo apt install exfat-fuse -y
+```
+
 - X: Letra da partição
 - Y: Número da partição
 
 Para ext4:
 
 ```bash
-sudo mkfs.ext4 /dev/sdXY -L "label_name"
+sudo mkfs.ext4 -L "label_name" /dev/sdXY
 ```
 
 Para fat32:
 
 ```bash
-sudo mkfs.fat -F 32 /dev/sdXY -n "label_name"
+sudo mkfs.fat -F 32 -n "label_name" /dev/sdXY
+```
+
+Para exfat:
+
+```bash
+sudo mkfs.exfat -L "label_name" /dev/sdXY
 ```
 
 #### Saber ou renomear
+
+Programas necessários para `exfat`:
+
+```bash
+sudo apt install exfat-fuse -y
+```
 
 - X: Letra da partição
 - Y: Número da partição
@@ -1546,7 +1576,19 @@ sudo mlabel -i /dev/sdXY -s ::
 Mudar (fat32):
 
 ```bash
-sudo mlabel -i /dev/sdXY ::nome-label
+sudo mlabel -i /dev/sdXY ::label_name
+```
+
+Saber (exfat):
+
+```bash
+sudo exfatlabel /dev/sdXY
+```
+
+Mudar (exfat):
+
+```bash
+sudo exfatlabel /dev/sdXY "label_name"
 ```
 
 ### Shell
