@@ -1392,8 +1392,8 @@ nmcli device wifi connect <ssid> password <password> ifname <network_interface>
 Conectar em rede empresarial (enterprise WPA2 EAP):
 
 ```bash
-$ nmcli con add type wifi ifname wlan0 [con-name <connection_name>] ssid <ssid>
-$ nmcli con edit {id|ssid <connection_name>|<ssid>}
+$ nmcli con add type wifi ifname wlan0 con-name <connection_name> ssid <ssid>
+$ nmcli con edit id <connection_name>
 nmcli> set ipv4.method auto
 nmcli> set wifi-sec.key-mgmt wpa-eap
 nmcli> set 802-1x.eap peap
