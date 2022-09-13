@@ -1265,6 +1265,32 @@ Ejetar:
 sudo eject /dev/sdXY
 ```
 
+#### MTP (media transfer protocol)(Android)
+
+Programas necessários:
+
+```bash
+sudo apt install jmtpfs -y
+```
+
+Saber infos do *device*:
+
+```bash
+sudo jmtpfs -l
+```
+
+Montar:
+
+```bash
+sudo jmtpfs /mount/point -device=<bus_number>,<device_number> -o allow_other
+```
+
+Desmontar:
+
+```bash
+sudo umount /mount/point
+```
+
 ### Manipulação de discos
 
 - X: Letra do disco
