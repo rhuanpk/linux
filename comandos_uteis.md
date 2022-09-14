@@ -1265,7 +1265,9 @@ Ejetar:
 sudo eject /dev/sdXY
 ```
 
-#### MTP (media transfer protocol)(Android)
+#### MTP (media transfer protocol) (Android)
+
+##### Comando *jmtpfs*
 
 Programas necessários:
 
@@ -1273,7 +1275,7 @@ Programas necessários:
 sudo apt install jmtpfs -y
 ```
 
-Saber infos do *device*:
+Saber informação do *device*:
 
 ```bash
 sudo jmtpfs -l
@@ -1289,6 +1291,32 @@ Desmontar:
 
 ```bash
 sudo umount /mount/point
+```
+
+##### Comando *gio*
+
+Programas necessários:
+
+```bash
+sudo apt install gvfs-fuse gvfs-backends -y
+```
+
+Pegar informação do nome do path *device*:
+
+```bash
+gio mount -li | grep -iF activation_root
+```
+
+Montar:
+
+```bash
+gio mount '<device_path_name>'
+```
+
+Desmontar:
+
+```bash
+gio mount -u '<device_path_name>'
 ```
 
 ### Manipulação de discos
