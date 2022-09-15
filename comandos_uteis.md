@@ -975,6 +975,14 @@ Para colar:
 <command> {`v`|$(v)}
 ```
 
+### Saber meu *ip externo*
+
+Com *curl* na *ipecho*:
+
+```bash
+curl -L http://ipecho.net/plain
+```
+
 ### Matar processos no linux
 
 Mostra todos os processos e id's:
