@@ -1068,7 +1068,7 @@ tar -tf compressed_folder.tar.gz
 Descompactar de .tar.xz:
 
 ```bash
-tar -xvf compressed_folder.tar.gz
+tar -xvf compressed_folder.tar.xz
 ```
 
 #### Comando *zip*
