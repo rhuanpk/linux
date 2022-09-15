@@ -1050,7 +1050,7 @@ locate -b '\file.txt'
 Compactar em .tar.gz:
 
 ```bash
-tar -zcvf target_folder.tar.gz /folder/to/be/compressed_1 /folder/to/be/compressed_2 /file/to/be/compressed
+tar -zcvf target_folder.tar.gz /file/to/be/compressed /folder/to/be/compressed/ /for/compressed/multiples/*
 ```
 
 Descompactar de .tar.gz:
@@ -1076,13 +1076,27 @@ tar -xvf compressed_folder.tar.xz
 Compactar:
 
 ```bash
-zip target_folder.zip /folder/to/be/compressed_1 /folder/to/be/compressed_2 /file/to/be/compressed /for/compressed/multiples/*
+zip target_folder.zip /file/to/be/compressed /folder/to/be/compressed/ /for/compressed/multiples/*
 ```
 
 Descompactar:
 
 ```bash
 unzip compressed_folder.zip
+```
+
+#### Comando *xz*
+
+Compactar:
+
+```bash
+xz -vz /file/to/be/compressed
+```
+
+Descompactar:
+
+```bash
+xz -vd compressed_file.xz
 ```
 
 ### Uso memória RAM
