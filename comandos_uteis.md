@@ -2503,7 +2503,7 @@ trans -b en:pt-br -i file.txt
 
 ### Comando *jq*
 
-#### Pretty Printer Formatter for JSON files:
+Pretty Printer Formatter for JSON files:
 
 Completo:
 
@@ -2516,6 +2516,30 @@ Mimificado:
 
 - `jq -c < file.json`
 - `cat file.json | jq -c`
+
+### Manipulação de .pdf
+
+#### Comando *wkhtmltopdf*
+
+Programas necessários:
+
+```bash
+sudo apt install wkhtmltopdf -y
+```
+
+Fazer download de página web para pdf:
+
+```bash
+wkhtmltopdf '<page_url>' /output/path/to/file.pdf
+```
+
+#### Comando *pdftk*
+
+Mesclar pdfs:
+
+```bash
+pdftk *.pdf /output/path/to/file.pdf
+```
 
 ### Extrair arquivo iso
 
