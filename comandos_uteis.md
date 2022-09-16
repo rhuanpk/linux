@@ -1855,6 +1855,52 @@ Comando:
 setxkbmap -layout br [-model abnt2] [-variant abnt2]
 ```
 
+### Volume do sistema
+
+#### Comando *amixer*
+
+**Sintaxe de como alterar o volume**:
+
+```bash
+amixer set <controller> <percentage_with_signal>
+```
+
+Aumentar o volume:
+
+```bash
+amixer set {Master|Speaker} 5%+
+```
+
+Diminuir o volume:
+
+```bash
+amixer set {Master|Speaker} 5%-
+```
+
+**Sintaxe de como mutar/desmutar**:
+
+```bash
+amixer set <controller> <commnad>
+```
+
+Mutar:
+
+```bash
+amixer set {Master|Speaker} mute
+```
+
+Desmutar:
+
+```bash
+amixer set {Master|Speaker} unmute
+```
+
+Alternar:
+
+```bash
+amixer set {Master|Speaker} toggle
+```
+
 ### Mudar a "furtividade" de senhas
 
 1. Edite o arquivo de alterações do sudoers:
@@ -2539,6 +2585,20 @@ Mimificado:
 - `jq -c < file.json`
 - `cat file.json | jq -c`
 
+### Extrair arquivo iso
+
+Programas necessários:
+
+```bash
+sudo apt install p7zip-full p7zip-rar -y
+```
+
+Extração:
+
+```bash
+7z x file.iso
+```
+
 ### Manipulação de .pdf
 
 #### Comando *wkhtmltopdf*
@@ -2561,20 +2621,6 @@ Mesclar pdfs:
 
 ```bash
 pdftk *.pdf /output/path/to/file.pdf
-```
-
-### Extrair arquivo iso
-
-Programas necessários:
-
-```bash
-sudo apt install p7zip-full p7zip-rar -y
-```
-
-Extração:
-
-```bash
-7z x file.iso
 ```
 
 ---
