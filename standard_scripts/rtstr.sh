@@ -24,7 +24,7 @@ print_usage() {
 		#
 		# Options:
 		#
-		# 	--help | -h: Print this message and exit with 1.
+		# 	-h: Print this message and exit with 1.
 		#
 		####################################################################################################
 	eof
