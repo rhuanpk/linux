@@ -61,14 +61,12 @@ switch_path(){
 	aux="${path}"
 	echo -e "\nAtual path: \e[33m${aux}\e[m\n"
 	read -p "Enter with the new path: " path
-	if [ "${path}" = "" ]; then
-		path="${aux}"
+	if [ -z "${path}" ]; then
 		echo -e "\n\e[31m> The path can not is null !\e[m\n"; exit 1
-	elif [ ! -e "${path}" ]; then
-		path="${aux}"
+	elif [ ! -d "${path}" ]; then
 		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
 	else
-		sudo sed -i "14s~^.*~path=\"${path}\"~" ${0}
+		sudo sed -i "14s~.*~path=\"${path}\"~" "${0}"
 		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
 	fi
 }
@@ -76,7 +74,7 @@ switch_path(){
 while getopts 'hvsc' opts 2>/dev/null; do
 	case ${opts} in
 		h)
-			print_usage; exit 0 ;;
+			print_usage; exit 0;;
 		v)
 			echo -e "\n\
 				\r###################################################################\n\
@@ -85,11 +83,11 @@ while getopts 'hvsc' opts 2>/dev/null; do
 				\r#\n\
 				\r###################################################################\n"; exit 0 ;;
 		s)
-			switch_path ;;
+			switch_path;;
 		c)
-			flag_custom_mode=1 ;;
+			flag_custom_mode=1;;
 		*)
-			echo -e "\n\e[31;1m>> Invalid argument !!\e[m\n$(print_usage)\n"; exit 1 ;;
+			echo -e "\n\e[31;1m>> Invalid argument !!\e[m\n$(print_usage)\n"; exit 1;;
 	esac
 done
 

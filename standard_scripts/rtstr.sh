@@ -32,12 +32,22 @@ print_usage() {
 
 # verify_privileges
 
-[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
+# [ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+#         print_usage
+#         exit 1
+# }
 
 # >>>>> PROGRAM START <<<<<
+
+while getopts 'hf' opt; do
+	case $opt in
+		h) print_usage; exit 0;;
+		# f) file_convert=true;;
+		?) print_usage; exit 1;;
+	esac
+done
+
+shift $((${OPTIND}-1))
 
 any="${1}"
 
