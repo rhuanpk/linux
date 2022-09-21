@@ -2617,10 +2617,16 @@ wkhtmltopdf '<page_url>' /output/path/to/file.pdf
 
 #### Comando *pdftk*
 
+Programas necessários:
+
+```bash
+sudo apt install pdftk -y
+```
+
 Mesclar pdfs:
 
 ```bash
-pdftk *.pdf /output/path/to/file.pdf
+pdftk *.pdf cat output /output/path/to/file.pdf
 ```
 
 ---
