@@ -1688,7 +1688,7 @@ ps -o comm= $$
 Sobrescrever o bloco (apagar o arquivo):
 
 ```bash
-shred [-v|-n N|-z|-u] ./file.txt
+shred [-v|-z|-u|-n <number_of_times>] ./file.txt
 ```
 
 Alias:
