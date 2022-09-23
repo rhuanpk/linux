@@ -1124,8 +1124,10 @@ zip target_folder.zip /file/to/be/compressed /folder/to/be/compressed/ /for/comp
 
 Descompactar:
 
+- -d: especifica a pasta para ser descompactado
+
 ```bash
-unzip compressed_folder.zip
+unzip [-d </path/to/decompress>] compressed_folder.zip
 ```
 
 #### Comando *xz*
