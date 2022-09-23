@@ -119,6 +119,20 @@ Remover ppa pelo terminal:
 sudo add-apt-repository -r ppa:<ppa_name>
 ```
 
+### Comando *wajig*
+
+Programas necessários:
+
+```bash
+sudo apt install wajig -y
+```
+
+Saber o tamanho dos pacotes instalados
+
+```bash
+wajig large
+```
+
 ---
 
 <a id="db_programas"></a>
@@ -902,6 +916,27 @@ shc -e 01/01/1991 -m 'Expirou, contate "rhuan.pksf@gmail.com".' -rf script.sh [-
 ```
 
 Será gerado dois arquivos, o binário propriamente dito e o código fonte em C que pode ser exlcuido ou você pode compila-lo também com `gcc script.sh.x.c`.
+
+### Comando *curl*
+
+- -f: caso falhe, suprime a saida de erro
+- -s: silencia a saida
+- -S: caso de algum erro porém a saida padrão esteja silenciada, mostrará o erro
+- -L: tentar encontrar a nova *url* caso a que esteja batendo tenha caido
+- -o: informa o nome de saida do arquivo
+- -d: *put* no *field* informado
+
+Sintaxe comum para download:
+
+```bash
+curl -fsSL <url>
+```
+
+Popular *field* no *html* de determinado endereço:
+
+```bash
+curl -d <field_name>='<message>' <url>
+```
 
 ### Comando *xclip*
 
@@ -1922,6 +1957,18 @@ Saber qual a placa de vídeo:
 lspci | grep -iF 'VGA'
 ```
 
+### Comando *lscpu*
+
+- --extended: forma a saida do comando
+	- core: mostra somente os cores
+	- cpu: mostra somente as threads
+
+Lita informação a respeito do processador:
+
+```bash
+lscpu [--extended=cpu,core]
+```
+
 ### Mostra infos do sistema
 
 Neofetch:
@@ -1942,7 +1989,7 @@ screenfetch
 - `inxi -Fxz`
 - `hwinfo --short`
 
-### Número de núcleos (cores) do processador
+### Número de núcleos (threads) do processador
 
 ```bash
 nproc
@@ -2512,6 +2559,17 @@ Fazendo instalação no pendrive (mesmo proscedimento?):
 1. copie todo o conteúdo dela para dentro da partição
 1. Vá para a pasta aonde a partição foi montada
 1. Rode: `sudo bash ./slax/boot/bootinst.sh`
+
+### Instalar FydeOS (ChromeOS)
+
+Instalalção padrão:
+
+1. Boot from image
+1. `ctrl + alt + f2`
+1. Entrar na sessão
+	1. Login: chronos
+	1. Senha:
+1. Rode: `sudo /usr/sbin/chromeos-install --dst /dev/sda`
 
 ### File Manager's
 
