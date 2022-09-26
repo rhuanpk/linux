@@ -102,7 +102,19 @@ OBS: Será salvo em `/var/cache/apt/archives`
 Listar todos os programas instalados:
 
 ```bash
-sudo dpkg -l
+sudo dpkg -l [<package>]
+```
+
+Listar todos os binários do pacote:
+
+```bash
+sudo dpkg -L <package>
+```
+
+Saber a qual pacote perterce determinado binários:
+
+```bash
+sudo dpkg -S <binary>
 ```
 
 ### Ppa's
