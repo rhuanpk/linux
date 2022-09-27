@@ -11,7 +11,7 @@ verify_privileges() {
 
 print_usage() {
 	cat <<- eof
-		#############################################################################
+		####################################################################################################
 		#
 		# >>> $(basename ${0}) !
 		#
@@ -30,7 +30,7 @@ print_usage() {
 		# Exemplo:
 		# 	$(basename ${0}) 'any message to send' 'http://dontpad.com/any' [<id_field_name>]
 		#
-		#############################################################################
+		####################################################################################################
 	eof
 }
 
@@ -98,7 +98,7 @@ route_user=$(cut -d '/' -f 4 <<< ${url})
 sender_path=${HOME:-"/home/${USER:-$(whoami)}"}/.dontpad_send
 sender_full_path=${sender_path}/$(next_file)
 
-# ********** Início do Programa **********	
+# ********** Início do Programa **********
 
 if ${flag_clean_files:-false}; then clean_files; exit 0; fi
 make_directory
