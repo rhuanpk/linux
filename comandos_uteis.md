@@ -950,6 +950,18 @@ Popular *field* no *html* de determinado endereço:
 curl -d <field_name>='<message>' <url>
 ```
 
+### Comando *journalctl*
+
+Monitorar algum *.service* do sistema:
+
+- -x: deixa visualmente a saida mais legível (pretty)
+- -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`)
+- -u: especifique o nome da unidade
+
+```bash
+sudo journalctl -xfu <name_service>.service
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
