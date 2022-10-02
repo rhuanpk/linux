@@ -699,9 +699,7 @@ Acessar "GUI":
 ssh {-X|-Y|-C} user@192.168.0.1
 ```
 
-OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*
-
-- `rm -rfv ~/.Xauthority`
+OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*: `rm -rfv ~/.Xauthority`
 
 #### Comando *ssh-keygen*
 
@@ -710,6 +708,132 @@ Remover *fingerprint* depreciado:
 ```bash
 ssh-keygen [-f /home/${USER}/.ssh/known_hosts] -R <host>
 ```
+
+### Comando *gpg*
+
+Gerar chave gpg (o geramente da chave não gera nenhuma saida e é guardada automáticamente no chaveiro gpg, para podermos acessa-la então, é só via exportamento):
+
+```bash
+gpg --full-generate-key
+```
+
+Listar chaves públicas:
+
+```bash
+gpg -k
+```
+
+Listar chaves privadas:
+
+```bash
+gpg -K
+```
+Fingerprint das cahves (16 últimos dígitos da chave):
+
+```bash
+gpg --fingerprint
+```
+
+Gerar certificado de revogação:
+
+```bash
+gpg --gen-revoke <key_id> > /path/to/revocation.crt
+```
+
+Exportar chave pública (gerar o arquivo da chave pública):
+
+```bash
+gpp --export --armor <key_id> > any_pub_key
+```
+
+Exportar chave privada (gerar o arquivo da chave privada):
+
+```bash
+gpp --export-secret-key --armor <key_id> > any_secret_key
+```
+
+Criptografar de forma simétrica a chave (*password* única):
+
+```bash
+gpg --symmetric /path/to/file.any
+```
+
+Descriptografar de forma simétrica a chave (*password* única):
+
+```bash
+gpg --decrypt /path/to/file.any
+```
+
+Importar chave pública para o chaveiro:
+
+```bash
+gpg --import /path/to/key_file.any
+```
+
+Assinar texto de entrada com chave de forma limpa (sem criptográfia):
+
+```bash
+gpg --clear-sign > /path/to/file.asc
+```
+
+Assinar texto de entrada com chave de forma suja (com criptográfia):
+
+```bash
+gpg --sign > /path/to/file.asc
+```
+
+Assinar arquivo com chave de forma limpa (sem criptográfia):
+
+```bash
+gpg --clear-sign /path/to/file.any
+```
+
+Assinar arquivo com chave de forma suja (com criptográfia):
+
+```bash
+gpg --sign /path/to/file.any
+```
+
+Valida a integridade do arquivo (verifica se a assinatura do arquivo condiz com o conteúdo):
+
+```bash
+gpg --verify /path/to/file.any
+```
+
+Descriptografar já validando a integridade da mensagem ou arquivo:
+
+```bash
+gpg --output /path/to/file.decrypted --decrypt /path/to/file.any
+```
+
+Criptografar de forma asimétrica (*pair of keys*):
+
+```bash
+gpg --encrypt --recipient <pub_key_id> /path/to/file.any
+```
+
+Descriptografar de forma asimétrica (*pair of keys*):
+
+```bash
+gpg --output /path/to/file.decrypted --decrypt /path/to/file.any
+```
+
+OBS: Nesse caso você não precisa informar o recipiente privado (a chave privada) pois em tese ela já está em seu chaveiro privado.
+
+Mudar o "nível de segurança da chave":
+
+- `gpg --edit-key <key_id>`
+- `gpg> trust`
+- *choice*
+- `gpg> save`
+
+**OBSERVAÇÕES**:
+
+- todos os redirecionamento de arquivo feitos podem ser substituídos pelo arugmneto do próprio comando (`--output /path/to/file.any`), logo isso implica que se não passado o argumento próprio ou o redirecionamento do arquivo, a STDOUT é a padrão (a tela).
+
+- todos os argumentos `<key_id>` podem ser substituídos pelos meio de identificação da chave, por exemplos, *e-mail* ou *fingerprint* da mesma.
+
+- todos os comandos que pedem a senha via GUI, podem ser substituídos a entrada para CLI adicionando os parâmetros: `--batch --passphrase <password>`
 
 ### Comando *scp*
 
