@@ -685,6 +685,31 @@ Instalação:
 sudo apt install ssh openssh-server -y
 ```
 
+#### Arquivos
+
+Pastas de configuração:
+
+```bash
+# Pasta geral de configuração
+/etc/ssh/
+
+# Pasta de configuração do usuário (cliente)
+/etc/ssh/ssh_config.d/
+
+# Pasta de configuração do usuário (servidor)
+/etc/ssh/sshd_config.d/
+```
+
+Arquivos de coniguração:
+
+```bash
+# Arquivo geral de configuração do usuário (cliente)
+/etc/ssh/ssh_config
+
+# Arquivo geral de configuração do usuário (servidor)
+/etc/ssh/sshd_config
+```
+
 #### Conexões
 
 Apenas "CLI":
@@ -696,18 +721,83 @@ ssh user@192.168.0.1
 Acessar "GUI":
 
 ```bash
-ssh {-X|-Y|-C} user@192.168.0.1
+ssh -X user@192.168.0.1
 ```
 
 OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*: `rm -rfv ~/.Xauthority`
 
+**Medidas de segurança**:
+
+- Aumentar a porta de conexão:
+	`Port <port_number>`
+
+- Tempo de inatividade (em segundos) até tomar *dc* (*disconect*):
+	- `ClientAliveInterval <value>`
+	- `ClientAliveCountMax 0`
+
+- Não permitir senha vazias:
+	`PermitEmptyPasswords no`
+
+- Não permitir o acesso direto ao *root user*:
+	`PermitRootLogin no`
+
+- Explicitar o protocolo mais a tual a ser usado:
+	`Protocol 2`
+
+- Caso queria retirar a autênticação por senha para poder logar somente com chaves:
+	`PasswordAuthentication no`
+
 #### Comando *ssh-keygen*
+
+Criar ssh key:
+
+```bash
+ssh-keygen -t rsa -b 4096
+```
+
+Iniciando um agente ssh para poder adicionar a chave criada a ele (quando algo buscar por uma chave é o ssh-agent que irá fornecer):
+
+```bash
+ssh-agent -s
+```
+
+Pode ser que o ssh-agent esteja com problemas para iniciar, ele até pode gerar o pid do agent porém não atribui as variáveis, dessa forma, rode:
+
+```bash
+exec ssh-agent bash
+```
+
+Adicione a chave criada ao agente criado:
+
+```bash
+ssh-add ~/.ssh/id_rsa
+```
+
+Cerificar as chaves publicas adicionadas ao agente:
+
+```bash
+ssh-add -l
+```
+
+Para ver o PID do agente:
+
+```bash
+printenv SSH_AGENT_PID
+```
 
 Remover *fingerprint* depreciado:
 
 ```bash
 ssh-keygen [-f /home/${USER}/.ssh/known_hosts] -R <host>
 ```
+
+#### Banners
+
+Para mostrar mensagem antes de se logar precisa colocar a mensagem no *banner*:
+	`sudo vim /etc/ssh/banner`
+
+Depois coloque o caminho do *banner* na variável dentro do arquivo de configuração:
+	`Banner /etc/ssh/banner`
 
 ### Comando *gpg*
 
@@ -1807,6 +1897,12 @@ sudo mkfs.exfat -L "label_name" /dev/sdXY
 
 #### Saber ou renomear
 
+Programas necessários para `fat32`:
+
+```bash
+sudo apt install mtools -y
+```
+
 Programas necessários para `exfat`:
 
 ```bash
@@ -2792,6 +2888,67 @@ Mimificado:
 
 - `jq -c < file.json`
 - `cat file.json | jq -c`
+
+### Comando *mocp*
+
+Programas necessários:
+
+```bash
+sudo apt install moc -y
+```
+
+Player de música CLI:
+
+- --theme|-T: *seta* o tema do `mocp` (com base nos nomes listados em `/usr/share/moc/themes/` ou `~/.moc/themes/`)
+
+```bash
+mocp [--theme|-T <theme_name>] [/path/to/folders/music/]
+```
+
+**Funções das teclas dentro do TUI**:
+
+- return: reproduz a música em foco/volta para o início
+- S: reprodução aleatória
+- R: repetição da música
+- n: próxima música
+- space|p: pausa/despausa a música
+- alt+[1-9]: seta o volume para o *value*\*10
+- q: sai da tela do moc e o deixa em background (só chamar `mocp` novamente para retomar)
+- Q: quita por completo
+- ?: help menu
+
+### Comando *mplayer*
+
+Programas necessários:
+
+```bash
+sudo apt install mplayer -y
+```
+
+#### Vídeo
+
+Player de vídeo mínimo:
+
+```bash
+mplayer /path/to/video.any
+```
+
+**Funções das teclas dentro do TUI**:
+
+- *: aumenta o volume
+- /: diminui o volume
+- arrow{right|left}: vai para frente ou para trás no tempo
+- q: quita do programa
+
+#### Câmera
+
+Player de câmera mínimo:
+
+- *X*: deve ser trocado pelo número do device correspondente
+
+```bash
+mplayer tv:///dev/videoX &>/dev/null
+```
 
 ### Extrair arquivo iso
 
