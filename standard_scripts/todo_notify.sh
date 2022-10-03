@@ -24,5 +24,10 @@ verify_privileges
 
 # cron: 0 * * * * export DISPLAY=:0; /usr/local/bin/pk-todo_notify 2>/tmp/cron_error.log
 
-message=$(cat ~/Documents/anotacoes/.todo_list.txt)
-notify-send '>>> ToDo List !' "${message}"
+home=${HOME:-"/home/${USER:-$(whoami)}"}
+todo_list_path_file=${home}/Documents/anotacoes/.todo_list.txt
+
+[ -s ${todo_list_path_file} ] && {
+        message=$(cat ${todo_list_path_file})
+        notify-send '>>> ToDo List !' "${message}"
+}
