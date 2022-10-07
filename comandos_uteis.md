@@ -2866,7 +2866,7 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 	`tmux new-session -s <name_session>`
 
 - Criar e **NÃO** entrar na sessão já passando o nome:
-	`tmux new-session -s <name_session>`
+	`tmux new-session -s <name_session> -d`
 
 - Matar sessão específica:
 	`tmux kill-session -t <id_session>`
