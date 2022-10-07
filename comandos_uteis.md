@@ -2789,6 +2789,91 @@ Exemplo de **análise** via print:
 
 Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
 
+### Tmux
+
+Ele trabalha com sessões e dentro de cada sessão você pode ter várias janelas (*tabs*) e dentro dessas janelas ainda há a possiblidade de *split*.
+
+Caracteríscas:
+
+- Tecla modificadora: `^b` (`ctrl+b`)
+
+Programas necessários:
+
+```bash
+sudo apt install tmux -y
+```
+
+Iniciar uma nova sessão:
+
+```bash
+tmux
+```
+#### Dentro da sessão
+
+- Nova janela:
+	`${mod}+c`
+
+- Ir para próxima janela:
+	`${mod}+n`
+
+- Voltar para janela anterior:
+	`${mod}+p`
+
+- Ir para a janela por índice:
+	`${mod}+<number>`
+
+- *Split* horizontal:
+	`${mod}+"`
+
+- *Split* vertical:
+	`${mod}+%`
+
+- Mudar entre as *splits*:
+	`${mod}+<arrows>`
+
+- *Desatachar* a sessão (deixa a sessão em *background* e pode retornar posteriormente):
+	`${mod}+d`
+
+- Renomear a sessão:
+	`${mod}+$`
+
+- Renomear a janela:
+	`${mod}+,`
+
+- Alternar entre *full screen* da *slipt*:
+	`${mod}+z`
+
+- Menu interativo de sessões:
+	`${mod}+s`
+
+- Menu interativo de janelas (e sessões também caso tenha mais que uma):
+	`${mod}+w`
+
+- Mostra a hora:
+	`${mod}+t`
+
+#### Fora da sessão
+
+- Listar todas as sessões:
+	`tmux ls`
+
+- *Atachar* a sessão (pegar a sessão novamente):
+	`tmux attach -t <id_session>`
+
+OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash compartilhado.
+
+- Criar e entrar na sessão já passando o nome:
+	`tmux new-session -s <name_session>`
+
+- Criar e **NÃO** entrar na sessão já passando o nome:
+	`tmux new-session -s <name_session>`
+
+- Matar sessão específica:
+	`tmux kill-session -t <id_session>`
+
+- Matar todas as sessões:
+	`tmux kill-server`
+
 ### Instalar Slax
 
 Instalação padrão:
@@ -2845,6 +2930,161 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 #### Dialog
 
 #### Whiptail
+
+##### Info box
+
+A caixa de informações é um tipo simples de caixa de diálogo de texto que é exibida para o usuário.
+
+```bash
+whiptail --title 'Example Title' --infobox 'This is an example info box.' 8 70
+```
+
+Neste exemplo, o `title` é exibido na parte superior da caixa. A `infobox` é o corpo da caixa de diálogo e os dois argumentos finais são a altura e a largura da caixa.
+
+Há um bug que faz com que a Caixa de Informações não seja exibida em alguns *shells*. Se este for o caso, você pode definir a emulação do terminal para algo diferente e funcionará.
+
+```bash
+TERM=ansi whiptail --title 'Example Title' --infobox 'This is an example info box.' 8 70
+```
+
+##### Message box
+
+A caixa de mensagem é muito semelhante à caixa de informações, no entanto, espera que o usuário pressione o botão OK para continuar após o prompt.
+
+```bash
+whiptail --title 'Example Title' --msgbox 'This is an example message box. Press Ok to continue.' 8 70
+```
+
+##### Yes/No box
+
+A entrada sim/não faz o que diz na lata. Ele exibe um prompt com as opções de sim ou não e reposta é dada pelo código de retorno do comando.
+
+```bash
+# A simple if/then to do different things based on if yes or no is pressed.
+
+if (whiptail --title 'Example Title' --yesno 'This is an example yes/no box.' 8 70); then
+    echo 'yes'
+else
+    echo 'no'
+fi
+```
+
+##### Input box
+
+A caixa de entrada adiciona um campo de entrada para o texto a ser digitado. Se o usuário pressionar enter, o botão *Ok* será pressionado. Se o usuário selecionar *Cancel*, então é exitado do dialogo. O que o usuário passar no *input* é retornado pelo comando.
+
+```bash
+# The `3>&1 1>&2 2>&3` is a small trick to swap the stderr with stdout.
+# Meaning instead of return the error code, it returns the value entered.
+COLOR=$(whiptail --title 'Example Dialog' --inputbox 'What is your favorite color?' 8 78 blue 3>&1 1>&2 2>&3)
+
+# Now to check if the user pressed "Ok" or "Cancel"
+exit_status=$?
+
+if [ $exit_status -eq 0 ]; then
+    echo "User selected \"Ok\" and entered ${COLOR}."
+else
+    echo 'User selected "Cancel".'
+fi
+
+echo "(Exit status was ${exit_status}.)"
+```
+
+##### Text box
+
+Uma caixa de texto é semelhante à caixa de mensagem, mas obtém o corpo do texto de um arquivo especificado. Adicione `--scrolltext` se o arquivo for maior que a janela exibida.
+
+```bash
+echo "Welcome to Bash ${BASH_VERSION}." > ./test_textbox.txt
+
+# <filename> <height> <height>
+whiptail --textbox ./test_textbox.txt 12 80
+```
+
+##### Password box
+
+Uma caixa de senha é uma caixa de entrada com os caracteres exibidos como asteriscos para ocultar sua entrada.
+
+```bash
+PASSWORD=$(whiptail --title 'New Password' --passwordbox 'Enter your new password:' 8 70 3>&1 1>&2 2>&3)
+
+# Now to check if the user pressed "Ok" or "Cancel"
+exit_status=$?
+
+if [ $exit_status -eq 0 ]; then
+    echo "User selected \"Ok\" and entered ${PASSWORD}."
+else
+    echo 'User selected "Cancel".'
+fi
+
+echo "(Exit status was ${exit_status}.)"
+```
+
+##### Menus
+
+A caixa de diálogo do menu pode mostrar uma lista de itens dos quais o usuário pode selecionar um único item. O valor adicional `16` ao lado da altura e largura é o total de linhas que podem ser exibidas antes que o menu se torne rolável.
+
+```bash
+whiptail --title 'Menu example' --menu 'Choose an option:' 25 78 16 \
+'*** Back ***' 'Return to the main menu.' \
+'* Add User' 'Add a user to the system.' \
+'* Modify User' 'Modify an existing user.' \
+'* List Users' 'List all users on the system.' \
+'* Add Group' 'Add a user group to the system.' \
+'* Modify Group' 'Modify a group and its list of members.' \
+'* List Groups' 'List all groups on the system.'
+```
+
+Os valores são uma lista de opções de menu no formato ``tag item``, onde tag é o nome da opção que é impressa em *stderr* quando selecionada, e item é a descrição da opção de menu.
+
+Se você estiver apresentando um menu muito longo e quiser fazer o melhor uso da tela disponível, poderá calcular o melhor tamanho de caixa por.
+
+```bash
+eval `resize`
+whiptail ... $LINES $COLUMNS $((${LINES}-8)) ...
+```
+
+##### Check list
+
+A janela da lista de verificação é um menu multi-selecionável onde um único ou vários itens da lista podem ser seleccionados.
+
+```bash
+whiptail --title 'Check List Example' --checklist "Choose user's permissions:" 20 78 4 \
+'NET_OUTBOUND' '__ Allow connections to other hosts' ON \
+'NET_INBOUND' '__ Allow connections from other hosts' OFF \
+'LOCAL_MOUNT' '__ Allow mounting of local devices' OFF \
+'REMOTE_MOUNT' '__ Allow mounting of remote devices' OFF
+```
+
+Quando o usuário confirma suas seleções, uma lista de opções é impressa no *stderr*.
+
+##### Radio list
+
+Uma lista de rádio é uma caixa de diálogo onde o usuário pode selecionar uma opção de uma lista. A diferença entre uma lista de rádio e um menu é que o usuário seleciona uma opção (usando a barra de espaço em whiptail) e depois confirma essa escolha pressionando *Ok*.
+
+```bash
+whiptail --title 'Radio List Example' --radiolist "Choose user's permissions:" 20 78 4 \
+'NET_OUTBOUND' '__ Allow connections to other hosts' ON \
+'NET_INBOUND' '__ Allow connections from other hosts' OFF \
+'LOCAL_MOUNT' '__ Allow mounting of local devices' OFF \
+'REMOTE_MOUNT' '__ Allow mounting of remote devices' OFF
+```
+
+##### Progress gauge
+
+Syntax: `whiptail --gauge <text> <height> <width> [<percent>]`
+
+Também lê por cento de stdin:
+
+```bash
+#!/bin/bash
+{
+    for ((i=0;i<=100;i+=5)); do
+        sleep 0.1
+        echo $i
+    done
+} | whiptail --gauge 'Please wait while we are sleeping...' 6 50 0
+```
 
 #### Toilet
 
