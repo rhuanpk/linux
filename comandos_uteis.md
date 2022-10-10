@@ -2961,7 +2961,6 @@ A entrada sim/não faz o que diz na lata. Ele exibe um prompt com as opções de
 
 ```bash
 # A simple if/then to do different things based on if yes or no is pressed.
-
 if (whiptail --title 'Example Title' --yesno 'This is an example yes/no box.' 8 70); then
     echo 'yes'
 else
@@ -3676,6 +3675,76 @@ Quando removemos algum arquivo, na verdade o que acontece é que o bloco no disc
 
 ---
 
+### Open FD's (File Descriptors)
+
+```bash
+whiptail <any_syntax> 3>&1 1>&2 2>&3
+```
+
+Nesse caso ele usa um *I/O redirection* (via pipes) pois o programa (em específico, o `whitpil`) não prepara os *FD's* para que você possa simplesmente redirecionar a *STDOUT* para uma variável (como geralmente você faz com a grande maioria dos *shell scripts*).
+
+Em outras palavras, o `whitpil` não é designado para ser usado dessa forma (redirecionando a saída padrão dele), mas você pode mnipulalo forçando em nível de gerenciamento de descritores de arquivos. Essa é a "*API*" que o kernel Linux usa pra fornecer oque se chama de "*file*" em *user-land*.
+
+Arquivos na verdade não existem de fato, o que existe é uma tabela de *FD's* ("*binary numbers representation*") e é assim que o núcleo (kernel) cria uma forma de gerenciar arquivos na *user-land*.
+
+O Linux, é a engrenagem (motor) que usa a memória disponível (e memória sempre é um problema, por ser limitado)), criando essa *API* para você poder criar/remover arquivos em sistemas *unix-like* e assim como nesse caso, o próprio Linux. Usamos esse conceito de que tudo é um arquivo e sim, isso é um enorme problema... digamos que o Linux joga tudo isso para baixo do tapete e esconde os problemas na *user-land* (nem tudo é perfeito). O *design* e implementação dessas *API's* tem sempre os seus contras (limitações que geram problemas) e é isso que gera bugs.
+
+Quando você usa esse símbolo: `>` (sinal de maior), no **shell bash** do Linux, ele entende que você está precissando lidar com a saída padrão de um recurso (processos ou arquivos (*I/O resources*)), então você cria um novo *FD* (ocupa um *slot* de memória), ou seja, você cria um novo *FD* sempre que quer despejar algo de um lugar pra outro, nesse caso usando o operador pipe do shell. Olha que engraçado, no Linux, **um diretório é um arquivo**!
+
+Quando esperamos um “valor de retorno” de um comando, invocamos uma *subshell* (`$(<command>)`) e atribuímos a saída a uma variável:
+
+```bash
+xpto=$(whitptail <any_syntax>)
+```
+Mas há algo importante a ser observado: tecnicamente falando, não há “valor de retorno” (que é uma definição imprópria), o que é atribuído à variável é a **_STDOUT_** (*stderr* não é atribuído!).
+
+Veja este exemplo:
+
+```bash
+# `echo` defaults to *stdout*; nothing is printed, because *stdout* is captured!
+$ xpto=$(echo "anythink")
+$ echo $xpto
+value
+
+# This is printed, as it's *stderr*!
+$ xpto=$(echo "anythink" >/dev/stderr)
+anythink
+$ echo $xpto
+# empty!
+```
+
+Agora, a maneira como o `whiptail` funciona é que os *widgets* são impressos em *stdout*, enquanto o "valor de retorno" é impresso em *stderr*. Podemos capturar apenas do *stdout*, então o que fazemos?
+
+Simples! Trocamos *stdout* e *stderr*! Imprimir os *widgets* para *stderr* é perfeitamente válido e obtemos o “valor de retorno” em *stdout*.
+
+A expressão formal disso é `3>&1 1>&2 2>&3`, que significa:
+
+1. Criamos um descritor de arquivo temporário (3) e o apontamos para *stdout* (1).
+1. Redirecionamos *stdout* (1) para *stderr* (2).
+1. Redirecionamos *stderr* (2) para o descritor de arquivo temporário (3), que aponta para *stdout* (devido ao primeiro passo).
+
+Resultado: *stdout* e *stderr* são trocados :).
+
+#### Conclusão
+
+Nesse exemplo do `whiptail`, aonde de certa forma podemos abstrair da seguinte forma:
+
+```bash
+# A considerar:
+# - Por padrão o `whiptail` mostra sua saida em **STDOUT** (*file descriptor* 1)
+# - Por padrão envia o seu "retorno" para **STDERR** (*file descriptor* 2)
+
+xpto=$(whiptail <command> 3>&1 1>&2 2>&3)
+
+#  (descritor temporário) 3>&1 (1->padrão->tela->captura)
+#          (padrão->tela) 1>&2 (2->erro->não capturada->tela)
+#       (erro->tela/null) 2>&3 (aponta para descritor 3)
+```
+
+Ele não continua num *loop* de `2>&1 -> 3>&1 -> 1>&2 ...`, nesse caso, quando o `whiptail` é encerrado, seu retorno é enviado para **STDERR** (2) que é redirecionada para o descritor de arquivos 3, que nesse ponto (em que o *file descriptor* 2 (**STDERR**) é redirecionado para ele) já foi redirecionado para **STDOUT** (1) que já tem sua saida definida (que é a tela, mas que porém é capturada pela variável) e não precisa ser "verificado" novamente pois no momento que ele vai para o descritor 3 é como se ele "voltasse no tempo" e nesse ponto o descritor 1 (**STDOUT**) ainda não tinha sido direcionado para o descritor 2 (**STDERR**, que o faria então entrar em *loop*).
+
+---
+
 ### "/" no final da passagem de algum PATH
 
 Estou fazendo esse artigo pois eu tive essa dúvida recentemente... em que casos e porque era ou não necessário a utilização da "/" no final de algum path na hora de passar na linha comdando? Por fim, em conversa com colegas da comunidade **slackjeff** e outros, fiz esses testes por conta própria e achei que poderia ser a dúvida de outros também.
@@ -3825,7 +3894,7 @@ Conteúdo de **file.txt**: `"hello world?"`
 
 **RESULTADO**: Como não existia o arquivo "tmp" (no path atual que é para aonde estou copiando ele) e não era uma pasta, retornou erro e não copiou.
 
-#### Conclusão:
+#### Conclusão
 
 Quando usamos "**/**" ao passar algum *path*, deixamos explícito que o alvo é uma **pasta/diretório** e não um arquivo **comum/regular**.
 
