@@ -1176,6 +1176,25 @@ Monitorar algum *.service* do sistema:
 sudo journalctl -xfu <name_service>.service
 ```
 
+### Comando *trap*
+
+Comando *built-in* do sistema que intercepta os sináis passsado por parâmetro do *script* no qual ele foi chamado.
+
+```bash
+#!/bin/bash
+
+trap "echo 'O programa foi encerrado!'" SIGINT SIGTSTP SIGTERM SIGKILL EXIT
+
+read -p "Entre: " input
+echo "${input}"
+
+trap - SIGINT SIGTSTP SIGTERM SIGKILL EXIT
+```
+
+No caso de exemplo, é chamando o comando de armadilha no qual é acionado quando o *script* que está rodando receber um dos sináis passado a partir do segundo argumento. Quando o mesmo é acionado, é executado o que está como primeiro parâmetro passado para o `trap` comando.
+
+Depois de se utilizar das trativas de armadilha, podemos resetar as funções padrões que o *script* teria antes de alterarmos seu comportamento chamando um `-` como primeiro argumento e partir do segundo, da mesma forma, todos os sinais usados.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -2874,6 +2893,19 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 - Matar todas as sessões:
 	`tmux kill-server`
 
+### Vim
+
+- `ctrl+w v`: split vertical.
+- `ctrl+w s`: split horizontal.
+- `ctrl+w w`: navega entre as janelas.
+- `:e /path/to/file.any`: abre o arquivo no caminho passado.
+- `:term`: abre uma janela dedicada a ser um terminal.
+- `:vertical :term`: abre uma janela dedicada a ser um terminal esplitado na vertical.
+- `:! pwd`: executa um comando e volta para o vim.
+- `:r! pwd`: executa um comando e seu retorno vai direto para o arquivo que está sendo editado.
+- `ctrl+w e`: *scroll* de linha a linha para baixo.
+- `ctrl+w y`: *scroll* de linha a linha para cima.
+
 ### Instalar Slax
 
 Instalação padrão:
@@ -3276,6 +3308,20 @@ https://launchpad.net/ubuntu/+ppas
 
 <a id="git"></a>
 ## [> Git](#menu)
+
+Sintaxe de URL's:
+
+- http:
+
+```bash
+https://<user>:<token>@<domain>/<user>/<repo>.git
+```
+
+- ssh:
+
+```bash
+git@<domain>:<user>/<repo>.git
+```
 
 Renomear repositório remoto:
 
