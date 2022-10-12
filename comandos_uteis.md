@@ -1195,6 +1195,17 @@ No caso de exemplo, é chamando o comando de armadilha no qual é acionado quand
 
 Depois de se utilizar das trativas de armadilha, podemos resetar as funções padrões que o *script* teria antes de alterarmos seu comportamento chamando um `-` como primeiro argumento e partir do segundo, da mesma forma, todos os sinais usados.
 
+### Comando *systemctl*
+
+- --type: filtra pelo tipo de unidade.
+- --state: filtra pelo estádo da unidade.
+
+Listar todas as unidades do sistema:
+
+```bash
+systemctl list-units [--type service] [--state running]
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
