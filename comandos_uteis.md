@@ -1206,6 +1206,14 @@ Listar todas as unidades do sistema:
 systemctl list-units [--type service] [--state running]
 ```
 
+- --reverse: mostra as dependências reversas (quais serviços dependem deste).
+
+Listar todas as dependências de uma unidade:
+
+```bash
+systemctl list-dependencies [--reverse] <service_name>.service
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
