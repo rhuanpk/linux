@@ -2917,6 +2917,69 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 - `ctrl+w e`: *scroll* de linha a linha para baixo.
 - `ctrl+w y`: *scroll* de linha a linha para cima.
 
+### GRUB
+
+Possibilidades de correções do sistema pelo GRUB.
+
+#### Shell (`c`)
+
+Colocar paginação na saida:
+
+```
+grub> set pager=1
+```
+
+Listar os HD's e partições:
+
+```
+grub> ls
+```
+
+Listar o conteúdo dos HD's:
+
+```
+grub> ls (hd0,msdos5)/boot
+```
+
+Ver o conteúdo de arquivos:
+
+```
+grub> cat (hd0,msdos5)/etc/fstab
+```
+
+Setar kernel para boot:
+
+1. Escolha um kernel disponível em `/boot` e seu ponto de montagem (pego no fstab (*device* ou *UUID*)):
+
+```
+grub> linux (hd0,msdos5)/boot/vmlinuz-5.10.0-10-amd64 root=/dev/sda1
+```
+
+2. Escolha o initrd disponível também em `/boot` (módulos compatíveis com o *kernel*):
+
+```
+grub> linux (hd0,msdos5)/boot/initrd-5.10.0-10-amd64
+```
+
+3. Por fim, de boot no sistema:
+
+```
+grub> boot
+```
+
+#### Editor (`e`)
+
+Carregar o **bash** antes de subir o sistema:
+
+1. No final da linha que inicia com `linux`:
+
+	1. Apagar do `ro` para frente.
+	2. Colocar no lugar: `rw init=/bin/bash`.
+
+2. Pressione `F10` para bootar as alterações temporárias.
+
+3. Depois que fizer o que precisa, inicie o sistema com `exec /sbin/init`.
+
 ### Instalar Slax
 
 Instalação padrão:
