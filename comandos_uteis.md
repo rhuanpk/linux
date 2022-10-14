@@ -953,6 +953,12 @@ Mudar icone via CLI:
 gsettings set org.gnome.desktop.interface icon-theme "icon_name"
 ```
 
+Habilitar/Desabilitar a o bloquei de tela (e a suspenção) quando escurece a tela:
+
+```bash
+gsettings set org.gnome.desktop.screensaver lock-enabled {true|false}
+```
+
 ### Comando *history*
 
 Limpar histórico do terminal:
