@@ -2521,6 +2521,27 @@ Caso a pasta ainda não exista, basta cria-la:
 mkdir ~/.config/autostart/
 ```
 
+### Criar serviços (*systemd units*) que inicia junto com a sessão
+
+Path:
+
+```
+/etc/systemd/system/<service_name>.service
+```
+
+Sintaxe básica de um *dot file* `.service`:
+
+```
+[Unit]
+Description=<unit_description>
+
+[Service]
+User=<user_name>
+ExecStart=</path/to/interpreter> </path/to/script.any>
+Restart=always
+RestartSec=3
+```
+
 ### Cron
 
 #### Sintaxe e exemplo
