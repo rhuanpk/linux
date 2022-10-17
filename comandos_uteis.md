@@ -2536,7 +2536,7 @@ Sintaxe básica de um *dot file* `.service`:
 Description=<unit_description>
 
 [Service]
-User=<user_name>
+WorkingDirectory=</folder/script/run/ove/r>
 ExecStart=</path/to/interpreter> </path/to/script.any>
 Restart=always
 RestartSec=3
