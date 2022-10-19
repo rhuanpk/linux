@@ -2540,6 +2540,9 @@ WorkingDirectory=</folder/script/run/ove/r>
 ExecStart=</path/to/interpreter> </path/to/script.any>
 Restart=always
 RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 ### Cron
