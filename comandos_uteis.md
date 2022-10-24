@@ -2234,6 +2234,18 @@ amixer set {Master|Speaker} toggle
 1. Insira o conteúdo:
 	`Defaults pwfeedback`
 
+### Desabilitar suspenção na *blank screen*
+
+```bash
+gsettings set org.gnome.desktop.screensaver lock-enabled {true|false}
+```
+
+### Aceitar EULA automáticamente
+
+```bash
+echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select {true|false}' | sudo debconf-set-selections
+```
+
 ---
 
 <a id="db_hardware"></a>
