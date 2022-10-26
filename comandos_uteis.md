@@ -534,30 +534,55 @@ date
 
 ### Comando *sudo*
 
-Passar senha de forma automática:
+- -S: aceita receber entrada via *pipe* (*STDIN*) e espera receber no final da string uma nova linha.
+- -k: reseta ou não salva a senha no cache
+- -v: valida ou atualiza o tempo de cache da senha
 
-- -S: aceita que a STDIN seja diferente e espera receber no final da string uma nova linha
+#### Passar senha de forma automática
+
+Alta usabilidade em scripts:
 
 ```bash
 echo -e "<password>\n" | sudo -S <command>
 ```
 
-#### Não guardar a senha em cache
+#### Tempo do cache da senha
 
-Direto na linha de comando:
+Reseta o tempo de cache:
+
+```bash
+sudo -k
+```
+
+Rodar o comando sem guardar a senha em cache:
 
 ```bash
 sudo -k <command>
 ```
 
-Definir permanentemente:
+Definir zero cache permanentemente:
 
 1. Edite o arquivo de alterações do sudoers:
 	`sudo visudo -f /etc/sudoers.d/users`
 1. Colocar o seguinte conteúdo:
 	`Defaults:ALL timestamp_timeout=0`
 
-#### Arquivo **sudoers**
+#### Validação da senha e refresh do cache
+
+Dentro de scripts: caso queria validar a senha do usuário e sem precisar rodar o sudo com algum comando:
+
+```bash
+read -rsp 'Entre com a senha: ' password
+echo -e "${password}\n" | sudo -Sv
+```
+
+Dentro de script ou mesmo fora: atualizar o cache da senha:
+
+```bash
+sudo -v
+```
+
+#### Arquivo *sudoers*
 
 - Sempre editar o arquivo com o comando `visudo`
 - Caso precise fazer alguma alteração nesse arquivo, altere o `/etc/sudoers.d`
@@ -2343,30 +2368,43 @@ lsb_release -cs
 
 ### Como inserir icones no "menu de aplicativos"
 
-1. Crie um arquivo .desktop em: ~/.local/share/applications:
+1. Crie um arquivo .desktop em `/usr/share/applications/`:
 
 ```bash
-touch ~/.local/share/applications/nome_arquivo.desktop
+sudo touch /usr/share/applications/file_name.desktop
 ```
 
-2. Edite o arquivo inserindo as seguintes linhas:
+OBS: pode ser criado para o usuário no seu `~/.local/`:
+	`touch ~/.local/share/applications/file_name.desktop`
+
+2. Edite o arquivo criado inserindo as seguintes linhas:
 
 ```
 [Desktop Entry]
-Encoding=UTF-8
-Name=App Name
-Comment=App Comment
-Icon=/path/for/app/icon.xpm
-Exec=/path/to/application/binary
-Terminal=false
 Type=Application
-Categories=Development
+Name=App Name
+Icon=appname
+Exec=/path/to/application/binary
 ```
 
-3. Torne o .desktop criado em executavel:
+OBS: o ícone deve ser guardado no diretório `/usr/share/pixmaps/<appname>.{png|xpm}`, para que possamos pssar simplesmente o nome do ícone sem a extensão no atributo `Icon` do *dot file* (caso necessário, também pode-se passar o caminho absoluto).
+
+#### Criar link simbólico na área de trabalho
+
+1. Crie um arquivo no seu `~/Desktop/`:
 
 ```bash
-chmod +x ~/.local/share/applications/file_name.desktop
+touch ~/Desktop/file_name.desktop
+```
+
+2. Edite o arquivo criado inserindo as seguintes linhas:
+
+```
+[Desktop Entry]
+Type=Link
+Name=App Name
+Icon=appname
+URL=/usr/share/applications/file_name.desktop
 ```
 
 ### Atualizar a versão da distro
