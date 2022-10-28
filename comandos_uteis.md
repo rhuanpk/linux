@@ -2907,7 +2907,7 @@ Exemplo de **análise** via print:
 
 Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
 
-### Empacotamento *debian* (ciar .deb)
+### Empacotamento *debian* (criar .deb)
 
 1. Criar a seguinte hierarquia de diretórios:
 
