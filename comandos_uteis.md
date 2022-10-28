@@ -2921,7 +2921,7 @@ mkdir -p /path/to/your/projects/hello_0_0_amd64/{DEBIAN,usr/bin}/
 touch /path/to/your/projects/hello_0_0_amd64/DEBIAN/{control,preinst}
 ```
 
-	1. coloque as informações a respeito do pacote no arquivo *control*:
+2.1. coloque as informações a respeito do pacote no arquivo *control*:
 
 ```bash
 Package: hello
@@ -2933,14 +2933,14 @@ Maintainer: rhuan-pk
 Description: Just a "hello".
 ```
 
-	2. coloque o script de pŕe instalação no arquivo *preinst*:
+2.2. coloque o script de pŕe instalação no arquivo *preinst*:
 
 ```bash
 #!/bin/bash
 [ -f /usr/bin/hello ] && sudo rm -fv /usr/bin/hello
 ```
 
-	3. Dê permissão de execução para os scripts.
+2.3. Dê permissão de execução para os scripts.
 
 3. Compile o binário e coloque em `/path/to/your/projects/hello_0_0_amd64/usr/bin/`.
 
