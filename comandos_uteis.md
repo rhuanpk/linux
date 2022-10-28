@@ -2501,7 +2501,7 @@ source .bashrc
 
 ### Sistema de arquivos criptografado
 
-1. Crie a privada que guardara os arquivos:
+1. Crie a pasta privada que guardara os arquivos:
 
 ```bash
 mkdir ~/private
