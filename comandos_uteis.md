@@ -1245,6 +1245,16 @@ Listar todas as dependências de uma unidade:
 systemctl list-dependencies [--reverse] <service_name>.service
 ```
 
+### Comando *sysctl*
+
+Troca a porcentagem de uso de disco (que está sobrando) para que a *swap* seja ativada:
+
+```bash
+sudo sysctl vm.swappiness=<value_that_is_left>
+```
+
+OBS: No caso, se quiser que a *swap* seja ativa com 90% de uso de disco, defina o valor para 10.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
