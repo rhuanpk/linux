@@ -2907,6 +2907,49 @@ Exemplo de **análise** via print:
 
 Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
 
+### Empacotamento *debian* (ciar .deb)
+
+1. Criar a seguinte hierarquia de diretórios:
+
+```bash
+mkdir -p /path/to/your/projects/hello_0_0_amd64/{DEBIAN,usr/bin}/
+```
+
+2. Criar os arquivos de controle e os scripts de instalação.
+
+```bash
+touch /path/to/your/projects/hello_0_0_amd64/DEBIAN/{control,preinst}
+```
+
+	1. coloque as informações a respeito do pacote no arquivo *control*:
+
+```bash
+Package: hello
+Version: 0.0
+Architecture: all
+Essential: no
+Priority: optional
+Maintainer: rhuan-pk
+Description: Just a "hello".
+```
+
+	2. coloque o script de pŕe instalação no arquivo *preinst*:
+
+```bash
+#!/bin/bash
+[ -f /usr/bin/hello ] && sudo rm -fv /usr/bin/hello
+```
+
+	3. Dê permissão de execução para os scripts.
+
+3. Compile o binário e coloque em `/path/to/your/projects/hello_0_0_amd64/usr/bin/`.
+
+4. *Builde* o pacote:
+
+```bash
+dpkg-deb --build ./hello_0_0_amd64/
+```
+
 ### Tmux
 
 Ele trabalha com sessões e dentro de cada sessão você pode ter várias janelas (*tabs*) e dentro dessas janelas ainda há a possiblidade de *split*.
