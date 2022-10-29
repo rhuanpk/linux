@@ -1255,6 +1255,40 @@ sudo sysctl vm.swappiness=<value_that_is_left>
 
 OBS: No caso, se quiser que a *swap* seja ativa com 90% de uso de disco, defina o valor para 10.
 
+### Comando *passwd*
+
+Alterar a senha de um usuário:
+
+```bash
+sudo passwd <user>
+```
+
+Limpar a senha de um usuário:
+
+```bash
+sudo passwd -d <user>
+```
+
+Bloquear a senha de um usuário:
+
+```bash
+sudo passwd -l <user>
+```
+
+Desbloquear a senha de um usuário:
+
+```bash
+sudo passwd -u <user>
+```
+
+OBS:
+
+- Simplesmente limpar a senha do usuário o fara ficar sem senha, ou seja, ele ficará sem esse token de autênticação (*e.g.* se tentar logar na conta do usuário, não pedirá a senha).
+
+- Bloquear e desbloquear a senha de uma usuário implica somente da senha do mesmo, ou seja, caso bloqueamos a senha de um usuário, ele poderá fazer login por outro tipo de *token* (algum tipo de chave por exemplo).
+
+- Caso queira "bloquear"/"desativar" a conta do usuário, poderá limpar a sua senha (*-d*) e depois bloea-la (*-l*), depois dessa combinação, só podera logar pelo usuário de forma direta criando uma nova senha para o mesmo.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -2500,6 +2534,12 @@ source .bashrc
 ```
 
 ### Sistema de arquivos criptografado
+
+Programas necessários:
+
+```bash
+sudo apt install ecryptfs-utils -y
+```
 
 1. Crie a pasta privada que guardara os arquivos:
 
