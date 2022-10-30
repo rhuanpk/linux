@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A simple clock in loop
+# A simple clock in loop.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

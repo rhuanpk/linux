@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A simple counter that increments
+# A simple counter that increments.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

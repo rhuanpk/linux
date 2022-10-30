@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Cria um exemplo de jaula e se muda para lá.
+# Create an jail example and itself move there.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

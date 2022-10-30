@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Diminúi ou aumenta velocidade do ponteiro
+# Decrease or increase pointer speed.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

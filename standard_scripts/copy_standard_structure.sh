@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copy to clipboard v2 basic framework for scripts
+# Copy to clipboard v2 basic framework for scripts.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Clean the cache memory
+# Clean the cache memory.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

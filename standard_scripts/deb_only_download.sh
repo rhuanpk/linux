@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Make a list of the packages dependencies of the programs to temp files
+# Make a list of the packages dependencies of the programs to temp files.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

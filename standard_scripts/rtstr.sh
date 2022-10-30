@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Retorna a conversão do argumento passado em string, seja int, float, string ou arquivo
+# Returns the conversion of the passed argument to string, whether int, float, string, or file.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

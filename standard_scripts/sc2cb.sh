@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # sc2cb = Send Color to ClipBoard
-# Envia o código hexa da cor para a sua área de transferência
+# Sends the hex code of the color to your clipboard.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

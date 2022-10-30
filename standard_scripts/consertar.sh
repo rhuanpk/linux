@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Try fix brokened packages
+# Try fix brokened packages.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

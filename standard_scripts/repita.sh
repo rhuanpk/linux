@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Loop de comandos
+# Loop for commands.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

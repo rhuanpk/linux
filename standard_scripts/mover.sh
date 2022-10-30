@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Move all or some specifies scripts to the PATH directories
+# Move all or some specifies scripts to the PATH directories.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

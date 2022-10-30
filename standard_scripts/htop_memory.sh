@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Take the consumption of ram memory
+# Take the consumption of ram memory.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

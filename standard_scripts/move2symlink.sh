@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# OBS: Whenever you add a new function, add it to the "all_functions" array
+# OBS: Whenever you add a new function, add it to the "all_functions" array.
 
 # ********** Declaração de Funções **********
 

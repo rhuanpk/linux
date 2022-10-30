@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Automatically compiles and executes a .java file, just pass the file name as a parameter
+# Automatically compiles and executes a .java file, just pass the file name as a parameter.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# My custom rofi
+# My custom rofi.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

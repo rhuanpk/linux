@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Call the "pk-i3lock" and suspend the system
+# Call the "pk-i3lock" and suspend the system.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

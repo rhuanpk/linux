@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Brightness control
+# Brightness control.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# Pega o consumo de RAM de algum programa específico
+# Get the RAM consumption of some specific program.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

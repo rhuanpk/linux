@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Cleans up everything that is useless on the system, left by uninstalled packages
+# Cleans up everything that is useless on the system, left by uninstalled packages.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

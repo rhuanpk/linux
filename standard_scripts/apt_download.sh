@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Baixa somente o .deb do programa e suas libs
+# Download only .deb's the programs and your libs.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

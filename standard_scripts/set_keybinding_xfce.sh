@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Reset and set as new keybing
+# Reset and set as new keybing for xfce environments.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

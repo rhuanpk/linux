@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Restart the session
+# Restart the session.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

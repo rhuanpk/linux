@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# It does the entire push process automatically and if no parameter is passed, it commits with a standard message
+# It does the entire push process automatically and if no parameter is passed, it commits with a standard message.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

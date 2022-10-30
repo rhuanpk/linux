@@ -5,7 +5,7 @@
 #    > "rhuan ALL=NOPASSWD:/usr/bin/systemctl"
 # */2 * * * * /usr/local/bin/pk-suspend_for_safety 2>/tmp/cron_error.log
 
-# Checks the battery percentage, if it is 9% or less the system is suspended
+# Checks the battery percentage, if it is 9% or less the system is suspended.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

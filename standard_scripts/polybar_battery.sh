@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Printa a porcentagem de bateria caso seja "ac adpter"
+# Prints the battery percentage if it is "ac adapter".
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

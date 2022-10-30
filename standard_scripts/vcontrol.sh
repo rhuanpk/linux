@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-# Volume control
-# necessário: terminator && xdotool && zsh
+# Volume control.
+# Necessary: terminator && xdotool && zsh.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

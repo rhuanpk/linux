@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Set a new binding
+# Set a new binding for gnome environments.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

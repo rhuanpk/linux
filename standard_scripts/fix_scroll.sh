@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Toggle the scrolling direction of the scroll
-# Run: 'synclient' to return scroll values
+# Toggle the scrolling direction of the scroll.
+# Run: 'synclient' to return scroll values.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

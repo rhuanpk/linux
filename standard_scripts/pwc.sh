@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Tira prints com o scrot e já manda pro diretório correto
+# Tira prints com o scrot e já manda pro diretório correto.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

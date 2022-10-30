@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# ------------------------------------------------------
-# OBS: ainda é necessário deixar esse script automático
-# ------------------------------------------------------
+# -------------------------------------------------------
+# OBS: ainda é necessário deixar esse script automático.
+# -------------------------------------------------------
 
-# Make a backup of some important files
+# Make a backup of some important files.
 
 # crontab:
 # */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log

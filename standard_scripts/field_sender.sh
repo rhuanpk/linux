@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Envia a mensagem desejada para o "dontpad.com" informado
+# Send the desired message to the informed "dontpad.com".
 
 verify_privileges() {
 	if [ ${UID} -eq 0 ]; then

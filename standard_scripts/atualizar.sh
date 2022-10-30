@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Default system update
+# Default system update.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

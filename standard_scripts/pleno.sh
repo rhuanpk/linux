@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Script that updates, fixes and cleans the system in one go
+# Script that updates, fixes and cleans the system in one go.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

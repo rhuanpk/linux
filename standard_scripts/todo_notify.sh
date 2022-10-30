@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Envia notificação para a área de trabalho para lembra do todo list
+# Send notification to desktop to remind todo list.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

@@ -2,9 +2,8 @@
 
 ###############################################################################
 #
-# Script criado para fazer backup simples
-# para alguma pasta de serviço de cloud e
-# para algum disco externo
+# Script criado para fazer backup simples para alguma pasta de serviço de
+# cloud e para algum disco externo.
 #
 # Modo de uso:
 #
