@@ -23,11 +23,13 @@ verify_privileges
 # >>>>> PROGRAM START <<<<<
 
 # Fix
+sudo -v
 sudo dpkg --configure -a
 sudo apt install -f -y
 sudo apt --fix-broken install -y
 
 # Update
+sudo -v
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -35,10 +37,12 @@ sudo ubuntu-drivers autoinstall
 sudo apt install ubuntu-restricted-extras -y
 
 # Clean
+sudo -v
 sudo apt clean -y
 sudo apt autoclean -y
 sudo apt autoremove -y
 
 # Update and Clean
+sudo -v
 sudo apt dist-upgrade -y
 sudo apt full-upgrade -y
