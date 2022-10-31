@@ -60,7 +60,7 @@ change_path() {
 	new_path=${1:?'need a path to set new mount point!'}
 	script_path=$(which ${script_name})
 	line_and_path=$(grep -nE '^(volume_path=).*$' ${script_path:?'path of script not set!'})
-	if ! sed -i "${line_and_path%:*}s~${line_and_path#*=}~${new_path}~" ${script_path}; then
+	if ! sudo sed -i "${line_and_path%:*}s~${line_and_path#*=}~${new_path}~" ${script_path}; then
 		echo 'Failed on changing!'
 		exit 1
 	else
