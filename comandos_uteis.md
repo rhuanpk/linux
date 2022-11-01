@@ -430,16 +430,33 @@ ncdu [<path>]
 
 ### Comando *grep*
 
-- -i: *Case insensitive*
-- -n: Número da linhas da ocorrência
-- -o: Somente a ocorrência e não a linha toda da mesma
-- -E: Expressão regular extendida
-- -R: Recursividade em arquivos
+- -i: *Case insensitive*.
+- -n: Número da linhas da ocorrência.
+- -o: Somente a ocorrência e não a linha toda da mesma.
+- -E: Expressão regular extendida.
+- -r: Recursividade não seguindo symlinks.
+- -R: Recursividade seguindo symlinks.
 - -v: Inverte a ocorrência, todas as linhas que não casaram.
 
 ```bash
-grep -inoER '^(hello|world)' {/some/path/file.txt|/some/path/*}
+grep -inroE '^(hello|world)' {/some/path/file.txt|/some/path/}
 ```
+
+#### Opção *exclude*
+
+Exclude em arquivos:
+
+```bash
+grep --exclude=*file_{3,4}* -inrE '(match)' ./
+```
+
+Exclude em diretórios:
+
+```bash
+grep --exclude-dir={dir_1,dir_2} -inrE '(match)' ./
+```
+
+OBS: irá excluir todos os arquivos/diretórios independente do nível da pasta que o grep estiver percorrendo que casar com a cadeia do `exclude` passado a partir da pasta *root* passada.
 
 ### Comando *hostname*
 
