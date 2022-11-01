@@ -430,11 +430,12 @@ ncdu [<path>]
 
 ### Comando *grep*
 
-- i: *Case insensitive*
-- n: Número da linhas da ocorrência
-- o: Somente a ocorrência e não a linha toda da mesma
-- E: Expressão regular extendida
-- R: Recursividade em arquivos
+- -i: *Case insensitive*
+- -n: Número da linhas da ocorrência
+- -o: Somente a ocorrência e não a linha toda da mesma
+- -E: Expressão regular extendida
+- -R: Recursividade em arquivos
+- -v: Inverte a ocorrência, todas as linhas que não casaram.
 
 ```bash
 grep -inoER '^(hello|world)' {/some/path/file.txt|/some/path/*}
