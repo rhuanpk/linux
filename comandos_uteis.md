@@ -876,13 +876,13 @@ gpg --gen-revoke <key_id> > /path/to/revocation.crt
 Exportar chave pública (gerar o arquivo da chave pública):
 
 ```bash
-gpp --export --armor <key_id> > any_pub_key
+gpg --export --armor <key_id> > any_pub_key
 ```
 
 Exportar chave privada (gerar o arquivo da chave privada):
 
 ```bash
-gpp --export-secret-key --armor <key_id> > any_secret_key
+gpg --export-secret-key --armor <key_id> > any_secret_key
 ```
 
 Criptografar de forma simétrica a chave (*password* única):
