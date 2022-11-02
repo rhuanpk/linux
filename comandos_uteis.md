@@ -790,7 +790,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 - Caso queria retirar a autênticação por senha para poder logar somente com chaves:
 	`PasswordAuthentication no`
 
-#### Comando *ssh-keygen*
+#### *ssh keys/agents*
 
 Criar ssh key:
 
@@ -798,34 +798,30 @@ Criar ssh key:
 ssh-keygen -t rsa -b 4096
 ```
 
-Iniciando um agente ssh para poder adicionar a chave criada a ele (quando algo buscar por uma chave é o ssh-agent que irá fornecer):
+Iniciar um agente *ssh* (quando algo buscar por uma chave é o *ssh-agent* que irá fornecer):
 
 ```bash
-ssh-agent -s
+eval `ssh-agent -s`
 ```
 
-OBS: Pode ser que o ssh-agent esteja com problemas para iniciar, ele até pode gerar o pid do agent porém não atribui as variáveis, dessa forma, rode:
+OBS: Essa forma passada é a forma oficial descrita no manual do *ssh*. outros meios de iniciar o *ssh-agent* seria `ssh-agent -s` ou `exec ssh-agent bash`.
+
+Adicionar chave ao agente:
 
 ```bash
-exec ssh-agent bash
+ssh-add -k ~/.ssh/id_rsa
 ```
 
-Adicione a chave criada ao agente criado:
-
-```bash
-ssh-add ~/.ssh/id_rsa
-```
-
-Cerificar as chaves publicas adicionadas ao agente:
+Verificar as chaves publicas adicionadas no agente:
 
 ```bash
 ssh-add -l
 ```
 
-Para ver o PID do agente:
+Ver o *pid* e o *socket* do agente:
 
 ```bash
-printenv SSH_AGENT_PID
+printenv SSH_AGENT_PID SSH_AUTH_SOCK
 ```
 
 Remover *fingerprint* depreciado:
@@ -833,6 +829,40 @@ Remover *fingerprint* depreciado:
 ```bash
 ssh-keygen [-f /home/${USER}/.ssh/known_hosts] -R <host>
 ```
+
+##### Adicionar a chave ao *ssh-agent* automáticamente.
+
+1. De forma manual (mais segura?):
+
+	- Deixe a chave ssh criptografada (com algum utilitário como *toplio*, *gpg* ou algum de sua escolha).
+	- Iniciado a sessão, descriptografe a chave.
+	- Faça o processo manual de colocar a chave no agente.
+
+2. De forma automática (usando o keychain):
+
+	- Configure o arquivo `~/.ssh/config`.
+	- Instale o *keychain*.
+	- Configure o *keychain* no `~/.bash_profile`.
+
+Exemplo de configuração para o *ssh* (`~/.ssh/config`):
+
+```bash
+Host *
+	UseKeychain yes
+	AddKeysToAgent yes
+	IdentityFile ~/.ssh/id_rsa
+```
+
+Exemplo de configuração `keychain` (`~/.bash_profile`):
+
+```bash
+/usr/bin/keychain --clear ~/.ssh/id_rsa
+. ~/.keychain/$(hostname)-sh
+```
+
+CONSIDERAÇÕES:
+
+Quando criamos as chaves *ssh* para o **git** por exemplo, não necessariamente precisamos adiciona-la ao *ssh-agent*, pois, caso você tente dar algum clone ou push (utilizando conexão *ssh* obviamente), por padrão o protocolo procurará se existe alguma chave no *default path* do *ssh* (`~/.ssh/id_rsa`). Quando for manipular o respositório **git**, será encontrado a chave privada e será pedido sua senha (é claro que, caso tenha a chave adicionada ao *ssh-agent*, ele nem se quer irá pedir a senha, a autênticação será automática).
 
 #### Banners
 
