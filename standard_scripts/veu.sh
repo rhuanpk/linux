@@ -95,7 +95,7 @@ mount_private() {
 
 umount_private() {
 	if ! $is_mounted_status; then
-		echo "${volume_path} no already mounted!"
+		echo "${volume_path} already unmounted!"
 		exit 1
 	fi
 	if ! error_message=$(sudo umount $volume_path); then
