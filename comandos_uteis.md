@@ -804,7 +804,7 @@ Iniciando um agente ssh para poder adicionar a chave criada a ele (quando algo b
 ssh-agent -s
 ```
 
-Pode ser que o ssh-agent esteja com problemas para iniciar, ele até pode gerar o pid do agent porém não atribui as variáveis, dessa forma, rode:
+OBS: Pode ser que o ssh-agent esteja com problemas para iniciar, ele até pode gerar o pid do agent porém não atribui as variáveis, dessa forma, rode:
 
 ```bash
 exec ssh-agent bash
