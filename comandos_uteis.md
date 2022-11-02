@@ -1307,6 +1307,34 @@ OBS:
 
 - Caso queira "bloquear"/"desativar" a conta do usuário, poderá limpar a sua senha (*-d*) e depois bloea-la (*-l*), depois dessa combinação, só podera logar pelo usuário de forma direta criando uma nova senha para o mesmo.
 
+### Comando *losetup*
+
+Listar todos os dispositivos de bloco:
+
+```bash
+sudo losetup -a
+```
+
+#### Desmontar e remover um *loop device*
+
+1. Desmontar o dispoitivo de bloco:
+
+```bash
+sudo umount /dev/loop9
+```
+
+2. Desanexar os arquivos referentes a essa dispotivo de bloco:
+
+```bash
+sudo losetup -d /dev/loop9
+```
+
+3. Remova o *loop device*:
+
+```bash
+sudo rm /dev/loop9
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
