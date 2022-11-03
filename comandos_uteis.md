@@ -1622,7 +1622,7 @@ xz -vd compressed_file.xz
 
 #### Comando *7z*
 
-- -x: modo verboso (printa na tela o processamento).
+- x: para descompactar arquivos.
 
 Descompactar:
 
