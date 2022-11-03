@@ -35,7 +35,7 @@ for file in $(ls -1); do
 
 	if [ $extension = '.tar.gz' ]; then
 		tar -zxvf ./${file}
-	elif [[ $extension =~ ^.(tar|tbz2)(.bz2)?$ ]]; then
+	elif [[ $extension =~ ^.(tar|tbz2)(.(xz|bz2))?$ ]]; then
 		tar -xvf ./${file}
 	elif [ $extension = '.zip' ]; then
 		unzip ./${file}

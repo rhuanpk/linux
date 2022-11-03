@@ -1224,17 +1224,17 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 
 ### Comando *curl*
 
-- -f: caso falhe, suprime a saida de erro
-- -s: silencia a saida
-- -S: caso de algum erro porém a saida padrão esteja silenciada, mostrará o erro
-- -L: tentar encontrar a nova *url* caso a que esteja batendo tenha caido
-- -o: informa o nome de saida do arquivo
-- -d: *put* no *field* informado
+- -f: caso falhe, suprime a saida de erro.
+- -s: silencia a saida.
+- -S: caso de algum erro porém a saida padrão esteja silenciada, mostrará o erro.
+- -L: tentar encontrar a nova *url* caso a que esteja batendo tenha caido.
+- -o: informa o nome de saida do arquivo.
+- -d: *put* no *field* informado.
 
 Sintaxe comum para download:
 
 ```bash
-curl -fsSL <url>
+curl [-o /path/to/save.any] -fsSL <url>
 ```
 
 Popular *field* no *html* de determinado endereço:
@@ -1243,13 +1243,30 @@ Popular *field* no *html* de determinado endereço:
 curl -d <field_name>='<message>' <url>
 ```
 
+### Comando *wget*
+
+- -P: diretório alternativo para salvar o arquivo.
+- -O: mudar o nome de saida do arquivo.
+- -c: continua um download que foi interrompido.
+
+Sintaxe comum para download:
+
+```bash
+wget [-P /path/to/save/|-O altered_name.any] <url>
+```
+
+OBS:
+
+- As opções `-P` e `-O` não podem ser usadas juntas.
+- Opção `-c`: simplesmente inicie novamente o download com esta opção estando na mesma pasta que está o arquivo imcompleto.
+
 ### Comando *journalctl*
 
 Monitorar algum *.service* do sistema:
 
-- -x: deixa visualmente a saida mais legível (pretty)
-- -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`)
-- -u: especifique o nome da unidade
+- -x: deixa visualmente a saida mais legível (pretty).
+- -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`).
+- -u: especifique o nome da unidade.
 
 ```bash
 sudo journalctl -xfu <name_service>.service
@@ -1517,47 +1534,79 @@ locate -b '\file.txt'
 
 #### Comando *tar*
 
-Compactar em .tar.gz:
+- -z: para manipulação de arquivos `.gz`.
+- -c: para criar arquivos compactados.
+- -v: modo verboso (printa na tela o processamento).
+- -f: informa qual é o arquivo para para aquela operação.
+- -x: para fazer extração de arquivos `.tar`.
+- -C: para descompactar em outra pasta.
+- -t: para fazer listagem de arquivos comprimidos.
+
+##### *.tar.gz*
+
+Compactar em `.tar.gz`:
 
 ```bash
-tar -zcvf target_folder.tar.gz /file/to/be/compressed /folder/to/be/compressed/ /for/compressed/multiples/*
+tar -zcvf target_folder.tar.gz /file/to/compressed.any /folder/to/compressed/
 ```
 
-Descompactar de .tar.gz:
+Descompactar de `.tar.gz`:
 
 ```bash
-tar -zxvf compressed_folder.tar.gz
+tar [-C /folder/to/decompress/] -zxvf compressed_folder.tar.gz
 ```
 
-Ver conteúdo de .tar.gz:
+##### *.tar.xz*
+
+Compactar em `.(tar|tbz2).(xz|bz2)`:
+
+```bash
+tar -cvf target_folder.tar.gz /file/to/compressed.any /folder/to/compressed/
+```
+
+Descompactar de `.(tar|tbz2).(xz|bz2)`:
+
+```bash
+tar [-C /folder/to/decompress/] -xvf compressed_folder.tar.xz
+```
+
+##### *.tar.\**
+
+Ver conteúdo de `.tar.*`:
 
 ```bash
 tar -tf compressed_folder.tar.gz
 ```
 
-Descompactar de .tar.xz:
+#### Comando *zip/unzip*
 
-```bash
-tar -xvf compressed_folder.tar.xz
-```
-
-#### Comando *zip*
+- -d: especifica a pasta para ser descompactado.
+- -l: listar o conteúdo do arquivo compactado.
+- -r: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada).
 
 Compactar:
 
 ```bash
-zip target_folder.zip /file/to/be/compressed /folder/to/be/compressed/ /for/compressed/multiples/*
+zip [-r] target_folder.zip /file/to/compressed.any /folder/to/compressed/*
 ```
 
 Descompactar:
 
-- -d: especifica a pasta para ser descompactado
+```bash
+unzip [-d /path/to/decompress/] compressed_folder.zip
+```
+
+Ver o conteúdo:
 
 ```bash
-unzip [-d </path/to/decompress>] compressed_folder.zip
+unzip -l compressed_folder.zip
 ```
 
 #### Comando *xz*
+
+- -z: para criar arquivos compactados.
+- -d: para descompactar arquivos.
+- -v: modo verboso (printa na tela o processamento).
 
 Compactar:
 
@@ -1569,6 +1618,16 @@ Descompactar:
 
 ```bash
 xz -vd compressed_file.xz
+```
+
+#### Comando *7z*
+
+- -x: modo verboso (printa na tela o processamento).
+
+Descompactar:
+
+```bash
+7z x compressed_file.any
 ```
 
 ### Uso memória RAM
