@@ -2082,6 +2082,12 @@ Saber ips conectados a minha rede:
 1. Coloque no *nmap*:
 	`sudo nmap -sn 192.168.0.1/24`
 
+Saber quais portas estão sendo usadas por qual serviço na sua máquina:
+
+```bash
+sudo nmap -sV localhost
+```
+
 ### Dispositivos de entrada
 
 #### Alterar velocidade do ponteiro
