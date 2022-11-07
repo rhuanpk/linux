@@ -2623,7 +2623,7 @@ sudo do-release-upgrade --check-dist-upgrade-only -d
 	- --allow-third-party: Mantém repositórios de terceiros (ppa's)
 
 ```bash
-sudo do-release-upgrade -d [--allow-third-party]
+sudo do-release-upgrade [--allow-third-party] -d
 ```
 
 6. Reinicie o sistema:
