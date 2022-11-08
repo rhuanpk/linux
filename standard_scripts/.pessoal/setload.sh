@@ -13,8 +13,12 @@ setload() {
 		xargs dirname
 	)/${file_load}
 	line_and_path=$(grep -nE "${variable_name}=.*$" ${environment_path:?'whats the environment path?'})
-	sudo sed -i "${line_and_path%:*}s~${line_and_path#*=}~${full_path}~" ${environment_path}
+	if ! sudo sed -i "${line_and_path%:*}s~${line_and_path#*=}~${full_path}~" ${environment_path}; then
+		echo $full_path
+	fi
 }
+
+# variable=${PK_LOAD_ZBASHRC:-$(setload.sh | grep -oF standard_scripts)}
 
 setload PK_LOAD_ZBASHRC cfg-bkp rc/zbashrc
 setload PK_LOAD_STANDARDSCRIPTS comandos-linux standard_scripts
