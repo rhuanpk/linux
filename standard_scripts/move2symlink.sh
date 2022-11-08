@@ -2,6 +2,13 @@
 
 # OBS: Whenever you add a new function, add it to the "all_functions" array.
 
+# ********** Declaração de Variáveis **********
+
+path=$PK_LOAD_STANDARDSCRIPTS
+all_files=$(ls -1 ${path}/*.sh)
+expression='(backup|push_script|veu)\.sh'
+all_functions=("copy2symlink" "copy2binarie")
+
 # ********** Declaração de Funções **********
 
 verify_privileges() {
@@ -38,13 +45,6 @@ execute_all() {
 		${atual_func}
 	done
 }
-
-# ********** Declaração de Variáveis **********
-
-[ -d ${HOME}/Documents/git/comandos-linux/standard_scripts ] && path=${HOME}/Documents/git/comandos-linux/standard_scripts || path=$(pwd)
-all_files=$(ls -1 ${path}/*.sh)
-expression='(backup|push_script|veu)\.sh'
-all_functions=("copy2symlink" "copy2binarie")
 
 # ********** Início do Programa **********
 

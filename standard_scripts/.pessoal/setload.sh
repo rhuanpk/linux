@@ -17,4 +17,5 @@ setload() {
 }
 
 setload PK_LOAD_ZBASHRC cfg-bkp rc/zbashrc
+setload PK_LOAD_STANDARDSCRIPTS comandos-linux standard_scripts
 setload PK_LOAD_STANDARDUTILS pkutils bash/
