@@ -4,7 +4,8 @@
 
 # ********** Declaração de Variáveis **********
 
-path=$PK_LOAD_STANDARDSCRIPTS
+git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standard_scripts/.pessoal/setload.sh'
+path=${PK_LOAD_STANDARDSCRIPTS:-$(wget -qO - $git_url | bash - 2>&- | grep -F standard_scripts)}
 all_files=$(ls -1 ${path}/*.sh)
 expression='(backup|push_script|veu)\.sh'
 all_functions=("copy2symlink" "copy2binarie")

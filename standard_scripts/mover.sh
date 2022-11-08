@@ -24,7 +24,8 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-std_scripts_path=$PK_LOAD_STANDARDSCRIPTS
+git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standard_scripts/.pessoal/setload.sh'
+std_scripts_path=${PK_LOAD_STANDARDSCRIPTS:-$(wget -qO - $git_url | bash - 2>&- | grep -F standard_scripts)}
 
 [ ${#} -eq 0 ] && {
 	for file in ${std_scripts_path}/*.sh; do

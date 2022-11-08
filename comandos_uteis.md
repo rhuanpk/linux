@@ -1414,6 +1414,32 @@ dirname /path/to/file.any
 # /path/to
 ```
 
+### Comando *id*
+
+Lista o *id* o grupo dono e os grupos participantes do usuário corrente:
+
+```bash
+id
+```
+
+Retorna somente o *id* do usuário corrente:
+
+```bash
+id -u
+```
+
+Retorna somente o grupo dono do usuário corrente:
+
+```bash
+id -g
+```
+
+Retorna o nome do usuário com determinado *id*:
+
+```bash
+id -nu 1000
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
