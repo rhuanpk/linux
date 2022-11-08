@@ -1382,6 +1382,38 @@ sudo losetup -d /dev/loop9
 sudo rm /dev/loop9
 ```
 
+### Comando *basename*
+
+Listar somente o nome do arquivo passando o *path* completo:
+
+```bash
+basename /path/to/file.any
+```
+
+Listar com múltiplos *paths*:
+
+```bash
+basename -a /first/path/to/file.any /second/path/to/file.any
+```
+
+OBS: com a opção `-a` do comando é possível usa-lo com `xargs` *command*.
+
+Cortar a extensão do arquivo na hora de printar:
+
+```bash
+basename -s .any /path/to/file.any
+# file
+```
+
+### Comando *dirname*
+
+Imprime somente o caminho caminho absoluto de um path completo passado:
+
+```bash
+dirname /path/to/file.any
+# /path/to
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
