@@ -8,7 +8,7 @@ setload() {
         environment_path=/etc/environment
 	full_path=$(
 		folders='pCloudDrive|googleDrive'
-		find ${home}/ -type f -name "way_flag_${repo_name}.cfg" 2>&- | \
+		find ${home}/ -type f -name ".way_flag_${repo_name}.cfg" 2>&- | \
 		sed -E "/${folders:-$(uuidgen)}/d" | \
 		xargs dirname
 	)/${file_load}
