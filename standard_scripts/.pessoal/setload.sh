@@ -13,7 +13,6 @@ setload() {
 		xargs dirname
 	)/${file_load}
 	line_and_path=$(grep -nE "${variable_name}=.*$" ${environment_path:?'whats the environment path?'})
-	echo -e "full_path: ${full_path}\nline: ${line_and_path%:*}\nold: ${line_and_path#*=}"
 	sudo sed -i "${line_and_path%:*}s~${line_and_path#*=}~${full_path}~" ${environment_path}
 }
 
