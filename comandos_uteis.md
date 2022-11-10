@@ -1243,6 +1243,12 @@ Popular *field* no *html* de determinado endereço:
 curl -d <field_name>='<message>' <url>
 ```
 
+Sintaxe básica para request:
+
+```bash
+curl -fsSL --request <method> --url <url> --header 'Content-Type: application/json' [--data '<json>']
+```
+
 ### Comando *wget*
 
 - -P: diretório alternativo para salvar o arquivo.
