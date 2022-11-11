@@ -13,7 +13,8 @@
 
 main_path="/tmp"
 repositories=$(ls ${main_path})
-flag_custom_mode=0
+flag_custom_mode=false
+flag_git_pull_all=false
 
 print_usage(){
 	echo -e "\n\
@@ -57,6 +58,16 @@ print_usage(){
 		\r###################################################################\n"
 }
 
+print_path() {
+	echo -e "\n\
+		\r###################################################################\n\
+		\r#\n\
+		\r# Atual path: ${main_path}\n\
+		\r#\n\
+		\r###################################################################\n\
+	\r"
+}
+
 switch_path(){
 	echo -e "\nAtual path: \e[33m${main_path}\e[m\n"
 	read -p "Enter with the new path: " new_path
@@ -65,7 +76,7 @@ switch_path(){
 	elif [ ! -d "${new_path}" ]; then
 		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
 	else
-		sudo sed -i "14s~.*~path=\"${new_path}\"~" "${0}"
+		sudo sed -i "14s~.*~main_path=\"${new_path}\"~" "${0}"
 		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
 	fi
 }
@@ -78,23 +89,14 @@ pushing() {
 	git push origin "${git_branch}"
 }
 
-while getopts 'hvsc' opts 2>/dev/null; do
+while getopts 'hvscg' opts 2>/dev/null; do
 	case ${opts} in
-		h)
-			print_usage; exit 0;;
-		v)
-			echo -e "\n\
-				\r###################################################################\n\
-				\r#\n\
-				\r# Atual path: ${main_path}\n\
-				\r#\n\
-				\r###################################################################\n"; exit 0 ;;
-		s)
-			switch_path;;
-		c)
-			flag_custom_mode=1;;
-		*)
-			echo -e "\n\e[31;1m>> Invalid argument !!\e[m\n$(print_usage)\n"; exit 1;;
+		h) print_usage; exit 0;;
+		v) print_path; exit 0;;
+		s) switch_path;;
+		c) flag_custom_mode=true;;
+		g) flag_git_pull_all=true;;
+		*) echo -e "\n\e[31;1m>> Invalid argument !!\e[m\n$(print_usage)\n"; exit 1;;
 	esac
 done
 
@@ -114,13 +116,15 @@ verify_privileges
 for directory in ${repositories}; do
 	cd ${main_path}/${directory}
 	echo -e "\n → git in *${directory^^}* !\n"
-	if [ ${flag_custom_mode} -eq 1 ]; then
+	if ${flag_custom_mode}; then
 		read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 	        [ ${answer,,} = 'n' ] 2>&- && continue
 		read -rp "Enter with the message: " git_message
 		read -rp "Enter with the branch: " git_branch
 		echo ""
 		pushing $git_message $git_branch
+	elif ${flag_git_pull_all}; then
+		git pull origin "$(git branch --show-current)"
 	else
 		[ $# -eq 0 ] && pushing || $*
 	fi
