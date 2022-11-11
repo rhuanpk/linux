@@ -11,8 +11,8 @@
 #
 ##################################################################################
 
-path="/tmp"
-repo=$(ls -1 ${path} | sed 's/$/ /g' | tr -d '\n')
+main_path="/tmp"
+repositories=$(ls ${main_path})
 flag_custom_mode=0
 
 print_usage(){
@@ -58,17 +58,24 @@ print_usage(){
 }
 
 switch_path(){
-	aux="${path}"
-	echo -e "\nAtual path: \e[33m${aux}\e[m\n"
-	read -p "Enter with the new path: " path
-	if [ -z "${path}" ]; then
+	echo -e "\nAtual path: \e[33m${main_path}\e[m\n"
+	read -p "Enter with the new path: " new_path
+	if [ -z "${new_path}" ]; then
 		echo -e "\n\e[31m> The path can not is null !\e[m\n"; exit 1
-	elif [ ! -d "${path}" ]; then
+	elif [ ! -d "${new_path}" ]; then
 		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
 	else
-		sudo sed -i "14s~.*~path=\"${path}\"~" "${0}"
+		sudo sed -i "14s~.*~path=\"${new_path}\"~" "${0}"
 		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
 	fi
+}
+
+pushing() {
+	git_message="${1:-'refresh'}"
+	git_branch="${2:-$(git branch --show-current)}"
+	git add ./
+	git commit -m "${git_message}"
+	git push origin "${git_branch}"
 }
 
 while getopts 'hvsc' opts 2>/dev/null; do
@@ -79,7 +86,7 @@ while getopts 'hvsc' opts 2>/dev/null; do
 			echo -e "\n\
 				\r###################################################################\n\
 				\r#\n\
-				\r# Atual path: ${path}\n\
+				\r# Atual path: ${main_path}\n\
 				\r#\n\
 				\r###################################################################\n"; exit 0 ;;
 		s)
@@ -104,16 +111,18 @@ verify_privileges(){
 
 verify_privileges
 
-for dir in ${repo}; do
-	cd ${path}/${dir}
-	echo -e "\n → git in *${dir^^}* !\n"
+for directory in ${repositories}; do
+	cd ${main_path}/${directory}
+	echo -e "\n → git in *${directory^^}* !\n"
 	if [ ${flag_custom_mode} -eq 1 ]; then
-		read -p "Enter with the message: " msg_git
-		read -p "Enter with the branch: " branch_git	
+		read -rp 'Edit this repository? (y)es/(n)ext: ' answer
+	        [ ${answer,,} = 'n' ] 2>&- && continue
+		read -rp "Enter with the message: " git_message
+		read -rp "Enter with the branch: " git_branch
 		echo ""
-		push.sh "${msg_git}" "${branch_git}"
+		pushing $git_message $git_branch
 	else
-		[[ "${*}" == "" ]] && push.sh || ${*}
+		[ $# -eq 0 ] && pushing || $*
 	fi
 done
 
