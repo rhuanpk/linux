@@ -31,6 +31,6 @@ verify_privileges
 [ -z "${1}" ] && MSG=refresh || MSG="${1}"
 [ -z "${2}" ] && BRANCH=$(git branch --show-current) || BRANCH="${2}"
 
-git add .
+git add ./
 git commit -m "${MSG}"
 git push origin "${BRANCH}"
