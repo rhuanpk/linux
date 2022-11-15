@@ -28,7 +28,7 @@ verify_privileges
 # Output the *Dirty* section of `/proc/meminfo`
 report() {
 	dirty=$(grep -F Dirty: /proc/meminfo | sed -E 's/^(.*:[[:blank:]]+)//')
-	echo -en "\r\e[2mSyncing ${dirty}...\e[m"
+	echo -en "\rSyncing ${dirty}... "
 }
 
 # Start syncing
