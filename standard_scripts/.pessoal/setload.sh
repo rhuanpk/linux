@@ -9,7 +9,7 @@ setload() {
 		folders='pCloudDrive|googleDrive'
 		find ${home}/ -type f -name ".way_flag_${repo_name}.cfg" 2>&- | \
 		sed -E "/${folders:-$(uuidgen)}/d" | \
-		xargs dirname
+		xargs dirname 2>&-
 	)
 	line_and_path=$(grep -nE "${variable_name}=.*$" ${environment_path:?'whats the environment path?'})
 	if ! sudo sed -i "${line_and_path%:*}s~${line_and_path#*=}~${full_path}~" ${environment_path}; then

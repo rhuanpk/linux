@@ -28,7 +28,7 @@ git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standa
 std_scripts_path=${PK_LOAD_LINUXCOMMANDS:-$(wget -qO - $git_url | bash - 2>&- | grep -F comandos-linux)}/standard_scripts
 
 [ ${#} -eq 0 ] && {
-	for file in ${std_scripts_path}/*.sh; do
+	for file in ${std_scripts_path:=$(pwd)}/*.sh; do
 		sudo cp -v ${file} /usr/local/bin/$(basename ${file%.*})
 	done
 } || {
