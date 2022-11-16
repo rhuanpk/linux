@@ -25,10 +25,12 @@ verify_privileges
 # >>>>> PROGRAM START <<<<<
 
 git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standard_scripts/.pessoal/setload.sh'
-std_scripts_path=${PK_LOAD_LINUXCOMMANDS:-$(wget -qO - $git_url | bash - 2>&- | grep -F comandos-linux)}/standard_scripts
+std_scripts_path=${PK_LOAD_LINUXCOMMANDS:-$(wget -qO - $git_url | bash - 2>&- | grep -F comandos-linux)}
+[ -z $std_scripts_path ] && std_scripts_path=$(pwd)
+std_scripts_path+=/standard_scripts
 
 [ ${#} -eq 0 ] && {
-	for file in ${std_scripts_path:=$(pwd)}/*.sh; do
+	for file in ${std_scripts_path}/*.sh; do
 		sudo cp -v ${file} /usr/local/bin/$(basename ${file%.*})
 	done
 } || {
