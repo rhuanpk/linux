@@ -431,15 +431,17 @@ ncdu [<path>]
 ### Comando *grep*
 
 - -i: *Case insensitive*.
-- -n: Número da linhas da ocorrência.
-- -o: Somente a ocorrência e não a linha toda da mesma.
-- -E: Expressão regular extendida.
 - -r: Recursividade não seguindo symlinks.
+- -n: Número da linhas da ocorrência.
+- -E: Expressão regular extendida.
 - -R: Recursividade seguindo symlinks.
+- -A \<number\>: Quantidade de linhas a baixo da *match line* para ser exibida.
+- -o: Somente a ocorrência e não a linha toda da mesma.
 - -v: Inverte a ocorrência, todas as linhas que não casaram.
+- -s: Suprime somente as mensagens de erro.
 
 ```bash
-grep -inroE '^(hello|world)' {/some/path/file.txt|/some/path/}
+grep -irnE '^(hello|world)' {/some/path/file.txt|/some/path/}
 ```
 
 #### Opção *exclude*
@@ -2525,14 +2527,6 @@ echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select {
 <a id="db_hardware"></a>
 [<span style="font-size:14px;">Hardware</span>](#menu)
 
-### Comando *lspci*
-
-Saber qual a placa de vídeo:
-
-```bash
-lspci | grep -iF 'VGA'
-```
-
 ### Comando *lscpu*
 
 - --extended: forma a saida do comando
@@ -2545,47 +2539,31 @@ Lita informação a respeito do processador:
 lscpu [--extended=cpu,core]
 ```
 
-### Mostra infos do sistema
+### Comando *nproc*
 
-Neofetch:
-
-```bash
-neofetch
-```
-
-Screenfecht:
-
-```bash
-screenfetch
-```
-
-### Infos do sistema
-
-- `lshw`
-- `inxi -Fxz`
-- `hwinfo --short`
-
-### Número de núcleos (threads) do processador
+Número de núcleos (threads) do processador:
 
 ```bash
 nproc
 ```
 
-### Arquitetura do sistema
+### Comando *uname*
+
+Versão do Kernel:
+
+```bash
+uname -r
+```
+
+Arquitetura do sistema:
 
 ```bash
 uname -m
 ```
 
-### Interface gráfica atual
+### Comando *lsb_release*
 
-```bash
-echo $XDG_CURRENT_DESKTOP
-```
-
-### Distro
-
-Info geral da distro:
+Infos geral da distro:
 
 ```bash
 lsb_release -a
@@ -2597,10 +2575,31 @@ Somente o nome da distro:
 lsb_release -cs
 ```
 
+### Infos do sistema
+
+#### Comandos
+
+- `lshw -short`
+- `hwinfo --short`
+- `inxi -Fxz`
+
+#### Scripts
+
+- `neofetch`
+- `screenfetch`
+
+OBS: todos os comandos caso nao estejam, podem ser instalados com: `sudo apt install <command_name> -y`.
+
+### Interface gráfica atual
+
+```bash
+echo $XDG_CURRENT_DESKTOP
+```
+
 ### Fechar a tampa do notebook e não suspender
 
 1. Editar o arquivo de configuração:
-	`sudo vim /etc/systemd/logind.conf`
+	- `sudo vim /etc/systemd/logind.conf`
 
 2. Descomente e deixe o valor das seguintes variáveis iguais:
 	- `HandleLidSwitch=ignore`
@@ -2608,7 +2607,21 @@ lsb_release -cs
 	- `HandleLidSwitchDocked=ignore`
 
 3. Restarte o serviço responsável:
-	`sudo systemctl restart systemd-logind.service`
+	- `sudo systemctl restart systemd-logind.service`
+
+### Placa de vídeo
+
+Comando *lshw*:
+
+```bash
+lshw -c video | grep -iF product
+```
+
+Comando *lspci*:
+
+```bash
+lspci -k | grep -E '(VGA|3D|Display)'
+```
 
 ---
 
