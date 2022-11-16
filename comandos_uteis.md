@@ -1,5 +1,5 @@
 <a id="menu"></a>
-# >>> Comandos Aleatoriamente úteis!
+# >>> Comandos Aleatoriamente Úteis!
 
 - [Debian base](#debian_base)
 	- [Customização](#db_customizacao)
@@ -4248,6 +4248,76 @@ xpto=$(whiptail <command> 3>&1 1>&2 2>&3)
 ```
 
 Ele não continua num *loop* de `2>&1 -> 3>&1 -> 1>&2 ...`, nesse caso, quando o `whiptail` é encerrado, seu retorno é enviado para **STDERR** (2) que é redirecionada para o descritor de arquivos 3, que nesse ponto (em que o *file descriptor* 2 (**STDERR**) é redirecionado para ele) já foi redirecionado para **STDOUT** (1) que já tem sua saida definida (que é a tela, mas que porém é capturada pela variável) e não precisa ser "verificado" novamente pois no momento que ele vai para o descritor 3 é como se ele "voltasse no tempo" e nesse ponto o descritor 1 (**STDOUT**) ainda não tinha sido direcionado para o descritor 2 (**STDERR**, que o faria então entrar em *loop*).
+
+---
+
+### A Interface Gráfica
+
+#### Definição
+
+Uma interface gráfica (*Graphical User Interface* (*GUI*)) é um tipo de interface de usuário que permite a interação com um equipamento eletrônico por meio de ícones gráficos e outros elementos visuais, composto por:
+
+- *Window System*.
+- *Windows Manager*.
+- *Desktop Environment*.
+- *Display Manager*
+
+#### Sistema de Janelas (*Window System* (*WS*))
+
+O *Window System* é o componente da *GUI* que suporta a implementação de *Window Manager's* e fornece suporte a *hardware* gráfico, dispositivos apontadores e teclados.
+
+- O sistema de janelas não inclui as janelas em si, ele implementa renderização de fontes, desenhos primitivos (linhas e traços), e habilita o computador a trabalhar com vários programas simultaneamente ao compartilhar recursos de *hardware* gráfico entre as janelas.
+
+- Cada programa roda em sua própria janela, e alguns *Window System's* permitem mostrar aplicações gráficas que rodam em uma máquina remota.
+
+- Alguns exemplos de *Window Manager's*:
+	
+	- Xorg.
+	- Wayland.
+	- Quartz Compositor (Mac OS X).
+
+#### Gerenciador de Janelas (*Window Manager* (*WM*))
+
+O *Window Manager* realiza a interação entre janelas, aplicações e o *Windowing System*.
+
+- O *Window Manager* manipula dispositivos de *hardware* (mouse, placas de vídeo), assim como o posicionamento do ponteiro.
+
+- Todos esses elementos são modelados para criar uma simulação denominada *Desktop Environment*, no qual a tela do PC representa uma "mesa" sobre a qual documentos e pastas são colocados.
+
+- Um *Window Manager* é um *software* que controla o posicionamento e aparência de janelas dentro de um *Window System* em uma *GUI*.
+
+- A maioria dos *Window Manager's* é projetada para fornecer um *Desktop Envionment*, trabalhando junto com o *Window System* o qual fornece suporte ao *hardware* gráfico, dispositivos apontadores e teclado.
+
+- Alguns exemplos de *Window Manager's*:
+	
+	- Metacity (*Gnome 2*).
+	- Mutter (*Gnome 3*).
+	- KWin (*KDE*).
+	- Compiz.
+	- Beryl.
+
+#### Ambiente de Desktop (*Desktop Environment* (*DE*))
+
+O *Desktop Environment* trata-se de uma implementação de vários componentes, incluindo um *Window Manager*, temas, bibliotecas e aplicações que interagem com o *Window System* presente no computador.
+
+- Alguns exemplos de *Desktop Environment's*:
+
+	- CDE.
+	- KDE.
+	- GNOME.
+	- Xfce.
+	- LXDE.
+
+#### Gerencador de Sessão (*Display Manager* (*DM*))
+
+O *Display Manager* (ou *Login Manager*) é o software que fornece uma tela para que o usuário entre com suas credenciais para login (autenticação) local ou remoto e também permite escolher qual *Desktop Environment* será carregado (GNOME, KDE, Xfce, etc)
+
+- Alguns exemplos de *Display Manager's*:
+
+	- LightDM.
+	- gdm.
+	- xdm.
+	- kdm.
 
 ---
 
