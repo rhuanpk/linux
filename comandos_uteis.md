@@ -1232,6 +1232,7 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 - -L: tentar encontrar a nova *url* caso a que esteja batendo tenha caido.
 - -o: informa o nome de saida do arquivo.
 - -d: *put* no *field* informado.
+- -k: desabilita verificações de segurança (*SSL* e etc).
 
 Sintaxe comum para download:
 
