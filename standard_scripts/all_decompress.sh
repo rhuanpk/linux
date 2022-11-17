@@ -26,7 +26,7 @@ verify_privileges
 
 for file in $(ls -1); do
 	
-	extension=$(grep -oE '(\..*)' <<< ${file})
+	extension=$(grep -oE '(\.[^[[:digit:]]]*.*)' <<< ${file})
 	folder=$(cut -d '.' -f 1 <<< ${file})
 	
 	mkdir ./${folder}/
