@@ -3783,36 +3783,15 @@ https://launchpad.net/ubuntu/+ppas
 <a id="git"></a>
 ## [> Git](#menu)
 
-Sintaxe de URL's:
+### *Quick Start*
 
-- http:
+1. `git add ./`
+1. `git commit -m 'commit message'`
+1. `git push origin branchname`
 
-```bash
-https://<user>:<token>@<domain>/<user>/<repo>.git
-```
+### Branchs
 
-- ssh:
-
-```bash
-git@<domain>:<user>/<repo>.git
-```
-
-Renomear repositório remoto:
-
-```bash
-git remote rename <nome_atual> <novo_nome>
-```
-
-Pasta inacessível (pasta com *submodule*):
-
-1. `git rm --cached <folder_name>`
-1. `rm -rf <folder_name>/.git`
-1. `git add .`
-1. `git push origin master`
-
-### Manipulação de branchs
-
-#### Mostrar branchs
+#### Listagem de branchs
 
 Locais:
 
@@ -3826,39 +3805,37 @@ Remotas:
 git branch {--remotes|-r} {--list|-l}
 ```
 
+Locais e remotas:
+
+```bash
+git branch {--all|-a}
+```
+
 Mostra além das branchs remotas, outras infos:
 
 ```bash
 git remote show <remote_name>
 ```
 
-#### Trocar de branch
+#### Troca de branchs
 
 Com *checkout*:
 
+- -b: cria uma nova branch.
+
 ```bash
-git checkout <branch_name>
+git checkout [-b] <branch_name>
 ```
 
 Com *switch*:
 
-```bash
-git switch <branch_name>
-```
-
-#### Criar e mudar para a nova branch
-
-Com *checkout*:
+- -c: cria uma nova branch.
 
 ```bash
-git checkout -b <nova_branch>
+git switch [-c] <branch_name>
 ```
 
-Com *switch*:
-
-```bash
-git switch -c <branch_name>
-```
+OBS: casp seja passado a opção de criação de branch na hora de mudar para ela, será criado essa nova branch e seguida mudado para ela.
 
 #### Remoção de branchs
 
@@ -3884,64 +3861,9 @@ Remover:
 git push origin {:<remote_branch>|--delete <remote_branch>}
 ```
 
-### Visualização de log's
+### Commit
 
-Mostra o log de commits:
-
-```bash
-git log
-```
-
-Mostra o log resumido:
-
-```bash
-git log --oneline
-```
-
-Mostra por completo o gráfico de nodles:
-
-```bash
-git log --graph --all
-```
-
-Mostra de forma resumida o gráfico de nodles:
-
-```bash
-git log --oneline --graph --all
-```
-
-#### Blame
-
-Mostra um histórico de alteraçẽos realizadas:
-
-- -w: remove espaços em branco
-- -L: limita a faixa de linhas
-
-```bash
-git blame [-w|-L 1,12] <file_name>
-```
-
-### Clonagem de repositórios
-
-Clonar:
-
-```bash
-git clone <url>
-```
-
-Clonar de uma branch específica:
-
-```bash
-git clone -b <branch_name> <url>
-```
-
-### Manipular informações do usuário
-
-```
-~/.gitconfig
-```
-
-### Reverter commits
+#### Reverter commits
 
 Apenas desfazer o commit (sem perder as alteraçẽos):
 
@@ -3949,11 +3871,63 @@ Apenas desfazer o commit (sem perder as alteraçẽos):
 git reset --soft <hash_commit>
 ```
 
-Desfazer os commits (sem manter as alterações):
+Desfazer o commit (sem manter as alterações):
 
 ```bash
 git reset --hard <hash_commit>
 ```
+
+#### Editar mensagem
+
+Editar a mensagem do último commit:
+
+```bash
+git commti --amend -m 'new message'
+```
+
+OBS: depois que realizar o comando, aparecerá um "commit extra", porém, simplesmente *pushe* a nova alteração forçando que esse novo commit já e sobrescrito: `git push -f origin <branch_name>`.
+
+### Log's
+
+- --all: caso sua branch esteja atrás, mostra logs dos ramos a frente também.
+- --oneline: mostra o log de forma resumida, um por linha.
+- --patch: mostras as alteraçẽos feitas nos commits.
+- --graph: dsenha uma gráfo da time line dos logs.
+
+Mostra o log de commits:
+
+```bash
+git log [--all|--oneline|--patch|--graph]
+```
+
+OBS: todas as opções podem ser usadas ao mesmo tempo ou não (divirta-se).
+
+### Blame
+
+Mostra quem fez as alterações (autor do commit) em determinado arquivo:
+
+- -w: remove espaços em branco.
+- -L: limita a faixa de linhas.
+
+```bash
+git blame [-w|-L 1,12] <file_name>
+```
+
+### Clonagem
+
+Clonar repositório remoto:
+
+```bash
+git clone <url>
+```
+
+Clonar repositório remoto de uma branch ou tag específica:
+
+```bash
+git clone -b {<branch_name>|<tag_name>} <url>
+```
+
+OBS: caso clone por algum tag, pode ser que essa tag esteja num vínculada a um hash que não está apontado por nenhuma branch, nesse caso, se faz necessário cria uma branch logo depois que clonar: `git switch -c newbranch`
 
 ### .gitignore
 
@@ -3979,7 +3953,7 @@ Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionad
 
 #### Comandos
 
-Depois de ignorar qualquer arquivo deve-se removelo do índice:
+Caso algum arquivo seja ignorado deve-se remove-lo do índice:
 
 ```bash
 git rm --cached file.txt
@@ -3991,7 +3965,7 @@ Setar o `.gitignore` global:
 git config --global core.excludesfile ~/.gitignore
 ```
 
-Adicionar algum arquivo que esteja sendo ignorado:
+Adicionar no índice algum arquivo que esteja sendo ignorado:
 
 ```bash
 git add -f file.txt
@@ -4017,32 +3991,59 @@ Listar os arquivos *skipados*:
 git ls-files -v | grep -E '^S'
 ```
 
-### Flag's
+### Tag's
 
 Colocar tag em commits (da para clonar de um commit específico):
 
 ```bash
-git tag -a -m "first tag" nametag 12a34b5
+git tag <tag_name> <commit_hash>
 ```
 
 Remover tag:
 
 ```bash
-git tag -d nametag
+git tag -d <tag_name>
 ```
 
-#### Clonando a partir
+### Repos
 
-1. Clonar de uma tag:
+Renomear repositório remoto:
 
 ```bash
-git clone -b nametag 'git@github.com:rhuan-pk/teste.git'
+git remote rename <nome_atual> <novo_nome>
 ```
 
-2. Logo depois de clonar dessa forma, pode ser que clone sem branch, nesse caso:
+### Troubleshooting
+
+#### Pasta inacessível (pasta com *submodule*)
+
+1. `git rm --cached <folder_name>`
+1. `rm -rf <folder_name>/.git`
+1. `git add .`
+1. `git push origin master`
+
+### Any others
+
+#### Sintaxe de URL's:
+
+http:
 
 ```bash
-git switch -c newbranch
+https://<user>:<token>@<domain>/<user>/<repo>.git
+```
+
+ssh:
+
+```bash
+git@<domain>:<user>/<repo>.git
+```
+
+#### Certificados de segurança
+
+Desabilitar verificação de SSL do git:
+
+```bash
+git config --global http.sslverify false
 ```
 
 ---
