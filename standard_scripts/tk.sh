@@ -37,7 +37,7 @@ print_usage() {
 
 verify_privileges
 
-[ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+[ ${#} -gt 3 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
