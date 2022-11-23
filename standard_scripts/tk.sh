@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Take the Windows (TK).
+# Take the Window (TK).
 # It is software that gives focus to the specified window or executes a command if it is not available.
 
 script=$(basename ${0})
@@ -17,6 +17,8 @@ print_usage() {
 		####################################################################################################
 		#
 		# >>> $script !
+		#
+		# Take the window or execute a command.
 		#
 		# Syntax:
 		# 	$script <window_class> <command_to_execute>
