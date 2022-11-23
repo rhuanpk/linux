@@ -1193,8 +1193,16 @@ sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=256159 conv=fdatasync status=pr
 Substituir nova linha por algum caracter:
 
 ```bash
-sed -z's/\n/; /g' file.txt
+sed -z 's/\n/; /g' /path/to/file.txt
 ```
+
+Buscar as linhas que casam com o primeiro grupo de pattern (o que estiver depois de `s/`) e o retorno será somente o *match* de `(.*)`:
+
+```bash
+sed -nE 's/^some_string\(to_match\) (.*)/\1/p' /path/to/file.txt
+```
+
+OBS: dessa forma é como se o `sed` buscasse a linha e já a recortasse (equivalente a uma pipeline de `grep | cut | sed | tr`), apesar de que o utilizador pode ficar limitado ao uso de *regex* pois os metacaracteres `.*` serão expandidos e não utilizado para a busca.
 
 ### Comando *xargs*
 
