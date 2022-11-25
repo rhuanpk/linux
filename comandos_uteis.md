@@ -1591,6 +1591,12 @@ Excluir vários paths da busca e limitar a recursivedade:
 find ./ -maxdepth 2 \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
 ```
 
+Buscar por links simbólicos quebrados e excluílos:
+
+```bash
+find ./ -xtype l -exec rm -fv '{}' \;
+```
+
 #### Comando *locate*
 
 Sintaxe:
