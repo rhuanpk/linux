@@ -51,8 +51,11 @@ id_list=$(xprop -root | sed -nE 's/^_NET_CLIENT_LIST_STACKING\(WINDOW\): window 
 is_visible=false
 sed_command='sed -nE "s/^WM_CLASS\(STRING\) = (.*)/\1/p"'
 
+echo 'windows:'
 for id in ${id_list}; do
-	[ "$(eval "xprop -id $id | ${sed_command}")" = "${class_search}" ] && is_visible=true && window_id=${id}
+	window="$(eval "xprop -id $id | ${sed_command}")"
+	[ "${window}" = "${class_search}" ] && is_visible=true && window_id=${id}
+	echo -e "\t- ${window}"
 done
 
 if ! ${is_visible}; then
