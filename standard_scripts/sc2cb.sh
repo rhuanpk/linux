@@ -23,4 +23,4 @@ print_usage() {
 
 # >>>>> PROGRAM START <<<<<
 
-echo \#$(colorpicker --one-shot --short | cut -d '#' -f 2) | tr -d '\n' | xsel -b
+echo \#$(colorpicker --one-shot --short | cut -d '#' -f 2) | xclip -rmlastnl -selection clipboard
