@@ -32,6 +32,7 @@ sudo apt --fix-broken install -y
 sudo -v
 sudo apt update -y
 sudo apt upgrade -y
+sudo apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs sudo apt install -y
 
 sudo ubuntu-drivers autoinstall
 sudo apt install ubuntu-restricted-extras -y
