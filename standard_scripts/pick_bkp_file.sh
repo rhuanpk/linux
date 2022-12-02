@@ -7,7 +7,7 @@
 # Make a backup of some important files.
 
 # crontab:
-# */30 * * * * /usr/local/bin/pk-pick_bkp_file 2>/tmp/cron_error.log
+# */30 * * * * /usr/local/bin/pk/pick_bkp_file 2>/tmp/cron_error.log
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then

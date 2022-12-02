@@ -33,13 +33,13 @@ print_usage() {
 
 copy2symlink() {
 	for file in $(egrep -v "${expression}" <<< ${all_files}); do
-		sudo ln -svf ${file} /usr/local/bin/pk-$(basename ${file%.sh})
+		sudo ln -svf ${file} /usr/local/bin/pk/$(basename ${file%.sh})
 	done
 }
 
 copy2binarie() {
 	for file in $(egrep "${expression}" <<< ${all_files}); do
-		sudo cp -v ${file} /usr/local/bin/pk-$(basename ${file%.sh})
+		sudo cp -v ${file} /usr/local/bin/pk/$(basename ${file%.sh})
 	done
 }
 

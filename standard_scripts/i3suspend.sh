@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Call the "pk-i3lock" and suspend the system.
+# Call the "yi3lock" and suspend the system.
 
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then
@@ -22,4 +22,4 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-pk-i3lock && sudo systemctl suspend
+yi3lock && sudo systemctl suspend
