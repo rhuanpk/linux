@@ -12,9 +12,11 @@ setload() {
 		xargs dirname 2>&-
 	)
 	line_and_path=$(grep -nE "${variable_name}=.*$" ${environment_path:?'whats the environment path?'})
-	if ! sudo sed -i "${line_and_path%:*}s~=${line_and_path#*=}~=${full_path}~" ${environment_path}; then
-		echo $full_path
-	fi
+	[ ! -z $line_and_path ] && {
+		if ! sudo sed -i "${line_and_path%:*}s~=${line_and_path#*=}~=${full_path}~" ${environment_path}; then
+			echo $full_path
+		fi
+	} || echo $full_path
 }
 
 setload PK_LOAD_CFGBKP cfg-bkp
