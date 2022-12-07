@@ -53,7 +53,7 @@ time=${@:1:1}
 command="${*:2}"
 
 while :; do
-	sleep ${time:?'needs informe a time delay like first param!'}
+	sleep ${time:?'needs informe a time delay as first param!'}
 	clear
-	eval "${command:?'needs informe a command to run like second param!'}"
+	eval "${command:?'needs informe a command to run as second param!'}"
 done
