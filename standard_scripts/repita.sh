@@ -2,6 +2,8 @@
 
 # Loop for commands.
 
+script=$(basename ${0})
+
 verify_privileges() {
         if [ ${UID} -eq 0 ]; then
                 echo -e "ERROR: Run this program without privileges!\nExiting..."
@@ -11,51 +13,47 @@ verify_privileges() {
 
 print_usage() {
         cat <<- EOF
-		####################################################################################
+		#######################################################################################
 		#
-		# >>> $(basename ${0^^}) !
+		# >>> ${script^^} !
 		#
 		# 
 		# Script que deixar algum comando em loop com controle de tempo de atualização
 		#
 		# Parâmetros passados:
 		#
-		#    1: Comando a ser repetido; # Todo o comando tem que ser protegido por
-		#       aspas simples ou duplas caso seja um comando composto
-		#    
-		#    2: Tempo (em segundos) para atualização do comando; # Proteção de aspas
-		#       é opcional
+		#    1: Tempo (em segundos) para atualização do comando; # Proteção de aspas opcional.
+		#
+		#    2: Comando a ser repetido; # Proteção de aspas opcional.
 		#
 		# Exemplos:
 		#
-		# repita lsblk 3
+		# $script 3 lsblk
 		#
-		# $(basename ${0}) "sudo fdisk -l /dev/sda1" 5
+		# $script 1 'sudo fdisk -l /dev/sda'
 		#
-		# ----------------------------------------------------------------------------------
+		# $script 5 "ls -lhF ~/*"
 		#
-		# OBS: Por default o pragrama tem um delay de 1s e roda o comando "ls -lhF --color"
-		#
-		####################################################################################
+		#######################################################################################
 	EOF
 }
 
 # verify_privileges
 
-[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
 # >>>>> PROGRAM START <<<<<
 
-time=1
+unset time command
 
-[ ${#} -eq 0 ] && command='ls -lhF --color' || {
-	[ ${#} -eq 1 ] && command="${1}" || {
-		command="${1}"
-		time=${2}
-	}
-}
+time=${@:1:1}
+command="${*:2}"
 
-while :; do sleep ${time}; clear; eval ${command}; done
+while :; do
+	sleep ${time:?'needs informe a time delay like first param!'}
+	clear
+	eval "${command:?'needs informe a command to run like second param!'}"
+done
