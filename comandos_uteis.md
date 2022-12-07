@@ -3171,6 +3171,32 @@ Atualiza a listagem das *vm's*:
 multipass purge
 ```
 
+### Configurar touchpad (*X11 config file*)
+
+1. crie a pasta do X11 que pega as confs:
+
+```bash
+sudo mkdir -p /etc/X11/xorg.conf.d
+```
+
+2. crie o arquivo de config do tochpad?
+
+```bash
+sudo touch /etc/X11/xorg.conf.d/90-touchpad.conf
+```
+
+3. coloque as informações dentro do arquivo:
+
+```bash
+Section "InputClass"
+	Identifier "touchpad"
+	Driver "libinput"
+	Option "Tapping" "true"
+	Option "NaturalScrolling" "true"
+	Option "ScrollMethod" "twofinger"
+EndSection
+```
+
 ### Update-alternatives
 
 Instalando um novo programa no *update-alternatives*:
