@@ -876,7 +876,7 @@ Depois coloque o caminho do *banner* na variável dentro do arquivo de configura
 
 ### Comando *gpg*
 
-Gerar chave gpg (o geramente da chave não gera nenhuma saida e é guardada automáticamente no chaveiro gpg, para podermos acessa-la então, é só via exportamento):
+Gerar chave gpg (o geramento da chave não gera nenhuma saida e é guardada automáticamente no chaveiro gpg, para podermos acessa-la, logo, é só via exportamento):
 
 ```bash
 gpg --full-generate-key
@@ -991,6 +991,12 @@ Mudar o "nível de segurança da chave":
 - `gpg> trust`
 - *choice*
 - `gpg> save`
+
+Desempacote blindagem ASCII e empacota blindando em OpenPGP (*output redirecting and pipe entring accepted*):
+
+```bash
+gpg --dearmor /path/to/armored_key.asc
+```
 
 **OBSERVAÇÕES**:
 
@@ -2537,6 +2543,22 @@ gsettings set org.gnome.desktop.screensaver lock-enabled {true|false}
 echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select {true|false}' | sudo debconf-set-selections
 ```
 
+### GRUB
+
+#### Menu
+
+Definir que o menu apareça no *boot*:
+
+1. Edite o arquivo `/etc/default/grub`.
+1. Na linha `GRUB_TIMEOUT_STYLE`:
+	`GRUB_TIMEOUT_STYLE=false`
+
+Defina o *timeout* do menu:
+
+1. Edite o arquivo `/etc/default/grub`.
+1. Na linha `GRUB_TIMEOUT`:
+	`GRUB_TIMEOUT=30`
+
 ---
 
 <a id="db_hardware"></a>
@@ -3424,29 +3446,29 @@ Carregar o **bash** antes de subir o sistema:
 
 Instalação padrão:
 
-1. Crie uma partição para colocar o Slax, que seja fat32 e que seja tabela de partição de preferencia que seja MSDOS
-1. Copia todos os arquivos do Slax para a partição
-1. Rode o script de instalação do Slax dentro de /boot da pasta do Slax
+1. Crie uma partição para colocar o Slax, que seja fat32 e que seja tabela de partição de preferencia que seja MSDOS.
+1. Copia todos os arquivos do Slax para a partição.
+1. Rode o script de instalação do Slax dentro de /boot da pasta do Slax.
 
 Fazendo instalação no pendrive (mesmo proscedimento?):
 
-1. Crie tabela de partição MSDOS
-1. Crie uma partição do tamanho que quiser e formate em fat32 ou ext4
-1. Extraia a iso do Slax
-1. copie todo o conteúdo dela para dentro da partição
-1. Vá para a pasta aonde a partição foi montada
-1. Rode: `sudo bash ./slax/boot/bootinst.sh`
+1. Crie tabela de partição MSDOS.
+1. Crie uma partição do tamanho que quiser e formate em fat32 ou ext4.
+1. Extraia a iso do Slax.
+1. copie todo o conteúdo dela para dentro da partição.
+1. Vá para a pasta aonde a partição foi montada.
+1. Rode: `sudo bash ./slax/boot/bootinst.sh`.
 
 ### Instalar FydeOS (ChromeOS)
 
 Instalalção padrão:
 
-1. Boot from image
-1. `ctrl + alt + f2`
-1. Entrar na sessão
+1. Boot from image.
+1. `ctrl + alt + f2`.
+1. Entrar na sessão:
 	1. Login: chronos
 	1. Senha:
-1. Rode: `sudo /usr/sbin/chromeos-install --dst /dev/sda`
+1. Rode: `sudo /usr/sbin/chromeos-install --dst /dev/sda`.
 
 ### File Manager's
 
