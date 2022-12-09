@@ -24,7 +24,7 @@ print_usage() {
 		# 	$script <window_class> <command_to_execute>
 		#
 		# E.g.:
-		# 	$script '"google-chrome", "Google-chrome"' 'xdotool --clearmodifiers Alt_L-F4'
+		# 	$script '"google-chrome", "Google-chrome"' 'xdotool --clearmodifiers Alt_L+F4'
 		#
 		# Helps:
 		# 	Usually the names placed in <window_class> is the name of the binary and its "formal name",
