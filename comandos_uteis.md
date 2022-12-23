@@ -1463,6 +1463,41 @@ Retorna o nome do usuário com determinado *id*:
 id -nu 1000
 ```
 
+### Comando *rsync*
+
+Sintaxe:
+
+```bash
+rsync [<options>] </folder/origin_1> </folder/origin_2/> </file/origin_3> <destiny>
+```
+
+- -r: modo recursivo.
+- -v: modo verboso.
+- -h: aumenta a legibilidade.
+- -a: aplica recursividade, preserva permissões, usuários, grupos e timestamp (*inode*).
+- -z: comprime os dados trafegados deixando o tamanho do *payload* menor porém consumindo mais processamento.
+- -e 'ssh -p <port>': mudar a porta padrão (22) de conexão.
+- --exclude=<pattern>: exclui arquivos ou diretórios pelo padrão passado aceitando *glob* ou de forma absoluta (*regex*?).
+- --delete: caso algum arquivo da fonte não exista mais no destino, no destino também é excluído.
+
+Exemplo:
+
+```bash
+rsync -ahv --delete --exclude=*.mp4 ~/others ~/misc /tmp/backup/
+```
+
+**Observações**:
+
+- o destino ou origem aceita o modo de login de protocolo ssh (`user@host:/path`).
+
+- caso a pasta de destino não exista o *rsync* criará automáticamente.
+
+- opção `--exclude` tem que passar várias se quiser excluir vários arquivos ou da para fazer o *pattern* com expansão de `{}`?
+
+- no *rsync* `/path/to/folder` representa o próprio arquivo, ou seja, na hora de fazer a cópia, copiará a pasta *folder* com os arquivos dentro, porém, se copiar `/path/to/folder/` não está pegando o *basename* mas somente os arquivos dentro de *folder*.
+
+- por *default* caso utilize o *rsync* com os mesmos *paths* de origem e destino ele simplesmente faz a sincronia dos arquivos (copia somente oque foi alterado, ou seja, o que há de novo) e preserva do destino os que já foram excluídos da fonte (ver opção `--delete`).
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
