@@ -3146,22 +3146,25 @@ sudo make install
 Criar pendrive bootavel com ventoy:
 
 ```bash
-sudo ./Ventoy2Disk.sh -g -i /dev/sdx
+sudo ./Ventoy2Disk.sh -i -s /dev/sdX
 ```
 
 Opções:
 
 ```
-Ventoy2Disk.sh CMD [ OPTION ] /dev/sdX
+Usage:  Ventoy2Disk.sh CMD [ OPTION ] /dev/sdX
   CMD:
-    -i   install ventoy to sdX (fail if disk already installed with ventoy)
-    -I   force install ventoy to sdX (no matter installed or not)
-    -u   update ventoy in sdX
+   -i  install Ventoy to sdX (fails if disk already installed with Ventoy)
+   -I  force install Ventoy to sdX (no matter if installed or not)
+   -u  update Ventoy in sdX
+   -l  list Ventoy information in sdX
 
   OPTION: (optional)
    -r SIZE_MB  preserve some space at the bottom of the disk (only for install)
-   -s          enable secure boot support (default is disabled)
-   -g          use GPT partition style, default is MBR style (only for install)
+   -s/-S       enable/disable secure boot support (default is enabled)
+   -g          use GPT partition style, default is MBR (only for install)
+   -L          Label of the 1st exfat partition (default is Ventoy)
+   -n          try non-destructive installation (only for install)
 ```
 
 Pc com secure boot (precisa fazer o procedimento somente a primeira vez):
