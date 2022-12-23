@@ -33,7 +33,9 @@ get_old_value() {
 
 operation() {
 	signal=$1
-	xinput set-prop $device_id $property_id $(echo "$(get_old_value)${signal}0.1" | genius) 2>&-
+	old_value=$(get_old_value)
+	[ -z $old_value ] && old_value=0.0
+	xinput set-prop $device_id $property_id $(bc <<< "${old_value}${signal}0.1") 2>&-
 }
 
 flag=true
