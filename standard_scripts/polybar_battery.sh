@@ -22,8 +22,10 @@ verify_privileges
 
 # >>>>> PROGRAM START <<<<<
 
-[ "$(acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2)" = 'power_supply' ] && is_power_supply=true
+ac_adapter=$(acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2)
+[ "${ac_adapter}" = 'power_supply' ] && is_power_supply=true
 
 if ! ${is_power_supply:-false}; then
-	echo "| Battery: $(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2) "
+	battery_percent=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)
+	echo "| Battery: ${battery_percent:-0} "
 fi
