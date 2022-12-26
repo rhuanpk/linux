@@ -27,5 +27,5 @@ ac_adapter=$(acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2)
 
 if ! ${is_power_supply:-false}; then
 	battery_percent=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)
-	echo "| Battery: ${battery_percent:-'0%'} "
+	echo "| Battery: ${battery_percent:-0%} "
 fi
