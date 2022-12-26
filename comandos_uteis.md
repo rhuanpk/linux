@@ -4276,17 +4276,20 @@ systemctl start systemd-resolved.service && systemctl enable systemd-resolved.se
 
 ### Tipos de datas
 
-- Access time
-	- Explicação: data que o arquivo foi acessado ou lido pela última vez (sem modificações)
-	- Exemplo: cat, head, vim, less
+- Access time:
+	- Explicação: data que o arquivo foi acessado ou lido pela última vez (sem modificações).
+	- Exemplo: cat, head, vim, less.
 
-- Modify time
-	- Explicação: data que o arquivo foi modificado pela última vez
-	- Exemplo: editando o contúdo do arquivo, adicionando ou excluindo
+- Modify time:
+	- Explicação: data que o arquivo foi modificado pela última vez.
+	- Exemplo: editando o contúdo do arquivo, adicionando ou excluindo.
 
-- Change time
-	- Explicação: data que o inode do arquivo é modificado
-	- Exemplo: alterando permissões, propriedade, nome do arquivo ou número de links físicos
+- Change time:
+	- Explicação: data que o inode do arquivo é modificado.
+	- Exemplo: alterando permissões, propriedade, nome do arquivo ou número de links físicos.
+
+- Birth time:
+	- Explicação: data que o arquivo foi criado.
 
 ---
 
