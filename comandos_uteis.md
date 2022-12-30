@@ -2594,6 +2594,22 @@ Defina o *timeout* do menu:
 1. Na linha `GRUB_TIMEOUT`:
 	`GRUB_TIMEOUT=30`
 
+Defina a image de *backgrond* do menu:
+
+1. Edite o arquivo `/etc/default/grub`.
+1. Caso não exista a variável `GRUB_TIMEOUT` declare com `export`:
+	`export GRUB_MENU_PICTURE="/path/to/wallpaper.{jpg,png}"`
+
+ou
+
+1. Copie a imagem de *wallpaper* para dentro de `/boot/grub/`.
+
+OBS:
+
+- para todas as operações que envolvam o *grub* atualize ele com `sudo update-grub`.
+
+- as imagens que *grub* aceita para definir como *background* são imagens *jpg* ou *png* de 256 cores.
+
 ---
 
 <a id="db_hardware"></a>
