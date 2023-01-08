@@ -1247,6 +1247,7 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 - -o: informa o nome de saida do arquivo.
 - -d: *put* no *field* informado.
 - -k: desabilita verificações de segurança (*SSL* e etc).
+- -u <user>:<password>: para fazer autênticação única.
 
 Sintaxe comum para download:
 
@@ -1264,6 +1265,12 @@ Sintaxe básica para request:
 
 ```bash
 curl -fsSL --request <method> --url <url> --header 'Content-Type: application/json' [--data '<json>']
+```
+
+Arquivos na request:
+
+```bash
+curl <url> -X POST -H 'Content-Type: multipart/form-data' -F 'file=@/path/to/file.zip'
 ```
 
 ### Comando *wget*
@@ -3853,6 +3860,33 @@ Mesclar pdfs:
 
 ```bash
 pdftk *.pdf cat output /output/path/to/file.pdf
+```
+
+### comando *highlight-pointer*
+
+Instalação:
+
+```bash
+sudo apt install libx11-dev libxext-dev libxfixes-dev libxi-dev -y \
+&& git clone 'https://github.com/swillner/highlight-pointer' \
+&& cd ./highlight-pointer/ \
+&& make \
+&& sudo mv -v ./highlight-pointer /usr/local/bin/
+```
+
+Uso de exemplo:
+
+```bash
+nohup highlight-pointer \
+	--show-cursor \
+	-o 3.75 \
+	-r 24.75 \
+	-c '#303030' \
+	-p '#a41313' \
+	-t 5 \
+	--auto-hide-cursor \
+	--auto-hide-highlight \
+&
 ```
 
 ---
