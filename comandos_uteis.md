@@ -3196,7 +3196,10 @@ Pc com secure boot (precisa fazer o procedimento somente a primeira vez):
 OK -> "any key" -> Enroll Key From Disk -> VTOYEFI -> ENROLL_THIS_KEY_IN_MOKMANAGER.cer-> Cotinue -> Yes -> Reboot
 ```
 
-OBS: O binário do ventoy tem que rodar estando na pasta com seus arquivos
+OBS:
+
+- O binário do ventoy tem que rodar estando na pasta com seus arquivos.
+- Link para a [página de download](https://www.ventoy.net/en/download.html).
 
 ### Multipass
 
