@@ -4040,6 +4040,14 @@ git commti --amend -m 'new message'
 
 OBS: depois que realizar o comando, aparecerá um "commit extra", porém, simplesmente *pushe* a nova alteração forçando que esse novo commit já e sobrescrito: `git push -f origin <branch_name>`.
 
+#### Stash
+
+Adicionar arquivos não traqueados no *stash*:
+
+```bash
+stash -u
+```
+
 ### Log's
 
 - --all: caso sua branch esteja atrás, mostra logs dos ramos a frente também.
@@ -4054,6 +4062,12 @@ git log [--all|--oneline|--patch|--graph]
 ```
 
 OBS: todas as opções podem ser usadas ao mesmo tempo ou não (divirta-se).
+
+Seguir um único arquivo nos pelos *commits*:
+
+```bash
+git log --folow <file_name>
+```
 
 ### Blame
 
