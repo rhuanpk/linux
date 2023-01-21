@@ -3443,6 +3443,39 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 - `ctrl+w e`: *scroll* de linha a linha para baixo.
 - `ctrl+w y`: *scroll* de linha a linha para cima.
 
+### Chroot
+
+Para fazer o `chroot` correto (o sistema alvo será o sistema para qual fazremos o *chroot*):
+
+1. Monte a raiz do sistema alvo:
+	`sudo mount /dev/sdXY /mnt`
+
+2. Monte todas as outras partições físicas do sistema alvo (menos a *ESP* e *SWAP* caso tenha) **em baixo** da partição *root* montada:
+
+```bash
+sudo mount /dev/sdXY /mnt/boot/
+sudo mount /dev/sdXY /mnt/home/
+```
+
+3. Faça o *bind* dos diretórios que só são populados quando o sistema está em execução:
+
+```bash
+sudo mount --bind /dev/ /mnt/dev/
+sudo mount --bind /proc/ /mnt/proc/
+sudo mount --bind /sys/ /mnt/sys/
+```
+
+4. Copie o arquivo de resolução de interface de rede (caso precise de *internet*) para o sistema alvo (faça *backup* do original antes):
+
+```bash
+sudo cp -L /etc/resolv.conf /mnt/etc/
+```
+
+5. Finalize entrando no sistema alvo :):
+```bash
+sudo chroot /mnt/ /bin/bash
+```
+
 ### GRUB
 
 Possibilidades de correções do sistema pelo GRUB.
