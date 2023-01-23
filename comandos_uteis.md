@@ -1248,6 +1248,8 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 - -d: *put* no *field* informado.
 - -k: desabilita verificações de segurança (*SSL* e etc).
 - -u <user>:<password>: para fazer autênticação única.
+- -v: modo verboso.
+- -i: retorna o cabeçalho da requisição.
 
 Sintaxe comum para download:
 
@@ -1271,6 +1273,12 @@ Arquivos na request:
 
 ```bash
 curl <url> -X POST -H 'Content-Type: multipart/form-data' -F 'file=@/path/to/file.zip'
+```
+
+Requisição com "multipart/form-data":
+
+```bash
+curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d '<field>=<value>' <url>
 ```
 
 ### Comando *wget*
