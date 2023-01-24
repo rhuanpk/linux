@@ -1,5 +1,5 @@
 <a id="menu"></a>
-# >>> Comandos Aleatoriamente Úteis!
+# >>> Comandos Aleatoriamente Úteis !
 
 - [Debian base](#debian_base)
 	- [Customização](#db_customizacao)
@@ -2725,6 +2725,16 @@ Comando *lspci*:
 ```bash
 lspci -k | grep -E '(VGA|3D|Display)'
 ```
+
+## Mover/Cortar/Diminuir partições
+
+- Extender partição com o espaço disponível: `sudo growpart /dev/sdXY`.
+
+1. Mover partição de lugar (para trás ou para frente): `echo '<operator><size><multiplier>,' | sudo sfdisk --mode-data /dev/sdX -N <partition_number>`.
+
+1. Aumentar/Diminuir tamanho da partição: `echo ',<operator><size><multiplier>' | sudo sfdisk /dev/sdX -N <partition_number>`.
+
+1. Aplicar alterações de *resize*: `sudo resize2fs /dev/sdXY`.
 
 ---
 
