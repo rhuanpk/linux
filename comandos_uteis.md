@@ -3557,6 +3557,20 @@ Carregar o **bash** antes de subir o sistema:
 
 3. Depois que fizer o que precisa, inicie o sistema com `exec /sbin/init`.
 
+## Kernel panic (recovery trying)
+
+1. *Starte* o *host* em pânico para saber qual versão do *kernel* está sendo iniciada.
+
+1. Caso consiga inicar o *host* com *recovery mode*, o faça, se não [chroot](#chroot) nele com *live USB*.
+
+1. Reconstrua o *initramfs*: `sudo mkinitramfs -o /boot/initrd.img-<kernel_version> <kernel_version>`.
+
+1. Atualize o *grub*: `sudo update-grub`.
+
+1. Atualize o *initramfs*: `sudo update-initramfs -u`.
+
+1. `reboot`.
+
 ### Instalar Slax
 
 Instalação padrão:
