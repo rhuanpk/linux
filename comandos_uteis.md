@@ -4270,6 +4270,12 @@ ssh:
 git@<domain>:<user>/<repo>.git
 ```
 
+latest release:
+
+```bash
+https://github.com/<user>/<repo>/releases/latest/download/<filename>
+```
+
 #### Certificados de segurança
 
 Desabilitar verificação de SSL do git:
