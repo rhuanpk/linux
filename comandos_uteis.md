@@ -3626,6 +3626,88 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 
 #### Dialog
 
+#### Yad
+
+##### Status code return
+
+- *ok button*: `0`.
+- *cancel button*: `1`.
+- per *timeout*: `70`.
+- `esc` *or* `kill`: `252`.
+
+##### Opções de dialogo
+
+- `--about`: dialogo de *about* do próprio *yad* (#*PIOO*).
+- `--app`: dialogo padrão (equivalente a simplesmente `> yad`? #*PIOO*).
+- `--calendar`: dialogo de calendário; **retorno**: a data no formato `mm/dd/yyyy`.
+- `--color`: dialogo de seleção de cor; **retorno**: a cor em *hexa* (`#ffffff`).
+- `--dnd`: dialogo de *drag and drop* (#*PIOO*).
+- `--entry`: dialogo para entrada de texto; **retorno**: o texto informado.
+- `--icons`: define o ícone da barra de título da tela de dialogo (#*PIOO*).
+- `--file`: dialogo para seleção de arquivos do sistema; **retorno**: o *path* do arquivo selecionado.
+- `--font`: dialogo para seleção de fontes do sistema; **retorno**: a especificação da fonte (`<name> <type> <thickness> <size>`).
+- `--form`: base de uma tela para montar formulários (#*PIOO*).
+- `--list`: base de uma tela para montar listagens de itens (#*PIOO*).
+- `--multi-progress`: múltiplas barras de carregamento (#*PIOO*).
+- `--botebook`: "".
+- `--notification`: "".
+- `--print`: dialogo de impressão (#*PIOO*).
+- `--progress`: barra de carregamento (#*PIOO*).
+- `--text-info`: dialogo para textos informativos (#*PIOO*).
+- `--scale`: dialogo de escolha de valor de 0 a 100 (*like* potenciômetro); **retorno**: o valor selecionado.
+
+##### Opções gerais
+
+- `--title=<title>`: *seta* o título da janela.
+- `--window-icon=<icons_path_?>`: *seta* o ícone da janela.
+- `--width=<size>`: *seta* a largura da janela.
+- `--height`: *seta* a altura da janela.
+- `--posx=<number>`: *seta* a posição da janela no eixo *x* (pode ser negativo).
+- `--posy=<number>`: *seta* a posição da janela no eixo *y* (pode ser negativo).
+- `--geometry=<WIDTHxHEIGHT+X+Y>`: *seta* toda a posição e tamanho da janela num único parâmetro.
+- `--timeout=<timeout>`: *seta* o tempo de expiração da janela.
+- `--timeout-indicator=<position>`: *seta* o lugar aonde a barra de tempo limite irá aparecer na janela e os valores possíveis são: *top*, *bottom*, *left* ou *right*.
+- `--kill-parent=[<signal>]`: envia o número ou o prefixo do *SIGNAL* para o processo pai, *SIGTERM* é o *SIGNAL* *default*.
+- `--text=<string>`: *seta* um texto na janela.
+- `--text-align=<type>`: *seta* a justificação do texto da janela e os valores possíveos são: *left*, *right*, *center* or *fill*.
+- `--image=<image_path>`: *seta* a imagem ou ícone da janela.
+- `--icon-theme=<theme>`: *seta* o tema *GTK* dos ícones ao invés do padrão.
+- `--keep-icon-size`: deixa fíxo o tamanho dos ícones e não responsivo.
+- `--button=<button>:<id>`: adiciona um botão de dialogo, `<id>` é um código de saida ou comando e `<button>` pode ser um nome de item de estoque *yad* para botões predefinidos (como `yad-close` ou `yad-ok`) ou texto em um formulário `LABEL[!ICON[!TOOLTIP]]` onde `!` é um separador de itens.
+- `--no-buttons`: retira todos os botões.
+- `--buttons-layout=<type>`: *seta* o *layout* do botão e os valores possíveis são: *spread*, *edge*, *start*, *end* ou *center*, *default* é *end*.
+- `--no-escape`: desabilita o escape (não fecha o dialogo com a tecla `esc`).
+- `--center`: *spawna* a janela do centro da tela.
+- `--maximized`: *spawna* a janela maximizada.
+- `--fullscreen`: *spawna* no `F11`.
+- `--skip-taskbar`: não mostra a janela na *taskbar*.
+
+OBS: a marcação `#PIOO` significa: *"para interagir com outros objetos"*.
+
+##### STOCK ITEMS
+
+| ID           | Label text | Iconname         |
+| :----------- | :--------- | :--------------- |
+| yad-about    | About      | help-about       |
+| yad-add      | Add        | list-add         |
+| yad-apply    | Apply      | gtk-apply        |
+| yad-cancel   | Cancel     | gtk-cancel       |
+| yad-clear    | Clear      | document-clear   |
+| yad-close    | Close      | window-close     |
+| yad-edit     | Edit       | gtk-edit         |
+| yad-execute  | Execute    | system-run       |
+| yad-no       | No         | gtk-no           |
+| yad-ok       | OK         | gtk-ok           |
+| yad-open     | Open       | document-open    |
+| yad-print    | Print      | document-print   |
+| yad-quit     | Quit       | application-exit |
+| yad-refresh  | Refresh    | view-refresh     |
+| yad-remove   | Remove     | list-remove      |
+| yad-save     | Save       | document-save    |
+| yad-search   | Search     | system-search    |
+| yad-settings | Settings   | gtk-preferences  |
+| yad-yes      | Yes        | gtk-yes          |
+
 #### Whiptail
 
 ##### Info box
