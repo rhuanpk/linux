@@ -4191,7 +4191,7 @@ git reset --hard <hash_commit>
 Editar a mensagem do último commit:
 
 ```bash
-git commti --amend -m 'new message'
+git commit --amend -m 'new message'
 ```
 
 OBS: depois que realizar o comando, aparecerá um "commit extra", porém, simplesmente *pushe* a nova alteração forçando que esse novo commit já e sobrescrito: `git push -f origin <branch_name>`.
