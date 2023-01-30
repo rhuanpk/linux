@@ -439,6 +439,7 @@ ncdu [<path>]
 - -o: Somente a ocorrência e não a linha toda da mesma.
 - -v: Inverte a ocorrência, todas as linhas que não casaram.
 - -s: Suprime somente as mensagens de erro.
+- -I: Rejeita arquivos binários na busca.
 
 ```bash
 grep -irnE '^(hello|world)' {/some/path/file.txt|/some/path/}
