@@ -4346,6 +4346,12 @@ git remote rename <nome_atual> <novo_nome>
 1. `git add .`
 1. `git push origin master`
 
+#### Listar somente os arquivos com conflito no `--rebase`:
+
+```bash
+git status --short | sed -n 's/AA //p'
+```
+
 ### Any others
 
 #### Sintaxe de URL's:
