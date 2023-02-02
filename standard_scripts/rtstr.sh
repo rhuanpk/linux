@@ -42,7 +42,7 @@ print_usage() {
 set +o histexpand
 
 #verify_privileges
-#[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+#[ $# -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
 #        print_usage
 #        exit 1
 #}
