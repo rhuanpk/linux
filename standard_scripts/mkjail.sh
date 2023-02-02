@@ -20,10 +20,10 @@ print_usage() {
         cat <<- eof
 		##################################################
 		#
-		# $(basename ${0}) make a jail and move it.
+		# $this_script make a jail and move it.
 		#
 		# run:
-		# 	$(basename ${0}) [/path/to/tmp/jail]
+		# 	$this_script [/path/to/tmp/jail]
 		#
 		##################################################
 	eof

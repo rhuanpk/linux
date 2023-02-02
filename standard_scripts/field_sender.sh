@@ -20,7 +20,7 @@ print_usage() {
 	cat <<- eof
 		####################################################################################################
 		#
-		# >>> $(basename ${0}) !
+		# >>> $this_script !
 		#
 		# Envia texto pleno como dado para o campo do HTML no endereço passado.
 		#
@@ -35,7 +35,7 @@ print_usage() {
 		# 	-h: printa esse menu de ajuda e sai com 1.
 		#
 		# Exemplo:
-		# 	$(basename ${0}) 'any message to send' 'http://dontpad.com/any' [<id_field_name>]
+		# 	$this_script 'any message to send' 'http://dontpad.com/any' [<id_field_name>]
 		#
 		####################################################################################################
 	eof

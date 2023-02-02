@@ -24,10 +24,10 @@ print_usage() {
 		#
 		# Syntax:
 		#
-		# 	./$(basename ${0}) <unique_argument>
+		# 	./$this_script <unique_argument>
 		#
 		# E.g.:
-		# 	./$(basename ${0}) "{some string|/path/to/file.txt|<integer>|<float>}"
+		# 	./$this_script "{some string|/path/to/file.txt|<integer>|<float>}"
 		#
 		# Options:
 		#
