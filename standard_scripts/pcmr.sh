@@ -2,25 +2,35 @@
 
 # Get the RAM consumption of some specific program.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
-        echo -e "Passe o nome de algum programa para saber o consumo de RAM do mesmo.\n\tExemplo: ./$(basename ${0}) [-f|--full] chrome"
+        echo -e "Passe o nome de algum programa para saber o consumo de RAM do mesmo.\n\tExemplo: ./$this_script [-f|--full] chrome"
 }
 
-verify_privileges
+# >>> pre statements !
 
+set +o histexpand
+
+verify_privileges
 [ ${#} -lt 1 -o "${1}" = '-h' -o "${1}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 # ---------- implementações -------------------------------------------------------------------------------------------------------------------
 #

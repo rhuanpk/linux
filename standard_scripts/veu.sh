@@ -2,18 +2,25 @@
 
 # Volume Encryption Utility (veu).
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
 		exit 1
-        fi
+	}
 }
 
 print_usage() {
 	cat <<- eof
 		#########################################################################
 		#
-		# >>> $(basename ${0}) !
+		# >>> ${this_script} !
 		#
 		# Its a volume encryption utility (a script with simple instructions).
 		#
@@ -29,14 +36,17 @@ print_usage() {
 	eof
 }
 
-verify_privileges
+# >>> pre statements !
 
+set +o histexpand
+
+verify_privileges
 [ ${#} -lt 1 ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 volume_path=/tmp/tmp/private
 script_name=$0

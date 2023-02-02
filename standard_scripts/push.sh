@@ -2,31 +2,41 @@
 
 # It does the entire push process automatically and if no parameter is passed, it commits with a standard message.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
         echo -e "\
 		\rTo the default commit (message: \"refresh\"), run:\n\
-			\r\t$(basename ${0})\n\n\
+			\r\t${this_script})\n\n\
 		\r\
 		\rFor commit with a specific message, run:\n\
-			\r\t$(basename ${0}) \"commit message\"\
+			\r\t${this_script}) \"commit message\"\
 		\r"
 }
 
-verify_privileges
+# >>> pre statements !
 
+set +o histexpand
+
+verify_privileges
 [ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 [ -z "${1}" ] && MSG=refresh || MSG="${1}"
 [ -z "${2}" ] && BRANCH=$(git branch --show-current) || BRANCH="${2}"

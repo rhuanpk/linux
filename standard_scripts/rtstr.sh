@@ -2,11 +2,18 @@
 
 # Returns the conversion of the passed argument to string, whether int, float, string, or file.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
@@ -30,14 +37,17 @@ print_usage() {
 	eof
 }
 
-# verify_privileges
+# >>> pre statements !
 
-# [ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-#         print_usage
-#         exit 1
-# }
+set +o histexpand
 
-# >>>>> PROGRAM START <<<<<
+#verify_privileges
+#[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+#        print_usage
+#        exit 1
+#}
+
+# >>> *** PROGRAM START *** !
 
 while getopts 'hf' opt; do
 	case $opt in

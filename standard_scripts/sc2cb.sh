@@ -3,24 +3,34 @@
 # sc2cb = Send Color to ClipBoard
 # Sends the hex code of the color to your clipboard.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
-        echo -e "Run:\n\t./$(basename ${0})"
+        echo -e "Run:\n\t./${this_script}"
 }
 
-# verify_privileges
+# >>> pre statements !
 
-[ ${#} -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+set +o histexpand
+
+#verify_privileges
+[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 echo \#$(colorpicker --one-shot --short | cut -d '#' -f 2) | xclip -rmlastnl -selection clipboard

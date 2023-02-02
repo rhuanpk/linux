@@ -2,20 +2,25 @@
 
 # Loop for commands.
 
-script=$(basename ${0})
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
 
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
         cat <<- EOF
 		#######################################################################################
 		#
-		# >>> ${script^^} !
+		# >>> ${this_script} !
 		#
 		# 
 		# Script que deixar algum comando em loop com controle de tempo de atualização
@@ -38,14 +43,18 @@ print_usage() {
 	EOF
 }
 
-# verify_privileges
 
+# >>> pre statements !
+
+set +o histexpand
+
+#verify_privileges
 [ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 unset time command
 

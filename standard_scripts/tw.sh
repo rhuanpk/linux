@@ -3,28 +3,33 @@
 # Take the Window (TK).
 # It is software that gives focus to the specified window or executes a command if it is not available.
 
-script=$(basename ${0})
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
 
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
 	cat <<- eof
 		####################################################################################################
 		#
-		# >>> $script !
+		# >>> $this_script !
 		#
 		# Take the window or execute a command.
 		#
 		# Syntax:
-		# 	$script <window_class> <command_to_execute>
+		# 	$this_script <window_class> <command_to_execute>
 		#
 		# E.g.:
-		# 	$script '"google-chrome", "Google-chrome"' 'xdotool --clearmodifiers Alt_L+F4'
+		# 	$this_script '"google-chrome", "Google-chrome"' 'xdotool --clearmodifiers Alt_L+F4'
 		#
 		# Helps:
 		# 	Usually the names placed in <window_class> is the name of the binary and its "formal name",
@@ -35,14 +40,17 @@ print_usage() {
 	eof
 }
 
-verify_privileges
+# >>> pre statements !
 
+set +o histexpand
+
+verify_privileges
 [ ${#} -gt 3 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 class_search="${1:?'need a classe to search, e.g. "x-terminal-emulator", "X-terminal-emulator"'}"
 command_execute="${2:?'need a command to execute case the window dont visible, e.g. xdotool key --clearmodifiers Control_L+t'}"

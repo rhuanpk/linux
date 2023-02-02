@@ -102,11 +102,11 @@ done
 
 shift $((${OPTIND}-1))
 
-verify_privileges(){
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+verify_privileges() {
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 ############ BEGIN OF PROGRAM ############

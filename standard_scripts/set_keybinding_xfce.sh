@@ -2,18 +2,25 @@
 
 # Reset and set as new keybing for xfce environments.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
 	cat <<- EOF
 		#######################################################################
 		#
-		# >>> $(basename ${0^^})!
+		# >>> ${this_script} !
 		#
 		# Set a new binding passing the following params for xfce systems:
 		#
@@ -22,7 +29,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	$(basename ${0}) '<Alt>v' vcontrol.sh
+		# 	${this_script} '<Alt>v' vcontrol.sh
 		#
 		# For remove a binding pass only a param:
 		#
@@ -30,20 +37,24 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	$(basename ${0}) '<Alt>v'
+		# 	${this_script} '<Alt>v'
 		#
 		#######################################################################
 	EOF
 }
 
-verify_privileges
 
+# >>> pre statements !
+
+set +o histexpand
+
+verify_privileges
 [ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 xfconf-query --reset --channel xfce4-keyboard-shortcuts --property "/xfwm4/custom/${1}"
 xfconf-query --reset --channel xfce4-keyboard-shortcuts --property "/commands/custom/${1}"

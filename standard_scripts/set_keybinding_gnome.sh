@@ -2,18 +2,25 @@
 
 # Set a new binding for gnome environments.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
         cat <<- EOF
 		#######################################################################
 		#
-		# >>> $(basename ${0^^})!
+		# >>> ${this_script} !
 		#
 		# Set a new binding passing the following params:
 		#
@@ -24,20 +31,23 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	$(basename ${0}) volume0 'Volume control' '<Alt>v' vcontrol.sh
+		# 	${this_script} volume0 'Volume control' '<Alt>v' vcontrol.sh
 		#
 		#######################################################################
 	EOF
 }
 
-verify_privileges
+# >>> pre statements !
 
+set +o histexpand
+
+verify_privileges
 [ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 custom_keybinding="${1}"
 name_keybinding="${2}"

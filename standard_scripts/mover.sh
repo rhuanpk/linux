@@ -2,27 +2,35 @@
 
 # Move all or some specifies scripts to the PATH directories.
 
-program_name=$(basename ${0})
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
 
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
-        echo -e "Run:\n\tTo move all: ${program_name}\n\tTo move some scripts: ${program_name} script_name_1.sh script_name_2.sh"
+        echo -e "Run:\n\tTo move all: ${this_script}\n\tTo move some scripts: $this_script script_name_1.sh script_name_2.sh"
 }
 
-verify_privileges
+# >>> pre statements !
 
+set +o histexpand
+
+verify_privileges
 [ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 git_url='https://raw.githubusercontent.com/rhuan-pk/comandos-linux/master/standard_scripts/.pessoal/setload.sh'
 std_scripts_path=${PK_LOAD_LINUXCOMMANDS:-$(wget -qO - $git_url | bash - 2>&- | grep -F comandos-linux)}

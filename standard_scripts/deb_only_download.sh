@@ -2,11 +2,18 @@
 
 # Make a list of the packages dependencies of the programs to temp files.
 
+# >>> variable declarations !
+
+this_script=$(basename "${0}")
+home=${HOME:-/home/${USER:-$(whoami)}}
+
+# >>> function declarations !
+
 verify_privileges() {
-        if [ ${UID} -eq 0 ]; then
-                echo -e "ERROR: Run this program without privileges!\nExiting..."
-                exit 1
-        fi
+	[ $UID -eq 0 ] && {
+		echo -e "ERROR: Run this program without privileges!\nExiting..."
+		exit 1
+	}
 }
 
 print_usage() {
@@ -23,14 +30,17 @@ print_usage() {
 	EOF
 }
 
-verify_privileges
+# >>> pre statements !
 
-[ ${#} -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+set +o histexpand
+
+verify_privileges
+[ $# -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
-# >>>>> PROGRAM START <<<<<
+# >>> *** PROGRAM START *** !
 
 package=${1}
 dependencies=$(mktemp /tmp/apt_dependencies_${package}_XXXXXXXXXX.tmp)
