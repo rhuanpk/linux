@@ -775,23 +775,26 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 **Medidas de segurança**:
 
 - Aumentar a porta de conexão:
-	`Port <port_number>`
+	`Port <port_number>`.
 
 - Tempo de inatividade (em segundos) até tomar *dc* (*disconect*):
-	- `ClientAliveInterval <value>`
-	- `ClientAliveCountMax 0`
+	- `ClientAliveInterval <value>`.
+	- `ClientAliveCountMax 0`.
 
 - Não permitir senha vazias:
-	`PermitEmptyPasswords no`
+	`PermitEmptyPasswords no`.
 
 - Não permitir o acesso direto ao *root user*:
-	`PermitRootLogin no`
+	`PermitRootLogin no`.
 
 - Explicitar o protocolo mais a tual a ser usado:
-	`Protocol 2`
+	`Protocol 2`.
 
 - Caso queria retirar a autênticação por senha para poder logar somente com chaves:
-	`PasswordAuthentication no`
+	`PasswordAuthentication no`.
+
+- Máximo de tentativas de conexão:
+	`MaxAuthTries <tries_numver>`.
 
 #### *ssh keys/agents*
 
