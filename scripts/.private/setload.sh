@@ -21,5 +21,5 @@ setload() {
 }
 
 setload PK_LOAD_CFGBKP cfg-bkp
-setload PK_LOAD_LINUXCOMMANDS linux
+setload PK_LOAD_LINUX linux
 setload PK_LOAD_PKUTILS pkutils
