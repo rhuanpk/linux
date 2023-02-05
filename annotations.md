@@ -796,6 +796,10 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 - Máximo de tentativas de conexão:
 	`MaxAuthTries <tries_number>`.
 
+helplinks:
+
+- <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
+
 #### *ssh keys/agents*
 
 Criar ssh key:
