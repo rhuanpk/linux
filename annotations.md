@@ -1521,6 +1521,14 @@ rsync -ahv --delete --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 
 - por *default* caso utilize o *rsync* com os mesmos *paths* de origem e destino ele simplesmente faz a sincronia dos arquivos (copia somente oque foi alterado, ou seja, o que há de novo) e preserva do destino os que já foram excluídos da fonte (ver opção `--delete`).
 
+### Comando *lsof*
+
+Listar portas abertas:
+
+```bash
+sudo lsof -Pni | grep -F LISTEN
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
