@@ -794,7 +794,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 	`PasswordAuthentication no`.
 
 - Máximo de tentativas de conexão:
-	`MaxAuthTries <tries_numver>`.
+	`MaxAuthTries <tries_number>`.
 
 #### *ssh keys/agents*
 
