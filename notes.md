@@ -15,6 +15,7 @@
 - [Git](#git)
 - [GitHub CLI](#github_cli)
 - [Arch base](#arch_base)
+- [Android](#android)
 - [Estudos](#estudos)
 
 <a id="debian_base"></a>
@@ -796,7 +797,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 - Máximo de tentativas de conexão:
 	`MaxAuthTries <tries_number>`.
 
-helplinks:
+REFERENCELINKS:
 
 - <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
 
@@ -2233,7 +2234,7 @@ Saber ips conectados a minha rede:
 	`ip address`
 
 1. Coloque no *nmap*:
-	`sudo nmap -sn 192.168.0.1/24`
+	`sudo nmap -sA 192.168.0.1/24`
 
 Saber quais portas estão sendo usadas por qual serviço na sua máquina:
 
@@ -4519,6 +4520,66 @@ systemctl start iwd.service && systemctl enable iwd.service &&; \
 systemctl start systemd-networkd.service && systemctl enable systemd-networkd.service; \
 systemctl start systemd-resolved.service && systemctl enable systemd-resolved.service
 ```
+
+---
+
+<a id="android"></a>
+## [> Android](#menu)
+
+### Instalção de GSI (ROM)
+
+Programas necessários:
+
+```bash
+sudo apt install -y adb fastboot [android-sdk-platform-tools-common]
+```
+
+1. No sistema **android** ainda rodando:
+
+	1. Ativar depuração *USB*.
+
+	1. Ativar desbloqueio de *OEM*.
+
+1. Entrar na tela do *bootloader* (ligar o dispositivo em modo de *fastboot*).
+
+1. Conectar via *USB* o dispositvo android no *OS*.
+
+1. Na linha de comando:
+
+	1. `fastboot reboot fastboot`.
+
+	1. `fastboot flash system </path/to/descompressed/image.img>`.
+
+		- Caso esse passo dê algum erro refente a falta de espaço, execute o comando:
+			
+			`fastboot delete-logical-partition product_<letter_partition>`.
+
+		- E reexecute o comando de *flash system*.
+
+1. Em alguns casos é necessário executar o *vbmeta* para desbloquear o *boot* que acabará sendo bloqueado por algumas marcas de dispositivos:
+
+	1. Entre no *bootloader* padrão do device pelos botões de controle ou:
+		`fastboot reboot bootloader`.
+
+	1. `fastboot flash vbmeta </path/to/vbmeta.img>`.
+
+	1. `fastboot erase userdata`.
+
+	1. `fastboot erase metadata`.
+
+	1. `fastboot reboot`.
+
+Tips:
+
+- A primeira inicialização pode ser *bugada* e simplesmente depois de um *reboot* já não tera mais?
+
+- Instalar o aplicativo **Table Info** para saber infos importantes ao que diz respeito a qual ROM customizada instalar no dispositivo.
+
+REFERENCELINKS:
+
+- [repositório trable](https://github.com/phhusson/treble_experimentations/).
+
+- [vbmeta](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa2FlYmZLZjMtSVVzWnUzUkxYSFhNUkg4VVFfZ3xBQ3Jtc0tsMS15VFNteXlJdm1LYnJqSGhINXh4RkRqWjF2YUFsRXRHQVdjdks5bTBzMlREdkNPckIzQ25EMUJISGFacjlna1g5NjlQQVo3UGN5ckFkX184S2ZNamxfVm9rTmxHOWxkVXlENjFkTWVjeXhxakgzcw&q=https%3A%2F%2Fdl.google.com%2Fdevelopers%2Fandroid%2Fqt%2Fimages%2Fgsi%2Fvbmeta.img&v=PFDeme_gPGc).
 
 ---
 
