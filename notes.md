@@ -387,22 +387,21 @@ sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 
 ### Comando *tree*
 
-Listagem de diretorios em árvore:
+- -a: lista também arquivos ocultos.
+- -F: na saida coloca uma `/` no final do nome do arquivo caso seja um diretório.
+- -L <value>: limita a quantidade de níveis de diretórios na buscar.
+- -C: *seta* "*color always*".
+- -p: coloca na saida as permissões dos arquivos.
+- -P <pattern>: retorna o que casar com o padrão (aceita coringas).
 
 ```bash
-tree
+tree [<options>]
 ```
 
-Passando path:
+Buscar o caminho de somente um arquivo:
 
 ```bash
-tree <path>
-```
-
-Limitar a recursividade:
-
-```bash
-tree -L 2
+tree /path --matchdirs --prune -P pattern2search
 ```
 
 ### Comando *du*
