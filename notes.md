@@ -1526,7 +1526,13 @@ rsync -ahv --delete --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 Listar portas abertas:
 
 ```bash
-sudo lsof -Pni | grep -F LISTEN
+sudo lsof -nPi | grep -F LISTEN
+```
+
+Listar porta específica:
+
+```bash
+sudo lsof -i :<port>
 ```
 
 ### Comando *xclip*
