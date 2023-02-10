@@ -1248,9 +1248,9 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 
 ### Comando *curl*
 
-- -f: caso falhe, suprime a saida de erro.
-- -s: silencia a saida.
-- -S: caso de algum erro porém a saida padrão esteja silenciada, mostrará o erro.
+- -f: caso *request* retorne algum código de erro, suprime a saida (*body response*).
+- -s: silência o **curl**, suprime o progresso ou mensagens de erro, porém, mostra a *response* normalmente.
+- -S: mostra o erro, caso ele ocorra enquanto a saida está silênciada (`-s`).
 - -L: tentar encontrar a nova *url* caso a que esteja batendo tenha caido.
 - -o: informa o nome de saida do arquivo.
 - -d: *put* no *field* informado.
