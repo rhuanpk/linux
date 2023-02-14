@@ -18,11 +18,11 @@ verify_privileges() {
 
 print_usage() {
 	cat <<- eof
-		#########################################################################
+		###########################################################################
 		#
 		# >>> ${this_script} !
 		#
-		# Its a volume encryption utility (a script with simple instructions).
+		# Its a volume encryption utility (a bash script with simple instructions).
 		#
 		# OPTIONS:
 		#
@@ -32,7 +32,7 @@ print_usage() {
 		# 	-m: mount the volume.
 		# 	-u: umount the volume.
 		#
-		#########################################################################
+		###########################################################################
 	eof
 }
 
