@@ -4226,6 +4226,33 @@ Adicionar arquivos não traqueados no *stash*:
 stash -u
 ```
 
+#### Cherry Pick
+
+Trazendo um _commit_ específico para a branch:
+
+```bash
+git cherry-pick <commit_hash>
+```
+
+Somente aplicando as alterações do _commit_:
+
+```bash
+git cherry-pick --no-commit <commit_hash>
+```
+
+Trazendo o _commit_ e edita a mensagem antes de concluir:
+
+```bash
+git cherry-pick --edit <commit_hash>
+```
+
+OBS: Estando na _branch_ que vai receber as alterações.
+
+REFERENCELINKS:
+
+- https://www.atlassian.com/git/tutorials/cherry-pick
+- https://git-scm.com/docs/git-cherry-pick
+
 ### Log's
 
 - --all: caso sua branch esteja atrás, mostra logs dos ramos a frente também.
