@@ -39,7 +39,7 @@ xclip -selection clipboard -rmlastnl << \eof
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
