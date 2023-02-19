@@ -4,7 +4,7 @@
 
 # ********** Declaração de Variáveis **********
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 git_url='https://raw.githubusercontent.com/rhuan-pk/linux/master/scripts/.private/setload.sh'
 path=${PK_LOAD_LINUX:-$(wget -qO - $git_url | bash - 2>&- | grep -F linux)}
@@ -26,7 +26,7 @@ verify_privileges() {
 print_usage() {
 	echo -e "\
 		\r\t\e[1m*** MOVE2SYMLINK ***\e[m\n\n\
-		\r\e[1mUsage\e[m: ./$this_script [--ony-symlink]\n\n\
+		\r\e[1mUsage\e[m: ./$script [--ony-symlink]\n\n\
 		\r\e[1mDescription\e[m: Move binaries to the \"local/bin\" folder converting symlinks but some not.\n\n\
 		\r\e[1mOptions\e[m:\n\
 		\r\t--only-symlink: Move only those that will be converted to symlinks.\

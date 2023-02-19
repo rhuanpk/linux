@@ -4,7 +4,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -20,10 +20,10 @@ print_usage() {
         cat <<- eof
 		##################################################
 		#
-		# $this_script make a jail and move it.
+		# $script make a jail and move it.
 		#
 		# run:
-		# 	$this_script [/path/to/tmp/jail]
+		# 	$script [/path/to/tmp/jail]
 		#
 		##################################################
 	eof

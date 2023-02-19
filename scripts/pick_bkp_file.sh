@@ -11,7 +11,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -24,7 +24,7 @@ verify_privileges() {
 }
 
 print_usage() {
-        echo -e "Run:\n\t./${this_script}"
+        echo -e "Run:\n\t./${script}"
 }
 
 # >>> pre statements !

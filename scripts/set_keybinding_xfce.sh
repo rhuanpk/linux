@@ -4,7 +4,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -20,7 +20,7 @@ print_usage() {
 	cat <<- EOF
 		#######################################################################
 		#
-		# >>> ${this_script} !
+		# >>> ${script} !
 		#
 		# Set a new binding passing the following params for xfce systems:
 		#
@@ -29,7 +29,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	${this_script} '<Alt>v' vcontrol.sh
+		# 	${script} '<Alt>v' vcontrol.sh
 		#
 		# For remove a binding pass only a param:
 		#
@@ -37,7 +37,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	${this_script} '<Alt>v'
+		# 	${script} '<Alt>v'
 		#
 		#######################################################################
 	EOF

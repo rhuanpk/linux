@@ -4,7 +4,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -19,10 +19,10 @@ verify_privileges() {
 print_usage() {
         echo -e "\
 		\rTo the default commit (message: \"refresh\"), run:\n\
-			\r\t${this_script})\n\n\
+			\r\t${script})\n\n\
 		\r\
 		\rFor commit with a specific message, run:\n\
-			\r\t${this_script}) \"commit message\"\
+			\r\t${script}) \"commit message\"\
 		\r"
 }
 

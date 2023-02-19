@@ -4,7 +4,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -24,10 +24,10 @@ print_usage() {
 		#
 		# Syntax:
 		#
-		# 	./$this_script <unique_argument>
+		# 	./$script <unique_argument>
 		#
 		# E.g.:
-		# 	./$this_script "{some string|/path/to/file.txt|<integer>|<float>}"
+		# 	./$script "{some string|/path/to/file.txt|<integer>|<float>}"
 		#
 		# Options:
 		#

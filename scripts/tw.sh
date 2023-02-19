@@ -5,7 +5,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -21,15 +21,15 @@ print_usage() {
 	cat <<- eof
 		####################################################################################################
 		#
-		# >>> $this_script !
+		# >>> $script !
 		#
 		# Take the window or execute a command.
 		#
 		# Syntax:
-		# 	$this_script <window_class> <command_to_execute>
+		# 	$script <window_class> <command_to_execute>
 		#
 		# E.g.:
-		# 	$this_script '"google-chrome", "Google-chrome"' 'xdotool --clearmodifiers Alt_L+F4'
+		# 	$script '"google-chrome", "Google-chrome"' 'xdotool --clearmodifiers Alt_L+F4'
 		#
 		# Helps:
 		# 	Usually the names placed in <window_class> is the name of the binary and its "formal name",

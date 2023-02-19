@@ -4,7 +4,7 @@
 
 # >>> variable declarations !
 
-this_script=$(basename "${0}")
+script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
 
 # >>> function declarations !
@@ -20,7 +20,7 @@ print_usage() {
         cat <<- EOF
 		#######################################################################################
 		#
-		# >>> ${this_script} !
+		# >>> ${script} !
 		#
 		# 
 		# Script que deixar algum comando em loop com controle de tempo de atualização
