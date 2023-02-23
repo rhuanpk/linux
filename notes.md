@@ -4118,7 +4118,7 @@ https://launchpad.net/ubuntu/+ppas
 
 1. `git add ./`
 1. `git commit -m 'commit message'`
-1. `git push origin branchname`
+1. `git push origin branch-name`
 
 ### Branchs
 
@@ -4399,6 +4399,16 @@ git remote rename <nome_atual> <novo_nome>
 ```bash
 git status --short | sed -n 's/AA //p'
 ```
+
+#### Depois de alterar o nome da branch default no remoto:
+
+1. `git branch -m master main`.
+1. `git fetch origin`.
+1. `git branch -u origin/main main`.
+1. `git remote set-head origin -a`.
+1. `git remote prune origin`.
+
+_pipeline_: `git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a && git remote prune origin`.
 
 ### Any others
 
