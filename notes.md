@@ -4142,6 +4142,12 @@ Locais e remotas:
 git branch {--all|-a}
 ```
 
+Detalhamento das branchs:
+
+```bash
+git branch -vva
+```
+
 Mostra além das branchs remotas, outras infos:
 
 ```bash
