@@ -4218,14 +4218,6 @@ git commit --amend -m 'new message'
 
 OBS: depois que realizar o comando, aparecerá um "commit extra", porém, simplesmente *pushe* a nova alteração forçando que esse novo commit já e sobrescrito: `git push -f origin <branch_name>`.
 
-#### Stash
-
-Adicionar arquivos não traqueados no *stash*:
-
-```bash
-stash -u
-```
-
 #### Cherry Pick
 
 Trazendo um _commit_ específico para a branch:
@@ -4252,6 +4244,20 @@ REFERENCELINKS:
 
 - https://www.atlassian.com/git/tutorials/cherry-pick
 - https://git-scm.com/docs/git-cherry-pick
+
+### Stash
+
+*Stashear* com mensagem e incluir arquivos não traqueados no *stash*:
+
+```bash
+git stash push -um '<message>' [./path/to/folder/or/file.any]
+```
+
+Mostrar por completo o log do stash (modo `--patch` e arquivos não traqueado):
+
+```bash
+git stash show -up stash@{<stash_id>}
+```
 
 ### Log's
 
@@ -4593,7 +4599,7 @@ sudo apt install -y adb fastboot [android-sdk-platform-tools-common]
 	1. `fastboot flash system </path/to/descompressed/image.img>`.
 
 		- Caso esse passo dê algum erro refente a falta de espaço, execute o comando:
-			
+
 			`fastboot delete-logical-partition product_<letter_partition>`.
 
 		- E reexecute o comando de *flash system*.
@@ -4743,7 +4749,7 @@ O *Window System* é o componente da *GUI* que suporta a implementação de *Win
 - Cada programa roda em sua própria janela, e alguns *Window System's* permitem mostrar aplicações gráficas que rodam em uma máquina remota.
 
 - Alguns exemplos de *Window Manager's*:
-	
+
 	- Xorg.
 	- Wayland.
 	- Quartz Compositor (Mac OS X).
@@ -4761,7 +4767,7 @@ O *Window Manager* realiza a interação entre janelas, aplicações e o *Window
 - A maioria dos *Window Manager's* é projetada para fornecer um *Desktop Envionment*, trabalhando junto com o *Window System* o qual fornece suporte ao *hardware* gráfico, dispositivos apontadores e teclado.
 
 - Alguns exemplos de *Window Manager's*:
-	
+
 	- Metacity (*Gnome 2*).
 	- Mutter (*Gnome 3*).
 	- KWin (*KDE*).
