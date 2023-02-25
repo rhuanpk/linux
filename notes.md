@@ -207,6 +207,42 @@ sudo apt install libfribidi-dev libglib2.0-dev libwv-dev libxslt1-dev libgio2.0-
 mkdir /tmp/abiword && cd /tmp/abiword && wget 'http://www.abisource.com/downloads/abiword/3.0.5/source/abiword-3.0.5.tar.gz' && tar -zxvf abiword-3.0.5.tar.gz && cd abiword-3.0.5 && ./configure && sudo make -j8 && sudo make install
 ```
 
+### Instalar grub-customizer
+
+1. Configure o repositório:
+
+```bash
+echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubuntu `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/grub-customizer.list
+```
+
+2. Baixe a chave púlica do repositório:
+
+```bash
+curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x59dad276b942642b1bbd0eaca8aa1faa3f055c03' | sudo gpg --dearmor --output /etc/apt/trusted.gpg.d/grub-customizer.gpg
+```
+
+3. Atualize os repositórios:
+
+```bash
+sudo apt update
+```
+
+4. Instale o pacote:
+
+```bash
+sudo apt install -y grub-customizer
+```
+
+**pipeline**:
+
+```bash
+echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubuntu `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/grub-customizer.list && curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x59dad276b942642b1bbd0eaca8aa1faa3f055c03' | sudo gpg --dearmor --output /etc/apt/trusted.gpg.d/grub-customizer.gpg && sudo apt update; sudo apt install -y grub-customizer
+```
+
+REFERENCELINKS:
+
+- <https://launchpad.net/~danielrichter2007/+archive/ubuntu/grub-customizer>.
+
 ---
 
 <a id="db_sistema"></a>
