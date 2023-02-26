@@ -26,7 +26,7 @@ verify_privileges() {
 print_usage() {
 	echo -e "\
 		\r\t\e[1m*** MOVE2SYMLINK ***\e[m\n\n\
-		\r\e[1mUsage\e[m: ./$script [--ony-symlink]\n\n\
+		\r\e[1mUsage\e[m: ./${script} [--ony-symlink]\n\n\
 		\r\e[1mDescription\e[m: Move binaries to the \"local/bin\" folder converting symlinks but some not.\n\n\
 		\r\e[1mOptions\e[m:\n\
 		\r\t--only-symlink: Move only those that will be converted to symlinks.\

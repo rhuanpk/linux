@@ -24,10 +24,10 @@ print_usage() {
 		#
 		# Syntax:
 		#
-		# 	./$script <unique_argument>
+		# 	./${script} <unique_argument>
 		#
 		# E.g.:
-		# 	./$script "{some string|/path/to/file.txt|<integer>|<float>}"
+		# 	./${script} "{some string|/path/to/file.txt|<integer>|<float>}"
 		#
 		# Options:
 		#

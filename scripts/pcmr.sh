@@ -17,7 +17,7 @@ verify_privileges() {
 }
 
 print_usage() {
-        echo -e "Passe o nome de algum programa para saber o consumo de RAM do mesmo.\n\tExemplo: ./$script [-f|--full] chrome"
+        echo -e "Passe o nome de algum programa para saber o consumo de RAM do mesmo.\n\tExemplo: ./${script} [-f|--full] chrome"
 }
 
 # >>> pre statements !

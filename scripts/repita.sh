@@ -20,7 +20,7 @@ print_usage() {
         cat <<- EOF
 		#######################################################################################
 		#
-		# >>> ${script} !
+		# >>> $script !
 		#
 		# 
 		# Script que deixar algum comando em loop com controle de tempo de atualização

@@ -17,7 +17,7 @@ verify_privileges() {
 }
 
 print_usage() {
-        echo -e "Run:\n\tTo move all: ${script}\n\tTo move some scripts: $this_script script_name_1.sh script_name_2.sh"
+        echo -e "Run:\n\tTo move all: ${script}\n\tTo move some scripts: $script script_name_1.sh script_name_2.sh"
 }
 
 # >>> pre statements !

@@ -20,7 +20,7 @@ print_usage() {
 	cat <<- EOF
 		#######################################################################
 		#
-		# >>> ${script} !
+		# >>> $script !
 		#
 		# Set a new binding passing the following params for xfce systems:
 		#
@@ -29,7 +29,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	${script} '<Alt>v' vcontrol.sh
+		# 	$script '<Alt>v' vcontrol.sh
 		#
 		# For remove a binding pass only a param:
 		#
@@ -37,7 +37,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	${script} '<Alt>v'
+		# 	$script '<Alt>v'
 		#
 		#######################################################################
 	EOF

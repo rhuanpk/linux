@@ -17,7 +17,19 @@ verify_privileges() {
 }
 
 print_usage() {
-        echo -e "Run:\n\t./${script}"
+	cat <<- eof
+		##################################################
+		#
+		# >>> $script !
+		#
+		# Custom screen suspender.
+		#
+		# Usage:
+		#
+		# 	$script [<timeout_seconds>]
+		#
+		##################################################
+	eof
 }
 
 # >>> pre statements !
@@ -25,11 +37,11 @@ print_usage() {
 set +o histexpand
 
 verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+[ $# -gt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
 # >>> *** PROGRAM START *** !
 
-yi3lock && sudo systemctl suspend
+sleep "${1}" 2>&-; yi3lock && sudo systemctl suspend

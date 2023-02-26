@@ -20,7 +20,7 @@ print_usage() {
 	cat <<- eof
 		###########################################################################
 		#
-		# >>> ${script} !
+		# >>> $script !
 		#
 		# Its a volume encryption utility (a bash script with simple instructions).
 		#
@@ -49,7 +49,6 @@ verify_privileges
 # >>> *** PROGRAM START *** !
 
 volume_path=/tmp/tmp/private
-script_name=$0
 
 is_mounted_status=$(
 	if mountpoint ${volume_path}/ &>/dev/null; then
@@ -68,7 +67,7 @@ print_status() {
 
 change_path() {
 	new_path=${1:?'need a path to set new mount point!'}
-	script_path=$(which ${script_name})
+	script_path=$(which ${script})
 	line_and_path=$(grep -nE '^(volume_path=).*$' ${script_path:?'path of script not set!'})
 	if ! sudo sed -i "${line_and_path%:*}s~${line_and_path#*=}~${new_path}~" ${script_path}; then
 		echo 'Failed on changing!'

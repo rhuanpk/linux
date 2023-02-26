@@ -20,7 +20,7 @@ print_usage() {
         cat <<- EOF
 		#######################################################################
 		#
-		# >>> ${script} !
+		# >>> $script !
 		#
 		# Set a new binding passing the following params:
 		#
@@ -31,7 +31,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	${script} volume0 'Volume control' '<Alt>v' vcontrol.sh
+		# 	$script volume0 'Volume control' '<Alt>v' vcontrol.sh
 		#
 		#######################################################################
 	EOF
