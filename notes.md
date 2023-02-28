@@ -764,7 +764,7 @@ tail -f file.txt
 Instalação:
 
 ```bash
-sudo apt install ssh openssh-server -y
+sudo apt install -y ssh
 ```
 
 #### Arquivos
