@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Launch a selector for you select a specific window to kill.
+# Show the SSID, password and QRCode.
 
 # >>> variable declarations !
 
@@ -31,4 +31,4 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-xdotool windowkill `xdotool selectwindow`
+nmcli device wifi --show-secrets show-password
