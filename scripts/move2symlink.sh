@@ -6,7 +6,7 @@
 
 script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/master/scripts/.private/setload.sh'
+git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 path=${PK_LOAD_LINUX:-$(wget -qO - $git_url | bash - 2>&- | grep -F linux)}
 [ -z $path ] && path=$(pwd)
 path+=/scripts
@@ -35,7 +35,7 @@ print_usage() {
 
 copy2symlink() {
 	for file in $(egrep -v "${expression}" <<< ${all_files}); do
-		sudo ln -svf ${file} /usr/local/bin/pk/$(basename ${file%.sh})
+		sudo ln -sfv ${file} /usr/local/bin/pk/$(basename ${file%.sh})
 	done
 }
 
