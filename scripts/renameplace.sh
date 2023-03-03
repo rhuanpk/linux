@@ -175,7 +175,7 @@ nome_arquivo(){
         echo -ne "\nEntre com a ${AMARELO_NEGRITO}string a ser adicionada ao inicio do nome${RESET_COLOR} de cada arquivo: "; read STRING
         for i in *; do mv ${i} ${STRING}${i}; done
     }
-    
+
     # Remove alguma string do inicio do nome do arquivo
     remove_inicio(){
         clear
@@ -254,7 +254,7 @@ nome_arquivo(){
             fi
         done
         echo ""
-    } 
+    }
 
     # Sub Menu particular que trata das renomeação no inicio e no final dos arquivos
     sub_menu_rename(){

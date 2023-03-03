@@ -35,7 +35,7 @@ verify_privileges
 # Script do @slackjeff github.com/slackjeff/dd_best_bs
 # Para rodar: rode na pasta corrente com "./"
 #
-# Comando para copiar bit a bit: dd if=ubuntu-20.04.3-desktop-amd64.iso of=/dev/sdb1 bs=1024K status=progress; sync 
+# Comando para copiar bit a bit: dd if=ubuntu-20.04.3-desktop-amd64.iso of=/dev/sdb1 bs=1024K status=progress; sync
 #
 ########################################################
 

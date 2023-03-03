@@ -1,13 +1,13 @@
 >>> Ferramentes/Programas para modo texto e de interface !
 
-------------------------------------------------------------------------------------------------------------------------------------------- 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 ferramentas/programas
 
 - gparted (particionador de disco) // $ sudo apt install gparted
 
-- grub customizer (configurador do grub) // $ sudo apt install grub-customizer 
-		
+- grub customizer (configurador do grub) // $ sudo apt install grub-customizer
+
 - git (versionador de arquivos) // $ sudo apt install git
 
 - simple screen recorder (gravador de tela) // $ sudo apt install simplescreenrecorder
@@ -56,7 +56,7 @@ ferramentas/programas
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
 	2) $ flatpak --user update com.github.hluk.copyq
-	
+
 	# exec
 	/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=copyq com.github.hluk.copyq --start-server show
 
@@ -68,7 +68,7 @@ ferramentas/programas
 	1) $ curl -s https://install.speedtest.net/app/cli/install.deb.sh | sudo bash
 	2) $ sudo apt-get install speedtest
 
-- chob (pesquisador de pacotes app, flat, snap) 
+- chob (pesquisador de pacotes app, flat, snap)
 
 	1) $ wget https://github.com/MuhammedKpln/chob/releases/download/0.9/chob_0.9_amd64.deb
 	2) $ sudo dpkg --install ./chob_0.9_amd64.deb
@@ -97,11 +97,11 @@ ferramentas/programas
 	2) $ wget ./sudo dpkg --install marktext-amd64.deb
 
 - video downloader (baixador de vídeos YT)
-	
+
 	1) $ sudo snap install video-downloader
 	2) $ sudo snap install video-downloader --edge
-	3) $ sudo snap refresh video-downloader 
-	
+	3) $ sudo snap refresh video-downloader
+
 - highlight pointer (mouse click highlighter)
 
 	1) $ sudo apt-get install make gcc libx11-dev libxext-dev libxfixes-dev libxi-dev -y
@@ -127,7 +127,7 @@ ferramentas/programas
 navegadores/sujeridos
 
 - brave
-- vivald 
+- vivald
 - chromium
 
 -------------------------------------------------------------------------------------------------------------------------------------------
@@ -144,7 +144,7 @@ terminal/ferramentas
 
 - elinks (navegador web modo texto) // $ sudo apt install elinks
 
-- links2 (navegador web modo texto; obs: usar parametro "-g") // $ sudo apt install links2 
+- links2 (navegador web modo texto; obs: usar parametro "-g") // $ sudo apt install links2
 
 - ecryptfs  (encriptador de arquivos) // $ sudo apt install ecryptfs-utils
 
@@ -189,7 +189,7 @@ icones
 cursore
 
 - Hickson (cz-Hickson-Black)
-- Comix (ComixCursors-Black) 
+- Comix (ComixCursors-Black)
 - ATER (ATER-yellow)
 - Fossa (FossaCursors)
 - Mocu (Mocu-Black-Right)

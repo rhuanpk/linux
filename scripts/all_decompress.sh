@@ -35,10 +35,10 @@ verify_privileges
 # >>> *** PROGRAM START *** !
 
 for file in $(ls -1); do
-	
+
 	extension=$(grep -oE '(\.[^[[:digit:]]]*.*)$' <<< ${file})
 	folder=$(cut -d '.' -f 1 <<< ${file})
-	
+
 	mkdir ./${folder}/
 	mv ./${file} ./${folder}/
 	cd ./${folder}/

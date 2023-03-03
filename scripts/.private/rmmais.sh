@@ -2,7 +2,7 @@
 
 file=${1}
 
-# Caso encontre alguma linha cujo primeiro caracter seja um "+" e a linha de baixo for em branco então remova-a 
+# Caso encontre alguma linha cujo primeiro caracter seja um "+" e a linha de baixo for em branco então remova-a
 for i in $(seq $(grep -n '^[[:blank:]]*+' ${file} | wc -l)); do
 	line=$(grep -n '^[[:blank:]]*+' ${file} | sed -n "${i}p" | cut -c '1')
 	next_line=$((${line}+1))

@@ -58,7 +58,7 @@ is_mounted_status=$(
 	fi
 )
 
-print_status() {	
+print_status() {
 	cat <<- eof
 		current folder set: $volume_path/
 		is-mounted: $is_mounted_status

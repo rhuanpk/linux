@@ -58,7 +58,7 @@ fi
 
 if aux=$(mountpoint /media/${usuario}/A3DE-614D 2>&1); then
 	echo -e "\n[${data} * $(date +%T)] --- PROCESSO EXTERNO INICIADO ---\n" >> "${log_file}"
-	if aux=$(rm ${externo}/*${espaco}* 2>&1); then 
+	if aux=$(rm ${externo}/*${espaco}* 2>&1); then
 		echo -e "[${data} * $(date +%T)] - Backup antigo removido - SUCESSO !" >> "${log_file}"
 		if aux=$(tar -zcvf ${externo}/${arquivo} ${main} 2>&1); then
 			echo -e "[${data} * $(date +%T)] - Novo backup realizado - SUCESSO ! " >> "${log_file}"

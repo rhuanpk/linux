@@ -22,7 +22,7 @@ print_usage() {
 		#
 		# >>> $script !
 		#
-		# 
+		#
 		# Script que deixar algum comando em loop com controle de tempo de atualização
 		#
 		# Parâmetros passados:
