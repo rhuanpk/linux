@@ -239,7 +239,7 @@ sudo apt install -y grub-customizer
 echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubuntu `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/grub-customizer.list && curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x59dad276b942642b1bbd0eaca8aa1faa3f055c03' | sudo gpg --dearmor --output /etc/apt/trusted.gpg.d/grub-customizer.gpg && sudo apt update; sudo apt install -y grub-customizer
 ```
 
-REFERENCELINKS:
+**REFERENCELINKS**:
 
 - <https://launchpad.net/~danielrichter2007/+archive/ubuntu/grub-customizer>.
 
@@ -832,7 +832,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 - Máximo de tentativas de conexão:
 	`MaxAuthTries <tries_number>`.
 
-REFERENCELINKS:
+**REFERENCELINKS**:
 
 - <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
 
@@ -1042,7 +1042,7 @@ Desempacote blindagem ASCII e empacota blindando em OpenPGP (*output redirecting
 gpg --dearmor /path/to/armored_key.asc
 ```
 
-**OBSERVAÇÕES**:
+**OBSERVATIONS**:
 
 - todos os redirecionamento de arquivo feitos podem ser substituídos pelo arugmneto do próprio comando (`--output /path/to/file.any`), logo isso implica que se não passado o argumento próprio ou o redirecionamento do arquivo, a STDOUT é a padrão (a tela).
 
@@ -1545,7 +1545,7 @@ Exemplo:
 rsync -ahv --delete --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 ```
 
-**Observações**:
+**OBSERVATIONS**:
 
 - o destino ou origem aceita o modo de login de protocolo ssh (`user@host:/path`).
 
@@ -4234,20 +4234,26 @@ Remover:
 git push origin {:<remote_branch>|--delete <remote_branch>}
 ```
 
-### Commit
+### Commits
 
-#### Reverter commits
+#### Resetar commits
 
-Apenas desfazer o commit (sem perder as alteraçẽos):
+Resetar o commit sem perder as alterações colocando elas na _worktree_:
 
 ```bash
-git reset --soft <hash_commit>
+git reset <commit_hash>
 ```
 
-Desfazer o commit (sem manter as alterações):
+Resetar o commit sem perder as alterações voltando elas para o _index_ (_staged area_):
 
 ```bash
-git reset --hard <hash_commit>
+git reset --soft <commit_hash>
+```
+
+Desfazer o commit por completo (sem manter as alterações):
+
+```bash
+git reset --hard <commit_hash>
 ```
 
 #### Editar mensagem
@@ -4282,7 +4288,7 @@ git cherry-pick --edit <commit_hash>
 
 OBS: Estando na _branch_ que vai receber as alterações.
 
-REFERENCELINKS:
+**REFERENCELINKS**:
 
 - https://www.atlassian.com/git/tutorials/cherry-pick
 - https://git-scm.com/docs/git-cherry-pick
@@ -4348,6 +4354,55 @@ git clone -b {<branch_name>|<tag_name>} <url>
 ```
 
 OBS: caso clone por algum tag, pode ser que essa tag esteja num vínculada a um hash que não está apontado por nenhuma branch, nesse caso, se faz necessário cria uma branch logo depois que clonar: `git switch -c newbranch`
+
+### Submodule
+
+Adicionar um novo _submodule_:
+
+```bash
+git sobmodule add {<./path/to/another/local/repo>|<remote_url>}
+```
+
+Iniciar os _submodules_ de um repositório clonado (estando na raiz):
+
+```bash
+git sobmodule init
+```
+
+_Updatar_ os submódulos:
+
+```bash
+git sobmodule update
+```
+
+Caso o _submodule_ não esteja apontando para a HEAD do seu repectivo removo, você pode resolvir isso entrando na pasta do submódulo e realizando um `pull` ou diretamente da sua raiz:
+
+```bash
+git submodule update --remote
+```
+
+Para retirar o _submodule_ do `.git/config`, que é da onde o comando de `update` puxa os _submodules_:
+
+```bash
+git submodule deinit <submodule_folder>
+```
+
+Clonar repositórios com submódulos já inicializando e atualizando-os:
+
+```bash
+git clone --recurse-submodules <remote_url>
+```
+
+**OBSERVATIONS**:
+
+- toda vez que fizer alterações nos submódulos, deve-se commitar.
+
+- `git submodule init` refaz a configuração dos submódulos com base no `.gitmodules` caso algum seja retirado do `.git/config`.
+
+- arquivos e pastas:
+	- `.gitmodules`: arquivo de configuração que mapeia os submódulos dentro do repo (gerado a partir do `git submodules init`).
+	- `.git/config`: dentro do arquivo de configuração do _repo_ local é criado uma sessão com os submódulos para serem _updatados_.
+	- `.git/modules`: é a pasta que vão os múdulos baixados por _url_.
 
 ### .gitignore
 
@@ -4665,7 +4720,7 @@ Tips:
 
 - Instalar o aplicativo **Table Info** para saber infos importantes ao que diz respeito a qual ROM customizada instalar no dispositivo.
 
-REFERENCELINKS:
+**REFERENCELINKS**:
 
 - [repositório trable](https://github.com/phhusson/treble_experimentations/).
 
