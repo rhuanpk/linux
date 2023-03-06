@@ -55,7 +55,6 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-
 unset time command
 
 time=${@:1:1}

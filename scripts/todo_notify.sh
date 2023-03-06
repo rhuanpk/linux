@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 # cron: 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/todo_notify 2>/tmp/cron_error.log
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}

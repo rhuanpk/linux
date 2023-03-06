@@ -31,6 +31,5 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 sudo apt update -y
 sudo apt upgrade -y

@@ -31,5 +31,4 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 sudo pkill -9 -u ${USER}

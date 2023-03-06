@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 std_scripts_path=${PK_LOAD_LINUX:-$(wget -qO - $git_url | bash - 2>&- | grep -F linux)}
 [ -z $std_scripts_path ] && std_scripts_path=$(pwd)

@@ -31,7 +31,6 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-
 while :; do
 	echo -en "$(date +%T)\r"
 done

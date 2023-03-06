@@ -37,7 +37,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 [ -z "${1}" ] && MSG=refresh || MSG="${1}"
 [ -z "${2}" ] && BRANCH=$(git branch --show-current) || BRANCH="${2}"
 

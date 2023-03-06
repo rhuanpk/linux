@@ -29,7 +29,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 ########################################################
 #
 # Script do @slackjeff github.com/slackjeff/dd_best_bs

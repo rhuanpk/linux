@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 get_device_id() {
 	device=$1
 	echo "$(xinput list --short | grep -iF pointer | grep -iF $device | grep -Eio '(id=[[:digit:]]+)' | cut -d '=' -f 2)"

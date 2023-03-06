@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 # ---------- implementações -------------------------------------------------------------------------------------------------------------------
 #
 # 1. Fazer um cálculo para printar o resultado com cores diferente, pegar o tatal de RAM da máquina e caso seja 40% = verde, até 75% amarelo...

@@ -48,7 +48,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 custom_keybinding="${1}"
 name_keybinding="${2}"
 binding_keybinding="${3}"

@@ -48,7 +48,6 @@ set +o histexpand
 #}
 
 # >>> *** PROGRAM START *** !
-
 while getopts 'hf' opt; do
 	case $opt in
 		h) print_usage; exit 0;;

@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 pick_display() {
 	echo $(brightnessctl -l | grep -Ei '(backlight)' | tr ' ' '\n' | sed -n 2p | tr -d "'" | tail -n 1)
 }

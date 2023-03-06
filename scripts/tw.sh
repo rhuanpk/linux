@@ -51,7 +51,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 class_search="${1:?'need a classe to search, e.g. "x-terminal-emulator", "X-terminal-emulator"'}"
 command_execute="${2:?'need a command to execute case the window dont visible, e.g. xdotool key --clearmodifiers Control_L+t'}"
 

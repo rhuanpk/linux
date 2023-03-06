@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 # example:
 # scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
 

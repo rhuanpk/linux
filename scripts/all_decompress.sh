@@ -33,7 +33,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 for file in $(ls -1); do
 
 	extension=$(grep -oE '(\.[^[[:digit:]]]*.*)$' <<< ${file})

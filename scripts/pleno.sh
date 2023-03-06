@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 # Fix
 sudo -v
 sudo dpkg --configure -a

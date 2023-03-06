@@ -38,7 +38,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 home=/home/$(whoami)
 bkp_path=${home}/Documents/config_files_backup/$(cat /etc/hostname)
 

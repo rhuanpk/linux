@@ -32,5 +32,4 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-
 echo \#$(colorpicker --one-shot --short | cut -d '#' -f 2) | xclip -rmlastnl -selection clipboard

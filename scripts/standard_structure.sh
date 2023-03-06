@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 xclip -selection clipboard -rmlastnl << \eof
 #!/usr/bin/env bash
 
@@ -66,6 +65,5 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 # <commands>.
 eof

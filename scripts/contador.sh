@@ -31,7 +31,6 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-
 counter() {
 	read foo; [ "${foo,,}" = "q" ] && exit 0
 	bar=${foo}

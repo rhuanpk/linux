@@ -34,7 +34,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 # Output the *Dirty* section of `/proc/meminfo`
 report() {
 	dirty=$(grep -F Dirty: /proc/meminfo | sed -E 's/^(.*:[[:blank:]]+)//')

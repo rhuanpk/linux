@@ -31,7 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 sudo apt clean -y
 sudo apt autoclean -y
 sudo apt autoremove -y

@@ -31,5 +31,4 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 rofi -modi run,window -show run

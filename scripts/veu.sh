@@ -47,7 +47,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 volume_path=/tmp/tmp/private
 
 is_mounted_status=$(

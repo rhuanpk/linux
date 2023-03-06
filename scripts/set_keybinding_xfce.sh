@@ -55,7 +55,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 xfconf-query --reset --channel xfce4-keyboard-shortcuts --property "/xfwm4/custom/${1}"
 xfconf-query --reset --channel xfce4-keyboard-shortcuts --property "/commands/custom/${1}"
 [ ${#} -ge 2 ] && xfconf-query --create --channel xfce4-keyboard-shortcuts --property "/commands/custom/${1}" --type string --set "${2}"

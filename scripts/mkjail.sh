@@ -40,7 +40,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 jail_path=${1:-/tmp/jail}
 [ -d ${jail_path}/ ] && rm -rf ${jail_path}/
 mkdir -p ${jail_path}/{lib/x86_64-linux-gnu/,lib64/,usr/bin/}

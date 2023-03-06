@@ -32,6 +32,5 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 synclient VertScrollDelta=-79
 synclient HorizScrollDelta=-79

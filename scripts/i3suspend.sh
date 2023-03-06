@@ -43,5 +43,4 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 sleep "${1}" 2>&-; yi3lock && sudo systemctl suspend

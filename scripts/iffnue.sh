@@ -43,7 +43,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-
 message=${*:-continue? [y/N] }
 read -rp "${message}" answer
 [ -z "${answer}" ] || [ y != "${answer,,}" ] && exit 1 || exit 0

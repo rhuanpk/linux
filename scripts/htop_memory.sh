@@ -31,5 +31,4 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-
 echo "RAM: $(($(free -m | tr -s ' ' | head -n 2 | tail -n 1 | cut -d ' ' -f 3)+100)) mb"

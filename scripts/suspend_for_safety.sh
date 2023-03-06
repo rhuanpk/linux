@@ -36,7 +36,6 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-
 # cron: */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
 # export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
 
