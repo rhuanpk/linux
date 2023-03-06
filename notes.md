@@ -7,6 +7,7 @@
 	- [Programas](#db_programas)
 	- [Sistema](#db_sistema)
 	- [SysAdmin](#db_sysadmin)
+	- [GNU/Linux && Bash](#db_gnulinux-bash)
 	- [Configuração](#db_configuracao)
 	- [Hardware](#db_hardware)
 	- [Tutoriais](#db_tutoriais)
@@ -2501,6 +2502,31 @@ photorec
 
 ---
 
+<a id="db_gnulinux-bash"></a>
+[<span style="font-size:14px;">GNU/Linux && Bash</span>](#menu)
+
+### Expansão de variáveis (parâmetros)
+
+#### `#`, `##`, `%`, `%%`
+
+```bash
+$ variable=https://sub.domain.xyz/downloads/archive.tar.gz
+
+$ echo ${variable#*/}
+> /sub.domain.xyz/downloads/archive.tar.gz
+
+$ echo ${variable##*/}
+> archive.tar.gz
+
+$ echo ${variable%/*}
+> https://sub.domain.xyz/downloads
+
+$ echo ${variable%%/*}
+> https:
+```
+
+---
+
 <a id="db_configuracao"></a>
 [<span style="font-size:14px;">Configuração</span>](#menu)
 
@@ -3624,7 +3650,7 @@ Carregar o **bash** antes de subir o sistema:
 
 3. Depois que fizer o que precisa, inicie o sistema com `exec /sbin/init`.
 
-## Kernel panic (recovery trying)
+### Kernel panic (recovery trying)
 
 1. *Starte* o *host* em pânico para saber qual versão do *kernel* está sendo iniciada.
 
@@ -3638,7 +3664,9 @@ Carregar o **bash** antes de subir o sistema:
 
 1. `reboot`.
 
-### Instalar Slax
+### Instalações
+
+#### Slax
 
 Instalação padrão:
 
@@ -3655,7 +3683,7 @@ Fazendo instalação no pendrive (mesmo proscedimento?):
 1. Vá para a pasta aonde a partição foi montada.
 1. Rode: `sudo bash ./slax/boot/bootinst.sh`.
 
-### Instalar FydeOS (ChromeOS)
+#### FydeOS (ChromeOS)
 
 Instalalção padrão:
 
@@ -3692,6 +3720,8 @@ notify-send 'Atenção!' 'Reinicialização necessária.'
 #### Zenity
 
 #### Dialog
+
+#### Toilet
 
 #### Yad
 
@@ -3930,8 +3960,6 @@ Também lê por cento de stdin:
     done
 } | whiptail --gauge 'Please wait while we are sleeping...' 6 50 0
 ```
-
-#### Toilet
 
 ---
 
