@@ -149,7 +149,6 @@ cat <<- eof
 	logfile: $log_file
 
 eof
-
 if [ "${typeof,,}" = f ] || [ "${typeof,,}" = file ]; then
 	eval "grep --color=always -nFA 1 '${pattern}' '${pathway%/}'" | tee $log_file | less -R
 	if ! iffnue; then
@@ -159,11 +158,24 @@ if [ "${typeof,,}" = f ] || [ "${typeof,,}" = file ]; then
 			sed -i "$((${blank_line}-${count:-0}))d" $pathway
 			let count++
 		done
+		print_leaving
 	else
 		print_leaving
 	fi
 elif [[ "${typeof,,}" = d || "${typeof,,}" = directory ]]; then
 	eval "grep --color=always -nrIFA 1 '${pattern}' '${pathway}/'" | tee $log_file | less -R
+	if ! iffnue; then
+		for file_and_line in `remove_nonprinting $log_file | grep --color=never -E '[[:digit:]]+-$' | sed -E 's/.$//'`; do
+			atual_file="${file_and_line%-*}"
+			[ $atual_file != ${previous_file:-""} ] && unset count
+			sed -i "$((${file_and_line##*-}-${count:-0}))d" $atual_file
+			previous_file=${atual_file}
+			let count++
+		done
+		print_leaving
+	else
+		print_leaving
+	fi
 else
 	echo -e "${script}: ${format_red}incorrect${format_reset} typeof argument!" >&2
 	print_exiting
