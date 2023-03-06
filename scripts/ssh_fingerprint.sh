@@ -31,6 +31,6 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-for public_key in ${HOME}/.ssh/*.pub; do
+for public_key in ${home}/.ssh/*.pub; do
 	echo "key → ${public_key}:"; ssh-keygen -lf ${public_key}
 done
