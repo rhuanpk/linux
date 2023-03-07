@@ -1572,6 +1572,55 @@ Listar porta específica:
 sudo lsof -i :<port>
 ```
 
+### Comando *firejail*
+
+Instalação:
+
+```bash
+sudo apt install -y firejail
+```
+
+Executar a aplicação:
+
+```bash
+firejail <program_name>
+```
+
+Lista os processos executando com `firejail`:
+
+```bash
+firejail --tree
+```
+
+Executar o programa o impedindo de se conectar com a internet (o aplicativo não vê a interface de rede):
+
+```bash
+firejail --protocol=unix <program_name>
+```
+
+#### Troubleshooting
+
+Problemas com áudio usando `pulseauido` como driver:
+
+1. `mkdir -pv ~/.config/pulse`
+1. `cp -v /etc/pulse/client.conf ~/.config/pulse`
+1. `echo 'enable-shm = no' >> ~/.config/pulse/client.conf`
+
+_pipeline_:
+
+```bash
+mkdir -pv ~/.config/pulse && cp -v /etc/pulse/client.conf ~/.config/pulse && echo 'enable-shm = no' >> ~/.config/pulse/client.conf
+```
+
+**OBSERVATIONS**:
+
+- o `firejail` isola a aplicação da sua home porém, não do restante do sistema de arquivos (pois em tese não se precisa pois já pertence ao **root**);
+- por padrão, caso não o _firejail_ não tenha um perfil específico para a aplicação que executará, ele usurá um perfil genérico (pode haver problemas);
+
+**REFERENCELINKS**:
+
+- <https://easylinuxtipsproject.blogspot.com/p/sandbox.html>;
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
