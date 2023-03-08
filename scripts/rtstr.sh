@@ -55,9 +55,7 @@ while getopts 'hf' opt; do
 		?) print_usage; exit 1;;
 	esac
 done
-
 shift $((${OPTIND}-1))
 
 any="${1}"
-
 [[ -f $any && ! $any =~ [[:blank:]]+ ]] && cat $any || echo $any
