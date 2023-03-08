@@ -1761,6 +1761,11 @@ Buscar por links simbólicos quebrados e excluílos:
 find ./ -xtype l -exec rm -fv '{}' \;
 ```
 
+**OBSERVATIONS**:
+
+- pastas para o parâmetro `-path` não pode contem `/` no final;
+- para qualquer tipo de _match pattern_ (inclusive para diretórios) é aceito _wildcards_, exemplo: `find ./ \( -path '*/folder' -o -path '*/.folder' \) -prune -o -name '*f?le*'`;
+
 #### Comando *locate*
 
 Sintaxe:
