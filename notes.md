@@ -4227,6 +4227,23 @@ https://manpages.ubuntu.com/manpages/cgi-bin/search.py?q=<package_name>
 https://launchpad.net/ubuntu/+ppas
 ```
 
+### Default web browsers availables:
+
+goods:
+
+- `angelfish`;
+- `epiphany-browser`;
+- `falkon`;
+- `konqueror`;
+
+bads:
+
+- `alice`;
+- `dillo`;
+- `hv3`;
+- `netsurf-gtk`;
+- `surf`;
+
 ---
 
 <a id="git"></a>
