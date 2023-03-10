@@ -1,7 +1,7 @@
 <a id="menu"></a>
 # >>> Comandos Aleatoriamente Úteis !
 
-- [Debian base](#debian_base)
+- [Debian Base](#debian_base)
 	- [Customização](#db_customizacao)
 	- [Pacotes](#db_pacotes)
 	- [Programas](#db_programas)
@@ -11,11 +11,11 @@
 	- [Configuração](#db_configuracao)
 	- [Hardware](#db_hardware)
 	- [Tutoriais](#db_tutoriais)
-	- [Any command](#db_any_command)
+	- [Any Commands](#db_any_commands)
 - [Ubuntu](#ubuntu)
 - [Git](#git)
 - [GitHub CLI](#github_cli)
-- [Arch base](#arch_base)
+- [Arch Base](#arch_base)
 - [Android](#android)
 - [Estudos](#estudos)
 
@@ -25,15 +25,15 @@
 <a id="db_customizacao"></a>
 [<span style="font-size:14px;">Customização</span>](#menu)
 
-### Manipulando variável PS1 (PROMPT)
+### Manipulando Variável _PS1_ (_PROMPT_ 1)
 
-Exibir branch no terminal (bash):
+Exibir _branch_ no terminal (**bash**):
 
 ```bash
 export PS1='\[\033[01;32m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[0;35m\]$(__git_ps1 "(%s)")\[\033[01;37m\]$\[\033[00m\] '
 ```
 
-Cor para usuário root (bash):
+Cor para usuário **root** (**bash**):
 
 ```bash
 export PS1='\[\033[01;31m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\033[01;37m\]$\[\033[00m\] '
@@ -41,25 +41,25 @@ export PS1='\[\033[01;31m\]\u@\h\[\033[01;37m\]:\[\033[00m\]\[\033[01;34m\]\w\[\
 
 Valores:
 
-- \u: usuário atual
-- \h: nome da máquina (host)
-- \H: nome da máquina completo
-- \w: diretório de trabalho atual
-- \W: diretório de trabalho atual com o nome base (último segmento) apenas
-- $(__git_ps1 "%s"): branch atual caso esteja em um repositório git, se não, não exibe nada.
+- `\u`: usuário atual;
+- `\h`: nome da máquina (host);
+- `\H`: nome da máquina completo;
+- `\w`: diretório de trabalho atual;
+- `\W`: diretório de trabalho atual com o nome base (último segmento) apenas;
+- `$(__git_ps1 "%s")`: branch atual caso esteja em um repositório git, se não, não exibe nada;
 
-OBS: Para setar permanentemente, adicione essa script na última linha do arquivo ~/.bashrc (tanto na home do usuario normal quanto na home do root)
+OBS: para setar permanentemente, adicione essa script na última linha do arquivo ~/.bashrc (tanto na home do usuario normal quanto na home do root);
 
-### Zsh
+### ZSH
 
-Colocar oh-my-zsh no root:
+Setar _oh-my-zsh_ no **root**:
 
 1. `sudo cp ${HOME}/.zshrc /root`
 1. `sudo cp -r ${HOME}/.oh-my-zsh /root`
 
 ### Cursor
 
-#### Instalar novo tema de cursor
+#### Instalar Novo Tema de Cursor
 
 Comando *[update-alternatives](#update-alternatives)*:
 
@@ -78,6 +78,50 @@ sudo update-alternatives --config x-cursor-theme
 ```
 
 OBS: Precisa reiniciar a sessão para aplicar
+
+### Fonts
+
+#### Diretórios
+
+Path de todos os usuários:
+
+```bash
+/usr/share/fonts
+```
+
+Path pessoal do usuário (${XDG_CONFIG}):
+
+```bash
+~/.local/share/fonts
+```
+
+#### Comandos
+
+Listar todas as fontes:
+
+```bash
+fc-list
+```
+
+Atualizar o cache de fontes:
+
+```bash
+fc-cache
+```
+
+#### Instalação
+
+Instalar no path do usuário:
+
+```bash
+cp *.ttf ~/.local/share/fonts/truetype/<directorie_font_name>/
+```
+
+Instalar no path global:
+
+```bash
+sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
+```
 
 ---
 
@@ -249,65 +293,23 @@ echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubu
 <a id="db_sistema"></a>
 [<span style="font-size:14px;">Sistema</span>](#menu)
 
-### Comando *acpi*
+### Comando _acpi_
 
-Ver porcentagem da bateria (notebooks):
-
-```bash
-acpi
-```
-
-### Comando *parted*
-
-Lista os discos na máquina (saber se é HDD ou SSD pelo modelo):
+Ver porcentagem da bateria (_notebooks_):
 
 ```bash
-parted -l
+acpi --battery
 ```
 
-### Gravador nativo do linux?
+### Mapear Teclas e Ações
 
-Deixar tempo ilimitado de gravação:
-
-```bash
-gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0
-```
-
-Inicia gravação:
-
-```bash
-ctrl + alt + shift + r
-```
-
-Encerra gravação:
-
-```bash
-ctrl + alt + shift + r
-```
-
-### Variáveis de ambiente (escopo global)
-
-Mostrar variáveis de ambiente (do usuario corrente):
-
-```bash
-env
-```
-
-Criar variável de ambiente (escopo global):
-
-```bash
-export FOO="BAR"
-```
-
-### Mapear teclas e ações
-
-Comando *xev*:
+Comando _xev_:
 
 ```bash
 xev | sed -ne '/^KeyPress/,/^$/p'
 ```
 
-Comando *xmodmap*:
+Comando _xmodmap_:
 
 ```bash
 xmodmap -pke
@@ -315,7 +317,7 @@ xmodmap -pke
 
 ### Dispositivos
 
-#### Xinput
+#### _xinput_
 
 Listar e descobrir os códigos dos dispositivos:
 
@@ -335,9 +337,9 @@ Alterar o valor da respectiva propriedade:
 xinput set-prop <device_id> <property_id> <value>
 ```
 
-OBS: Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
+OBS: descobrir qual o range de valor para cada propriedade (_Accel Speed_: ['0.0'-'1.0'])
 
-#### Lsusb
+#### _lsusb_
 
 Listagem dos dispositivos:
 
@@ -345,21 +347,21 @@ Listagem dos dispositivos:
 lsusb
 ```
 
-### Reiniciar o sistema
+### Reiniciar o Sistema
 
-Reboot:
+_Reboot_:
 
 ```bash
 reboot
 ```
 
-Shutdown:
+_Shutdown_:
 
 ```bash
 shutdown -r now
 ```
 
-#### Systemctl
+#### _systemctl_
 
 Leve:
 
@@ -373,48 +375,217 @@ Forçado:
 systemctl reboot -i
 ```
 
-### Fonts
+### Manipulação de Discos
 
-#### Diretórios
+- X: letra do disco;
+- Y: número da partição;
 
-Path de todos os usuários:
+#### Comando _fdisk_
+
+Lista _infos_ de todos os discos:
 
 ```bash
-/usr/share/fonts
+sudo fdisk -l
 ```
 
-Path pessoal do usuário (${XDG_CONFIG}):
+Lista _infos_ de um disco específico:
 
 ```bash
-~/.local/share/fonts
+sudo fdisk -l /dev/sdX
 ```
 
-#### Comandos
-
-Listar todas as fontes:
+_Shell_ interativo do **fdisk** para manipulação avançadas da tabela de partiçẽos e partiçẽos:
 
 ```bash
-fc-list
+sudo fdisk /dev/sdX
 ```
 
-Atualizar o cache de fontes:
+**REFERENCELINKS**:
+
+- [MBR partitions types¹](https://en.wikipedia.org/wiki/Partition_type);
+- [MBR partitions types²](https://tldp.org/HOWTO/Partition-Mass-Storage-Definitions-Naming-HOWTO/x190.html);
+- [GPT partitions types](https://en.wikipedia.org/wiki/GUID_Partition_Table#Partition_type_GUIDs);
+
+- [fdisk (archwiki)](https://wiki.archlinux.org/title/fdisk);
+
+#### Comando _sfdisk_
+
+_Backup_ do esquema de partições do _device_:
 
 ```bash
-fc-cache
+sfdisk -d /dev/sdX > ./partition_layout.dump
 ```
 
-#### Instalação
-
-Instalar no path do usuário:
+Restaurar _layout_ de partições _backupiado_:
 
 ```bash
-cp *.ttf ~/.local/share/fonts/truetype/<directorie_font_name>/
+sfdisk /dev/sdX < ./partition_layout.dump
 ```
 
-Instalar no path global:
+Mover partições (alterar o valor de início e fim dos blocos):
 
 ```bash
-sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
+echo '+<sectors>,' | sfdisk --move-data <device> -N <partition_number>
+```
+
+OBS: nesse caso, com o sinal de `+`, move-se o ínicio do setor para o valor de setores passados em `<sectors>`.
+
+Reordernar partições (caso alguma tenha sido excluida ou tinha sido criada no meio de outros):
+
+```bash
+sfdisk -r /dev/sdX
+```
+
+**REFERENCELINKS**:
+
+- [_reread/resort partitions_](https://serverfault.com/questions/36038/reread-partition-table-without-rebooting) (em caso mudança de na ordenação das partições);
+
+#### Aumentar (_grow_) e "Encolher" (_shrink_) Partições
+
+> "If you are growing a partition, you have to first resize the partition and then resize the filesystem on it, while for shrinking the filesystem must be resized before the partition to avoid data loss."
+
+##### _Growing_
+
+1. Aumente a partição (com `parted` no modo interativo):
+
+```bash
+(parted) resizepart <partition_number> <end_size>
+```
+
+2. Aumente o sistema de arquivos (`ext*`):
+
+```bash
+resize2fs /dev/sdXY <new_size>
+```
+
+##### _Shrinking_
+
+1. Diminua o sistema de arquivos (`ext*`):
+
+```bash
+resize2fs /dev/sdXY <new_size>
+```
+
+2. Diminua a partição (com `parted` no modo interativo):
+
+```bash
+(parted) resizepart <partition_number> <end_size>
+```
+
+3. Informe ao **kernel** sobre a mudança:
+
+```bash
+resizepart <device> <parition_number> <new_size>
+```
+
+**OBSERVATIONS**:
+
+- _unit of measurement_:
+	- `parted`: `MB, GB` or `10%`.
+	- `resize2fs`: `K`, `M`, `G` and `T`.
+	- `resizepart`: `512-byte` _sectors_.
+
+#### Formulas de cálculo entre MB/GB e SETORES
+
+SECTORS » MB: `<sectors>/2/1024`
+SECTORS » GB: `<sectors>/2/1024^2`
+
+MB » SECTORS: `<megabytes>*1048576/512`
+GB » SECTORS: `<gigabytes>*(1048576*1024)/512`
+
+#### Comando _parted_
+
+Lista os discos na máquina:
+
+```bash
+parted -l
+```
+
+#### Formatação e Gerenciamento de Labels de Partições:
+
+Programas necessários para `fat32`:
+
+```bash
+sudo apt install mtools -y
+```
+
+Programas necessários para `exfat`:
+
+```bash
+sudo apt install exfat-fuse -y
+```
+
+- X: letra do dispositivo;
+- Y: número da partição;
+
+##### Comando _mkfs_
+
+Formatar **fat32**:
+
+- `-n`: adiciona label na formatação.
+
+```bash
+sudo mkfs.fat -F 32 [-n <label_name>] /dev/sdXY
+```
+
+Formatar **ext4**:
+
+- `-L`: adiciona label na formatação.
+
+```bash
+sudo mkfs.ext4 [-L <label_name>] /dev/sdXY
+```
+
+Formatar **exfat**:
+
+- `-L`: adiciona label na formatação.
+
+```bash
+sudo mkfs.exfat [-L <label_name>] /dev/sdXY
+```
+
+##### Saber ou Renomear Labels
+
+##### `ext4`
+
+Saber:
+
+```bash
+sudo e2label /dev/sdXY
+```
+
+Renomear:
+
+```bash
+sudo e2label /dev/sdXY label_name
+```
+
+##### `fat32`
+
+Saber:
+
+```bash
+sudo mlabel -i /dev/sdXY -s ::
+```
+
+Renomear:
+
+```bash
+sudo mlabel -i /dev/sdXY ::label_name
+```
+
+##### `exfat`
+
+Saber:
+
+```bash
+sudo exfatlabel /dev/sdXY
+```
+
+Renomear:
+
+```bash
+sudo exfatlabel /dev/sdXY label_name
 ```
 
 ---
@@ -1543,7 +1714,7 @@ rsync [<options>] </folder/origin_1> </folder/origin_2/> </file/origin_3> <desti
 Exemplo:
 
 ```bash
-rsync -ahv --delete --exclude=*.mp4 ~/others ~/misc /tmp/backup/
+rsync -ahv --delete --exclude=initial-folder/ --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 ```
 
 **OBSERVATIONS**:
@@ -1552,7 +1723,7 @@ rsync -ahv --delete --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 
 - caso a pasta de destino não exista o *rsync* criará automáticamente.
 
-- opção `--exclude` tem que passar várias se quiser excluir vários arquivos ou da para fazer o *pattern* com expansão de `{}`?
+- opção `--exclude` é única para cada arquivo que deseja não sincronizar?
 
 - no *rsync* `/path/to/folder` representa o próprio arquivo, ou seja, na hora de fazer a cópia, copiará a pasta *folder* com os arquivos dentro, porém, se copiar `/path/to/folder/` não está pegando o *basename* mas somente os arquivos dentro de *folder*.
 
@@ -2114,56 +2285,6 @@ Desmontar:
 gio mount -u '<device_path_name>'
 ```
 
-### Manipulação de discos
-
-- X: Letra do disco
-
-#### Comando *fdisk*
-
-Lista infos de todos os disco:
-
-```bash
-sudo fdisk -l
-```
-
-Lista infos de um disco específico:
-
-```bash
-sudo fdisk -l /dev/sdX
-```
-
-Criação de tabelas de partição e partições:
-
-```bash
-sudo fdisk /dev/sdX
-```
-
-#### Comando *mkfs*
-
-Programas necessários para `exfat`:
-
-```bash
-sudo apt install exfat-fuse -y
-```
-
-Formatar em **ext4**:
-
-```bash
-sudo mkfs.ext4 /dev/sdX
-```
-
-Formatar em **fat32**:
-
-```bash
-sudo mkfs.fat -F 32 /dev/sdX
-```
-
-Formatar em **exfat**:
-
-```bash
-sudo mkfs.exfat /dev/sdX
-```
-
 ### Qemu
 
 - X: Letra do disco
@@ -2362,96 +2483,6 @@ xinput set-prop <device_id> <propertie_id> <value>
 
 > Descobrir qual o range de valor para cada propriedade (*Accel Speed*: ['0.0'-'1.0'])
 
-### Label de partições
-
-Litar dispositivos e pontos de montagem com informações extras como LABEL e UUID:
-
-```bash
-lsblk --fs
-```
-
-#### Formatar adicionando a label:
-
-Programas necessários para `exfat`:
-
-```bash
-sudo apt install exfat-fuse -y
-```
-
-- X: Letra da partição
-- Y: Número da partição
-
-Para ext4:
-
-```bash
-sudo mkfs.ext4 -L "label_name" /dev/sdXY
-```
-
-Para fat32:
-
-```bash
-sudo mkfs.fat -F 32 -n "label_name" /dev/sdXY
-```
-
-Para exfat:
-
-```bash
-sudo mkfs.exfat -L "label_name" /dev/sdXY
-```
-
-#### Saber ou renomear
-
-Programas necessários para `fat32`:
-
-```bash
-sudo apt install mtools -y
-```
-
-Programas necessários para `exfat`:
-
-```bash
-sudo apt install exfat-fuse -y
-```
-
-- X: Letra da partição
-- Y: Número da partição
-
-Saber (ext4):
-
-```bash
-sudo e2label /dev/sdXY
-```
-
-Mudar (ext4):
-
-```bash
-sudo e2label /dev/sdXY label_name
-```
-
-Saber (fat32):
-
-```bash
-sudo mlabel -i /dev/sdXY -s ::
-```
-
-Mudar (fat32):
-
-```bash
-sudo mlabel -i /dev/sdXY ::label_name
-```
-
-Saber (exfat):
-
-```bash
-sudo exfatlabel /dev/sdXY
-```
-
-Mudar (exfat):
-
-```bash
-sudo exfatlabel /dev/sdXY "label_name"
-```
-
 ### Shell
 
 Saber shell atual:
@@ -2577,6 +2608,20 @@ $ echo ${variable%/*}
 
 $ echo ${variable%%/*}
 > https:
+```
+
+### Variáveis de ambiente (escopo global)
+
+Mostrar variáveis de ambiente (do usuario corrente):
+
+```bash
+env
+```
+
+Criar variável de ambiente (escopo global):
+
+```bash
+export FOO="BAR"
 ```
 
 ---
@@ -2864,7 +2909,7 @@ Comando *lspci*:
 lspci -k | grep -E '(VGA|3D|Display)'
 ```
 
-## Mover/Cortar/Diminuir partições
+### Mover/Cortar/Diminuir partições
 
 - Extender partição com o espaço disponível: `sudo growpart /dev/sdXY`.
 
@@ -4017,8 +4062,8 @@ Também lê por cento de stdin:
 
 ---
 
-<a id="db_any_command"></a>
-[<span style="font-size:14px;">Any command</span>](#menu)
+<a id="db_any_commands"></a>
+[<span style="font-size:14px;">Any commands</span>](#menu)
 
 ### Comando *yt-dlp*
 
@@ -4249,6 +4294,26 @@ bads:
 - `hv3`;
 - `netsurf-gtk`;
 - `surf`;
+
+### Gravador nativo do _gnome-shell_?
+
+Deixar tempo ilimitado de gravação:
+
+```bash
+gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 0
+```
+
+Inicia gravação:
+
+```bash
+ctrl + alt + shift + r
+```
+
+Encerra gravação:
+
+```bash
+ctrl + alt + shift + r
+```
 
 ---
 
