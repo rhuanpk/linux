@@ -4158,7 +4158,13 @@ sudo apt install pdftk -y
 Mesclar pdfs:
 
 ```bash
-pdftk *.pdf cat output /output/path/to/file.pdf
+pdftk ./*.pdf cat output /output/path/to/file.pdf
+```
+
+_Splitar_ pdf:
+
+```bash
+pdftk /path/to/input.pdf cat 7-22 output /path/to/output.pdf
 ```
 
 ### comando *highlight-pointer*
