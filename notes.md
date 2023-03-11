@@ -487,11 +487,11 @@ resizepart <device> <parition_number> <new_size>
 
 #### Formulas de cálculo entre MB/GB e SETORES
 
-SECTORS » MB: `<sectors>/2/1024`
-SECTORS » GB: `<sectors>/2/1024^2`
+- SECTORS » MB: `<sectors>/2/1024`
+- SECTORS » GB: `<sectors>/2/1024^2`
 
-MB » SECTORS: `<megabytes>*1048576/512`
-GB » SECTORS: `<gigabytes>*(1048576*1024)/512`
+- MB » SECTORS: `<megabytes>*1048576/512`
+- GB » SECTORS: `<gigabytes>*(1048576*1024)/512`
 
 #### Comando _parted_
 
