@@ -2624,6 +2624,14 @@ Criar variável de ambiente (escopo global):
 export FOO="BAR"
 ```
 
+### Sintaxe de Expansão de Cores
+
+
+```bash
+echo $'\033[00;31m <string> \033[00m'
+echo $'\e[31m <string> \e[m'
+```
+
 ---
 
 <a id="db_configuracao"></a>
