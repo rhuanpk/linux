@@ -11,72 +11,86 @@
 #
 ##################################################################################
 
-main_path="/tmp"
-repositories=$(ls ${main_path})
+repo_paths='/tmp'
 flag_custom_mode=false
 flag_git_pull_all=false
 
+formatter() {
+	[[ "${1}" =~ ([[:digit:]]+;?)* ]] && {
+		coloring="${1}"
+		message="${@:2}"
+	} || {
+		message="${*}"
+	}		
+	echo -e "\e[${coloring}m${message}\e[m"
+}
+
 print_usage(){
-	echo -e "\n\
-	       	\r###################################################################\n\
-		\r#\n\
-		\r# \e[1mSYNOPSIS\e[m\n\
-		\r#\n\
-		\r#\t \e[1mNormal Mode:\e[m\n\
-		\r#\n\
-		\r#\t Pass the git command to be used as a parameter,\n\
-		\r#\t if no parameters are passed it will push by default.\n\
-		\r#\t The parameter can be passed without double quotes.\n\
-		\r#\n\
-		\r#\t In this usage mode, neither the confirmation\n\
-		\r#\t message nor the branch can be defined.\n\
-		\r#\t By default it confirms with the message \"refresh!\" in the master branch\n\
-		\r#\n\
-		\r#\t \e[1mCustom Mode:\e[m\n\
-		\r#\n\
-		\r#\t At each iteration of the loop you can set\n\
-		\r#\t the message and branch of the current repository.\n\
-		\r#\t This mode only accepts git push\n\
-		\r#\n\
-		\r# \e[1mHOW TO USE\e[m\n\
-		\r#\n\
-		\r#\t Example passing parameters:\n\
-		\r#\t\t $ push_script.sh \e[33mgit status\e[m\n\
-		\r#\t\t OR\n\
-		\r#\t\t $ push_script.sh \e[33m\"git pull origin master\"\e[m\n\
-		\r#\n\
-		\r#\t Example without passing parameters:\n\
-		\r#\t\t $ push_script.sh\n\
-		\r#\n\
-		\r# \e[1mOPTIONS\e[m\n\
-		\r#\n\
-		\r#\t\e[1m-h\e[m: Print this message and exit with 0\n\
-		\r#\t\e[1m-v\e[m: View the atual path selected and exit with 0\n\
-		\r#\t\e[1m-s\e[m: Set a new path to grab the folders\n\
-		\r#\t\e[1m-c\e[m: Start the CUSTOM MODE\n\
-		\r#\n\
-		\r###################################################################\n"
+	cat <<- eof
+		####################################################################################################
+		#
+		# `formatter 1 SYNOPSIS`
+		#
+		# `formatter 1 Normal Mode`:
+		#
+		# Pass the git command to be used as a parameter,
+		# if no parameters are passed it will push by default.
+		# The parameter can be passed without double quotes.
+		#
+		# In this usage mode, neither the confirmation
+		# message nor the branch can be defined.
+		# By default it confirms with the message "refresh!" in the master branch.
+		#
+		# \e[1mCustom Mode:\e[m\n\
+		#
+		# At each iteration of the loop you can set\n\
+		# the message and branch of the current repository.\n\
+		# This mode only accepts git push\n\
+		#
+		# \e[1mHOW TO USE\e[m\n\
+		#
+		# Example passing parameters:\n\
+		# $ push_script.sh \e[33mgit status\e[m\n\
+		# OR\n\
+		# $ push_script.sh \e[33m\"git pull origin master\"\e[m\n\
+		#
+		# Example without passing parameters:\n\
+		# $ push_script.sh\n\
+		#
+		# \e[1mOPTIONS\e[m\n\
+		#
+		#e[1m-h\e[m: Print this message and exit with 0\n\
+		#e[1m-v\e[m: View the atual path selected and exit with 0\n\
+		#e[1m-s\e[m: Set a new path to grab the folders\n\
+		#e[1m-c\e[m: Start the CUSTOM MODE\n\
+		#
+		####################################################################################################
+	eof
+}
+
+print_exiting() {
+	echo -e "\n\e[31;1m>>> Invalid option !\e[m\n$(print_usage)\n"
 }
 
 print_path() {
 	echo -e "\n\
 		\r###################################################################\n\
 		\r#\n\
-		\r# Atual path: ${main_path}\n\
+		\r# Atual path: ${repo_paths}\n\
 		\r#\n\
 		\r###################################################################\n\
 	\r"
 }
 
 switch_path(){
-	echo -e "\nAtual path: \e[33m${main_path}\e[m\n"
+	echo -e "\nAtual path: \e[33m${repo_paths}\e[m\n"
 	read -p "Enter with the new path: " new_path
 	if [ -z "${new_path}" ]; then
 		echo -e "\n\e[31m> The path can not is null !\e[m\n"; exit 1
 	elif [ ! -d "${new_path}" ]; then
 		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
 	else
-		sudo sed -i "14s~.*~main_path=\"${new_path}\"~" "${0}"
+		sudo sed -i "14s~.*~repo_paths='${new_path}'~" "${0}"
 		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
 	fi
 }
@@ -94,9 +108,10 @@ while getopts 'hvscg' opts 2>/dev/null; do
 		h) print_usage; exit 0;;
 		v) print_path; exit 0;;
 		s) switch_path;;
+		p) ;;
 		c) flag_custom_mode=true;;
 		g) flag_git_pull_all=true;;
-		*) echo -e "\n\e[31;1m>> Invalid argument !!\e[m\n$(print_usage)\n"; exit 1;;
+		?) print_exiting; exit 1;;
 	esac
 done
 
@@ -113,8 +128,8 @@ verify_privileges() {
 
 verify_privileges
 
-for directory in ${repositories}; do
-	cd ${main_path}/${directory}
+for directory in `ls ${repo_paths}`; do
+	cd ${repo_paths}/${directory}
 	echo -e "\n → git in *${directory^^}* !\n"
 	if ${flag_custom_mode}; then
 		read -rp 'Edit this repository? (y)es/(n)ext: ' answer
