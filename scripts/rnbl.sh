@@ -33,7 +33,11 @@ print_usage() {
 		# >>> `echo -e ${format_bold}${script}${format_reset}` !
 		#
 		# DESCRIPTION
-		# 	Script for remove next line blank of the line pattern match.
+		# 	Script to remove the next blank line referring to the line to be searched for the informed
+		# 	regex pattern.
+		#
+		# 	E.g. if I look for the pattern '.*line with this expression$', the script will remove all
+		# 	the lines whose next line of this expression is blank.
 		#
 		# USAGE
 		# 	$script [-hv] -m <argument> -f <argument> -t <typeof>
