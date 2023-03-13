@@ -1792,7 +1792,7 @@ mkdir -pv ~/.config/pulse && cp -v /etc/pulse/client.conf ~/.config/pulse && ech
 **OBSERVATIONS**:
 
 - o `firejail` isola a aplicação da sua home porém, não do restante do sistema de arquivos (pois em tese não se precisa pois já pertence ao **root**);
-- por padrão, caso não o _firejail_ não tenha um perfil específico para a aplicação que executará, ele usurá um perfil genérico (pode haver problemas);
+- por padrão, caso o _firejail_ não tenha um perfil específico para a aplicação que executará, ele usurá um perfil genérico (pode haver problemas);
 
 **REFERENCELINKS**:
 
