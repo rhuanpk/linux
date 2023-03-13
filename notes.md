@@ -1048,6 +1048,12 @@ Remover *fingerprint* depreciado:
 ssh-keygen [-f /home/${USER}/.ssh/known_hosts] -R <host>
 ```
 
+Adicionar sua chave num servidor:
+
+```bash
+ssh-copy-id -i <identity_file> [-p <port>] <user>@<host>
+```
+
 ##### Adicionar a chave ao *ssh-agent* automáticamente.
 
 1. De forma manual (mais segura?):
@@ -1078,7 +1084,7 @@ Exemplo de configuração `keychain` (`~/.bash_profile`):
 . ~/.keychain/$(hostname)-sh
 ```
 
-CONSIDERAÇÕES:
+**CONSIDERATIONS**:
 
 Quando criamos as chaves *ssh* para o **git** por exemplo, não necessariamente precisamos adiciona-la ao *ssh-agent*, pois, caso você tente dar algum clone ou push (utilizando conexão *ssh* obviamente), por padrão o protocolo procurará se existe alguma chave no *default path* do *ssh* (`~/.ssh/id_rsa`). Quando for manipular o respositório **git**, será encontrado a chave privada e será pedido sua senha (é claro que, caso tenha a chave adicionada ao *ssh-agent*, ele nem se quer irá pedir a senha, a autênticação será automática).
 
