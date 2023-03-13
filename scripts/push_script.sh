@@ -2,31 +2,29 @@
 
 ##################################################################################
 #
-# Script que dá push em todos os repos automáticamente
-# requisitos:
+# Script que dá push em todos os repos automáticamente.
+# Requisitos:
 #    1. Ter o credential.helper ativado
-#    2. Ter o script de push no sistema
 #
-# A variável "path" deve receber o caminho do diretório aonde ficam todos os repos
+# A variável "_repo_paths" deve receber o caminho do diretório aonde ficam todos os repos.
 #
 ##################################################################################
 
-repo_paths='/tmp'
+script=`basename "${0}"`
+
+_repo_paths='/tmp'
 flag_custom_mode=false
 flag_git_pull_all=false
 
 formatter() {
-	[[ "${1}" =~ ([[:digit:]]+;?)* ]] && {
-		coloring="${1}"
-		message="${@:2}"
-	} || {
-		message="${*}"
-	}		
-	echo -e "\e[${coloring}m${message}\e[m"
+	formatting="${1}"
+	[[ "${formatting}" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || message="${*}"
+	echo -e "\e[${formatting}m${message}\e[m"
 }
 
 print_usage(){
 	cat <<- eof
+
 		####################################################################################################
 		#
 		# `formatter 1 SYNOPSIS`
@@ -41,74 +39,78 @@ print_usage(){
 		# message nor the branch can be defined.
 		# By default it confirms with the message "refresh!" in the master branch.
 		#
-		# \e[1mCustom Mode:\e[m\n\
+		# `formatter 1 Custom Mode`:
 		#
-		# At each iteration of the loop you can set\n\
-		# the message and branch of the current repository.\n\
-		# This mode only accepts git push\n\
+		# At each iteration of the loop you can set
+		# the message and branch of the current repository.
+		# This mode only accepts git push.
 		#
-		# \e[1mHOW TO USE\e[m\n\
+		# `formatter 1 HOW TO USE`
 		#
-		# Example passing parameters:\n\
-		# $ push_script.sh \e[33mgit status\e[m\n\
-		# OR\n\
-		# $ push_script.sh \e[33m\"git pull origin master\"\e[m\n\
+		# Example passing parameters:
+		# 	${script} `formatter 33 git status`
+		# OR
+		# 	${script} `formatter 33 '"git pull origin master"'`
 		#
-		# Example without passing parameters:\n\
-		# $ push_script.sh\n\
+		# Example without passing parameters:
+		# 	${script}
 		#
-		# \e[1mOPTIONS\e[m\n\
+		# `formatter 1 OPTIONS`
 		#
-		#e[1m-h\e[m: Print this message and exit with 0\n\
-		#e[1m-v\e[m: View the atual path selected and exit with 0\n\
-		#e[1m-s\e[m: Set a new path to grab the folders\n\
-		#e[1m-c\e[m: Start the CUSTOM MODE\n\
+		# 	`formatter 1 -h`: Print this message and exit with 0.
+		# 	`formatter 1 -v`: View the atual path selected and exit with 0.
+		# 	`formatter 1 -s`: Set a new path to grab the folders.
+		# 	`formatter 1 -p`: Set a temporary path (that's valid only this time) to grab the folders.
+		# 	`formatter 1 -c`: Start the CUSTOM MODE.
+		# 	`formatter 1 -g`: Pull in all repos.
 		#
 		####################################################################################################
+
 	eof
 }
 
 print_exiting() {
-	echo -e "\n\e[31;1m>>> Invalid option !\e[m\n$(print_usage)\n"
+	echo -e "\n`formatter '31;1' '>>> Invalid option !'`\n`print_usage`\n"
 }
 
 print_path() {
-	echo -e "\n\
-		\r###################################################################\n\
-		\r#\n\
-		\r# Atual path: ${repo_paths}\n\
-		\r#\n\
-		\r###################################################################\n\
-	\r"
+	cat <<- eof
+
+		Atual path: `formatter 33 ${_repo_paths}`
+
+	eof
 }
 
 switch_path(){
-	echo -e "\nAtual path: \e[33m${repo_paths}\e[m\n"
+	echo -e "\nAtual path: `formatter 33 ${_repo_paths}`\n"
 	read -p "Enter with the new path: " new_path
 	if [ -z "${new_path}" ]; then
-		echo -e "\n\e[31m> The path can not is null !\e[m\n"; exit 1
+		echo -e "\n`formatter 31 '> The path can not is null !'`\n"; exit 1
 	elif [ ! -d "${new_path}" ]; then
-		echo -e "\n\e[31m> The path not exist !\e[m\n"; exit 1
+		echo -e "\n`formatter 31 '> The path not exist !'`\n"; exit 1
 	else
-		sudo sed -i "14s~.*~repo_paths='${new_path}'~" "${0}"
-		echo -e "\n\e[32m> New path successfully changed !\e[m\n"; exit 0
+		if sudo sed -Ei "s~(^_repo_paths=')(.*)~\1${new_path}'~" "${0}"; then
+			echo -e "\n`formatter 32 '> New path successfully changed !'`\n"; exit 0
+		else
+			echo -e "\n`formatter 31 '> New path NOT successfully changed !'`\n"; exit 0
+		fi
 	fi
 }
 
 pushing() {
 	git_message="${1:-'refresh'}"
-	git_branch="${2:-$(git branch --show-current)}"
+	git_branch="${2:-`git branch --show-current`}"
 	git add ./
 	git commit -m "${git_message}"
 	git push origin "${git_branch}"
 }
 
-while getopts 'hvscg' opts 2>/dev/null; do
+while getopts 'hvsp:cg' opts 2>/dev/null; do
 	case ${opts} in
 		h) print_usage; exit 0;;
 		v) print_path; exit 0;;
 		s) switch_path;;
-		p) ;;
+		p) _repo_paths="${OPTARG}";;
 		c) flag_custom_mode=true;;
 		g) flag_git_pull_all=true;;
 		?) print_exiting; exit 1;;
@@ -128,8 +130,8 @@ verify_privileges() {
 
 verify_privileges
 
-for directory in `ls ${repo_paths}`; do
-	cd ${repo_paths}/${directory}
+for directory in `ls ${_repo_paths}`; do
+	cd ${_repo_paths}/${directory}
 	echo -e "\n → git in *${directory^^}* !\n"
 	if ${flag_custom_mode}; then
 		read -rp 'Edit this repository? (y)es/(n)ext: ' answer
@@ -139,7 +141,7 @@ for directory in `ls ${repo_paths}`; do
 		echo ""
 		pushing $git_message $git_branch
 	elif ${flag_git_pull_all}; then
-		git pull origin "$(git branch --show-current)"
+		git pull origin "`git branch --show-current`"
 	else
 		[ $# -eq 0 ] && pushing || $*
 	fi
