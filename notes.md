@@ -1749,7 +1749,7 @@ Listar porta específica:
 sudo lsof -i :<port>
 ```
 
-### Comando *firejail*
+### Comando _firejail_
 
 Instalação:
 
@@ -1757,7 +1757,13 @@ Instalação:
 sudo apt install -y firejail
 ```
 
-Executar a aplicação:
+Executa o _shell_ padrão em _sandbox_:
+
+```bash
+firejail
+```
+
+Executar a aplicação em _sandbox_:
 
 ```bash
 firejail <program_name>
@@ -1766,13 +1772,19 @@ firejail <program_name>
 Lista os processos executando com `firejail`:
 
 ```bash
-firejail --tree
+firejail --list
 ```
 
 Executar o programa o impedindo de se conectar com a internet (o aplicativo não vê a interface de rede):
 
 ```bash
 firejail --protocol=unix <program_name>
+```
+
+Executa o firejail criando uma nova e vazia pasta pessoal para o _root_ e para o usuário regular:
+
+```bash
+firejail --private
 ```
 
 #### Troubleshooting
