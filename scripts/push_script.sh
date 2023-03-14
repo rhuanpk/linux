@@ -30,20 +30,18 @@ print_usage(){
 		# `formatter 1 SYNOPSIS`
 		#
 		# `formatter 1 Normal Mode`:
+		# 	Pass the git command to be used as a parameter,
+		# 	if no parameters are passed it will push by default.
+		# 	The parameter can be passed without double quotes.
 		#
-		# Pass the git command to be used as a parameter,
-		# if no parameters are passed it will push by default.
-		# The parameter can be passed without double quotes.
-		#
-		# In this usage mode, neither the confirmation
-		# message nor the branch can be defined.
-		# By default it confirms with the message "refresh!" in the master branch.
+		# 	In this usage mode, neither the confirmation
+		# 	message nor the branch can be defined.
+		# 	By default it confirms with the message "refresh!" in the master branch.
 		#
 		# `formatter 1 Custom Mode`:
-		#
-		# At each iteration of the loop you can set
-		# the message and branch of the current repository.
-		# This mode only accepts git push.
+		# 	At each iteration of the loop you can set
+		# 	the message and branch of the current repository.
+		# 	This mode only accepts git push.
 		#
 		# `formatter 1 HOW TO USE`
 		#
