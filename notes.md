@@ -1971,17 +1971,17 @@ locate -b '\file.txt'
 
 ### Compactação de arquivos
 
-#### Comando *tar*
+#### Comando _tar_
 
-- -z: para manipulação de arquivos `.gz`.
-- -c: para criar arquivos compactados.
-- -v: modo verboso (printa na tela o processamento).
-- -f: informa qual é o arquivo para para aquela operação.
-- -x: para fazer extração de arquivos `.tar`.
-- -C: para descompactar em outra pasta.
-- -t: para fazer listagem de arquivos comprimidos.
+- `-z`: para manipulação de arquivos `.gz`;
+- `-c`: para criar arquivos compactados;
+- `-v`: modo verboso (printa na tela o processamento);
+- `-f`: informa qual é o arquivo para para aquela operação;
+- `-x`: para fazer extração de arquivos `.tar`;
+- `-C`: para descompactar em outra pasta;
+- `-t`: para fazer listagem de arquivos comprimidos;
 
-##### *.tar.gz*
+##### _.tar.gz_
 
 Compactar em `.tar.gz`:
 
@@ -1995,7 +1995,7 @@ Descompactar de `.tar.gz`:
 tar [-C /folder/to/decompress/] -zxvf compressed_folder.tar.gz
 ```
 
-##### *.tar.xz*
+##### _.tar.xz_
 
 Compactar em `.(tar|tbz2).(xz|bz2)`:
 
@@ -2009,7 +2009,7 @@ Descompactar de `.(tar|tbz2).(xz|bz2)`:
 tar [-C /folder/to/decompress/] -xvf compressed_folder.tar.xz
 ```
 
-##### *.tar.\**
+##### _.tar.\*_
 
 Ver conteúdo de `.tar.*`:
 
@@ -2017,11 +2017,11 @@ Ver conteúdo de `.tar.*`:
 tar -tf compressed_folder.tar.gz
 ```
 
-#### Comando *zip/unzip*
+#### Comando _zip/unzip_
 
-- -d: especifica a pasta para ser descompactado.
-- -l: listar o conteúdo do arquivo compactado.
-- -r: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada).
+- `-d`: especifica a pasta para ser descompactado;
+- `-l`: listar o conteúdo do arquivo compactado;
+- `-r`: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada);
 
 Compactar:
 
@@ -2041,11 +2041,11 @@ Ver o conteúdo:
 unzip -l compressed_folder.zip
 ```
 
-#### Comando *xz*
+#### Comando _xz_
 
-- -z: para criar arquivos compactados.
-- -d: para descompactar arquivos.
-- -v: modo verboso (printa na tela o processamento).
+- `-z`: para criar arquivos compactados;
+- `-d`: para descompactar arquivos;
+- `-v`: modo verboso (printa na tela o processamento);
 
 Compactar:
 
@@ -2059,15 +2059,34 @@ Descompactar:
 xz -vd compressed_file.xz
 ```
 
-#### Comando *7z*
+#### Comando _7z_
 
-- x: para descompactar arquivos.
+- `x`: para descompactar arquivos;
 
 Descompactar:
 
 ```bash
 7z x compressed_file.any
 ```
+
+#### Comando _gzip_
+
+- `-d`: para descompactar arquivo;
+- `-k`: descompacta o arquivo e ainda mantem um cópia do compactado;
+
+Compactar:
+
+```bash
+gzip /file/to/compact.any
+```
+
+Descompactar:
+
+```bash
+gzip -d [-k] /gzip/file/to/decompress.gz
+```
+
+OBS: `gzip` igualmente os _xz_, "auto compacta" o arquivo.
 
 ### Uso memória RAM
 
