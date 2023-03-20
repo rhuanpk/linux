@@ -129,19 +129,22 @@ verify_privileges() {
 verify_privileges
 
 for directory in `ls ${_repo_paths}`; do
-	cd ${_repo_paths}/${directory}
-	echo -e "\n → git in *${directory^^}* !\n"
-	if ${flag_custom_mode}; then
-		read -rp 'Edit this repository? (y)es/(n)ext: ' answer
-	        [ ${answer,,} = 'n' ] 2>&- && continue
-		read -rp "Enter with the message: " git_message
-		read -rp "Enter with the branch: " git_branch
-		echo ""
-		pushing $git_message $git_branch
-	elif ${flag_git_pull_all}; then
-		git pull origin "`git branch --show-current`"
+	if ! cd ${_repo_paths}/"${directory}" 2>&-; then
+		echo -e "\nwarning: ${directory} is not a folder!"
 	else
-		[ $# -eq 0 ] && pushing || $*
+		echo -e "\n → git in *${directory^^}* !\n"
+		if ${flag_custom_mode}; then
+			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
+			[ ${answer,,} = 'n' ] 2>&- && continue
+			read -rp "Enter with the message: " git_message
+			read -rp "Enter with the branch: " git_branch
+			echo ""
+			pushing $git_message $git_branch
+		elif ${flag_git_pull_all}; then
+			git pull origin "`git branch --show-current`"
+		else
+			[ $# -eq 0 ] && pushing || $*
+		fi
 	fi
 done
 
