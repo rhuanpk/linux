@@ -4516,7 +4516,7 @@ OBS: Estando na _branch_ que vai receber as alterações.
 git stash push -um '<message>' [./path/to/folder/or/file.any]
 ```
 
-Mostrar por completo o log do stash (modo `--patch` e arquivos não traqueado):
+Mostrar por completo o log do stash (modo `--patch` e arquivos não traqueados):
 
 ```bash
 git stash show -up stash@{<stash_id>}
@@ -4537,7 +4537,7 @@ git log [--all|--oneline|--patch|--graph]
 
 OBS: todas as opções podem ser usadas ao mesmo tempo ou não (divirta-se).
 
-Seguir um único arquivo nos pelos *commits*:
+Rastrear um único arquivo pelos *commits*:
 
 ```bash
 git log --folow <file_name>
@@ -4575,10 +4575,10 @@ OBS: caso clone por algum tag, pode ser que essa tag esteja num vínculada a um 
 Adicionar um novo _submodule_:
 
 ```bash
-git sobmodule add {<./path/to/another/local/repo>|<remote_url>}
+git sobmodule add {./path/to/another/local/repo|<remote_url>}
 ```
 
-Iniciar os _submodules_ de um repositório clonado (estando na raiz):
+Iniciar os _submodules_ de um repositório clonado (estando na raiz do repositório local):
 
 ```bash
 git sobmodule init
@@ -4590,7 +4590,7 @@ _Updatar_ os submódulos:
 git sobmodule update
 ```
 
-Caso o _submodule_ não esteja apontando para a HEAD do seu repectivo removo, você pode resolvir isso entrando na pasta do submódulo e realizando um `pull` ou diretamente da sua raiz:
+Caso o _submodule_ não esteja apontando para a HEAD do seu repectivo remoto, você pode resolver isso entrando na pasta do submódulo e realizando um `pull` ou diretamente da sua raiz:
 
 ```bash
 git submodule update --remote
