@@ -2755,9 +2755,9 @@ Comando:
 setxkbmap -layout br [-model abnt2] [-variant abnt2]
 ```
 
-### Volume do sistema
+### Volume e Saida de Som do Sistema
 
-#### Comando *amixer*
+#### Comando _amixer_
 
 **Sintaxe de como alterar o volume**:
 
@@ -2800,6 +2800,26 @@ Alternar:
 ```bash
 amixer set {Master|Speaker} toggle
 ```
+
+#### Mudar saida de som
+
+Listar saidas de som disponíveis:
+
+```bash
+pacmd list-cards | grep -F output:
+```
+
+Setar novo dispositivo de saida:
+
+```bash
+pactl set-card-profile 0 <card_profile>
+```
+
+OBS: o perfil do cartão do dispositivo de saida tem a sintaxe `output:<profile_name>[:<profile_variant>]` e.g. `output:analog-stereo+input:analog-stereo` ou somente `output:analog-stereo`.
+
+**REFERENCELINKS**
+
+- <https://askubuntu.com/questions/539768/how-can-i-change-audio-output-to-hdmi-from-command-line>;
 
 ### Mudar a "furtividade" de senhas
 
