@@ -2627,6 +2627,58 @@ photorec
 <a id="db_gnulinux-bash"></a>
 [<span style="font-size:14px;">GNU/Linux && Bash</span>](#menu)
 
+### Variáveis de ambiente (escopo global)
+
+Mostrar variáveis de ambiente (do usuario corrente):
+
+```bash
+env
+```
+
+Criar variável de ambiente (escopo global):
+
+```bash
+export FOO="BAR"
+```
+
+### Proteção de variáveis com aspas
+
+Protejer ou não variáveis na hora da sua utilização:
+
+```bash
+function() {
+
+	# does not work as expected
+	argument=$1
+	cd $argument
+
+	# does not work as expected
+	argument="$1"
+	cd $argument
+
+	# work as expected
+	argument=$1
+	cd "$argument"
+
+	# work as expected
+	argument="$1"
+	cd "$argument"
+
+}
+
+function '/any/pathway/to/folder/with/compound name'
+```
+
+OBS: quando por exemplo em scripts ou em função, alguma variável recebe algum argumento por parâmetro, se esse argumento for "composto" (uma _string_ que contenha espaços), apesar de que obviamente você precisa protejer esse argumento ou espacar o espaço em branco, do lado de dentro, a variável não precisa receber esse parâmetro protegendo ele, mas em qualquer momento posterior que essa variável expandir (na hora de sua utilização), terá sim que protejela.
+
+### Caracteres de Escape para Cores
+
+
+```bash
+echo $'\033[00;31m <string> \033[00m'
+echo $'\e[31m <string> \e[m'
+```
+
 ### Expansão de variáveis (parâmetros)
 
 #### `#`, `##`, `%`, `%%`
@@ -2645,28 +2697,6 @@ $ echo ${variable%/*}
 
 $ echo ${variable%%/*}
 > https:
-```
-
-### Variáveis de ambiente (escopo global)
-
-Mostrar variáveis de ambiente (do usuario corrente):
-
-```bash
-env
-```
-
-Criar variável de ambiente (escopo global):
-
-```bash
-export FOO="BAR"
-```
-
-### Sintaxe de Expansão de Cores
-
-
-```bash
-echo $'\033[00;31m <string> \033[00m'
-echo $'\e[31m <string> \e[m'
 ```
 
 ---
