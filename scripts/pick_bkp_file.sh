@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
-# -------------------------------------------------------
-# OBS: ainda é necessário deixar esse script automático.
-# -------------------------------------------------------
-
 # Make a backup of some important files.
-
-# crontab:
-# */30 * * * * /usr/local/bin/pk/pick_bkp_file 2>/tmp/cron_error.log
 
 # >>> variable declarations !
 
@@ -38,41 +31,49 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-home=/home/$(whoami)
-bkp_path=${home}/Documents/config_files_backup/$(cat /etc/hostname)
 
-path_opt=/opt
-path_fontes=${home}/Documents/fonts
-path_icones=${home}/.icons
-path_temas=${home}/.themes
-path_terminator=${home}/.config/terminator/config
-path_tree=${home}/others
-path_gtk="${home}/.config/gtk-3.0/settings.ini"
-path_local_bin=/usr/local/bin
+path_backup=${home}/Documents/config_files_backup/`hostname`
 
-declare -A arr_path=(\
-	[opt]=${bkp_path}/opt \
-	[fon]=${bkp_path}/fonts \
-	[ico_the]=${bkp_path}/icons_themes \
-	[ter]=${bkp_path}/terminator \
-	[dpk]=${bkp_path}/dpkg \
-	[neo]=${bkp_path}/neofetch \
-	[oth]=${bkp_path}/others \
-	[gtk]=${bkp_path}/gtk \
-	[loc_bin]=${bkp_path}/local_bin\
+declare -A array_pathway_backup=(\
+	[opt]=${path_backup}/opt \
+	[fonts]=${path_backup}/fonts \
+	[iconthemes]=${path_backup}/icons_themes \
+	[terminator]=${path_backup}/terminator \
+	[dpkg]=${path_backup}/dpkg \
+	[neofetch]=${path_backup}/neofetch \
+	[others]=${path_backup}/others \
+	[gtk]=${path_backup}/gtk \
+	[localbin]=${path_backup}/local_bin \
+	[history]=${path_backup}/history\
 )
 
-for path in ${arr_path[@]}; do
-	[ ! -d ${path} ] && mkdir -p ${path}
+for pathway in ${array_pathway_backup[@]}; do
+	[ ! -d "${pathway}" ] && mkdir -p "${pathway}"
 done
 
-ls -1 ${path_opt} | cat -n | tr -s ' ' >${arr_path[opt]}/programas_opt.txt
-ls -1 ${path_fontes} | cat -n | tr -s ' ' >${arr_path[fon]}/fonts.txt
-ls -1 ${path_icones} | cat -n | tr -s ' ' >${arr_path[ico_the]}/icons.txt
-ls -1 ${path_temas} | cat -n | tr -s ' ' >${arr_path[ico_the]}/themes.txt
-ls -1 ${path_local_bin} | cat -n | tr -s ' ' >${arr_path[loc_bin]}/binaries.txt
-cp ${path_terminator} ${arr_path[ter]}/config.txt
-cp ${path_gtk} ${arr_path[gtk]}/settings.txt
-dpkg -l >${arr_path[dpk]}/list.txt
-neofetch >${arr_path[neo]}/infos.txt
-tree ${path_tree} >${arr_path[oth]}/tree_output.txt
+path_opt=/opt
+path_fonts=${home}/Documents/fonts
+path_icons=${home}/.icons
+path_themes=${home}/.themes
+path_terminator=${home}/.config/terminator/config
+path_tree=${home}/others
+path_gtk=${home}/.config/gtk-3.0/settings.ini
+path_localbin=/usr/local/bin
+path_history=${home}/.bash_history
+
+# ls commands to save.
+ls -1 ${path_opt} | cat -n | tr -s ' ' >${array_pathway_backup[opt]}/opt_programs.txt
+ls -1 ${path_fonts} | cat -n | tr -s ' ' >${array_pathway_backup[fonts]}/fonts.txt
+ls -1 ${path_icons} | cat -n | tr -s ' ' >${array_pathway_backup[iconthemes]}/icons.txt
+ls -1 ${path_themes} | cat -n | tr -s ' ' >${array_pathway_backup[iconthemes]}/themes.txt
+ls -1 ${path_localbin} | cat -n | tr -s ' ' >${array_pathway_backup[localbin]}/binaries.txt
+
+# cp commands to save.
+cp -f ${path_terminator} ${array_pathway_backup[terminator]}/config.txt
+cp -f ${path_gtk} ${array_pathway_backup[gtk]}/settings.txt
+cp -f ${path_history} ${array_pathway_backup[history]}/bash_history.txt
+
+# others commands to save.
+dpkg -l >${array_pathway_backup[dpkg]}/list.txt
+neofetch >${array_pathway_backup[neofetch]}/infos.txt
+tree ${path_tree} >${array_pathway_backup[others]}/tree_output.txt
