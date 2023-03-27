@@ -4560,10 +4560,26 @@ OBS: Estando na _branch_ que vai receber as alterações.
 
 ### Stash
 
-*Stashear* com mensagem e incluir arquivos não traqueados no *stash*:
+- `-u`: _stashear_ arquivos não traqueados;
+- `-m <message>`: _stashear_ com mensagem específica;
+- `-p`: _patch_ dos arquivos;
+
+_Stashear_ todos os arquivos:
 
 ```bash
-git stash push -um '<message>' [./path/to/folder/or/file.any]
+git stash [-u]
+```
+
+_Stashear_ todos com alguma mensagem específica:
+
+```bash
+git stash save '<menssage>'
+```
+
+_Stashear_ arquivos específicos:
+
+```bash
+git stash push [-u] [-m '<message>'] <path/to/folder/or/file.any>
 ```
 
 Mostrar por completo o log do stash (modo `--patch` e arquivos não traqueados):
