@@ -1054,6 +1054,12 @@ Adicionar sua chave num servidor:
 ssh-copy-id -i <identity_file> [-p <port>] <user>@<host>
 ```
 
+Pegar as chaves pública de um servidor:
+
+```bash
+ssh-keyscan [-p <port>] [-t {rsa|,dsa|,ecdsa|,ed25519}] <server_ip> >> ~/.ssh/know_hosts
+```
+
 ##### Adicionar a chave ao *ssh-agent* automáticamente.
 
 1. De forma manual (mais segura?):
