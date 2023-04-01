@@ -1060,6 +1060,12 @@ Pegar as chaves pública de um servidor:
 ssh-keyscan [-p <port>] [-t {rsa|,dsa|,ecdsa|,ed25519}] <server_ip> >> ~/.ssh/know_hosts
 ```
 
+Trocar a senha de alguma chave:
+
+```bash
+ssh-keygen -pf ~/.ssh/key_file
+```
+
 ##### Adicionar a chave ao *ssh-agent* automáticamente.
 
 1. De forma manual (mais segura?):
