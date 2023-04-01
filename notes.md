@@ -3235,7 +3235,15 @@ remountt() {
 }
 ```
 
-### Colocar programas no autostart (inicia junto com a sessão do usuário)
+### Programas Autostart (da sessão do usuário)
+
+Caso a pasta ainda não exista, basta cria-la:
+
+```bash
+mkdir ~/.config/autostart/
+```
+
+#### Programas com interface e para programas para rodar me _background_
 
 1. Crie um arquivo ".desktop" dentro da pasta `~/.config/autostart/`
 
@@ -3250,10 +3258,30 @@ StartupNotify=false
 Terminal=false
 ```
 
-Caso a pasta ainda não exista, basta cria-la:
+#### Programas que rodam via linha de comando que precisam do terminal ativo
 
-```bash
-mkdir ~/.config/autostart/
+1. Crie um arquivo ".desktop" dentro da pasta `~/.config/autostart/`
+
+- Para `gnome-terminal`:
+
+```
+[Desktop Entry]
+Type=Application
+Name=scriptmain
+Exec=gnome-terminal -- sh -c 'sleep 5; script; sh'
+Hidden=false
+NoDisplay=false
+```
+
+- Para `terminator`:
+
+```
+[Desktop Entry]
+Type=Application
+Name=scriptmain
+Exec=terminator --command='sleep 5; script; sh'
+Hidden=false
+NoDisplay=false
 ```
 
 ### Criar serviços (*systemd units*) que inicia junto com a sessão
