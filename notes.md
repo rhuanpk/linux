@@ -278,7 +278,7 @@ sudo apt update
 sudo apt install -y grub-customizer
 ```
 
-**pipeline**:
+_pipeline_:
 
 ```bash
 echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubuntu `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/grub-customizer.list && curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x59dad276b942642b1bbd0eaca8aa1faa3f055c03' | sudo gpg --dearmor --output /etc/apt/trusted.gpg.d/grub-customizer.gpg && sudo apt update; sudo apt install -y grub-customizer
@@ -931,7 +931,7 @@ Monitora o arquivo em tempo real:
 tail -f file.txt
 ```
 
-### Comando *ssh*
+### Comando _ssh_
 
 Instalação:
 
@@ -1008,7 +1008,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 
 - <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
 
-#### *ssh keys/agents*
+#### _ssh keys/agents_
 
 Criar ssh key:
 
@@ -1101,6 +1101,20 @@ Para mostrar mensagem antes de se logar precisa colocar a mensagem no *banner*:
 
 Depois coloque o caminho do *banner* na variável dentro do arquivo de configuração:
 	`Banner /etc/ssh/banner`
+
+#### Troubleshooting
+
+A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para o daemon (`ssh.service`) e por exemplo a porta é ouvido pelo que diz o `ssh.socket`, nesse caso, o que resolve é desabilitar o `ssh.socket`, remover o arquivo que força a sua chamada e habilitar o `ssh.service`:
+
+1. `sudo systemctl disable --now ssh.socket
+2. `sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf
+3. `sudo systemctl enable --now ssh.service
+
+_pipeline_:
+
+```bash
+sudo systemctl disable --now ssh.socket && sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf && sudo systemctl enable --now ssh.service
+```
 
 ### Comando *gpg*
 
@@ -4798,7 +4812,11 @@ git status --short | sed -n 's/AA //p'
 1. `git remote set-head origin -a`
 1. `git remote prune origin`
 
-_pipeline_: `git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a && git remote prune origin`
+_pipeline_:
+
+```bash
+git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a && git remote prune origin
+```
 
 ### Any others
 
