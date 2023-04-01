@@ -1836,6 +1836,26 @@ mkdir -pv ~/.config/pulse && cp -v /etc/pulse/client.conf ~/.config/pulse && ech
 
 - <https://easylinuxtipsproject.blogspot.com/p/sandbox.html>;
 
+### Comando _kill_
+
+Mata o processo pelo _id_:
+
+```bash
+kill -KILL <process_id>
+```
+
+Mata todos os processos com tal nome:
+
+```bash
+killall -KILL <process_name>
+```
+
+Verificar algum processo (signal 0 apenas verifica se o processo está vivo ou não):
+
+```bash
+kill -0 <process_id>
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -1914,26 +1934,6 @@ Com *curl* na *ipecho*:
 
 ```bash
 curl -L http://ipecho.net/plain
-```
-
-### Matar processos no linux
-
-Mostra todos os processos e id's:
-
-```bash
-ps -A
-```
-
-Mata o processo pelo id:
-
-```bash
-kill <process_id>
-```
-
-Mata todos os processos com tal nome:
-
-```bash
-killall <process_name>
 ```
 
 ### Busca de arquivos e diretorios
