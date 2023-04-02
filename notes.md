@@ -1112,9 +1112,9 @@ Depois coloque o caminho do *banner* na variável dentro do arquivo de configura
 
 A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para o daemon (`ssh.service`) e por exemplo a porta é ouvido pelo que diz o `ssh.socket`, nesse caso, o que resolve é desabilitar o `ssh.socket`, remover o arquivo que força a sua chamada e habilitar o `ssh.service`:
 
-1. `sudo systemctl disable --now ssh.socket
-2. `sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf
-3. `sudo systemctl enable --now ssh.service
+1. `sudo systemctl disable --now ssh.socket`
+1. `sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf`
+1. `sudo systemctl enable --now ssh.service`
 
 _pipeline_:
 
