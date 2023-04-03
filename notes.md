@@ -4311,6 +4311,57 @@ Player de câmera mínimo:
 mplayer tv:///dev/videoX &>/dev/null
 ```
 
+### Comando _ngrok_
+
+#### Criar túnel para conexão SSH
+
+1. Instalação (caso falhe pode ser o _link_ que quebrou):
+	`curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | sudo tar -C /usr/local/bin/ -zxvf -`
+
+1. Configuração (da sua conta _web_ do **ngrok**):
+	`ngrok config add-authtoken <api_token>`
+
+1. Iniciar o _revers proxy_:
+	`ngrok tcp 22`
+
+Depois de iniciado, uma das linhas incia com "_Forwarding_" aonde:
+
+```bash
+tcp://0.tcp.us.ngrok.io:00000 -> localhost:00000
+```
+
+O domínio disponibilizado pelo **ngrok** é:
+	`tcp://<DOMAIN>:00000`
+
+E a porta disponibilizado pelo **ngrok** é:
+	`tcp://0.tcp.us.ngrok.io:<PORT>`
+
+Agora basta fazer a conexão como:
+
+```bash
+ssh -p <ngrok_port> <your_user>@<ngrok_domain>
+```
+
+_tips_:
+
+- Iniciar o **ngrok** em background:
+
+```bash
+nohup ngrok tcp 22 &>/dev/null &
+```
+
+- Pegar as infos de _url's_ e endereços locais _bindados_:
+
+```bash
+curl -sS http://127.0.0.1:4040/api/tunnels | jq -C | grep -E '(public_url|addr)'
+```
+
+- Matar todas as seções do **ngrok**:
+
+```bash
+kill -KILL `ps -o pid -C ngrok | tail -n +2`
+```
+
 ### Extrair arquivo iso
 
 Programas necessários:
