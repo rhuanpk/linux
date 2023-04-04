@@ -1856,6 +1856,28 @@ Verificar algum processo (signal 0 apenas verifica se o processo está vivo ou n
 kill -0 <process_id>
 ```
 
+### Comando _nslookup_
+
+Resolver _hostnames_/domínios:
+
+```bash
+nslookup <hostname/doamin>
+```
+
+### Comando _arp-scan_
+
+Instalação:
+
+```bash
+sudo apt install -y arp-scan
+```
+
+Descobrir os _ip's_ conectados na rede local:
+
+```bash
+sudo arp-scan --localnet
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
