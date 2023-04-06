@@ -128,7 +128,7 @@ sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 <a id="db_pacotes"></a>
 [<span style="font-size:14px;">Pacotes</span>](#menu)
 
-### Comando *apt*
+### Comando _apt_
 
 Remover completamente o programa:
 
@@ -141,7 +141,20 @@ Fazer apenas o download do programa e suas dependências sem instalar:
 sudo apt install --download-only <package>
 ```
 
-OBS: Será salvo em `/var/cache/apt/archives`
+OBS: será salvo em `/var/cache/apt/archives`.
+
+#### Chaves de Repo
+
+Adicionar chave de repo diretamente pelo fingerprint da mesma:
+
+```bash
+sudo apt-key adv --keyserver <keyserver> --recv-keys <fingerprint>
+```
+
+_URL's_ de repositórios de chaves:
+
+- <hkp://p80.pool.sks-keyservers.net:80>;
+- <hkp://keyserver.ubuntu.com:80>;
 
 ### Comando *dpkg*
 
