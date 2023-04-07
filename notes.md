@@ -2589,6 +2589,50 @@ Saber shell atual:
 ps -o comm= $$
 ```
 
+### Prioridade no Tempo de CPU para Comandos e Processos
+
+Toda a prioridade de tempo de _CPU_ é feito com base em "_nice_" (legal)... quanto mais "_legal_" um processo é, mais ele disponibiliza tempo de _CPU_ para outros processos.
+
+Os valores de _nice_ vareiam de:
+
+- `-20` (processo com **MAIOR prioridade**);
+
+até
+
+- `+19` (processo com **MENOR prioridade**).
+
+#### Comando _nice_
+
+Comando _nice_ especifica o valor de _nice_ de um processo no seu lançamento.
+
+Sem valor de _nice_ especificado, por padrão é atribuido `+10`:
+
+```bash
+nice apt update &
+```
+
+Especifique o valor de _nice_ com a flag `-n`:
+
+```bash
+nice -n -15 yes | docker system prune
+```
+
+#### Comando _renice_
+
+Comando _renace_ altera o valor de _nice_ de um processo já em execução.
+
+Alterar o valor _nice_ de um processo
+
+```bash
+renice +5 30018
+```
+
+Passar esse mesmo valor _nice_ para outros _PID's_ usuários, e grupos:
+
+```bash
+renice +19 30019 -p 30020 -u user -g group
+```
+
 <a id="forense"></a>
 ### Forense
 
