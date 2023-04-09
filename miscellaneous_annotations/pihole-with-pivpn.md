@@ -32,7 +32,7 @@ Depois de _deployado_ o servidor, conecte via `ssh`:
 	`sudo apt install -y unbound`
 
 1. Crite e edite o arquivo `/etc/unbound/unbound.conf.d/pi-hole.conf` com as linhas do _link_:
-	`https://docs.pi-hole.net/guides/dns/unbound/#configure-unbound`
+	[Pihole docs (configure-unbound)](https://docs.pi-hole.net/guides/dns/unbound/#configure-unbound);
 
 1. Reinicie o serviço do _unbound_:
 	`service unbound restart`
@@ -80,7 +80,7 @@ Depois de _deployado_ o servidor, conecte via `ssh`:
 
 	1. _DNS Entry_ » `<Ok>`;
 
-	1. `Entre com o _hostname_ do servidor » <Ok>`;
+	1. `Entre com o hostname do servidor » <Ok>`;
 
 	1. `<Yes>`;
 
@@ -111,7 +111,7 @@ Ou importe os arquivos de dentro de `~/configs/` caso esteja utilizando o aplica
 
 _REFERENCELINKS_:
 
-- <https://www.youtube.com/watch?v=COz3SopM92U>.
+- [Vídeo referência (origem)](https://www.youtube.com/watch?v=COz3SopM92U).
 
 _TODOS_:
 
