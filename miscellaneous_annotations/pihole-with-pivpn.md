@@ -28,7 +28,7 @@ Depois de _deployado_ o servidor, conecte via `ssh`:
 1. Caso precise setar um novo _timezone_:
 	`timedatectl set-timezone <timezone>`
 
-1. Instale o pacote `unbound`:
+1. Instale o pacote _unbound_:
 	`sudo apt install -y unbound`
 
 1. Crite e edite o arquivo `/etc/unbound/unbound.conf.d/pi-hole.conf` com as linhas do _link_:
