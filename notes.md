@@ -1121,6 +1121,14 @@ Para mostrar mensagem antes de se logar precisa colocar a mensagem no *banner*:
 Depois coloque o caminho do *banner* na variável dentro do arquivo de configuração:
 	`Banner /etc/ssh/banner`
 
+#### Tips
+
+_Auto accept_ novo host:
+
+```bash
+ssh -o StrictHostKeychecking=no <user>@<host>
+```
+
 #### Troubleshooting
 
 A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para o daemon (`ssh.service`) e por exemplo a porta é ouvido pelo que diz o `ssh.socket`, nesse caso, o que resolve é desabilitar o `ssh.socket`, remover o arquivo que força a sua chamada e habilitar o `ssh.service`:
