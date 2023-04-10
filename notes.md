@@ -1899,6 +1899,27 @@ Descobrir os _ip's_ conectados na rede local:
 sudo arp-scan --localnet
 ```
 
+### Comando _dig_
+
+Instalação:
+
+```bash
+sudo apt install -y dnsutils
+```
+
+Resolver algum domínio especificando o servidor remoto:
+
+```bash
+dig [+short] @<ip_dns_server> <domain_to_search> <record_type>
+```
+
+OBS: o comando **dig** aceita os tipos de registro `A`, `MX` e `SOA`.
+
+_REFERENCELINKS_:
+
+- [Content Base](https://www.certificacaolinux.com.br/comando-linux-dig/);
+- [Reconds Types](https://www.cloudflare.com/pt-br/learning/dns/dns-records/).
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
