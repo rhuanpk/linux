@@ -112,9 +112,3 @@ Ou importe os arquivos de dentro de `~/configs/` caso esteja utilizando o aplica
 _REFERENCELINKS_:
 
 - [Vídeo referência (origem)](https://www.youtube.com/watch?v=COz3SopM92U).
-
-_TODOS_:
-
-1. Verificar como é a configuração automática que a _linode_ faz para fazer de forma manual;
-
-1. Verificar o que é o `unbound` e o `dig`.
