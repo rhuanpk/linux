@@ -6,7 +6,7 @@
 
 Criar um _app_ do **pihole** pelo _markplace_.
 
-ou
+Ou
 
 Crie um instância limpa e rode a _pipeline_ de _setup_:
 
@@ -106,8 +106,11 @@ Depois de _deployado_ o servidor, conecte via `ssh`:
 
 ### Configuração do _PiVPN_
 
-1. Adicione um perfil da _VPN_ para algum _device_:
-	`pivpn -a -n <device_name>`
+Adicione um perfil da _VPN_ para algum _device_:
+
+```bash
+pivpn -a -n <device_name>
+```
 
 Uso o comando `pivpn -qr` para ver os QRCodes dos perfis para o _device_ na _VPN_ (pelo aplicativo do _WireGuard_ por exemplo se for em _smartphone_).
 
