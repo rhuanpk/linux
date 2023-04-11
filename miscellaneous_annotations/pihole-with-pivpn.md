@@ -6,6 +6,14 @@
 
 1. Criar um _app_ do **pihole** pelo _markplace_.
 
+ou
+
+1. Crie um instância limpa e rode a _pipeline_ de _setup_:
+
+```bash
+{ apt update && apt -y upgrade && apt install -y vim ssh ufw net-tools htop ranger; } && { ufw allow 80/tcp; ufw allow 53/tcp; ufw allow 53/udp; ufw allow 67/tcp; ufw allow 67/udp; ufw allow 546:547/udp; ufw allow 2222/tcp; ufw allow 8888/tcp; yes | ufw enable; ufw status; } && { curl -sSL https://install.pi-hole.net | bash - && yes pihole | pihole -a -p; }
+```
+
 ### Configuração do Servidor
 
 Depois de _deployado_ o servidor, conecte via `ssh`:
@@ -111,4 +119,6 @@ Ou importe os arquivos de dentro de `~/configs/` caso esteja utilizando o aplica
 
 _REFERENCELINKS_:
 
-- [Vídeo referência (origem)](https://www.youtube.com/watch?v=COz3SopM92U).
+- [Base Content](https://www.youtube.com/watch?v=COz3SopM92U);
+
+- [Conectar na VPN (linux terminal)](https://docs.pivpn.io/wireguard/).
