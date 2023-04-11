@@ -4,11 +4,11 @@
 
 ### Criação do Servidor
 
-1. Criar um _app_ do **pihole** pelo _markplace_.
+Criar um _app_ do **pihole** pelo _markplace_.
 
 ou
 
-1. Crie um instância limpa e rode a _pipeline_ de _setup_:
+Crie um instância limpa e rode a _pipeline_ de _setup_:
 
 ```bash
 { apt update && apt -y upgrade && apt install -y vim ssh ufw net-tools htop ranger; } && { ufw allow 80/tcp; ufw allow 53/tcp; ufw allow 53/udp; ufw allow 67/tcp; ufw allow 67/udp; ufw allow 546:547/udp; ufw allow 2222/tcp; ufw allow 8888/tcp; yes | ufw enable; ufw status; } && { curl -sSL https://install.pi-hole.net | bash - && yes pihole | pihole -a -p; }
@@ -113,7 +113,7 @@ Uso o comando `pivpn -qr` para ver os QRCodes dos perfis para o _device_ na _VPN
 
 Ou
 
-Ou importe os arquivos de dentro de `~/configs/` caso esteja utilizando o aplicativo do _WireGuard Desktop_.
+Importe os arquivos de dentro de `~/configs/` caso esteja utilizando o aplicativo do _WireGuard Desktop_.
 
 ---
 
