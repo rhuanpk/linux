@@ -601,6 +601,90 @@ Renomear:
 sudo exfatlabel /dev/sdXY label_name
 ```
 
+### _Runlevels_/_Targets_
+
+_Runleveis_ são os níveis de execução do sistema, cada **Runlevel** diz ao sistema em qual "camada" o sistema deve operar, qual o seu estado atual.
+
+> Como também é um recurso de segurança do Linux, um dos critérios para saber se um devido processo deve ser executado ou não são justamente os _Runlevel's_?
+
+Originalmente criado no _SysV init system_, o _Systemd_ trás o mesmo conceito só que trabalhando com outra conveção, por exemplo, o equivalente aos _Runleveis_ no _Systemd_ são os **Targets**.
+
+Os _Runlevel's_ variam de 0 - 6:
+
+| RUNLEVEL | MODE               | ACTION                                                     |
+| :------- | :----------------- | :--------------------------------------------------------- |
+| 0        | `Halt`             | Shuts down system.                                         |
+| 1        | `Mono-User`        | Recovery mode, does not configure network, only root user. |
+| 2        | -                  | -                                                          |
+| 3        | `Multi-User`       | Starts system without GUI.                                 |
+| 4        | -                  | -                                                          |
+| 5        | `Graphical Server` | Starts system with GUI.                                    |
+| 6        | `Reboot`           | Reboots the system.                                        |
+
+Na tabela convertendo _Runlevel's_ para _Targets_:
+
+| Traditional Runlevel | New Target Name  -  Symbolically Link     |
+| :------------------- | :---------------------------------------- |
+| Runlevel 0           | _runlevel0.target_ -> `poweroff.target`   |
+| Runlevel 1           | _runlevel1.target_ -> `rescue.target`     |
+| Runlevel 2           | _runlevel2.target_ -> `multi-user.target` |
+| Runlevel 3           | _runlevel3.target_ -> `multi-user.target` |
+| Runlevel 4           | _runlevel4.target_ -> `multi-user.target` |
+| Runlevel 5           | _runlevel5.target_ -> `graphical.target`  |
+| Runlevel 6           | _runlevel6.target_ -> `reboot.target`     |
+
+#### Files and Directories
+
+Diretório dos _targets_:
+
+```
+/lib/systemd/system/
+```
+
+#### Commands
+
+Verificar o **runlevel** atual:
+
+```bash
+runlevel
+```
+
+Verificar qual _target_ padrão está definido para o _systemd_:
+
+```bash
+systemctl get-default
+```
+
+Listar todos os _targets_ disponíveis no sistema:
+
+```bash
+systemctl list-units --type=target --all
+```
+
+Mudar o _target_ (**runlevel**) padrão:
+
+```bash
+systemctl set-default multi-user.target
+```
+
+Mudar o _target_ (**runlevel**) somente para o próximo _boot_:
+
+```bash
+systemctl isolate rescue.target
+```
+
+Chamar **runlevel**:
+
+```bash
+telinit <runlevel_number>
+```
+
+_REFERENCELINKS_:
+
+- [Base Content](https://www.youtube.com/watch?v=NQ1j441a0sU);
+
+- [Runlevel's and Targets (from RedHat)](https://access.redhat.com/articles/754933).
+
 ---
 
 <a id="db_sysadmin"></a>
