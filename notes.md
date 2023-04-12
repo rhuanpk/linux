@@ -297,7 +297,7 @@ _pipeline_:
 echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubuntu `lsb_release -cs` main" | sudo tee /etc/apt/sources.list.d/grub-customizer.list && curl -fsSL 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x59dad276b942642b1bbd0eaca8aa1faa3f055c03' | sudo gpg --dearmor --output /etc/apt/trusted.gpg.d/grub-customizer.gpg && sudo apt update; sudo apt install -y grub-customizer
 ```
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - <https://launchpad.net/~danielrichter2007/+archive/ubuntu/grub-customizer>.
 
@@ -413,7 +413,7 @@ _Shell_ interativo do **fdisk** para manipulação avançadas da tabela de parti
 sudo fdisk /dev/sdX
 ```
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - [MBR partitions types¹](https://en.wikipedia.org/wiki/Partition_type);
 - [MBR partitions types²](https://tldp.org/HOWTO/Partition-Mass-Storage-Definitions-Naming-HOWTO/x190.html);
@@ -449,7 +449,7 @@ Reordernar partições (caso alguma tenha sido excluida ou tinha sido criada no 
 sfdisk -r /dev/sdX
 ```
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - [_reread/resort partitions_](https://serverfault.com/questions/36038/reread-partition-table-without-rebooting) (em caso mudança de na ordenação das partições);
 
@@ -491,7 +491,7 @@ resize2fs /dev/sdXY <new_size>
 resizepart <device> <parition_number> <new_size>
 ```
 
-**OBSERVATIONS**:
+_OBSERVATIONS_:
 
 - _unit of measurement_:
 	- `parted`: `MB, GB` or `10%`.
@@ -557,7 +557,7 @@ Formatar **exfat**:
 sudo mkfs.exfat [-L <label_name>] /dev/sdXY
 ```
 
-##### Saber ou Renomear Labels
+#### Saber ou Renomear Labels
 
 ##### `ext4`
 
@@ -1101,7 +1101,7 @@ OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da
 - Máximo de tentativas de conexão:
 	`MaxAuthTries <tries_number>`.
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
 
@@ -1193,7 +1193,7 @@ Exemplo de configuração `keychain` (`~/.bash_profile`):
 . ~/.keychain/$(hostname)-sh
 ```
 
-**CONSIDERATIONS**:
+_CONSIDERATIONS_:
 
 Quando criamos as chaves *ssh* para o **git** por exemplo, não necessariamente precisamos adiciona-la ao *ssh-agent*, pois, caso você tente dar algum clone ou push (utilizando conexão *ssh* obviamente), por padrão o protocolo procurará se existe alguma chave no *default path* do *ssh* (`~/.ssh/id_rsa`). Quando for manipular o respositório **git**, será encontrado a chave privada e será pedido sua senha (é claro que, caso tenha a chave adicionada ao *ssh-agent*, ele nem se quer irá pedir a senha, a autênticação será automática).
 
@@ -1351,7 +1351,7 @@ Desempacote blindagem ASCII e empacota blindando em OpenPGP (*output redirecting
 gpg --dearmor /path/to/armored_key.asc
 ```
 
-**OBSERVATIONS**:
+_OBSERVATIONS_:
 
 - todos os redirecionamento de arquivo feitos podem ser substituídos pelo arugmneto do próprio comando (`--output /path/to/file.any`), logo isso implica que se não passado o argumento próprio ou o redirecionamento do arquivo, a STDOUT é a padrão (a tela).
 
@@ -1854,7 +1854,7 @@ Exemplo:
 rsync -ahv --delete --exclude=initial-folder/ --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 ```
 
-**OBSERVATIONS**:
+_OBSERVATIONS_:
 
 - o destino ou origem aceita o modo de login de protocolo ssh (`user@host:/path`).
 
@@ -1932,12 +1932,12 @@ _pipeline_:
 mkdir -pv ~/.config/pulse && cp -v /etc/pulse/client.conf ~/.config/pulse && echo 'enable-shm = no' >> ~/.config/pulse/client.conf
 ```
 
-**OBSERVATIONS**:
+_OBSERVATIONS_:
 
 - o `firejail` isola a aplicação da sua home porém, não do restante do sistema de arquivos (pois em tese não se precisa pois já pertence ao **root**);
 - por padrão, caso o _firejail_ não tenha um perfil específico para a aplicação que executará, ele usurá um perfil genérico (pode haver problemas);
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - <https://easylinuxtipsproject.blogspot.com/p/sandbox.html>;
 
@@ -2124,7 +2124,7 @@ Buscar por links simbólicos quebrados e excluílos:
 find ./ -xtype l -exec rm -fv '{}' \;
 ```
 
-**OBSERVATIONS**:
+_OBSERVATIONS_:
 
 - pastas para o parâmetro `-path` não pode contem `/` no final;
 - para qualquer tipo de _match pattern_ (inclusive para diretórios) é aceito _wildcards_, exemplo: `find ./ \( -path '*/folder' -o -path '*/.folder' \) -prune -o -name '*f?le*'`;
@@ -3065,7 +3065,7 @@ pactl set-card-profile 0 <card_profile>
 
 OBS: o perfil do cartão do dispositivo de saida tem a sintaxe `output:<profile_name>[:<profile_variant>]` e.g. `output:analog-stereo+input:analog-stereo` ou somente `output:analog-stereo`.
 
-**REFERENCELINKS**
+_REFERENCELINKS_:
 
 - <https://askubuntu.com/questions/539768/how-can-i-change-audio-output-to-hdmi-from-command-line>;
 
@@ -4850,7 +4850,7 @@ git cherry-pick --edit <commit_hash>
 
 OBS: Estando na _branch_ que vai receber as alterações.
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - https://www.atlassian.com/git/tutorials/cherry-pick
 - https://git-scm.com/docs/git-cherry-pick
@@ -4971,7 +4971,7 @@ Clonar repositórios com submódulos já inicializando e atualizando-os:
 git clone --recurse-submodules <remote_url>
 ```
 
-**OBSERVATIONS**:
+_OBSERVATIONS_:
 
 - toda vez que fizer alterações nos submódulos, deve-se commitar.
 
@@ -5302,7 +5302,7 @@ Tips:
 
 - Instalar o aplicativo **Table Info** para saber infos importantes ao que diz respeito a qual ROM customizada instalar no dispositivo.
 
-**REFERENCELINKS**:
+_REFERENCELINKS_:
 
 - [repositório trable](https://github.com/phhusson/treble_experimentations/).
 
