@@ -34,17 +34,16 @@ verify_privileges
 # Fix
 sudo -v
 sudo dpkg --configure -a
-sudo apt install -f -y
-sudo apt --fix-broken install -y
+sudo apt install -fy
 
 # Update
 sudo -v
-sudo apt update -y
+sudo apt update
 sudo apt upgrade -y
 sudo apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs sudo apt install -y
 
 sudo ubuntu-drivers autoinstall
-sudo apt install ubuntu-restricted-extras -y
+sudo apt install -y ubuntu-restricted-extras
 
 # Clean
 sudo -v
