@@ -2004,6 +2004,22 @@ _REFERENCELINKS_:
 - [Content Base](https://www.certificacaolinux.com.br/comando-linux-dig/);
 - [Reconds Types](https://www.cloudflare.com/pt-br/learning/dns/dns-records/).
 
+### Comando _ip_
+
+Verificar as interfaces de redes com saida formatada e _highlightada_:
+
+```bash
+ip -br -c a
+```
+
+Verificar qual interface de rede está se comunicando com a _internet_:
+
+```bash
+ip route
+```
+
+OBS: caso esteja conectado a _internet_ em mais de uma interface de rede ao mesmo tempo, pode ser que tenha mais de uma definida como `default`, nesse caso, o que mede qual está se comunicando de fato é a que tem a métrica (`metric`) de menor valor.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
