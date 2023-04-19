@@ -3130,7 +3130,7 @@ Defina o *timeout* do menu:
 Defina a image de *backgrond* do menu:
 
 1. Edite o arquivo `/etc/default/grub`.
-1. Caso não exista a variável `GRUB_TIMEOUT` declare com `export`:
+1. Caso não exista a variável `GRUB_MENU_PICTURE` declare com `export`:
 	`export GRUB_MENU_PICTURE="/path/to/wallpaper.{jpg,png}"`
 
 ou
