@@ -2128,6 +2128,12 @@ Excluir vários paths da busca:
 find ./ \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
 ```
 
+Buscar for arquivos e excluílos:
+
+```bash
+find ~/ -not \( -path '*/.*' -prune -o -path '*/folder' -prune \) -iname '*confli*' -exec rm -i '{}' \; 2>&-
+```
+
 Excluir vários paths da busca e limitar a recursivedade:
 
 ```bash
