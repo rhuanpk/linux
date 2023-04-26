@@ -24,7 +24,7 @@ print_usage() {
 
 set +o histexpand
 
-verify_privileges
+#verify_privileges
 [ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
