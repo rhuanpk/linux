@@ -4034,6 +4034,38 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 - `:g!/<string>/d`: deleta todas as linhas que NÃO contenham a *string* passada.
 - `g/^$/d`: deleta todas as linhas em branco :).
 
+### Swapfile
+
+Criar _swap_ como arquivo:
+
+1. Caso tenha a swap on em algum arquivo ou dispositivo, desative-a:
+	`sudo swapoff /swapfile`
+
+1. Remova o antigos arquivo de swap (se for o caso):
+	`sudo rm /swapfile`
+
+1. Define o novo arquivo com o tamanho de _swap_ que queira ter:
+	`sudo fallocate -l 4G /swapfile`
+
+1. Altere as permissões do arquivo:
+	`sudo chmod 600 /swapfile`
+
+1. Formate o arquivo:
+	`sudo mkswap /swapfile`
+
+1. Ligue a swap a partir desse novo arquivo:
+	`sudo swapon /swapfile`
+
+Depois de feito a configuração, configure o **fstab** para reconhecer e ligar a _swap_ no próximo boot automáticamente.
+
+Adicione a linha em `/etc/fstab`:
+
+```bash
+/swapfile none swap sw 0 0
+```
+
+OBS: o espaço entre os argumentos são meramente identáveis.
+
 ### Chroot
 
 Para fazer o `chroot` correto (o sistema alvo será o sistema para qual fazremos o *chroot*):
