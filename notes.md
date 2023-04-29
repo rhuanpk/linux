@@ -2862,6 +2862,24 @@ photorec
 1. Crite uma pasta no HD alvo que guardará os arquivos recuperados
 1. Inicie o procedimento com o *photorec*
 
+### Verificação do HASH de Arquivos
+
+#### Comando _sha256sum_
+
+Pegar o _hash_ de algum arquivo:
+
+```bash
+sha256sum /path/to/file.any
+```
+
+#### Comando _md5sum_
+
+Pegar o _hash_ de algum arquivo:
+
+```bash
+md5sum /path/to/file.any
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
