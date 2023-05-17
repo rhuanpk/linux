@@ -130,7 +130,7 @@ submenu-blank-spaces() {
 		list-directory
 		echo -en "\nEnter the character to be removed, to insert the blank space(s) in its place: "; read STRING
 		for file in *; do
-			mv --verbose "$file" "${file//$STRING/ }" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file//$STRING/ }" &>> "$LOG_FILE"
 		done
 	}
 
@@ -141,7 +141,7 @@ submenu-blank-spaces() {
 		echo ""
 		read -p 'Enter the character that will be placed in place of the blank space(s) (characters not accepted "<", ">", ":", "\", "/", "\", "|", "?", "*"): ' STRING
 		for file in *; do
-			mv --verbose "$file" "${file// /$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file// /$STRING}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -174,14 +174,14 @@ submenu-upper-lower() {
 	to-upper() {
 		clear
 		for file in *; do
-			mv --verbose "$file" "${file^^}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file^^}" &>> "$LOG_FILE"
 		done
 	}
 
 	to-lower() {
 		clear
 		for file in *; do
-			mv --verbose "$file" "${file,,}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file,,}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -236,7 +236,7 @@ submenu-file-names() {
 		message-input 'string to be added to the end'
 		read STRING
 		for file in *; do
-			mv --verbose "$file" "${file//*/$file$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file//*/$file$STRING}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -247,7 +247,7 @@ submenu-file-names() {
 		message-input 'string to be removed to the end'
 		read STRING
 		for file in *; do
-			mv --verbose "$file" "${file%%$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file%%$STRING}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -258,7 +258,7 @@ submenu-file-names() {
 		message-input 'string to be added to the begin'
 		read STRING
 		for file in *; do
-			mv --verbose "$file" "$STRING$file" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "$STRING$file" &>> "$LOG_FILE"
 		done
 	}
 
@@ -269,7 +269,7 @@ submenu-file-names() {
 		message-input 'string to be removed to the begin'
 		read STRING
 		for file in *; do
-			mv --verbose "$file" "${file##$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file##$STRING}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -285,7 +285,7 @@ submenu-file-names() {
 			submenu-file-names
 		}
 		for file in *; do
-			mv --verbose "$file" "${file//$INPUT/$OUTPUT}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file//$INPUT/$OUTPUT}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -319,7 +319,7 @@ submenu-file-names() {
 		[ "$EXTENSION" != "quit" ] && {
 			count=0
 			for file in *; do
-				mv --verbose "$file" "_$count$EXTENSION" &>> "$LOG_FILE"
+				mv --verbose -- "$file" "_$count$EXTENSION" &>> "$LOG_FILE"
 				let count++
 			done
 		}
@@ -336,7 +336,7 @@ submenu-file-names() {
 					accents: ${accents[$INDEX_SEQUENCE]}
 					parse: ${accents[$INDEX_PARSE]}
 				eof
-				if OUTPUT=`mv --verbose "$file" "${file//[${accents[$INDEX_SEQUENCE]}]/${accents[$INDEX_PARSE]}}" 2>&-`; then
+				if OUTPUT=`mv --verbose -- "$file" "${file//[${accents[$INDEX_SEQUENCE]}]/${accents[$INDEX_PARSE]}}" 2>&-`; then
 					file=`sed -nE "s/^.*-> '(.*)'$/\1/p" <<< "$OUTPUT"`
 				fi
 				echo "$OUTPUT" &>> "$LOG_FILE"
@@ -368,8 +368,8 @@ submenu-file-names() {
 			done
 			if [ "$i" -lt "$COUNT_LINES" ]; then
 				echo -en "\nEntre com o novo nome do arquivo \"${FILE_NAMES[$i]}\": "; read NEW_NAME
-				[ "${NOVO_NOME}" = "quit" ] && break
-				mv --verbose "${FILE_NAMES[$i]}" "$NEW_NAME" &>> "$LOG_FILE"
+				[ "$NEW_NAME" = quit ] && break
+				mv --verbose -- "${FILE_NAMES[$i]}" "$NEW_NAME" &>> "$LOG_FILE"
 			fi
 		done
 		echo ""
