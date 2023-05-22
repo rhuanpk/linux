@@ -5138,11 +5138,29 @@ git push origin :refs/tags/<tag_name>
 
 ### Repos
 
+#### Remotes
+
 Renomear repositório remoto:
 
 ```bash
 git remote rename <nome_atual> <novo_nome>
 ```
+
+#### Forks
+
+Sincronizar repo local com upstream:
+
+1. Add remote repo:
+	`git remote add upstream <url>`;
+
+1. Fetch infos:
+	`git fetch upstream`;
+
+1. Change to target branch (if needed):
+	`git switch main`;
+
+1. Merge with upstream:
+	`git merge upstream/main`;
 
 ### Troubleshooting
 
