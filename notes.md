@@ -5124,10 +5124,16 @@ Colocar tag em commits (da para clonar de um commit específico):
 git tag <tag_name> <commit_hash>
 ```
 
-Remover tag:
+Remover tag local:
 
 ```bash
 git tag -d <tag_name>
+```
+
+Remover tag remota:
+
+```bash
+git push origin :refs/tags/<tag_name>
 ```
 
 ### Repos
@@ -5145,7 +5151,7 @@ git remote rename <nome_atual> <novo_nome>
 1. `git rm --cached <folder_name>`
 1. `rm -rf <folder_name>/.git`
 1. `git add .`
-1. `git push origin master`
+1. `git push origin main`
 
 #### Listar somente os arquivos com conflito no `--rebase`:
 
