@@ -4670,10 +4670,17 @@ Mesclar pdfs:
 pdftk ./*.pdf cat output /output/path/to/file.pdf
 ```
 
-_Splitar_ pdf:
+_Splitar_ (cortar) pdf:
 
 ```bash
+# Pega da página 7 até a página 22.
 pdftk /path/to/input.pdf cat 7-22 output /path/to/output.pdf
+
+# Pega da página 3 até a penúltima página.
+pdftk /path/to/input.pdf cat 3-r2 output /path/to/output.pdf
+
+# Pega as 3 últimas páginas.
+pdftk /path/to/input.pdf cat r3-r1 output /path/to/output.pdf
 ```
 
 ### comando *highlight-pointer*
