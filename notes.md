@@ -4710,6 +4710,46 @@ nohup highlight-pointer \
 &
 ```
 
+### Comando _figlet_
+
+Instalação:
+
+```bash
+sudo apt install -y figlet
+```
+
+_Printar_ a menssagem como _banner_:
+
+```bash
+figlet [-f <fontname>] "TEXT FOR BANNER"
+```
+
+Adicionar fontes:
+
+1. Ir para a pasta de recursos:
+	`cd /usr/share/`
+
+1. Baixar o _repo_ com as fontes:
+	`git clone 'https://github.com/xero/figlet-fonts'`
+
+1. Substituir as fontes originais:
+	`sudo mv ./figlet-fonts/* ./figlet/`
+
+1. Remover o repo com as fontes:
+	`sudo rm -rf ./figlet-fonts/`
+
+_pipeline_:
+
+```bash
+cd /usr/share/ && sudo git clone 'https://github.com/xero/figlet-fonts' && sudo mv ./figlet-fonts/* ./figlet/ && sudo rm -rf ./figlet-fonts/
+```
+
+Mostrar as fontes do **figlet**:
+
+```bash
+showfigfonts
+```
+
 ---
 
 <a id="ubuntu"></a>
