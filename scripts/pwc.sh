@@ -31,20 +31,24 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
+
 # example:
 # scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
 
 cd /tmp
 
-# declare -a args_arr=${@}
-args_arr=(${@})
-declare -i seconds=${args_arr[0]}
-
-[ ! ${seconds} -ge 1 ] && seconds=1 || args_arr="${args_arr[@]:1}"
+[[ "$1" =~ ^[0-9]*$ ]] && [ ! "${1:-0}" -gt 0 ] && {
+	sleep .25
+} || {
+	[[ "$1" =~ ^[0-9]*$ ]] && {
+		args_arr="-d $1 ${@:2}"
+	} || {
+		args_arr=$@
+	}
+}
 
 scrot \
-	-d ${seconds} \
-	${args_arr} \
+	$args_arr \
 	-e 'xclip -selection clipboard -target image/png $f'
 
 mv /tmp/*scrot.png ~/Pictures/screenshots/
