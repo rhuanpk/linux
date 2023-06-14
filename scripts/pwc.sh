@@ -35,17 +35,21 @@ verify_privileges
 # example:
 # scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
 
+is-integer() {
+	[[ "$1" =~ ^[0-9]*$ ]] && return 0 || return 1
+}
+
 cd /tmp
 
-[[ "$1" =~ ^[0-9]*$ ]] && [ ! "${1:-0}" -gt 0 ] && {
+if `is-integer $1` && [ ! "${1:-0}" -gt 0 ]; then
 	sleep .25
-} || {
-	[[ "$1" =~ ^[0-9]*$ ]] && {
+else
+	if `is-integer $1`; then
 		args_arr="-d $1 ${@:2}"
-	} || {
+	else
 		args_arr=$@
-	}
-}
+	fi
+fi
 
 scrot \
 	$args_arr \
