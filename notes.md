@@ -2020,6 +2020,14 @@ ip route
 
 OBS: caso esteja conectado a _internet_ em mais de uma interface de rede ao mesmo tempo, pode ser que tenha mais de uma definida como `default`, nesse caso, o que mede qual está se comunicando de fato é a que tem a métrica (`metric`) de menor valor.
 
+### Comando _readlink_
+
+Retorna o caminho original de um link simbólico (_soft link_):
+
+```bash
+readlink -f </path/to/softlink>
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
