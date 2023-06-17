@@ -5276,6 +5276,12 @@ Desabilitar verificação de SSL do git:
 git config --global http.sslverify false
 ```
 
+#### Copiar pegar as modificações de um arquivo de outra branch
+
+```bash
+git checkout <other_branch> -- ./path/to/{folder|file.any}
+```
+
 ---
 
 <a id="github_cli"></a>
