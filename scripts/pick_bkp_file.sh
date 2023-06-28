@@ -32,8 +32,13 @@ verify_privileges
 
 # >>> *** PROGRAM START *** !
 
-path_backup=${home}/Documents/config_files_backup/`hostname`
+cleanup-history() {
+	for file in "${array_pathway_backup[history]}"/*; do
+		find "$file" -mtime +2 -exec rm '{}' \;
+	done
+}
 
+path_backup=${home}/Documents/config_files_backup/`hostname`
 declare -A array_pathway_backup=(\
 	[opt]=${path_backup}/opt \
 	[fonts]=${path_backup}/fonts \
@@ -71,9 +76,12 @@ ls -1 ${path_localbin} | cat -n | tr -s ' ' >${array_pathway_backup[localbin]}/b
 # cp commands to save.
 cp -f ${path_terminator} ${array_pathway_backup[terminator]}/config.txt
 cp -f ${path_gtk} ${array_pathway_backup[gtk]}/settings.txt
-cp -f ${path_history} ${array_pathway_backup[history]}/bash_history.txt
 
 # others commands to save.
+tree ${path_tree} >${array_pathway_backup[others]}/tree_output.txt
 dpkg -l >${array_pathway_backup[dpkg]}/list.txt
 neofetch >${array_pathway_backup[neofetch]}/infos.txt
-tree ${path_tree} >${array_pathway_backup[others]}/tree_output.txt
+gzip -cv9 "$path_history" > "${array_pathway_backup[history]}"/`date +%y-%m-%d_%H%M%S_bash-history.gz`
+
+# clean ups.
+cleanup-history
