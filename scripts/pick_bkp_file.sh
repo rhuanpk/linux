@@ -33,7 +33,8 @@ verify_privileges
 # >>> *** PROGRAM START *** !
 
 cleanup-history() {
-	for file in "${ARRAY_PATHWAY_BACKUP['history']}"/*; do
+	files=("${ARRAY_PATHWAY_BACKUP['history']}"/*)
+	for file in ${files[@]: 0:$((${#files[@]}-1))}; do
 		find "$file" -mtime +2 -exec rm '{}' \;
 	done
 }
@@ -66,28 +67,26 @@ PATHWAY_GTK="$home/.config/gtk-3.0/settings.ini"
 PATHWAY_LOCALBIN="/usr/local/bin"
 PATHWAY_HISTORY="$home/.bash_history"
 
-# ls commands to save.
+# Clean ups.
+cleanup-history
+
+# Commands ls to save.
 ls -1 "$PATHWAY_OPT" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['opt']}/opt_programs.txt"
 ls -1 "$PATHWAY_FONTS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
 ls -1 "$PATHWAY_ICONS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/icons.txt"
 ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/themes.txt"
 ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
 
-# cp commands to save.
+# Commands cp to save.
 cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
 
-# others commands to save.
+# Others commands to save.
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['others']}/tree_output.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
 neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 
-# complex commands to save.
-{
-	FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/`date +%y-%m-%d_%H%M%S_bash-history.gz`"
-	gzip -cv9 "$PATHWAY_HISTORY" > "$FILE_NAME_HISTORY"
-	chmod 600 "$FILE_NAME_HISTORY"
-}
-
-# clean ups.
-cleanup-history
+# Complex commands to save.
+FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/`date +%y-%m-%d_%H%M%S_bash-history.gz`"
+gzip -cv9 "$PATHWAY_HISTORY" > "$FILE_NAME_HISTORY"
+chmod 600 "$FILE_NAME_HISTORY"
