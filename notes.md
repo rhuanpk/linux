@@ -3280,6 +3280,13 @@ lspci -k | grep -E '(VGA|3D|Display)'
 
 - Aplicar alterações de *resize*: `sudo resize2fs /dev/sdXY`.
 
+### _Natural Scrolling_?
+
+```bash
+synclient VertScrollDelta=-79
+synclient HorizScrollDelta=-79
+```
+
 ---
 
 <a id="db_tutoriais"></a>
