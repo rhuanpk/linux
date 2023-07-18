@@ -164,6 +164,8 @@ terminal/ferramentas
 
 - inxi (exibir infos do sistema) // $ sudo apt install inxi
 
+- timg (image and video viewr) // $ sudo apt install timg
+
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 customização/skins

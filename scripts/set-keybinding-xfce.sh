@@ -29,7 +29,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	$script '<Alt>v' vcontrol.sh
+		# 	$script '<Alt>v' volume-control.sh
 		#
 		# For remove a binding pass only a param:
 		#

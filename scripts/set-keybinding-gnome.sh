@@ -31,7 +31,7 @@ print_usage() {
 		#
 		# Example:
 		#
-		# 	$script volume0 'Volume control' '<Alt>v' vcontrol.sh
+		# 	$script volume0 'Volume control' '<Alt>v' volume-contro.sh
 		#
 		#######################################################################
 	EOF

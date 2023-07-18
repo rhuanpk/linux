@@ -45,4 +45,4 @@ while :; do
 	amixer set 'Master' 1%${VALUE} 1>/dev/null
 done
 
-# nohup terminator --borderless --geometry=175x30-0-0 --command='vcontrol.sh' &
+# nohup terminator --borderless --geometry=175x30-0-0 --command='vc' &

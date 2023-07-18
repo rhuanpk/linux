@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Call the "yi3lock" and suspend the system.
+# Call the "plock" and suspend the system.
 
 # >>> variable declarations !
 
@@ -43,4 +43,4 @@ verify_privileges
 }
 
 # >>> *** PROGRAM START *** !
-sleep "${1}" 2>&-; yi3lock && sudo systemctl suspend
+sleep "${1:-0}"; plock && sudo systemctl suspend

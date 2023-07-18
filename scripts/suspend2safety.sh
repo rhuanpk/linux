@@ -3,7 +3,7 @@
 # sudo apt install sudo acpi libnotify-bin -y
 # sudo visudo -f /etc/sudoers.d/users
 #    > "rhuan ALL=NOPASSWD:/usr/bin/systemctl"
-# */2 * * * * /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
+# */2 * * * * /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
 
 # Checks the battery percentage, if it is 9% or less the system is suspended.
 
@@ -36,7 +36,7 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
-# cron: */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend_for_safety 2>/tmp/cron_error.log
+# cron: */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
 # export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
 
 battery_power=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)

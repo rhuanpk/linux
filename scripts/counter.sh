@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Toggle the scrolling direction of the scroll.
-# Run: 'synclient' to return scroll values.
+# A simple counter that increments.
 
 # >>> variable declarations !
 
@@ -25,12 +24,17 @@ print_usage() {
 
 set +o histexpand
 
-verify_privileges
+#verify_privileges
 [ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
 # >>> *** PROGRAM START *** !
-synclient VertScrollDelta=-79
-synclient HorizScrollDelta=-79
+declare -i answer
+while :; do
+	clear
+	echo ">>> COUNT = ${count:-<nothing yet>}!"
+	read -p 'I: ' answer
+	[ 0 -eq "$answer" ] && let ++count || let count+=answer
+done

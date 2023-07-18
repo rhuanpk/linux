@@ -1,63 +1,63 @@
 #!/usr/bin/env bash
 
-# OBS: Whenever you add a new function, add it to the "all_functions" array.
+# OBS: Whenever you add a new function, add it to the "ALL_FUNCTIONS" array.
 
 # ********** Declaração de Variáveis **********
+SCRIPT=`basename "$0"`
+SETLOAD_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-path=${PK_LOAD_LINUX:-$(wget -qO - $git_url | bash - 2>&- | grep -F linux)}
-[ -z $path ] && path=$(pwd)
-path+=/scripts
-all_files=$(ls -1 ${path}/*.sh)
-expression='(backup|push_script|veu)\.sh'
-all_functions=("copy2symlink" "copy2binarie")
+PATHWAY=${PK_LOAD_LINUX:-`wget -qO - "$SETLOAD_URL" | bash - 2>&- | grep linux`}
+[ -z "$PATHWAY" ] && PATHWAY=`pwd`
+PATHWAY+=/scripts
+
+ALL_FILES=`ls -1 "$PATHWAY"/*.sh`
+ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
+EXPRESSION='(backup|git-all|volume-encryption-utility)\.sh'
+
 
 # ********** Declaração de Funções **********
+print-usage() {
+cat << eof
+*** $SCRIPT ***
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage:
+	./$SCRIPT [--ony-symlink]
+
+Description:
+	Move binaries to the "local/bin" folder converting symlinks but some not.
+
+Options:
+	--only-symlink: Move only those that will be converted to symlinks.
+eof
 }
 
-print_usage() {
-	echo -e "\
-		\r\t\e[1m*** MOVE2SYMLINK ***\e[m\n\n\
-		\r\e[1mUsage\e[m: ./${script} [--ony-symlink]\n\n\
-		\r\e[1mDescription\e[m: Move binaries to the \"local/bin\" folder converting symlinks but some not.\n\n\
-		\r\e[1mOptions\e[m:\n\
-		\r\t--only-symlink: Move only those that will be converted to symlinks.\
-	"
+make-shorthand() {
+	name=`basename "${1%.sh}"`
+	[[ "$name" =~ '-' ]] && tr '-' '\n' <<< "$name" | cut -c 1 | tr -d '\n' || echo "$name"
 }
 
 copy2symlink() {
-	for file in $(egrep -v "${expression}" <<< ${all_files}); do
-		sudo ln -sfv ${file} /usr/local/bin/pk/$(basename ${file%.sh})
+	for file in `grep -vE "$EXPRESSION" <<< "$ALL_FILES"`; do
+		sudo ln -sfv "$file" /usr/local/bin/pk/"`make-shorthand "$file"`"
 	done
 }
 
-copy2binarie() {
-	for file in $(egrep "${expression}" <<< ${all_files}); do
-		sudo cp -v ${file} /usr/local/bin/pk/$(basename ${file%.sh})
+copy2binary() {
+	for file in `grep -E "$EXPRESSION" <<< "$ALL_FILES"`; do
+		sudo cp -v "$file" /usr/local/bin/pk/"`make-shorthand "$file"`"
 	done
 }
 
-execute_all() {
-	for atual_func in ${all_functions[@]}; do
-		${atual_func}
+execute-all() {
+	for func in ${ALL_FUNCTIONS[@]}; do
+		$func
 	done
 }
 
 # ********** Início do Programa **********
-
-verify_privileges
-
-case "${1}" in
-	"") execute_all;;
+case "$1" in
+	"") execute-all;;
 	--only-symlink) copy2symlink;;
-	-h | --help) print_usage;;
-	*) print_usage;;
+	-h | --help) print-usage;;
+	*) print-usage;;
 esac

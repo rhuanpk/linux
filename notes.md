@@ -2965,6 +2965,85 @@ $ echo ${variable%%/*}
 > https:
 ```
 
+### Bash Glob's estendidos.
+
+| Glob         | Descrição                                               |
+| ------------ | ------------------------------------------------------- |
+| `?(pattern)` | Corresponde a uma ocorrência do padrão.                 |
+| `*(pattern)` | Corresponde a qualquer número de ocorrências do padrão. |
+| `+(pattern)` | Corresponde a pelo menos uma ocorrência do padrão.      |
+| `@(pattern)` | Corresponde exatamente a uma ocorrência do padrão.      |
+| `!(pattern)` | Corresponde a tudo, exceto o padrão.                    |
+
+### Bash Glob's estendidos.
+
+| Glob          | Descrição                        |
+| ------------- | -------------------------------- |
+| `^foobar`     | Nega o padrão.                   |
+| `^(foo\|bar)` | Nega os padrões.                 |
+| `foo~bar`     | Aceita "foo" e nega "bar".       |
+| `(foo)#`      | Zero ou mais ocorrências de foo. |
+| `(foo)##`     | Uma ou mais ocorrências de foo.  |
+
+### Classes Unix
+
+| Classes    | Descrição                                                           |
+| ---------- | ------------------------------------------------------------------- |
+| [:alnum:]  | Alfabéticos e númericos [a-z A-Z 0-9].                              |
+| [:alpha:]  | Alfabéticos [a-z A-Z].                                              |
+| [:blank:]  | Caractere em branco, espaço ou tab [\t].                            |
+| [:cntrl:]  | Caracteres de controle [\x00-\x1F-\x7F].                            |
+| [:digit:]  | Números [0-9].                                                      |
+| [:graph:]  | Qualquer caractere visível (ou seja, exceto em branco) [\x20-\x7E]. |
+| [:lower:]  | Letras minúsculas [a-z].                                            |
+| [:upper:]  | Letras maiúsculas [A-Z].                                            |
+| [:print:]  | Caracteres visíveis (ou seja, exceto os de controle) [\x20-\x7E].   |
+| [:punct:]  | Pontuação [-!"#$%&'()*+,./:;?@[\\\]_{|}~].                          |
+| [:space:]  | Espaço em branco [\t\r\n\v\f].                                      |
+| [:xdigit:] | Número hexadecimais [0-9 a-f A-F].                                  |
+
+| Classes   | Abreviação |
+| --------- | ---------- |
+| [:digit:] | \d.        |
+| [:alnum:] | \w.        |
+| [:space:] | \s.        |
+
+### Expansão de Variáveis
+
+| Expansão          | Descrição                                                   |
+| ----------------- | ----------------------------------------------------------- |
+| `${var[@]}`       | Imprime todos os elementos do array em strings protegidas.  |
+| `${var[*]}`       | Imprime todos os elementos do array em uma única expressão. |
+| `${var[P]}`       | Imprime o elemento na posição ‘P’.                          |
+| `${#var[@]}`      | Imprime o total de elementos do array.                      |
+| `${!var[@]}`      | Imprime os índices do array.                                |
+| `${var[@]:N}`     | Imprime todos os elementos a partir da posição ‘N’.         |
+| `${var[@]:N:M}`   | Imprime ‘M’ elementos a partir da posição ‘N’.              |
+| `${var[@]: -N}`   | Imprime os últimos ‘N’ elementos.                           |
+| `${var[@]: -N:M}` | Imprime ‘M’ elementos a partir da última ‘N’ posição.       |
+
+### Sinais de Processos
+
+| POSIX Signals  | Descrição                                                                                                                                     |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| '01' (SIGHUP)  | Terminal do processo foi desconectado ou o processo encerrado (alguns deamons usam esse sinal para recarregar as configurações do processo).  |
+| '02' (SIGINT)  | Interrompe o processo e aguarda o próximo comando do usuário,lançado no ctrl+c.                                                               |
+| '03' (SIGQUIT) | Força o core dumped do processo e o termina, lançado no ctrl+\.                                                                               |
+| '05' (SIGTRAP) | Enviado esse sinal para o processo quando ocorre uma exceção ou quando cai numa trap.                                                         |
+| '09' (SIGKILL) | Quando enviado ao processo causa seu encerramente imediato, diferentemente do SIGTERM e SIGINT esse sinal não pode ser capturado ou ignorado. |
+| '15' (SIGTERM) | Quando enviado ao processo causa seu encerramento, porém, pode ser capturado ou ignorado pelo processo.                                       |
+| '18' (SIGCONT) | Enviado esse sinal para que o processo "reinicie", volte ao estado de running depois de SIGSTOP ou SIGTSTP.                                   |
+| '19' (SIGSTOP) | Quando enviado, o processo é pausado pelo sistema para ser resumido futuramente e pode apenas receber os sinais SIGKILL e SIGCONT.            |
+| '20' (SIGTSTP) | Sua diferença para o SIGSTOP é que quando pausado o processo ainda pode manipulado, lançado no ctrl+z.                                        |
+
+| Processes States            | Descrição                                                                                                                        |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| 'D' (UNINTERRUPTABLE_SLEEP) | Processo dorme e aguarda alguma entrada, nesse estado se interrompido pode causar problemas.                                     |
+| 'R' (RUNNING & RUNNABLE)    | Processo está compra para ser executado ou já está em execução.                                                                  |
+| 'S' (INTERRRUPTABLE_SLEEP)  | Processo dorme e aguarda alguma entrada, nesse estado "pode ser" interrompido com segurança.                                     |
+| 'T' (STOPPED)               | Processo está pausado porém ainda pode ser manipulado ou resumido (ctrl+z » SIGTSTP).                                            |
+| 'Z' (ZOMBIE)                | Processo que foi encerrado porém ainda está na tabela de processos, significa que ainda pode estar finalizando alguma atividade. |
+
 ---
 
 <a id="db_configuracao"></a>
@@ -3895,7 +3974,7 @@ sudo update-alternatives --install <link> <name> <path> <priority>
 
 Exemplo de **análise** via print:
 
-![instalacao_novo_update_alternatives](/assets/images/instalacao_novo_update_alternatives.png)
+![instalation-new-update-alternatives](/.assets/images/instalation-new-update-alternatives.png)
 
 Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
 
@@ -5650,7 +5729,7 @@ No final desse post eu dei minha conclusão **PESSOAL**, não tenho LPIC 3, sou 
 
 Para realizar os mesmo teste, basta cirar e entrar na pasta `/tmp/tmp` como segue na *gif* de exemplo:
 
-![barra_final_path](/assets/gifs/barra_final_path.gif)
+![bar-final-path](/.assets/gifs/bar-final-path.gif)
 
 Deixarei o script que montei para o teste [nesse link](), basta executa-lo estando dentro de `/tmp/tmp`.
 

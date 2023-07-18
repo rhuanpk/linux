@@ -51,4 +51,4 @@ while :; do
 	fi
 done
 
-# nohup terminator --borderless --geometry=175x30-0-0 --command='bcontrol.sh' &
+# nohup terminator --borderless --geometry=175x30-0-0 --command='brightness-control.sh' &
