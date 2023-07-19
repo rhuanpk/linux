@@ -39,13 +39,13 @@ PATHWAY_BACKUP=$home/Documents/config-files-backup/`hostname`
 declare -A ARRAY_PATHWAY_BACKUP=( \
 	['opt']="$PATHWAY_BACKUP/opt" \
 	['fonts']="$PATHWAY_BACKUP/fonts" \
-	['iconthemes']="$PATHWAY_BACKUP/icons_themes" \
+	['iconthemes']="$PATHWAY_BACKUP/icons-themes" \
 	['terminator']="$PATHWAY_BACKUP/terminator" \
 	['dpkg']="$PATHWAY_BACKUP/dpkg" \
 	['neofetch']="$PATHWAY_BACKUP/neofetch" \
 	['others']="$PATHWAY_BACKUP/others" \
 	['gtk']="$PATHWAY_BACKUP/gtk" \
-	['localbin']="$PATHWAY_BACKUP/local_bin" \
+	['localbin']="$PATHWAY_BACKUP/local-bin" \
 	['history']="$PATHWAY_BACKUP/history" \
 )
 
@@ -67,7 +67,7 @@ PATHWAY_HISTORY="$home/.bash_history"
 cleanup-history
 
 # Commands ls to save.
-ls -1 "$PATHWAY_OPT" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['opt']}/opt_programs.txt"
+ls -1 "$PATHWAY_OPT" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['opt']}/opt-programs.txt"
 ls -1 "$PATHWAY_FONTS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
 ls -1 "$PATHWAY_ICONS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/icons.txt"
 ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/themes.txt"
@@ -78,7 +78,7 @@ cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
 
 # Others commands to save.
-tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['others']}/tree_output.txt"
+tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['others']}/tree-output.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
 neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 
