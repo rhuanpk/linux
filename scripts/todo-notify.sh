@@ -34,7 +34,7 @@ verify_privileges
 # cron: 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/tn 2>/tmp/cron_error.log
 
 home=${HOME:-"/home/${USER:-$(whoami)}"}
-todo_list_path_file=${home}/Documents/anotacoes/.todo_list.txt
+todo_list_path_file=${home}/Documents/annotations/.todo-list.txt
 
 [ -s ${todo_list_path_file} ] && {
         message=$(cat ${todo_list_path_file})
