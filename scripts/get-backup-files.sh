@@ -3,12 +3,10 @@
 # Make a backup of some important files.
 
 # >>> variable declarations !
-
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+script=`basename "$0"`
+home=${HOME:-/home/${USER:-`whoami`}}
 
 # >>> function declarations !
-
 verify_privileges() {
 	[ $UID -eq 0 ] && {
 		echo -e "ERROR: Run this program without privileges!\nExiting..."
@@ -17,21 +15,19 @@ verify_privileges() {
 }
 
 print_usage() {
-        echo -e "Run:\n\t./${script}"
+        echo -e "Run:\n\t./$script"
 }
 
 # >>> pre statements !
-
 set +o histexpand
 
 verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
+[ "$#" -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
 # >>> *** PROGRAM START *** !
-
 cleanup-history() {
 	files=("${ARRAY_PATHWAY_BACKUP['history']}"/*)
 	for file in ${files[@]: 0:$((${#files[@]}-1))}; do
@@ -39,7 +35,7 @@ cleanup-history() {
 	done
 }
 
-PATHWAY_BACKUP="$home/Documents/config_files_backup/`hostname`"
+PATHWAY_BACKUP=$home/Documents/config-files-backup/`hostname`
 declare -A ARRAY_PATHWAY_BACKUP=( \
 	['opt']="$PATHWAY_BACKUP/opt" \
 	['fonts']="$PATHWAY_BACKUP/fonts" \
@@ -88,5 +84,5 @@ neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 
 # Complex commands to save.
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/`date +%y-%m-%d_%H%M%S_bash-history.gz`"
-gzip -cv9 "$PATHWAY_HISTORY" > "$FILE_NAME_HISTORY"
+gzip -c9 "$PATHWAY_HISTORY" > "$FILE_NAME_HISTORY"
 chmod 600 "$FILE_NAME_HISTORY"
