@@ -43,7 +43,7 @@ declare -A ARRAY_PATHWAY_BACKUP=( \
 	['terminator']="$PATHWAY_BACKUP/terminator" \
 	['dpkg']="$PATHWAY_BACKUP/dpkg" \
 	['neofetch']="$PATHWAY_BACKUP/neofetch" \
-	['others']="$PATHWAY_BACKUP/others" \
+	['misc']="$PATHWAY_BACKUP/misc" \
 	['gtk']="$PATHWAY_BACKUP/gtk" \
 	['localbin']="$PATHWAY_BACKUP/local-bin" \
 	['history']="$PATHWAY_BACKUP/history" \
@@ -58,7 +58,7 @@ PATHWAY_FONTS="$home/Documents/fonts"
 PATHWAY_ICONS="$home/.icons"
 PATHWAY_THEMES="$home/.themes"
 PATHWAY_TERMINATOR="$home/.config/terminator/config"
-PATHWAY_TREE="$home/others"
+PATHWAY_TREE="$home/misc"
 PATHWAY_GTK="$home/.config/gtk-3.0/settings.ini"
 PATHWAY_LOCALBIN="/usr/local/bin"
 PATHWAY_HISTORY="$home/.bash_history"
@@ -78,7 +78,7 @@ cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
 
 # Others commands to save.
-tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['others']}/tree-output.txt"
+tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
 neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 
