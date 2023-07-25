@@ -4053,6 +4053,8 @@ $ gdb <program>
 1. Depois que o programa estiver correto pode tira-lo da marcação _hold_:
     `apt-mark unhold <program>`
 
+OBS: da para verificar se o _bug_ já foi reportado pesquisando pelo nome do programa (pego com `dpkg -S`) no _site_ <https://tracker.debian.org/> e caso de fato haja o _bug_ em aberto você pode se inscrever para receber seu _reports_ enviando qualquer mensagem para **<code>-subscribe@bugs.debian.org**.
+
 _REFERENCELINKS_:
 
 - <https://www.youtube.com/watch?v=x2JQaXfI-pI>;
