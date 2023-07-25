@@ -4021,6 +4021,42 @@ Description: Just a "hello".
 dpkg-deb --build ./hello_0_0_amd64/
 ```
 
+### _Downgrade_ (broke/bug packages) de Pacotes
+
+1. Instale o **gdb** para ajudar a identificar o pacote defeituoso:
+    `apt install gdb`
+
+1. Execute o **gdb** com o comando que gerá o erro:
+```bash
+$ gdb <program>
+(gdb) r <args>
+```
+
+3. Descubra de qual pacote é determinado arquivo que dá o erro:
+    `dpkg -S /path/to/file/error`
+
+1. Inclua o repositório anterior no qual o pacote existia sem o _bug_ no `/etc/apt/sources.list`:
+    `deb https://deb.debian.org/debian testing main`
+
+1. Atualize a lista de repositórios:
+    `apt update`
+
+1. Veja agora as versões antigas do programa:
+    `apt policy <program>`
+
+1. Instale a versão antiga:
+    `apt install <program>/testing`
+
+1. Marque o programa para ser "segurado" e não ser atualizado junto com o próximo `upgrade` do sistema:
+    `apt-mark hold <program>`
+
+1. Depois que o programa estiver correto pode tira-lo da marcação _hold_:
+    `apt-mark unhold <program>`
+
+_REFERENCELINKS_:
+
+- <https://www.youtube.com/watch?v=x2JQaXfI-pI>;
+
 ### Tmux
 
 Ele trabalha com sessões e dentro de cada sessão você pode ter várias janelas (*tabs*) e dentro dessas janelas ainda há a possiblidade de *split*.
