@@ -1167,7 +1167,7 @@ ssh-keygen -pf ~/.ssh/key_file
 
 1. De forma manual (mais segura?):
 
-	- Deixe a chave ssh criptografada (com algum utilitário como *toplio*, *gpg* ou algum de sua escolha).
+	- Deixe a chave ssh criptografada (com algum utilitário como *toplip*, *gpg* ou algum de sua escolha).
 	- Iniciado a sessão, descriptografe a chave.
 	- Faça o processo manual de colocar a chave no agente.
 
