@@ -31,7 +31,7 @@ verify_privileges
 cleanup-history() {
 	files=("${ARRAY_PATHWAY_BACKUP['history']}"/*)
 	for file in ${files[@]: 0:$((${#files[@]}-1))}; do
-		find "$file" -mtime +2 -exec rm '{}' \;
+		find "$file" -mtime +2 -exec rm -f '{}' \;
 	done
 }
 
