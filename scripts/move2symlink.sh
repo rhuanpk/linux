@@ -55,7 +55,7 @@ execute-all() {
 }
 
 # ********** Início do Programa **********
-[ '-w' = "$1" ] && unset SUDO
+[ '-w' = "$1" ] && { unset SUDO; shift; }
 case "$1" in
 	"") execute-all;;
 	--only-symlink) copy2symlink;;
