@@ -13,12 +13,12 @@ PATHWAY+=/scripts
 ALL_FILES=`ls -1 "$PATHWAY"/*.sh`
 ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
 EXPRESSION='(backup|git-all|volume-encryption-utility)\.sh'
-PREFIX='sudo'
+SUDO='sudo'
 
 # ********** Declaração de Funções **********
 print-usage() {
 cat << eof
-*** $SCRIPT ***
+***** $SCRIPT *****
 
 Usage:
 	./$SCRIPT [--ony-symlink]
@@ -38,13 +38,13 @@ make-shorthand() {
 
 copy2symlink() {
 	for file in `grep -vE "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$PREFIX ln -sfv "$file" /usr/local/bin/pk/"`make-shorthand "$file"`"
+		$SUDO ln -sfv "$file" /usr/local/bin/pk/"`make-shorthand "$file"`"
 	done
 }
 
 copy2binary() {
 	for file in `grep -E "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$PREFIX cp -v "$file" /usr/local/bin/pk/"`make-shorthand "$file"`"
+		$SUDO cp -v "$file" /usr/local/bin/pk/"`make-shorthand "$file"`"
 	done
 }
 
@@ -55,7 +55,7 @@ execute-all() {
 }
 
 # ********** Início do Programa **********
-[ '-w' = "$1" ] && unset PREFIX
+[ '-w' = "$1" ] && unset SUDO
 case "$1" in
 	"") execute-all;;
 	--only-symlink) copy2symlink;;
