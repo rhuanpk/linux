@@ -2578,6 +2578,12 @@ Iniciar o disco:
 qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
 ```
 
+#### Clonagem de Disco Virtual
+
+```bash
+qemu-img convert -pO qcow2 /path/to/base-disk.qcow2 /path/to/output-disk.qcow2
+```
+
 ### Wi-fi CLI
 
 #### Comando *nmcli*
