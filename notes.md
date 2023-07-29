@@ -2528,9 +2528,10 @@ gio mount -u '<device_path_name>'
 
 ### Qemu
 
-- X: Letra do disco
-- -m: Memória RAM em MB
-- -smp: Núcles do processador
+- X: Letra do disco;
+- -m: Memória RAM em MB;
+- -smp: Núcles do processador;
+- -nographic: Executar em _background_.
 
 Instalação:
 
@@ -2576,6 +2577,12 @@ Iniciar o disco:
 
 ```bash
 qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX}
+```
+
+#### Conectar Via SSH (configurar _network_ entre _host_ e _guest_):
+
+```bash
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {virtual_disk.qcow2|/dev/sdX} -device e1000,netdev=net0 -netdev user,id=net0,hostfwd=tcp::2222-:22
 ```
 
 #### Clonagem de Disco Virtual
