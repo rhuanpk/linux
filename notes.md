@@ -2028,6 +2028,34 @@ Retorna o caminho original de um link simbólico (_soft link_):
 readlink -f </path/to/softlink>
 ```
 
+### Comando _efibootmgr_
+
+- -v: aplica verbosidade.
+
+Instalação:
+
+```bash
+apt install efibootmgr
+```
+
+Listagem das entradas de boot:
+
+```bash
+efibootmgr [-v]
+```
+
+Remover entrada de boot:
+
+```bash
+efibootmgr -b <boot_id> -B
+```
+
+Adicionar nova entrada de boot:
+
+```bash
+efibootmgr -c -d /dev/sdX -p Y -l '\path\to\<some>x64.efi' -L 'New Boot Entry'
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
