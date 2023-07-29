@@ -3,12 +3,11 @@
 # Script that updates, fixes and cleans the system in one go.
 
 # >>> variable declarations !
-
 script=$(basename "${0}")
 home=${HOME:-/home/${USER:-$(whoami)}}
+sudo='sudo'
 
 # >>> function declarations !
-
 verify_privileges() {
 	[ $UID -eq 0 ] && {
 		echo -e "ERROR: Run this program without privileges!\nExiting..."
@@ -21,7 +20,6 @@ print_usage() {
 }
 
 # >>> pre statements !
-
 set +o histexpand
 
 #verify_privileges
@@ -31,24 +29,26 @@ set +o histexpand
 }
 
 # >>> *** PROGRAM START *** !
+[ '-w' = "$1" ] && { unset sudo; shift; }
+
 # Fix
-sudo -v
-sudo dpkg --configure -a
-sudo apt install -fy
+$sudo -v
+$sudo dpkg --configure -a
+$sudo apt install -fy
 
 # Update
-sudo -v
-sudo apt update
-sudo apt upgrade -y
-sudo apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs sudo apt install -y
+$sudo -v
+$sudo apt update
+$sudo apt upgrade -y
+$sudo apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $sudo apt install -y
 
 # Clean
-sudo -v
-sudo apt clean -y
-sudo apt autoclean -y
-sudo apt autoremove -y
+$sudo -v
+$sudo apt clean -y
+$sudo apt autoclean -y
+$sudo apt autoremove -y
 
 # Update and Clean
-sudo -v
-sudo apt dist-upgrade -y
-sudo apt full-upgrade -y
+$sudo -v
+$sudo apt dist-upgrade -y
+$sudo apt full-upgrade -y
