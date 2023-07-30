@@ -4185,6 +4185,9 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 - Matar todas as sessões:
 	`tmux kill-server`
 
+- Aumentar o tamanho do _scrollback buffer_:
+    `tmux set-option -g history-limit 999999\; new-session`
+
 ### Vim
 
 - `ctrl+w v`: split vertical.
