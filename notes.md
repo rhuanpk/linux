@@ -780,12 +780,22 @@ Ip interno:
 hostname -I
 ```
 
-### Comando *ls*
+### Comando _ls_
 
-Mostra o *inode* do arquivo:
+- `-a`: exibe todos arquivos ocultos;
+- `-A`: exibe todos arquivos ocultos exceto `.` e `..`;
+- `-l`: forma longa (tipo de arquivo, dono, grupo, tamanho, _mtime_);
+- `-h`: saída humana (mostra o tamanho com valor convertido);
+- `-t`: ordena pelo _mtime_;
+- `-i`: mostra o _inode_ dos arquivos;
+- `-d`: não expande diretórios em busca com _globs_;
+- `-F`: caso o arquivo seja uma pasta coloca uma "/" no final;
+- `--color={auto|never|always}`: mudar status da cor na saída.
+
+Lista arquivos e/ou diretórios:
 
 ```bash
-ls -i ~/file.txt
+ls [--color={auto|never|always}] [-aAlhtidF] /path/to/any
 ```
 
 ### Comando *file*
