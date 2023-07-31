@@ -23,32 +23,34 @@ print_usage() {
 set +o histexpand
 
 #verify_privileges
+[ '-w' = "$1" ] && {
+	unset sudo
+	shift
+}
 [ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
         print_usage
         exit 1
 }
 
 # >>> *** PROGRAM START *** !
-[ '-w' = "$1" ] && { unset sudo; shift; }
-
 # Fix
-$sudo -v
+${sudo:+sudo -v}
 $sudo dpkg --configure -a
 $sudo apt install -fy
 
 # Update
-$sudo -v
+${sudo:+sudo -v}
 $sudo apt update
 $sudo apt upgrade -y
 $sudo apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $sudo apt install -y
 
 # Clean
-$sudo -v
+${sudo:+sudo -v}
 $sudo apt clean -y
 $sudo apt autoclean -y
 $sudo apt autoremove -y
 
 # Update and Clean
-$sudo -v
+${sudo:+sudo -v}
 $sudo apt dist-upgrade -y
 $sudo apt full-upgrade -y
