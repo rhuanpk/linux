@@ -3049,7 +3049,7 @@ $ echo ${variable%%/*}
 | [:lower:]  | Letras minúsculas `[a-z]`.                                            |
 | [:upper:]  | Letras maiúsculas `[A-Z]`.                                            |
 | [:print:]  | Caracteres visíveis (ou seja, exceto os de controle) `[\x20-\x7E]`.   |
-| [:punct:]  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{|}~]`.                          |
+| [:punct:]  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{\|}~]`.                         |
 | [:space:]  | Espaço em branco `[\t\r\n\v\f]`.                                      |
 | [:xdigit:] | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
