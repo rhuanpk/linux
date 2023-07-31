@@ -3849,7 +3849,7 @@ sudo update-grub
 
 Se a tabela de partição do principal for GPT, boota UEFI:
 
-1. `mount /dev/sda2 (root) /mnt/`
+1. `monta /dev/sda2 (root) /mnt/`
 1. `monta /dev/sda1 (esp) /mnt/boot/efi`
 1. `monta --bind /dev/ /mnt/dev/`
 1. `monta --bind /proc/ /mnt/proc/`
