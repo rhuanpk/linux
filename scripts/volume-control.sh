@@ -1,7 +1,7 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Volume control.
-# Necessary: terminator && xdotool && zsh.
+# Necessary: terminator && xdotool.
 
 # >>> variable declarations !
 
@@ -40,7 +40,7 @@ percent_volume() {
 
 while :; do
 	clear
-	echo -n "Volume: $(percent_volume) [+/-]? "; read -k 1 VALUE
+	echo -n "Volume: $(percent_volume) [+/-]? "; read -n 1 VALUE
 	[ "${VALUE}" = "q" -o "${VALUE}" = "Y" ] && exit 0
 	amixer set 'Master' 1%${VALUE} 1>/dev/null
 done

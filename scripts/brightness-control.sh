@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Brightness control.
 
@@ -41,7 +41,7 @@ get_brighteness_percent() {
 
 while :; do
 	clear
-	echo -n "Brilho $(get_brighteness_percent)0% [+/-]? "; read -k 1 VALUE
+	echo -n "Brilho $(get_brighteness_percent)0% [+/-]? "; read -n 1 VALUE
 	if [ "${VALUE}" = "q" -o "${VALUE}" = "Q" ]; then
 		exit 0
 	elif [ "${VALUE}" = "+" ]; then
@@ -51,4 +51,4 @@ while :; do
 	fi
 done
 
-# nohup terminator --borderless --geometry=175x30-0-0 --command='brightness-control.sh' &
+# nohup terminator --borderless --geometry=175x30-0-0 --command='bc' &
