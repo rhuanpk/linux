@@ -3038,20 +3038,20 @@ $ echo ${variable%%/*}
 
 ### Classes Unix
 
-| Classes    | Descrição                                                           |
-| ---------- | ------------------------------------------------------------------- |
-| [:alnum:]  | Alfabéticos e númericos [a-z A-Z 0-9].                              |
-| [:alpha:]  | Alfabéticos [a-z A-Z].                                              |
-| [:blank:]  | Caractere em branco, espaço ou tab [\t].                            |
-| [:cntrl:]  | Caracteres de controle [\x00-\x1F-\x7F].                            |
-| [:digit:]  | Números [0-9].                                                      |
-| [:graph:]  | Qualquer caractere visível (ou seja, exceto em branco) [\x20-\x7E]. |
-| [:lower:]  | Letras minúsculas [a-z].                                            |
-| [:upper:]  | Letras maiúsculas [A-Z].                                            |
-| [:print:]  | Caracteres visíveis (ou seja, exceto os de controle) [\x20-\x7E].   |
-| [:punct:]  | Pontuação [-!"#$%&'()*+,./:;?@[\\\]_{|}~].                          |
-| [:space:]  | Espaço em branco [\t\r\n\v\f].                                      |
-| [:xdigit:] | Número hexadecimais [0-9 a-f A-F].                                  |
+| Classes    | Descrição                                                             |
+| ---------- | --------------------------------------------------------------------- |
+| [:alnum:]  | Alfabéticos e númericos `[a-z A-Z 0-9]`.                              |
+| [:alpha:]  | Alfabéticos `[a-z A-Z]`.                                              |
+| [:blank:]  | Caractere em branco, espaço ou tab `[\t]`.                            |
+| [:cntrl:]  | Caracteres de controle `[\x00-\x1F-\x7F]`.                            |
+| [:digit:]  | Números `[0-9]`.                                                      |
+| [:graph:]  | Qualquer caractere visível (ou seja, exceto em branco) `[\x20-\x7E].` |
+| [:lower:]  | Letras minúsculas `[a-z]`.                                            |
+| [:upper:]  | Letras maiúsculas `[A-Z]`.                                            |
+| [:print:]  | Caracteres visíveis (ou seja, exceto os de controle) `[\x20-\x7E]`.   |
+| [:punct:]  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{|}~]`.                          |
+| [:space:]  | Espaço em branco `[\t\r\n\v\f]`.                                      |
+| [:xdigit:] | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
 | Classes   | Abreviação |
 | --------- | ---------- |
@@ -3087,13 +3087,45 @@ $ echo ${variable%%/*}
 | '19' (SIGSTOP) | Quando enviado, o processo é pausado pelo sistema para ser resumido futuramente e pode apenas receber os sinais SIGKILL e SIGCONT.            |
 | '20' (SIGTSTP) | Sua diferença para o SIGSTOP é que quando pausado o processo ainda pode manipulado, lançado no ctrl+z.                                        |
 
-| Processes States            | Descrição                                                                                                                        |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| 'D' (UNINTERRUPTABLE_SLEEP) | Processo dorme e aguarda alguma entrada, nesse estado se interrompido pode causar problemas.                                     |
-| 'R' (RUNNING & RUNNABLE)    | Processo está compra para ser executado ou já está em execução.                                                                  |
-| 'S' (INTERRRUPTABLE_SLEEP)  | Processo dorme e aguarda alguma entrada, nesse estado "pode ser" interrompido com segurança.                                     |
-| 'T' (STOPPED)               | Processo está pausado porém ainda pode ser manipulado ou resumido (ctrl+z » SIGTSTP).                                            |
-| 'Z' (ZOMBIE)                | Processo que foi encerrado porém ainda está na tabela de processos, significa que ainda pode estar finalizando alguma atividade. |
+| Processes States             | Descrição                                                                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| 'D' (UNINTERRUPTABLE\_SLEEP) | Processo dorme e aguarda alguma entrada, nesse estado se interrompido pode causar problemas.                                     |
+| 'R' (RUNNING & RUNNABLE)     | Processo está compra para ser executado ou já está em execução.                                                                  |
+| 'S' (INTERRRUPTABLE\_SLEEP)  | Processo dorme e aguarda alguma entrada, nesse estado "pode ser" interrompido com segurança.                                     |
+| 'T' (STOPPED)                | Processo está pausado porém ainda pode ser manipulado ou resumido (ctrl+z » SIGTSTP).                                            |
+| 'Z' (ZOMBIE)                 | Processo que foi encerrado porém ainda está na tabela de processos, significa que ainda pode estar finalizando alguma atividade. |
+
+### Ordem de Chamada dos Arquivos de Inicialização
+
+#### Usando Console de Texto
+
+1. `/etc/environment`:
+    - OBS: independete (carregado pelo **PAM**).
+
+1. `/etc/profile`:
+    - OBS: independete (carregador pelo **Bash**).
+
+1. `~/.bash_profile`:
+    - OBS: caso esse exista, os próximos não são carregados a menos que no mesmo seja feito o carregamento explícito.
+
+1. `~/.bash_login`:
+    - OBS: mesmo caso do anterior.
+
+1. `~/.profile`:
+    - OBS: mesmo caso do anterior.
+
+#### Usando GUI
+
+1. `/etc/environment`;
+    - OBS: independente (carregado pelo **PAM**).
+
+1. `~/.xsessionrc`.
+    - OBS: independente (carregador pelo servidor gráfico (**X**));
+    - OBS: pode conter a chamada dos _shell's startup files_.
+
+_REFERENCELINKS_:
+
+- [Environment Variables (from Debian wiki)](https://wiki.debian.org/EnvironmentVariables).
 
 ---
 
