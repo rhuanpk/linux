@@ -3049,7 +3049,7 @@ $ echo ${variable%%/*}
 | [:lower:]  | Letras minúsculas `[a-z]`.                                            |
 | [:upper:]  | Letras maiúsculas `[A-Z]`.                                            |
 | [:print:]  | Caracteres visíveis (ou seja, exceto os de controle) `[\x20-\x7E]`.   |
-| [:punct:]  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{|}~]`.                          |
+| [:punct:]  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{\|}~]`.                         |
 | [:space:]  | Espaço em branco `[\t\r\n\v\f]`.                                      |
 | [:xdigit:] | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
@@ -4136,7 +4136,7 @@ $ gdb <program>
 1. Depois que o programa estiver correto pode tira-lo da marcação _hold_:
     `apt-mark unhold <program>`
 
-OBS: da para verificar se o _bug_ já foi reportado pesquisando pelo nome do programa (pego com `dpkg -S`) no _site_ <https://tracker.debian.org/> e caso de fato haja o _bug_ em aberto você pode se inscrever para receber seu _reports_ enviando qualquer mensagem para **<code>-subscribe@bugs.debian.org**.
+OBS: da para verificar se o _bug_ já foi reportado pesquisando pelo nome do programa (pego com `dpkg -S`) no _site_ <https://tracker.debian.org/> e caso de fato haja o _bug_ em aberto você pode se inscrever para receber seu _reports_ enviando qualquer mensagem para **\<code\>-subscribe@bugs.debian.org**.
 
 _REFERENCELINKS_:
 
