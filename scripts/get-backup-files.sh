@@ -84,5 +84,5 @@ neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 
 # Complex commands to save.
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/`date +%y-%m-%d_%H%M%S_bash-history.gz`"
-gzip -c9 "$PATHWAY_HISTORY" > "$FILE_NAME_HISTORY"
+gzip -c9 "$PATHWAY_HISTORY" >"$FILE_NAME_HISTORY"
 chmod 600 "$FILE_NAME_HISTORY"
