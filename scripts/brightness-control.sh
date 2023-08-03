@@ -42,7 +42,7 @@ get_brighteness_percent() {
 while :; do
 	clear
 	echo -n "Brilho $(get_brighteness_percent)0% [+/-]? "; read -n 1 VALUE
-	if [ "${VALUE}" = "q" -o "${VALUE}" = "Q" ]; then
+	if [ "${VALUE,,}" = "q" ]; then
 		exit 0
 	elif [ "${VALUE}" = "+" ]; then
 		sudo brightnessctl --quiet -d $(pick_display) set +5%

@@ -41,7 +41,7 @@ percent_volume() {
 while :; do
 	clear
 	echo -n "Volume: $(percent_volume) [+/-]? "; read -n 1 VALUE
-	[ "${VALUE}" = "q" -o "${VALUE}" = "Y" ] && exit 0
+	[ "${VALUE,,}" = "q" ] && exit 0
 	amixer set 'Master' 1%${VALUE} 1>/dev/null
 done
 
