@@ -2066,6 +2066,12 @@ Adicionar nova entrada de boot:
 efibootmgr -c -d /dev/sdX -p Y -l '\path\to\<some>x64.efi' -L 'New Boot Entry'
 ```
 
+### Comando _less_
+
+Fazer com que a busca seja **case insensitive** (estando no estado de comando do less (com o _prompt_ "`:`")):
+- Para buscas simples: `-i`;
+- Para buscas também com padrões: `-I`.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -4232,25 +4238,27 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 
 ### Vim
 
-- `ctrl+w v`: split vertical.
-- `ctrl+w s`: split horizontal.
-- `ctrl+w w`: navega entre as janelas.
-- `:e /path/to/file.any`: abre o arquivo no caminho passado.
-- `:term`: abre uma janela dedicada a ser um terminal.
-- `:vertical :term`: abre uma janela dedicada a ser um terminal esplitado na vertical.
-- `:! pwd`: executa um comando e volta para o vim.
-- `:r! pwd`: executa um comando e seu retorno vai direto para o arquivo que está sendo editado.
-- `ctrl+w e`: *scroll* de linha a linha para baixo.
-- `ctrl+w y`: *scroll* de linha a linha para cima.
-- `:reg`: faz a listagem do histórico de *deletes/yanks* (*"reg"* é a abreviação de *"register"*).
-- `<register_name>p`: cola um registro específico do histórico.
-- `%d`: limpa o arquivo (deleta todas as linhas).
-- `<begin_number>,<end_number>d`: deleta o range de linhas informados.
-- `dgg`: deleta da linha atual até o início do arquivo.
-- `.,$d`: deleta da linha atual até o final do arquivo.
-- `:g/<string>/d`: deleta todas as linhas que contenham a *string* passada.
-- `:g!/<string>/d`: deleta todas as linhas que NÃO contenham a *string* passada.
-- `g/^$/d`: deleta todas as linhas em branco :).
+- `ctrl+w v`: split vertical;
+- `ctrl+w s`: split horizontal;
+- `ctrl+w w`: navega entre as janelas;
+- `:e /path/to/file.any`: abre o arquivo no caminho passado;
+- `:term`: abre uma janela dedicada a ser um terminal;
+- `:vertical :term`: abre uma janela dedicada a ser um terminal esplitado na vertical;
+- `:! pwd`: executa um comando e volta para o vim;
+- `:r! pwd`: executa um comando e seu retorno vai direto para o arquivo que está sendo editado;
+- `ctrl+w e`: *scroll* de linha a linha para baixo;
+- `ctrl+w y`: *scroll* de linha a linha para cima;
+- `:reg`: faz a listagem do histórico de *deletes/yanks* (*"reg"* é a abreviação de *"register"*);
+- `<register_name>p`: cola um registro específico do histórico;
+- `%d`: limpa o arquivo (deleta todas as linhas);
+- `<begin_number>,<end_number>d`: deleta o range de linhas informados;
+- `dgg`: deleta da linha atual até o início do arquivo;
+- `.,$d`: deleta da linha atual até o final do arquivo;
+- `:g/<string>/d`: deleta todas as linhas que contenham a *string* passada;
+- `:g!/<string>/d`: deleta todas as linhas que NÃO contenham a *string* passada;
+- `g/^$/d`: deleta todas as linhas em branco :);
+- `/<string>\c`: pesquisa com case insensitive;
+- `/<string>\C`: pesquisa com case sensitive.
 
 ### Swapfile
 
