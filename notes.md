@@ -5248,7 +5248,7 @@ OBS: todas as opções podem ser usadas ao mesmo tempo ou não (divirta-se).
 Rastrear um único arquivo pelos *commits*:
 
 ```bash
-git log --folow <file_name>
+git log --folow [-p] <file_name>
 ```
 
 ### Blame
