@@ -170,10 +170,14 @@ Listar todos os binários do pacote:
 sudo dpkg -L <package>
 ```
 
-Saber a qual pacote perterce determinado binários:
+Saber a qual pacote perterce determinado binário:
 
 ```bash
 sudo dpkg -S <binary>
+```
+
+```bash
+sudo dpkg -S <binary> | grep /usr/bin/<binary>
 ```
 
 ### Ppa's
@@ -2943,6 +2947,70 @@ Pegar o _hash_ de algum arquivo:
 
 ```bash
 md5sum /path/to/file.any
+```
+
+### Conversão de Arquivos
+
+#### Utilitários do ImageMagick
+
+Instalação:
+
+```bash
+apt install imagemagick
+```
+
+_OBERSAVTIONS_:
+
+- Se erro de não permissão devido a policita para pdf's:
+
+```bash
+sed -Ei 's,(<policy domain="coder" rights=").*(" pattern="PDF" />),\1read|write\2,' /etc/ImageMagick-?/policy.xml
+```
+
+- As converções funcionaram entre tipos de imagem, _jpg to png_, _png to jpg_ e também _pdf to image_.
+
+##### Comando _convert_
+
+IMAGE to PDF:
+
+```bash
+# one to one
+convert /path/to/image.any /path/to/out.pdf
+
+# many to one
+convert /path/to/folder/*.any /path/to/single-out.pdf
+
+# multiples, one to one
+for file in /path/to/folder/*.any; do convert "$file" "${file%.*}.pdf"; done
+```
+##### Comando _mogrify_
+
+IMAGE to PDF:
+
+```bash
+# one to one
+mogrify -format pdf /path/to/image.any
+
+# multiples, one to one
+mogrify -format pdf /path/to/folder/*.any
+```
+
+#### Comando _pdftoppm_
+
+Instalação:
+
+```bash
+apt install poppler-utils
+```
+
+PDF to IMAGE:
+
+```bash
+# one to one
+pdftoppm -png /path/to/file.pdf /path/to/file.pdf
+
+# multiples, one to one
+find /folder/to/search -maxdepth 1 -type f -name -name '*.pdf' -exec pdftoppm -png '{}' '{}' \;
 ```
 
 ---
