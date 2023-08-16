@@ -316,7 +316,7 @@ submenu-file-names() {
 		list-directory
 		echo ""
 		read -p 'Enter the file extension (simply <press_enter> if you want no extension): ' EXTENSION
-		[ "$EXTENSION" != "quit" ] && {
+		[ "$EXTENSION" != 'quit' ] && {
 			count=0
 			for file in *; do
 				mv --verbose -- "$file" "_$count$EXTENSION" &>> "$LOG_FILE"
@@ -344,7 +344,7 @@ submenu-file-names() {
 		done
 	}
 
-	start-custom-mode() {
+	custom-mode() {
 		get-name() {
 			echo "`ls -1 | sed -n "${1}p"`"
 		}
@@ -354,22 +354,21 @@ submenu-file-names() {
 		done
 		let COUNT_LINES++
 		for i in `seq "$COUNT_LINES"`; do
-			clear
-			cat <<-eof
+			clear; cat <<-eof
 
 				>>> Custom Rename!
 
 				- To not rename any file just: <press_enter>
-				- To stop and go back to the previous menu type: quit
+				- To stop and go back to the previous menu type: `format "$COLOR_MAGENTA" quit`
 
 			eof
 			for ((j=1;j<"$COUNT_LINES";j++)); do
-				[ "${FILE_NAMES[$i]}" = "`get-name $j`" ] && format "$BACKGROUND_BLACK;$COLOR_RED;$FONT_BOLD" "`get-name $j`" || get-name "$j"
+				[ "${FILE_NAMES[$i]}" = "`get-name $j`" ] && format "$BACKGROUND_BLACK;$COLOR_YELLOW;$FONT_BOLD" "`get-name $j`" || get-name "$j"
 			done
 			if [ "$i" -lt "$COUNT_LINES" ]; then
-				echo -en "\nEntre com o novo nome do arquivo \"${FILE_NAMES[$i]}\": "; read NEW_NAME
-				[ "$NEW_NAME" = quit ] && break
-				mv --verbose -- "${FILE_NAMES[$i]}" "$NEW_NAME" &>> "$LOG_FILE"
+				echo; read -rep "Entre com o novo nome do arquivo \"${FILE_NAMES[$i]}\": " -i "${FILE_NAMES[$i]}" NEW_NAME
+				[ "$NEW_NAME" = 'quit' ] && break
+				mv -v -- "${FILE_NAMES[$i]}" "$NEW_NAME" &>> "$LOG_FILE"
 			fi
 		done
 		echo ""
@@ -424,7 +423,7 @@ submenu-file-names() {
 			2) rename-middle;;
 			3) create-pattern;;
 			4) remove-accents;;
-			5) start-custom-mode;;
+			5) custom-mode;;
 			9) menu-main;;
 			0) message-quit; exit 0;;
 			*) message-invalid-option;;
