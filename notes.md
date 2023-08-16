@@ -532,9 +532,6 @@ Programas necessários para `exfat`:
 sudo apt install exfat-fuse -y
 ```
 
-- X: letra do dispositivo;
-- Y: número da partição;
-
 ##### Comando _mkfs_
 
 Formatar **fat32**:
@@ -561,9 +558,9 @@ Formatar **exfat**:
 sudo mkfs.exfat [-L <label_name>] /dev/sdXY
 ```
 
-#### Saber ou Renomear Labels
+##### Saber ou Renomear Labels
 
-##### `ext4`
+###### `ext4`
 
 Saber:
 
@@ -577,7 +574,7 @@ Renomear:
 sudo e2label /dev/sdXY label_name
 ```
 
-##### `fat32`
+###### `fat32`
 
 Saber:
 
@@ -591,7 +588,7 @@ Renomear:
 sudo mlabel -i /dev/sdXY ::label_name
 ```
 
-##### `exfat`
+###### `exfat`
 
 Saber:
 
