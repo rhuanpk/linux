@@ -2076,6 +2076,23 @@ Fazer com que a busca seja **case insensitive** (estando no estado de comando do
 - Para buscas simples: `-i`;
 - Para buscas também com padrões: `-I`.
 
+### Comando _read_
+
+- `-r`: traz o texto _raw_ (não interpreta caracteres de escape, "\n" por exemplo);
+- `-e`: Na prática, não interpreta por exemplo teclas de movimentação, ou seja, consegue andar pelo texto com as setas (e consequentemente esses caracteres não são capturas pelo **read**);
+- `-t`: _Seta_ um _timeout_ para cancelamento do comando;
+- `-a`: A entrada será um _array_, ou seja, a cada espaço, um novo índice;
+- `-p`: Imprime uma mensagem antes do cursor;
+- `-i`: Caso utilizando ReadLine (opção `-e`, coloca uma mensagem padrão na caixa de _input_).
+
+```bash
+read -re -t 3 -a ARRAY -p 'Your name: ' -i 'Linus Torvalds'
+```
+
+_OBSERVATIONS_:
+
+- Caso você precise printar algum caracter de escape ou algum tipo de formatação do texto para pedir a entrada do usuário e queira fazer com `echo -ne "\nInput: "; read -e foo`. Isso pode não soar como o esperado pois o texto printado (na mesma linha) antes da execução do `read` será literalemente apagado caso você use o `backspace` até o final. Para contornar isso, é necessário a presença da opção `-p` do `read`, nem que seja para simplesmente printar o ": " final: `echo -ne "\nInput"; read -e -p ': ' foo`.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
