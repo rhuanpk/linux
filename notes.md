@@ -502,6 +502,8 @@ _OBSERVATIONS_:
 	- `resize2fs`: `K`, `M`, `G` and `T`.
 	- `resizepart`: `512-byte` _sectors_.
 
+- caso a partição seja `exfat` realize somente o passo 2?
+
 #### Formulas de cálculo entre MB/GB e SETORES
 
 - SECTORS » MB: `<sectors>/2/1024`
