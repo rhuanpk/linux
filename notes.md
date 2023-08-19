@@ -3116,7 +3116,7 @@ $ echo ${variable%%/*}
 | `@(pattern)` | Corresponde exatamente a uma ocorrência do padrão.      |
 | `!(pattern)` | Corresponde a tudo, exceto o padrão.                    |
 
-### Bash Glob's estendidos.
+### Zsh Glob's estendidos.
 
 | Glob          | Descrição                        |
 | ------------- | -------------------------------- |
@@ -3216,6 +3216,31 @@ $ echo ${variable%%/*}
 _REFERENCELINKS_:
 
 - [Environment Variables (from Debian wiki)](https://wiki.debian.org/EnvironmentVariables).
+
+### HEREDOC
+
+Normal:
+
+```bash
+cat << EOF
+	$SHELL
+EOF
+```
+
+Modo _raw_ (sem escapes ou expanções):
+
+```bash
+cat << \EOF
+	$SHELL
+EOF
+```
+
+_In line_:
+
+```bash
+eval $'cat << eof\nhello\neof'
+eval $'read foo << eof\nhello\neof'
+```
 
 ---
 
