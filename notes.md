@@ -3288,6 +3288,22 @@ xrandr --addmode Virtual1 1920x1080_90.00
 xrandr --output Virtual1 --mode 1920x1080_90.00
 ```
 
+#### Mescar Monitores
+
+Liste os monitores disponíveis:
+
+```bash
+xrandr --listactivemonitors
+# ou utilize a pipeline:
+# xrandr --listactivemonitors | sed -nE 's/.*  (.*)$/\1/p' | tr '\n' ',' | sed 's/,$//'
+```
+
+Execute o comando:
+
+```bash
+xrandr --setmonitor MERGE-1 auto VGA-1,HDMI-1
+```
+
 ### Variável *$PATH*
 
 Adicionando diretórios ao *$PATH*:
