@@ -17,6 +17,7 @@
 - [GitHub CLI](#github_cli)
 - [Arch Base](#arch_base)
 - [Android](#android)
+- [Miscellaneous](#miscellaneous)
 - [Estudos](#estudos)
 
 <a id="debian_base"></a>
@@ -5791,6 +5792,29 @@ _REFERENCELINKS_:
 - [repositório trable](https://github.com/phhusson/treble_experimentations/).
 
 - [vbmeta](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa2FlYmZLZjMtSVVzWnUzUkxYSFhNUkg4VVFfZ3xBQ3Jtc0tsMS15VFNteXlJdm1LYnJqSGhINXh4RkRqWjF2YUFsRXRHQVdjdks5bTBzMlREdkNPckIzQ25EMUJISGFacjlna1g5NjlQQVo3UGN5ckFkX184S2ZNamxfVm9rTmxHOWxkVXlENjFkTWVjeXhxakgzcw&q=https%3A%2F%2Fdl.google.com%2Fdevelopers%2Fandroid%2Fqt%2Fimages%2Fgsi%2Fvbmeta.img&v=PFDeme_gPGc).
+
+---
+
+<a id="miscellaneous"></a>
+## [> Miscellaneous](#menu)
+
+### Markdown
+
+Quebra de linha:
+
+```md
+&nbsp;
+```
+
+Links de referência:
+
+```md
+[repo]: https://github.com/rhuanpk/linux
+
+This is the link of my [personal repo][repo].
+
+And [here][repo] too.
+```
 
 ---
 
