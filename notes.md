@@ -5561,6 +5561,42 @@ Sincronizar repo local com upstream:
 1. Merge with upstream:
 	`git merge upstream/main`;
 
+### Authentication
+
+#### Credential Helper
+
+_Setar_ o arquivo de configuração:
+
+```bash
+echo 'https://<user>:<token>@<domain>' >> ~/.git-credentials
+```
+
+Cache:
+
+```bash
+git config --global credential.helper cache
+# or seting the time
+git config --global credential.helper 'cache --timeout=28800'
+```
+
+Store:
+
+```bash
+git config --global credential.helper store
+```
+
+Limpar a senha do cache:
+
+```bash
+git credential-cache exit
+```
+
+_Desetar_ a configuração global:
+
+```bash
+git config --global --unset credential.helper {cache|store}
+```
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
