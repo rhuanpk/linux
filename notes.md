@@ -1929,7 +1929,19 @@ firejail --protocol=unix <program_name>
 Executa o firejail criando uma nova e vazia pasta pessoal para o _root_ e para o usuário regular:
 
 ```bash
-firejail --private
+firejail [--name=<sandbox>] --private
+```
+
+Listagem de diretórios dentro da caixa de areia:
+
+```bash
+firejail --ls=<sandbox> ~/some/path/[file.any]
+```
+
+Copiar arquivo de dentro da caixa de areia:
+
+```bash
+firejail --get=<sandbox> ~/some/path/[file.any]
 ```
 
 #### Troubleshooting
