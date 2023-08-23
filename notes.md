@@ -3042,6 +3042,50 @@ pdftoppm -png /path/to/file.pdf /path/to/file.pdf
 find /folder/to/search -maxdepth 1 -type f -name -name '*.pdf' -exec pdftoppm -png '{}' '{}' \;
 ```
 
+# Como Matar Um ou Muitos "Programas"
+
+Use case:
+
+> Qual o comando CLI para matar um processo? Eu abri varias abas no edge, e o PC meio q travou. Oque fazer nesse cenario?
+
+## kill e killall
+
+Você terá duas formas de fazer isso, pelo **_PID_** do processo ou pelo seu **nome**. Em ambos os casos você teria que saber mais ou menos o nome do comando que executou esse programa.
+
+### kill
+
+Se for pelo **_PID_**, você pode executar:
+
+```sh
+kill -9 <PID>
+```
+
+`<PID>` será trocado pelo _PID_ do processo e o parâmetro `-9` fará o processo ser morto de forma forçada.
+
+### killall
+
+Se for pelo _nome_, você pode executar:
+
+```sh
+killall <name>
+```
+
+`<name>` será trocado pelo nome do processo.
+
+OBS: O `killall` irá matar todos os processos daquele comando.
+
+---
+
+Bom, depois de saber como matar um processo pelo seu **_PID_** ou matar todos os processos de um comando pelo seu **nome**, deve estar surgindo uma dúvida na sua cabeça: Beleza, mas como eu vou saber o nome do programa que eu quero fechar ou se quer saber o seu **_PID_**?
+
+Existem várias maneiras mas aqui vai algumas...
+
+1. Suposição: É a forma mais rápida e simples. Se o programa que quer fechar é o **Edge**, tem uma grande chance do nome do seu binário ser "edge" mesmo (ou algo muito parecido).
+
+1. Usando o "Tab": Junto com a dica número 1 você pode usar o recurso do Tab que autocompleta o comando para você. No caso se quiser testar se existe algum comando no sistema que se chame "edge" ou parecido, você pode digitar "edg" e apertar Tab para ver se o seu _shell_ irá completar algo para você. Se tiver várias opções e no meio delas existir algo como "edge-browser", não restará dúvidas que esse é o nome do programa que quer matar.
+
+1. Comando `pgrep`: Eses é o utulitário do sistema para listagem dos processos (no qual você pode passar somente parte do nome para a busca). Seguindo o exemplo do **Edge**, podiramos executar `pgrep -l edge` e todos os comandos com esse nome serão listados junto os _PID's_ e dessa forma você saberá o nome completo do comando que está buscando (caso já não seja "edge" mesmo).
+
 ---
 
 <a id="db_gnulinux-bash"></a>
