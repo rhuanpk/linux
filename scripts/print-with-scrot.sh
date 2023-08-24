@@ -50,6 +50,7 @@ else
 		args_arr=$@
 	fi
 fi
+[[ "$args_arr" =~ '-s' ]] && args_arr+=' -f'
 
 scrot \
 	$args_arr \
