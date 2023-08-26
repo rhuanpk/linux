@@ -5243,7 +5243,7 @@ ctrl + alt + shift + r
 
 1. `git add ./`
 1. `git commit -m 'commit message'`
-1. `git push origin branch-name`
+1. `git push origin branchname`
 
 ### Branchs
 
@@ -5541,16 +5541,16 @@ Arquivo do usuário: é um arquivo já prédefinido pelo git e não é versionad
 
 #### Comandos
 
-Caso algum arquivo seja ignorado deve-se remove-lo do índice:
-
-```bash
-git rm --cached file.txt
-```
-
 Setar o `.gitignore` global:
 
 ```bash
 git config --global core.excludesfile ~/.gitignore
+```
+
+Caso algum arquivo seja ignorado deve-se remove-lo do índice:
+
+```bash
+git rm --cached file.txt
 ```
 
 Adicionar no índice algum arquivo que esteja sendo ignorado:
