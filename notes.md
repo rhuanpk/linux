@@ -5382,6 +5382,14 @@ _REFERENCELINKS_:
 - https://www.atlassian.com/git/tutorials/cherry-pick
 - https://git-scm.com/docs/git-cherry-pick
 
+#### Squash
+
+_Squashear_ commit da mesma branch com `rebase`:
+
+```bash
+git rebase -i {HEAD*|<commit_hash>}
+```
+
 ### Stash
 
 - `-u`: _stashear_ arquivos não traqueados;
@@ -5704,7 +5712,7 @@ latest release:
 https://github.com/<user>/<repo>/releases/latest/download/<filename>
 ```
 
-#### Certificados de segurança
+#### Certificados de Segurança
 
 Desabilitar verificação de SSL do git:
 
@@ -5712,11 +5720,15 @@ Desabilitar verificação de SSL do git:
 git config --global http.sslverify false
 ```
 
-#### Copiar pegar as modificações de um arquivo de outra branch
+#### Copiar/Pegar as Modificações de Um Arquivo de Outra Branch
 
 ```bash
 git checkout <other_branch> -- ./path/to/{folder|file.any}
 ```
+
+#### Git Playground
+
+<http://git-school.github.io/visualizing-git/>
 
 ---
 
