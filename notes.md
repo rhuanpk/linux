@@ -5375,7 +5375,7 @@ Trazendo o _commit_ e edita a mensagem antes de concluir:
 git cherry-pick --edit <commit_hash>
 ```
 
-OBS: Estando na _branch_ que vai receber as alterações.
+OBS: estando na _branch_ que vai receber as alterações.
 
 _REFERENCELINKS_:
 
@@ -5384,11 +5384,33 @@ _REFERENCELINKS_:
 
 #### Squash
 
-_Squashear_ commit da mesma branch com `rebase`:
+_Squashear commits_ da mesma branch com `rebase`:
 
 ```bash
 git rebase -i {HEAD*|<commit_hash>}
 ```
+
+### Merge
+
+"Dry Run":
+
+1. Faça o "_merge_ falso":
+	`git merge --no-commit --no-ff <branch_name>`
+
+1. Caso tenha alguma alteração, veja com:
+	`git diff --cached`
+
+OBS: caso precise desafzer algum merge: `git merge --abort`.
+
+### Rebase
+
+Caso tenha acabado de criar um novo galho porém foi a partir da base errada:
+
+```bash
+git rebase -if upstream/main
+```
+
+OBS: caso necessário exclua todos os _commits_ (`b` _mark_) para mudar para a outra base de forma limpa.
 
 ### Stash
 
