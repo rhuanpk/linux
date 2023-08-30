@@ -4,9 +4,9 @@
 
 # >>> variable declarations !
 
-readonly SCRIPT=$(basename "${0}")
-readonly HOME=${HOME:-/home/${USER:-$(whoami)}}
-readonly VERSION=2.0.0
+readonly SCRIPT=`basename "$0"`
+readonly HOME="/home/${USER:-$(id -un `id -u)`}"
+readonly VERSION=2.1.0
 
 FONT_BOLD=1
 FONT_UNDERLINE=4
@@ -72,9 +72,9 @@ message-quit() {
 			echo -n .
 			[[ "$j" -eq "$MAX_DOTS" ]] && clear
 		done
-	done
-	echo ""
+	done; echo
 	clear
+	echo "$SCRIPT: log file: '$LOG_FILE'."
 }
 
 message-default-simply() {
@@ -125,8 +125,7 @@ start-test-mode() {
 submenu-blank-spaces() {
 
 	switch-char-to-blank-space() {
-		clear
-		echo ""
+		clear; echo
 		list-directory
 		echo -en "\nEnter the character to be removed, to insert the blank space(s) in its place: "; read STRING
 		for file in *; do
@@ -135,10 +134,8 @@ submenu-blank-spaces() {
 	}
 
 	switch-blank-space-to-char() {
-		clear
-		echo ""
-		list-directory
-		echo ""
+		clear; echo
+		list-directory; echo
 		read -p 'Enter the character that will be placed in place of the blank space(s) (characters not accepted "<", ">", ":", "\", "/", "\", "|", "?", "*"): ' STRING
 		for file in *; do
 			mv --verbose -- "$file" "${file// /$STRING}" &>> "$LOG_FILE"
@@ -207,6 +204,25 @@ submenu-upper-lower() {
 		esac
 	done
 
+}
+
+remove-accents() {
+	clear
+	INDEX_SEQUENCE=0
+	INDEX_PARSE=1
+	for file in *; do
+		while read -a accents; do
+			cat <<- eof &>> "$LOG_FILE"
+				file: $file
+				accents: ${accents[$INDEX_SEQUENCE]}
+				parse: ${accents[$INDEX_PARSE]}
+			eof
+			if OUTPUT=`mv --verbose -- "$file" "${file//[${accents[$INDEX_SEQUENCE]}]/${accents[$INDEX_PARSE]}}" 2>&-`; then
+				file=`sed -nE "s/^.*-> '(.*)'$/\1/p" <<< "$OUTPUT"`
+			fi
+			echo "$OUTPUT" &>> "$LOG_FILE"
+		done <<< $LIST_ACCENTS
+	done
 }
 
 submenu-file-names() {
@@ -313,8 +329,7 @@ submenu-file-names() {
 			*** `format "$FONT_BOLD" 'Directory Listing'` ***
 
 		eof
-		list-directory
-		echo ""
+		list-directory; echo
 		read -p 'Enter the file extension (simply <press_enter> if you want no extension): ' EXTENSION
 		[ "$EXTENSION" != 'quit' ] && {
 			count=0
@@ -323,25 +338,6 @@ submenu-file-names() {
 				let count++
 			done
 		}
-	}
-
-	remove-accents() {
-		clear
-		INDEX_SEQUENCE=0
-		INDEX_PARSE=1
-		for file in *; do
-			while read -a accents; do
-				cat <<- eof &>> "$LOG_FILE"
-					file: $file
-					accents: ${accents[$INDEX_SEQUENCE]}
-					parse: ${accents[$INDEX_PARSE]}
-				eof
-				if OUTPUT=`mv --verbose -- "$file" "${file//[${accents[$INDEX_SEQUENCE]}]/${accents[$INDEX_PARSE]}}" 2>&-`; then
-					file=`sed -nE "s/^.*-> '(.*)'$/\1/p" <<< "$OUTPUT"`
-				fi
-				echo "$OUTPUT" &>> "$LOG_FILE"
-			done <<< $LIST_ACCENTS
-		done
 	}
 
 	custom-mode() {
@@ -370,8 +366,7 @@ submenu-file-names() {
 				[ "$NEW_NAME" = 'quit' ] && break
 				mv -v -- "${FILE_NAMES[$i]}" "$NEW_NAME" &>> "$LOG_FILE"
 			fi
-		done
-		echo ""
+		done; echo
 	}
 
 	function thirdmenu-rename() {
@@ -422,7 +417,6 @@ submenu-file-names() {
 			1) thirdmenu-rename;;
 			2) rename-middle;;
 			3) create-pattern;;
-			4) remove-accents;;
 			5) custom-mode;;
 			9) menu-main;;
 			0) message-quit; exit 0;;
@@ -455,8 +449,7 @@ menu-main() {
 			3) submenu-file-names;;
 			4) start-test-mode;;
 			5)
-				echo ""
-				list-directory
+				echo; list-directory
 				echo -en "\n<press_enter> "; read zkt
 			;;
 			0) message-quit; exit 0;;
