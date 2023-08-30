@@ -5,7 +5,7 @@
 # >>> variable declarations !
 
 readonly SCRIPT=`basename "$0"`
-readonly HOME="/home/${USER:-$(id -un `id -u)`}"
+readonly HOME="/home/${USER:-$(id -un `id -u`)}"
 readonly VERSION=2.1.0
 
 FONT_BOLD=1
