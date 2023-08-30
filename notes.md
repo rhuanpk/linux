@@ -2105,6 +2105,20 @@ _OBSERVATIONS_:
 
 - Caso você precise printar algum caracter de escape ou algum tipo de formatação do texto para pedir a entrada do usuário e queira fazer com `echo -ne "\nInput: "; read -e foo`. Isso pode não soar como o esperado pois o texto printado (na mesma linha) antes da execução do `read` será literalemente apagado caso você use o `backspace` até o final. Para contornar isso, é necessário a presença da opção `-p` do `read`, nem que seja para simplesmente printar o ": " final: `echo -ne "\nInput"; read -e -p ': ' foo`.
 
+### Comando _ffmpeg_
+
+Aumentar a velocidade de um vídeo:
+
+```bash
+ffmpeg -i /path/to/video.any -filter:v "setpts=<value>*PTS" -an /path/to/output.any
+```
+
+OBS: "_<value>_" pode variar de 0 até 1, sendo que 1 é a velocidade normal, logo, 0.75 é 25% mais rápido, 0.5 é 50% e assim sucessivamente.
+
+_REFERENCELINKS_:
+
+- [Blog do Viva o Linux](https://www.vivaolinux.com.br/dica/Como-aumentar-ou-reduzir-a-velocidade-de-um-video-via-linha-de-comando).
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
