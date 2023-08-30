@@ -212,11 +212,6 @@ remove-accents() {
 	INDEX_PARSE=1
 	for file in *; do
 		while read -a accents; do
-			cat <<- eof &>> "$LOG_FILE"
-				file: $file
-				accents: ${accents[$INDEX_SEQUENCE]}
-				parse: ${accents[$INDEX_PARSE]}
-			eof
 			if OUTPUT=`mv --verbose -- "$file" "${file//[${accents[$INDEX_SEQUENCE]}]/${accents[$INDEX_PARSE]}}" 2>&-`; then
 				file=`sed -nE "s/^.*-> '(.*)'$/\1/p" <<< "$OUTPUT"`
 			fi
@@ -406,8 +401,7 @@ submenu-file-names() {
 			1. `format "$COLOR_YELLOW" Add/Remove` String on `format "$COLOR_YELLOW" Begin/End` in File
 			2. `format "$COLOR_YELLOW" 'Rename Part'` of Name
 			3. Create `format "$COLOR_YELLOW" 'Pattern Name'`
-			4. `format "$COLOR_YELLOW" 'Remove Accents'` from Letters
-			5. `format "$COLOR_YELLOW" 'Custom Rename'` Fully
+			4. `format "$COLOR_YELLOW" 'Custom Rename'` Fully
 			9. `format "$COLOR_BLUE" Back`
 			0. `format "$COLOR_RED" EXIT`
 
@@ -417,7 +411,7 @@ submenu-file-names() {
 			1) thirdmenu-rename;;
 			2) rename-middle;;
 			3) create-pattern;;
-			5) custom-mode;;
+			4) custom-mode;;
 			9) menu-main;;
 			0) message-quit; exit 0;;
 			*) message-invalid-option;;
@@ -436,9 +430,10 @@ menu-main() {
 			Choose the renaming options!
 			1. Add/Remove `format "$COLOR_YELLOW" 'BLANK SPACES'`
 			2. Switch `format "$COLOR_YELLOW" 'UPPER and LOWER'`
-			3. Manipulate `format "$COLOR_YELLOW" 'FILE NAMES'`
-			4. `format "$COLOR_YELLOW" 'Start Env'` (test mode)
-			5. `format "$COLOR_BLUE" 'List Current Directory'`
+			3. `format "$COLOR_YELLOW" 'REMOVE ACCENTS'` from Letters
+			4. Manipulate `format "$COLOR_YELLOW" 'FILE NAMES'`
+			5. `format "$COLOR_YELLOW" 'Start Env'` (test mode)
+			6. `format "$COLOR_BLUE" 'List Current Directory'`
 			0. `format "$COLOR_RED" EXIT`
 
 		eof
@@ -446,9 +441,10 @@ menu-main() {
 		case "$OPTION" in
 			1) submenu-blank-spaces;;
 			2) submenu-upper-lower;;
-			3) submenu-file-names;;
-			4) start-test-mode;;
-			5)
+			3) remove-accents;;
+			4) submenu-file-names;;
+			5) start-test-mode;;
+			6)
 				echo; list-directory
 				echo -en "\n<press_enter> "; read zkt
 			;;
