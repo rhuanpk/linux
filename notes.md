@@ -5365,7 +5365,7 @@ git push origin {:<remote_branch>|--delete <remote_branch>}
 
 ### Commits
 
-#### Resetar commits
+#### Reset
 
 Resetar o commit sem perder as alterações colocando elas na _worktree_:
 
@@ -5385,12 +5385,25 @@ Desfazer o commit por completo (sem manter as alterações):
 git reset --hard <commit_hash>
 ```
 
-#### Editar mensagem
+#### Amend
 
-Editar a mensagem do último commit:
+Editar a mensagem do último _commit_:
 
 ```bash
 git commit --amend -m 'new message'
+```
+
+Para adicionar um novo arquivo para o último _commit_ ou editar qualquer arquivo do _commit_, basta fazer as alterações desejadas e adicionar em _stage_ (`git add <path>`):
+
+```bash
+# simplesmente commitar sem alterar nada (mensagem):
+git commit --amend --no-edit
+
+# commitar no modo interativo (abre o editor padrão):
+git commit [-i] --amend
+
+# já passando a mensagem:
+git commit --amend -m '<message>'
 ```
 
 OBS: depois que realizar o comando, aparecerá um "commit extra", porém, simplesmente *pushe* a nova alteração forçando que esse novo commit já e sobrescrito: `git push -f origin <branch_name>`.
@@ -5441,6 +5454,14 @@ git rebase -i {HEAD*|<commit_hash>}
 	`git diff --cached`
 
 OBS: caso precise desafzer algum merge: `git merge --abort`.
+
+Com _squash_:
+
+```bash
+git merge --squash <branch_name>
+```
+
+OBS: dessa forma, com tudo irá virár um único _commit_, no final ele deixa tudo em _staged_ para você _commitar_ com a mensagem que desejar.
 
 ### Rebase
 
