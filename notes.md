@@ -2119,6 +2119,32 @@ _REFERENCELINKS_:
 
 - [Blog do Viva o Linux](https://www.vivaolinux.com.br/dica/Como-aumentar-ou-reduzir-a-velocidade-de-um-video-via-linha-de-comando).
 
+### Comando _date_
+
+_Printa_ o formato padrão de hora com o timezone definido pelo seu sistema:
+
+```bash
+date
+```
+
+_Printar_ saida formatada (yyyy-mm-dd hh:mm:ss):
+
+```bash
+date '+%Y-%m-%d %H:%M:%S'
+```
+
+_Printar_ os segundos desde a Época (1970-01-01 00:00 UTC)
+
+```bash
+date '+%s'
+```
+
+Converter segundos (desde a Época) em data:
+
+```bash
+date --date='@<seconds>' '+%F %T'
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
