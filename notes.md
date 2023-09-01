@@ -5809,6 +5809,12 @@ git config --global http.sslverify false
 git checkout <other_branch> -- ./path/to/{folder|file.any}
 ```
 
+#### Compara Arquivos de Entre Duas Branchs
+
+```bash
+git diff <origin_branch> <target_branch> -- file-name.any
+```
+
 #### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
