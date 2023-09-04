@@ -1944,6 +1944,18 @@ Copiar arquivo de dentro da caixa de areia:
 firejail --get=<sandbox> ~/some/path/[file.any]
 ```
 
+Entra no _sandbox_ ou executa algum comando nele:
+
+```bash
+firejail --join=<sandbox> [<command> <args>]
+```
+
+Copiar algo do _host_ para o _sandbox_:
+
+```bash
+firejail --put=<sandbox> /path/host/to/file.any /path/sandbox/to/save/file.any
+```
+
 #### Troubleshooting
 
 Problemas com áudio usando `pulseauido` como driver:
