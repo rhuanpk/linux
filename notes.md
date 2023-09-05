@@ -5375,6 +5375,29 @@ Remover:
 git push origin {:<remote_branch>|--delete <remote_branch>}
 ```
 
+#### Renomeação de Branchs
+
+##### Local
+
+Remover:
+
+```sh
+git branch -m <new_branch>
+```
+Forçando:
+
+```sh
+git branch -M <new_branch>
+```
+
+##### Remoto
+
+Remover:
+
+```sh
+git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>
+```
+
 ### Commits
 
 #### Reset
@@ -5783,6 +5806,19 @@ _pipeline_:
 
 ```bash
 git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a && git remote prune origin
+```
+
+#### Renomear Branch Local e Remota
+
+1. `git branch -m <new_branch>`
+1. `git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>`
+1. `git fetch <remote>`
+1. `git branch -u <remote>/<new_branch>`
+
+_pipeline_:
+
+```sh
+git branch -m <new_branch> && git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch> && git fetch <remote> && git branch -u <remote>/<new_branch>
 ```
 
 ### Any others
