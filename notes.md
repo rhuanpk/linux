@@ -5375,6 +5375,12 @@ Remover:
 git push origin {:<remote_branch>|--delete <remote_branch>}
 ```
 
+Parar de _trackear_ branch remota:
+
+```sh
+git branch -dr <remote>/<branch>
+```
+
 #### Renomeação de Branchs
 
 ##### Local
@@ -5715,6 +5721,14 @@ Remover tag remota:
 
 ```bash
 git push origin :refs/tags/<tag_name>
+```
+
+### Remote
+
+Limpar as referência do remoto no seu repositório local (remover o que não é mais necessário):
+
+```sh
+git remote prune <remote>
 ```
 
 ### Repos
