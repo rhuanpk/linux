@@ -4,45 +4,56 @@
 # Necessary: terminator && xdotool.
 
 # >>> variable declarations !
-
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+script=`basename $(readlink -f "$0")`
 
 # >>> function declarations !
-
 verify_privileges() {
-	[ $UID -eq 0 ] && {
+	[ "${UID:-`id -u`}" -eq 0 ] && {
 		echo -e "ERROR: Run this program without privileges!\nExiting..."
 		exit 1
 	}
 }
 
-print_usage() {
+print-usage() {
         echo -e "Run:\n\t./${script}"
 }
 
 # >>> pre statements !
-
 set +o histexpand
 
-verify_privileges
-[ $# -ge 1 -o "${1}" = '-h' -o "${1}" = '--help' ] && {
-        print_usage
+#verify_privileges
+[ "$#" -ge '1' -o "$1" = '-h' -o "$1" = '--help' ] && {
+        print-usage
         exit 1
 }
 
 # >>> *** PROGRAM START *** !
-percent_volume() {
-	amixer -M get 'Master' | tail -n 1 | awk '{print $4}' | sed -E "s/\[|\]//g"
+# nohup terminator --borderless --geometry=175x30 --command='$script' &
+
+volume-level() {
+	wpctl get-volume '@DEFAULT_AUDIO_SINK@' | cut -d ' ' -f 2	
 }
 
-# xdotool key "ctrl+alt+x" type 'Volume (sair = q)'; xdotool key "KP_Enter"
+validate-input() {
+	REGEX=${1:?need args to compare}
+	COMPARE=${@:2}
+	[ "${COMPARE,,}" = 'q' ] && exit 0
+	[[ "$COMPARE" =~ ["$REGEX"] ]]
+	return
+}
 
 while :; do
 	clear
-	echo -n "Volume: $(percent_volume) [+/-]? "; read -n 1 VALUE
-	[ "${VALUE,,}" = "q" ] && exit 0
-	amixer set 'Master' 1%${VALUE} 1>/dev/null
+	VOLUME=`volume-level`
+	[ `/usr/bin/bc <<< "$VOLUME < 1"` -eq 1 ] && {
+		read -n 1 -p "V0lum3: $VOLUME [+/-]? " ANSWER
+		if validate-input '+-' "$ANSWER"; then
+			wpctl set-volume '@DEFAULT_AUDIO_SINK@' ".05$ANSWER"
+		fi
+	} || {
+		read -n 1 -p "V0lum3: $VOLUME (max) [-]: " ANSWER
+		if validate-input '-' "$ANSWER"; then
+			wpctl set-volume '@DEFAULT_AUDIO_SINK@' '.05-'
+		fi
+	}
 done
-
-# nohup terminator --borderless --geometry=175x30-0-0 --command='vc' &
