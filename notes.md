@@ -1669,9 +1669,11 @@ OBS:
 
 Monitorar algum *.service* do sistema:
 
-- -x: deixa visualmente a saida mais legível (pretty).
-- -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`).
-- -u: especifique o nome da unidade.
+- -x: deixa visualmente a saida mais legível (pretty);
+- -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`);
+- -u: especifique o nome da unidade;
+- -p: prioridade/tipo de logs (emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), debug (7)); 
+- -b: logs do boot atual.
 
 ```bash
 sudo journalctl -xfu <name_service>.service
