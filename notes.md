@@ -5408,6 +5408,20 @@ git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>
 
 ### Commits
 
+#### Revert
+
+Desfaz o _commit_ criando um novo _commit_ sem essas alterações:
+
+```sh
+git revert <commit>
+```
+
+Passando um _range_ (do mais antigo para o mais novo) de _commits_ (isso fará um **revert** por vez):
+
+```sh
+git revert <oldest_commit>..<newst_commit>
+```
+
 #### Reset
 
 Resetar o commit sem perder as alterações colocando elas na _worktree_:
