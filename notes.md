@@ -5893,6 +5893,13 @@ git checkout <other_branch> -- ./path/to/{folder|file.any}
 git diff <origin_branch> <target_branch> -- file-name.any
 ```
 
+#### Compara Duas Branchs Pelo Commit Pai Mais Recente
+
+```sh
+# `git diff $(git merge-base <source> <target>) <target>` is an alias from git itself for:
+git diff HEAD...<target_branch>
+```
+
 #### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
