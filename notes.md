@@ -3145,7 +3145,7 @@ Existem várias maneiras mas aqui vai algumas...
 <a id="db_gnulinux-bash"></a>
 [<span style="font-size:14px;">GNU/Linux && Bash</span>](#menu)
 
-### Variáveis de ambiente (escopo global)
+### Variáveis de ambiente
 
 Mostrar variáveis de ambiente (do usuario corrente):
 
@@ -3156,8 +3156,15 @@ env
 Criar variável de ambiente (escopo global):
 
 ```bash
-export FOO="BAR"
+# this will cause subshells to have access to this value.
+export FOO="bar"
 ```
+
+Variáveis do **bash**:
+
+- `BASH_ENV`: arquivo que será carregado antes do comando.
+
+- `PROMPT_COMMAND`: define um comando para ser executado depois de cada comando;
 
 ### Proteção de variáveis com aspas
 
