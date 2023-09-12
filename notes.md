@@ -5532,33 +5532,45 @@ OBS: caso necessário exclua todos os _commits_ (`b` _mark_) para mudar para a o
 
 ### Stash
 
-- `-u`: _stashear_ arquivos não traqueados;
-- `-m <message>`: _stashear_ com mensagem específica;
-- `-p`: _patch_ dos arquivos;
+- `-u`: _stashear_ arquivos não traqueados (#saving,#listing);
+- `-p`: _patch_ dos arquivos (#listing);
+- `-k`: apesar de _stashear_ o que está em _staging_, não o limpa (#saving).
+- `-m <message>`: _stashear_ com mensagem específica (#saving);
+- `--index`: restaurar preservando o _staging_ (#applying).
 
 _Stashear_ todos os arquivos:
 
 ```bash
-git stash [-u]
-```
-
-_Stashear_ todos com alguma mensagem específica:
-
-```bash
-git stash save '<menssage>'
+git stash [-uk] [-m <message>]
 ```
 
 _Stashear_ arquivos específicos:
 
 ```bash
-git stash push [-u] [-m '<message>'] <path/to/folder/or/file.any>
+git stash push [-uk] [-m '<message>'] <path/to/folder/or/file.any>*
 ```
 
-Mostrar por completo o log do stash (modo `--patch` e arquivos não traqueados):
+Listar/Mostrar _stash_:
 
 ```bash
-git stash show -up stash@{<stash_id>}
+git stash show [-up] 'stash@{<stash_id>}'
 ```
+
+Aplicar/Aplicar e Dropar _stash_:
+
+```sh
+git stash {apply|pop} [--index] ['stash@{<stash_id>}']
+```
+
+Deletar **stash**:
+
+```sh
+git stash drop ['stash@{<stash_id>}']
+```
+
+_OBERSAVTIONS_:
+
+- Nas operações com **stash**, quando especificado o _id_, é pego por padrão o último.
 
 ### Log's
 
