@@ -1672,7 +1672,7 @@ Monitorar algum *.service* do sistema:
 - -x: deixa visualmente a saida mais legível (pretty);
 - -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`);
 - -u: especifique o nome da unidade;
-- -p: prioridade/tipo de logs (emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), debug (7)); 
+- -p: prioridade/tipo de logs (emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), debug (7));
 - -b: logs do boot atual.
 
 ```bash
@@ -5918,6 +5918,25 @@ git diff <origin_branch> <target_branch> -- file-name.any
 # `git diff $(git merge-base <source> <target>) <target>` is an alias from git itself for:
 git diff HEAD...<target_branch>
 ```
+
+#### Splitar Commit's
+
+Último _commit_:
+
+1. _Com seu repo local limpo..._
+1. Reseta o último _commit_ para a _worktree_: `git reset HEAD^`
+1. Adicione e _commite_ conforme a necessidade.
+
+OBS: necessário _force push_?
+
+Algúm _commit_ no meio da árvore/história:
+
+1. Use `rebase`: `git rebase -i <commit_hash>^`
+
+OBS:
+
+- simplesmente marque todos _commit's_ a serem editados com `e` ou `edit`;
+- será necessário _force push_;
 
 #### Git Playground
 
