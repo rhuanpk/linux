@@ -7,23 +7,23 @@ SCRIPT=`basename "$0"`
 #HOME=${HOME:-/home/${USER:-`id -un`}}
 
 # >>> function declarations !
-verify_privileges() {
+verify-privileges() {
        [ "${UID:-`id -u`}" -eq 0 ] && {
                echo -e "ERROR: Run this program without privileges!\nExiting..."
                exit 1
        }
 }
 
-print_usage() {
-        echo -e "Run:\n\t./$SCRIPT"
+print-usage() {
+        echo -e "Run:\n\t$SCRIPT <folder>"
 }
 
 # >>> pre statements !
 set +o histexpand
 
-#verify_privileges
+#verify-privileges
 [ "$#" -ge 2 -o "$#" -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
+        print-usage
         exit 1
 }
 
