@@ -2159,6 +2159,22 @@ Converter segundos (desde a Época) em data:
 date --date='@<seconds>' '+%F %T'
 ```
 
+### Comando _ncal_
+
+- `-B`: mostra os meses **antes** desse (incluindo o atual);
+- `-A`: mostra os meses **depois** desse (incluindo o atual);
+- `-3`: mostra junto mês anterior e o próximo;
+- `-j`: mostra o número do dia (em relação ao ano);
+- `-y`: mostra todos os meses do ano;
+- `-w`: mostra junto a contagem das semanas;
+- `-m`: mostra um mês específico.
+
+Calendário _CLI_:
+
+```sh
+ncal [-B|A{count}] [-3] -b [-jyw] [-m <months>] [<year>]
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
