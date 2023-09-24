@@ -5954,6 +5954,19 @@ OBS:
 - simplesmente marque todos _commit's_ a serem editados com `e` ou `edit`;
 - será necessário _force push_;
 
+#### Mesclar Sem Commitar
+
+1. Mescle sem commitar (as alterações iram para o _index_ (_staging area_)): `git merge --no-commit <branch>`
+1. _resolve conflicts and mark them as resolved (if exists)_
+1. Saia do merge (as aterações continuaram no _index_): `git merge --quit`
+1. Fça um `amend` para aplicar as alterações no último _commit_: `git commit --amend --no-edit`
+
+_pipeline_ (work if not have conflicted):
+
+```sh
+git merge --no-commit <branch> && git merge --quit && git commit --amend --no-edit
+```
+
 #### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
