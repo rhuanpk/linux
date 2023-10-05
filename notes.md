@@ -2037,7 +2037,15 @@ Resolver algum domínio especificando o servidor remoto:
 dig [+short] @<ip_dns_server> <domain_to_search> <record_type>
 ```
 
-OBS: o comando **dig** aceita os tipos de registro `A`, `MX` e `SOA`.
+Verificar _nameservers_ do domínio:
+
+```sh
+dig <domain_name> +trace @1.1.1.1
+```
+
+_OBSERVATIONS_:
+
+- O comando **dig** aceita os tipos de registro `A`, `MX` e `SOA`.
 
 _REFERENCELINKS_:
 
