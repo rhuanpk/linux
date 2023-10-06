@@ -3120,17 +3120,17 @@ pdftoppm -png /path/to/file.pdf /path/to/file.pdf
 find /folder/to/search -maxdepth 1 -type f -name -name '*.pdf' -exec pdftoppm -png '{}' '{}' \;
 ```
 
-# Como Matar Um ou Muitos "Programas"
+### Como Matar Um ou Muitos "Programas"
 
 Use case:
 
 > Qual o comando CLI para matar um processo? Eu abri varias abas no edge, e o PC meio q travou. Oque fazer nesse cenario?
 
-## kill e killall
+#### kill e killall
 
 Você terá duas formas de fazer isso, pelo **_PID_** do processo ou pelo seu **nome**. Em ambos os casos você teria que saber mais ou menos o nome do comando que executou esse programa.
 
-### kill
+##### kill
 
 Se for pelo **_PID_**, você pode executar:
 
@@ -3140,7 +3140,7 @@ kill -9 <PID>
 
 `<PID>` será trocado pelo _PID_ do processo e o parâmetro `-9` fará o processo ser morto de forma forçada.
 
-### killall
+##### killall
 
 Se for pelo _nome_, você pode executar:
 
@@ -3151,8 +3151,6 @@ killall <name>
 `<name>` será trocado pelo nome do processo.
 
 OBS: O `killall` irá matar todos os processos daquele comando.
-
----
 
 Bom, depois de saber como matar um processo pelo seu **_PID_** ou matar todos os processos de um comando pelo seu **nome**, deve estar surgindo uma dúvida na sua cabeça: Beleza, mas como eu vou saber o nome do programa que eu quero fechar ou se quer saber o seu **_PID_**?
 
