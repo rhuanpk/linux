@@ -2183,6 +2183,14 @@ Calendário _CLI_:
 ncal [-B|A{count}] [-3] -b [-jyw] [-m <months>] [<year>]
 ```
 
+### Comando _paste_
+
+Coloca linhas ao lado:
+
+```sh
+paste <(<command>) <(<command>)
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -3161,6 +3169,12 @@ Existem várias maneiras mas aqui vai algumas...
 1. Usando o "Tab": Junto com a dica número 1 você pode usar o recurso do Tab que autocompleta o comando para você. No caso se quiser testar se existe algum comando no sistema que se chame "edge" ou parecido, você pode digitar "edg" e apertar Tab para ver se o seu _shell_ irá completar algo para você. Se tiver várias opções e no meio delas existir algo como "edge-browser", não restará dúvidas que esse é o nome do programa que quer matar.
 
 1. Comando `pgrep`: Eses é o utulitário do sistema para listagem dos processos (no qual você pode passar somente parte do nome para a busca). Seguindo o exemplo do **Edge**, podiramos executar `pgrep -l edge` e todos os comandos com esse nome serão listados junto os _PID's_ e dessa forma você saberá o nome completo do comando que está buscando (caso já não seja "edge" mesmo).
+
+### Saída dos comandos lado a lado
+
+```sh
+paste <(<command>) <(<command>) | column -ts $'\t'
+```
 
 ---
 
