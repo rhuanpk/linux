@@ -5987,6 +5987,14 @@ _pipeline_ (work if not have conflicted):
 git merge --no-commit <branch> && git merge --quit && git commit --amend --no-edit
 ```
 
+#### Dar Rebase da Própria Branch Pelo Commit de `merge-base`
+
+```sh
+git rebase [-if] `git merge-base feature main`
+```
+
+OBS: será útil fazer dessa forma e não pegando de forma manual o último commit da branch quando antes do rebase tiver feito algum merge.
+
 #### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
