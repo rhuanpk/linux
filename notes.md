@@ -5987,7 +5987,7 @@ _pipeline_ (work if not have conflicted):
 git merge --no-commit <branch> && git merge --quit && git commit --amend --no-edit
 ```
 
-#### Dar Rebase da Própria Branch Pelo Commit de `merge-base`
+#### Dar Rebase da Própria Branch (_self rebase_) Pelo Commit de `merge-base`
 
 ```sh
 git rebase [-if] `git merge-base feature main`
