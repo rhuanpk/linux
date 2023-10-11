@@ -5565,13 +5565,37 @@ OBS: dessa forma, com tudo irá virár um único _commit_, no final ele deixa tu
 
 ### Rebase
 
-Caso tenha acabado de criar um novo galho porém foi a partir da base errada:
+#### Simple Rebase
 
-```bash
-git rebase -if upstream/main
-```
+Command:
+	`git rebase <new-base>`
 
-OBS: caso necessário exclua todos os _commits_ (`b` _mark_) para mudar para a outra base de forma limpa.
+We say: rebase atual branch to "new base" branch.
+
+Command:
+	`git rebase <new-base> <rebase-branch>`
+
+We say: rebase "branch to rebase" branch to "new base" branch.
+
+Eexplain: before perform normal rebase, switch to the "branch to rebase" branch.
+
+#### Rebase With Onto
+
+Command:
+	`git rebase --onto <new-base> <start-point>`
+
+We say: rebase atual branch to "new base" branch starting from "start point".
+
+Command:
+	`git rebase --onto <new-base> <start-point> <end-point>`
+
+We say: starting from "start point" util the "end point" rebase on to "new base" branch.
+
+OBSERVATIONS:
+
+- In **rebase onto** the _start point_ actually is the parent commit of him (so you'll probably want to do something like `<start-point>^` or `<start-point>~1`);
+
+- This guide uses "newbie terms" for better explanation. In "technical terms" in **common rebase** (and **git onto**) the `<new-base>` actually is `<new-parent-commit>` and in **rebase onto** the `<start-point>` is `<old-parent-commit>` and `<end-point>` is `<until-the-commit>`.
 
 ### Stash
 
