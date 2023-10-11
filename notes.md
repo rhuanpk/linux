@@ -5589,11 +5589,11 @@ We say: rebase atual branch to "new base" branch starting from "start point".
 Command:
 	`git rebase --onto <new-base> <start-point> <end-point>`
 
-We say: starting from "start point" util the "end point" rebase on to "new base" branch.
+We say: in atual branch starting from "start point" util the "end point" rebasing onto "new base" branch.
 
 OBSERVATIONS:
 
-- In **rebase onto** the _start point_ actually is the parent commit of him (so you'll probably want to do something like `<start-point>^` or `<start-point>~1`);
+- In **rebase onto** the _start point_ actually is the child commit of him (so you'll probably want to do something like `<start-point>^` or `<start-point>~1`);
 
 - This guide uses "newbie terms" for better explanation. In "technical terms" in **common rebase** (and **git onto**) the `<new-base>` actually is `<new-parent-commit>` and in **rebase onto** the `<start-point>` is `<old-parent-commit>` and `<end-point>` is `<until-the-commit>`.
 
