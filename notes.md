@@ -5996,6 +5996,7 @@ Algúm _commit_ no meio da árvore/história:
 OBS:
 
 - simplesmente marque todos _commit's_ a serem editados com `e` ou `edit`;
+- _reset_ o _commit_ atual com `git reset HEAD^` e _commite_ conforme desejado;
 - será necessário _force push_;
 
 #### Mesclar Sem Commitar
