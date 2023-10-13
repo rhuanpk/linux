@@ -5888,6 +5888,11 @@ _Desetar_ a configuração global:
 git config --global --unset credential.helper {cache|store}
 ```
 
+### Commands
+
+- `git merge-base <first_branch> <second_branch>`: _printa_ o _hash_ do _commit_ em comum de duas _branchs_.
+- `git hash-object path/to/any-file`: _printa_ o _hash_ de objeto git do arquivo (seja pasta ou diretório).
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
