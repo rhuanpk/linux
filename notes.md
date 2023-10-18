@@ -2655,12 +2655,16 @@ Montar:
 
 ```bash
 sudo jmtpfs /mount/point -device=<bus_number>,<device_number> -o allow_other
+# or
+sudo jmtpfs /mount/point -o allow_other,auto_unmount
 ```
 
 Desmontar:
 
 ```bash
 sudo umount /mount/point
+# or
+sudo fusermount -u /mount/point
 ```
 
 ##### Comando *gio*
