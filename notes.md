@@ -1823,28 +1823,34 @@ dirname /path/to/file.any
 
 ### Comando *id*
 
-Lista o *id* o grupo dono e os grupos participantes do usuário corrente:
+Lista o UID, GID e os grupos do usuário corrente:
 
 ```bash
 id
 ```
 
-Retorna somente o *id* do usuário corrente:
+Retorna somente o UID do usuário corrente:
 
 ```bash
 id -u
 ```
 
-Retorna somente o grupo dono do usuário corrente:
+Retorna somente o GID do usuário corrente:
 
 ```bash
 id -g
 ```
 
-Retorna o nome do usuário com determinado *id*:
+Retorna o nome do corrente:
 
 ```bash
-id -nu 1000
+id -un
+```
+
+Retorna o nome do usuário pelo UID passado:
+
+```bash
+id -un <uid>
 ```
 
 ### Comando *rsync*
