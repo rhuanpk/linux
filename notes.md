@@ -3186,6 +3186,30 @@ Existem várias maneiras mas aqui vai algumas...
 paste <(<command>) <(<command>) | column -ts $'\t'
 ```
 
+### Alias Inside Shell Script's
+
+Isso não é possível de ser feito pois quando um script é executado, nele não é carregado um ambiente de shell, muito menos o atual, portanto o shell não reconhecerá o alias.
+
+#### `expand_aliases` Approach
+
+Nesse caso usa-se:
+1. `shopt -s expand_aliases`
+1. `. ~/.bashrc`
+
+Porém, para isso terá que tirar a validação de shell não interativo no início do seu `.bashrc`.
+
+#### `BASH_ENV` Approach
+
+_Sete_ a variável `BASH_ENV` na linha de execução do script:
+- `BASH_ENV=/path/to/file-load <script>`
+
+### Function Within Sudo
+
+Execute com `declare -f` e `bash -c`:
+```sh
+sudo bash -c "`declare -f <function>`; <function> [args]"
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
