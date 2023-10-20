@@ -6044,6 +6044,18 @@ OBS:
 - Tenha a chave ssh no agente
 - O mesmo vale caso queira fazer o inverso, `SSH` to `HTTPS`
 
+#### Aplicar Diff Patch Gerado com Cor
+
+Quando for salvar um patch para ser aplicado posteriormente gere com:
+```sh
+git diff --no-color > /path/to/save/diff.patch
+```
+
+Caso esteja com cor aplique com:
+```sh
+cat -v /path/to/saved/diff.patch | sed 's/\^\[\[[[:digit:]]*m//g' | git apply -
+```
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
