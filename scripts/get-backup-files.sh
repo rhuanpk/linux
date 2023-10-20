@@ -3,8 +3,8 @@
 # Make a backup of some important files.
 
 # >>> variable declarations !
-script=`basename "$0"`
-home=${HOME:-/home/${USER:-`whoami`}}
+script=`basename $(readlink -f "$0")`
+home=${HOME:-/home/${USER:-`id -un`}}
 
 # >>> function declarations !
 verify_privileges() {
@@ -47,6 +47,7 @@ declare -A ARRAY_PATHWAY_BACKUP=( \
 	['gtk']="$PATHWAY_BACKUP/gtk" \
 	['localbin']="$PATHWAY_BACKUP/local-bin" \
 	['history']="$PATHWAY_BACKUP/history" \
+	['git']="$PATHWAY_BACKUP/git" \
 )
 
 for pathway in ${ARRAY_PATHWAY_BACKUP[@]}; do
@@ -62,6 +63,7 @@ PATHWAY_TREE="$home/misc"
 PATHWAY_GTK="$home/.config/gtk-3.0/settings.ini"
 PATHWAY_LOCALBIN="/usr/local/bin"
 PATHWAY_HISTORY="$home/.bash_history"
+PATHWAY_GIT="$home/.gitconfig"
 
 # Clean ups.
 cleanup-history
@@ -76,6 +78,7 @@ ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbi
 # Commands cp to save.
 cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
+cp -f "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}/gitconfig.txt"
 
 # Others commands to save.
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
