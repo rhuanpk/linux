@@ -5374,7 +5374,13 @@ ctrl + alt + shift + r
 
 1. `git add ./`
 1. `git commit -m 'commit message'`
-1. `git push origin branchname`
+1. `git push origin main`
+
+_pipeline_:
+
+```sh
+git add ./ && git commit -m 'commit message' && git push origin main
+```
 
 ### Branchs
 
@@ -5927,48 +5933,6 @@ git config --global --unset credential.helper {cache|store}
 - `git merge-base <first_branch> <second_branch>`: _printa_ o _hash_ do _commit_ em comum de duas _branchs_.
 - `git hash-object path/to/any-file`: _printa_ o _hash_ de objeto git do arquivo (seja pasta ou diretório).
 
-### Troubleshooting
-
-#### Pasta inacessível (pasta com *submodule*)
-
-1. `git rm --cached <folder_name>`
-1. `rm -rf <folder_name>/.git`
-1. `git add .`
-1. `git push origin main`
-
-#### Listar somente os arquivos com conflito no `--rebase`:
-
-```bash
-git status --short | sed -n 's/AA //p'
-```
-
-#### Depois de alterar o nome da branch default no remoto:
-
-1. `git branch -m master main`
-1. `git fetch origin`
-1. `git branch -u origin/main main`
-1. `git remote set-head origin -a`
-1. `git remote prune origin`
-
-_pipeline_:
-
-```bash
-git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a && git remote prune origin
-```
-
-#### Renomear Branch Local e Remota
-
-1. `git branch -m <new_branch>`
-1. `git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>`
-1. `git fetch <remote>`
-1. `git branch -u <remote>/<new_branch>`
-
-_pipeline_:
-
-```sh
-git branch -m <new_branch> && git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch> && git fetch <remote> && git branch -u <remote>/<new_branch>
-```
-
 ### Any others
 
 #### Sintaxe de URL's:
@@ -6059,7 +6023,70 @@ git rebase [-if] `git merge-base feature main`
 
 OBS: será útil fazer dessa forma e não pegando de forma manual o último commit da branch quando antes do rebase tiver feito algum merge.
 
-#### Git Playground
+#### Personalização de URL
+
+Inclua a sessão `url` no arquivo `.git/config`:
+
+- Imbutir token de acesso:
+```git
+[url "https://<user>:<token>@"]
+	insteadOf = https://
+```
+OBS: No final haverá a substituição: `https://remote.any/user/repo.git` -> `https://user:token@remote.any/user/repo.git`
+
+- Redirecionar para o protocolo SSH:
+```git
+[url "ssh://git@"]
+	insteadOf = https://
+```
+OBS:
+- No final haverá a substituição: `https://remote.any/user/repo.git` -> `ssh://remote-any/user/repo.git`
+- Tenha a chave ssh no agente
+- O mesmo vale caso queira fazer o inverso, `SSH` to `HTTPS`
+
+### Troubleshooting
+
+#### Pasta inacessível (pasta com *submodule*)
+
+1. `git rm --cached <folder_name>`
+1. `rm -rf <folder_name>/.git`
+1. `git add .`
+1. `git push origin main`
+
+#### Listar somente os arquivos com conflito no `--rebase`:
+
+```bash
+git status --short | sed -n 's/AA //p'
+```
+
+#### Depois de alterar o nome da branch default no remoto:
+
+1. `git branch -m master main`
+1. `git fetch origin`
+1. `git branch -u origin/main main`
+1. `git remote set-head origin -a`
+1. `git remote prune origin`
+
+_pipeline_:
+
+```bash
+git branch -m master main && git fetch origin && git branch -u origin/main main && git remote set-head origin -a && git remote prune origin
+```
+
+#### Renomear Branch Local e Remota
+
+1. `git branch -m <new_branch>`
+1. `git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>`
+1. `git fetch <remote>`
+1. `git branch -u <remote>/<new_branch>`
+
+_pipeline_:
+
+```sh
+git branch -m <new_branch> && git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch> && git fetch <remote> && git branch -u <remote>/<new_branch>
+```
+
+### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
 
