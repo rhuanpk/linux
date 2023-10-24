@@ -5896,24 +5896,14 @@ Sincronizar repo local com upstream:
 
 #### Credential Helper
 
-_Setar_ o arquivo de configuração:
+##### Cache
 
-```bash
-echo 'https://<user>:<token>@<domain>' >> ~/.git-credentials
-```
-
-Cache:
+Configurar:
 
 ```bash
 git config --global credential.helper cache
 # or seting the time
-git config --global credential.helper 'cache --timeout=28800'
-```
-
-Store:
-
-```bash
-git config --global credential.helper store
+git config --global credential.helper 'cache --timeout 28800'
 ```
 
 Limpar a senha do cache:
@@ -5922,11 +5912,62 @@ Limpar a senha do cache:
 git credential-cache exit
 ```
 
+##### Store
+
+Configurar:
+
+```bash
+git config --global credential.helper store
+# or seting the file
+git config --global credential.helper 'store --file /path/to/.credentials-file'
+```
+
+_Setar_ o arquivo de configuração (_default_):
+
+```bash
+echo 'https://<user>:<token>@<domain>' >> ~/.git-credentials
+```
+
+##### Libsecret (Linux)
+
+Programas necessários:
+```sh
+sudo apt install -y libsecret-1-dev
+```
+
+_Setup_:
+1. _Buildar_ o binário: `sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret`
+1. _Setar_ o helper: `git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret`
+
+OBS: Pode-se também criar um link simbólico do binário para o seu `$PATH` e usa-lo no lugar do _absolute path_.
+
+---
+
 _Desetar_ a configuração global:
 
 ```bash
 git config --global --unset credential.helper {cache|store}
 ```
+
+_OBSERVATIONS_:
+- Pode-se utilizar os dois _helpers_ aonde caso não seja encontrado o helper do store será pedido a senha que posteriormente será gravada no cache.
+
+### Configuration
+
+_Setar_ usuário e email:
+```sh
+git config --global user.name <user>
+git config --global user.email <email>
+```
+
+OBS: para setar usuário e email local troque a flag `--global` para `--local`.
+
+Listar todas as configuração:
+```sh
+git config --list --show-origin
+```
+
+OBS: caso você esteja dentro de um repo também será mostrado as configurações locais do repo.
 
 ### Commands
 
