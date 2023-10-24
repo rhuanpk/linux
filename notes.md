@@ -6104,6 +6104,12 @@ Caso esteja com cor aplique com:
 cat -v /path/to/saved/diff.patch | sed 's/\^\[\[[[:digit:]]*m//g' | git apply -
 ```
 
+#### Sobre `git config --get`
+
+- Com a flag `--global`: listará as informações do arquivo de configuração global (`~/.gitconfig`) ou do sistema (`/etc/gitconfig` ou `/etc/git/gitconfig`);
+- Com a flag ``: listará as informações de escopo do "grupo" (ver #includeIf-repo-groups);
+- Com a flag `--local`: listará as informações do arquivo de configuração do repo local (`/path/to/project/.git/config`).
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
