@@ -5939,8 +5939,6 @@ _Setup_:
 1. _Buildar_ o binário: `sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret`
 1. _Setar_ o helper: `git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret`
 
-OBS: Pode-se também criar um link simbólico do binário para o seu `$PATH` e usa-lo no lugar do _absolute path_.
-
 ---
 
 _Desetar_ a configuração global:
