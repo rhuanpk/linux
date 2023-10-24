@@ -5967,10 +5967,19 @@ git config --list --show-origin
 
 OBS: caso você esteja dentro de um repo também será mostrado as configurações locais do repo.
 
+#### `includeIf` (_repo groups_)
+
+Definir arquivo de configuração específico para todos os repos dentro de terminada pasta:
+```sh
+git config --global includeIf.'gitdir:~/path/to/folder/projects/'.path ~/path/to/.gitconfig
+```
+
+OBS: necessário a "/" no final do caminho do em `gitdir`.
+
 ### Commands
 
-- `git merge-base <first_branch> <second_branch>`: _printa_ o _hash_ do _commit_ em comum de duas _branchs_.
-- `git hash-object path/to/any-file`: _printa_ o _hash_ de objeto git do arquivo (seja pasta ou diretório).
+- _Printa_ o _hash_ do _commit_ em comum de duas _branchs_: `git merge-base <first_branch> <second_branch>`
+- _Printa_ o _hash_ de objeto git do arquivo (seja pasta ou diretório): `git hash-object path/to/any-file`
 
 ### Any others
 
