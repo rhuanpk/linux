@@ -5894,9 +5894,7 @@ Sincronizar repo local com upstream:
 
 ### Authentication
 
-#### Credential Helper
-
-##### Cache
+#### Cache
 
 Configurar:
 
@@ -5912,7 +5910,7 @@ Limpar a senha do cache:
 git credential-cache exit
 ```
 
-##### Store
+#### Store
 
 Configurar:
 
@@ -5928,7 +5926,7 @@ _Setar_ o arquivo de configuração (_default_):
 echo 'https://<user>:<token>@<domain>' >> ~/.git-credentials
 ```
 
-##### Libsecret (Linux)
+#### Libsecret (Linux)
 
 Programas necessários:
 ```sh
@@ -5938,6 +5936,13 @@ sudo apt install -y libsecret-1-dev
 _Setup_:
 1. _Buildar_ o binário: `sudo make --directory=/usr/share/doc/git/contrib/credential/libsecret`
 1. _Setar_ o helper: `git config --global credential.helper /usr/share/doc/git/contrib/credential/libsecret/git-credential-libsecret`
+
+_TIP/TRICK_:
+
+- Para definir credenciais para usuários diferente do mesmo host (porém como consequência para cada repo):
+```sh
+git config --global credential.https://.useHttpPath true
+```
 
 ---
 
