@@ -5677,7 +5677,7 @@ git stash drop ['stash@{<stash_id>}']
 
 _OBERSAVTIONS_:
 
-- Nas operações com **stash**, quando especificado o _id_, é pego por padrão o último.
+- Nas operações com **stash**, quando NÃO especificado o _id_, é pego por padrão o último (o primeiro da _FIFO_).
 
 ### Log's
 
