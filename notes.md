@@ -5727,6 +5727,11 @@ git clone -b {<branch_name>|<tag_name>} <url>
 
 OBS: caso clone por algum tag, pode ser que essa tag esteja num vínculada a um hash que não está apontado por nenhuma branch, nesse caso, se faz necessário cria uma branch logo depois que clonar: `git switch -c newbranch`
 
+Clonar sem outras branch ou referência delas:
+```sh
+git clone --single-branch [-b {<branch_name>|<tag_name>}] <url>
+```
+
 ### Submodule
 
 Adicionar um novo _submodule_:
