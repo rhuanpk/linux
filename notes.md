@@ -3212,6 +3212,42 @@ Execute com `declare -f` e `bash -c`:
 sudo bash -c "`declare -f <function>`; <function> [args]"
 ```
 
+### QRCode Creating and Reading
+
+Programas necessários:
+```sh
+sudo apt install -y qrencode zbar-tools
+```
+
+#### `qrencode`
+
+- `-v`: versão do tipo de QR Code (quanto maior, mais pixels);
+- `-s`: tamanho dos pixels do QR Code;
+- `-l`: "aumenta a quantidade de pixels";
+- `-t`: tipo do arquivo de saída;
+- `-m`: largura das bordas da imagem;
+- `-o`: caminho do arquivo gerado.
+
+Gerar QR Code:
+```sh
+qrencode [-v 5] [-s 10] [-l H] -[t {PNG|SVG}] [-m 3] -o ./qrcode.png '<url/email/phone>'
+```
+
+#### `zbar*`
+
+- `-q`: silencia o log na saída;
+- `--raw`: mostra diretamente/somente o contéudo de fato do QR Code.
+
+Ler QR Code de uma imagem:
+```sh
+zbarimg [--raw] [-q] ./qrcode.png
+```
+
+Ler QR Code da câmera:
+```sh
+zbarcam [--raw] [-q]
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
