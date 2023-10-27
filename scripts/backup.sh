@@ -12,8 +12,8 @@
 
 # -------------------------------------------------- Declaração de variáveis --------------------------------------------------
 # Principais:
-script="`basename "$0"`"
-user="`id -un 1000`"
+script="`basename $(readlink -f "$0")`"
+user="`id -un`"
 home="/tmp/home/$user"
 
 # Arrays das pastas a serem backupiadas:
