@@ -1872,13 +1872,8 @@ rsync [<options>] </folder/origin_1> </folder/origin_2/> </file/origin_3> <desti
 - --delete: caso algum arquivo da fonte não exista mais no destino, no destino também é excluído.
 
 Exemplo:
-
-```bash
-rsync -ahv --delete --exclude=initial-folder/ --exclude=*.mp4 ~/others ~/misc /tmp/backup/
-```
-
 ```sh
-rsync -auhv --exclude={file1,folder2,.*} src/file/one.any src/folder/two/ dst/folder/backup/
+rsync -auhv --exclude={file1,folder2,.*} --exclude=*.any src/file/one.any src/folder/two/ /tmp/dst/folder/backup/
 ```
 
 _OBSERVATIONS_:
