@@ -3,6 +3,13 @@
 # Script criado para realização de backup para alguma pasta de serviço de cloud storage e para alguma mídia externa.
 
 # 1. OBS: atualmente, trocar os valores das variáveis:
+# 	- `home`;
+# 	- `ARRAY_FOLDERS_BACKUP`;
+# 	- `PATH_CLOUD`;
+# 	- `PATH_DIR_LVL`;
+# 	- `NAME_PLACE`;
+# 	- `FLAG_CLOUD`;
+# 	- `FLAG_EXTERNAL`.
 
 # 1. OBS: necessário estar liberado no sudo:
 # 	- `/usr/bin/mkdir`;
@@ -50,6 +57,20 @@ FLAG_MOUNT_MANU='false'
 
 # -------------------------------------------------- Declaração de funções --------------------------------------------------
 
+# Função que informa o uso do script.
+usage() {
+	cat <<- EOF
+		"$script" script!
+
+		Make a backup of your chosen folders.
+
+		-b <path>: Pass the path to use for temporary buffer file from zip command.
+		-h: Print this help and exit.
+
+		NOTE: Change the necessary variables inside the script.
+	EOF
+}
+
 # Função que printa mensagem padrão nos logs.
 log-prefix() {
 	echo "[$DATE_FULL * `date '+%T'`]"
@@ -73,6 +94,14 @@ remove-old-backup() {
 
 # -------------------------------------------------- Inicio do programa --------------------------------------------------
 
+while getopts 'b:' option; do
+	case "$option" in
+		b) ARGS+=" -b $OPTARG";;
+		:|?) usage; exit 1;;
+	esac
+done
+shift $((${OPTIND}-1))
+
 echo -e "\n\t~\t~\t~" >>"$LOG_MAIN"
 echo -e "\n---------- Started `log-prefix` ----------" >>"$LOG_MAIN"
 
@@ -81,7 +110,7 @@ if "$FLAG_CLOUD"; then
 
 	remove-old-backup "$PATH_CLOUD"
 
-	if OUTPUT="`for folder in "${ARRAY_FOLDERS_BACKUP[@]}"; do zip -ry "$PATH_CLOUD/$NAME_FILE" "$folder"; done 2>&1`"; then
+	if OUTPUT="`for folder in "${ARRAY_FOLDERS_BACKUP[@]}"; do zip $ARGS -ry "$PATH_CLOUD/$NAME_FILE" "$folder"; done 2>&1`"; then
 		cat <<- EOF >>"$LOG_MAIN"
 
 			`log-prefix` --- CLOUD PROCESS STARTED ---
@@ -132,7 +161,7 @@ if "$FLAG_EXTERNAL"; then
 
 	remove-old-backup "$PATH_EXTERNAL"
 
-	if OUTPUT="`for folder in ${ARRAY_FOLDERS_BACKUP[@]}; do zip -ry "$PATH_EXTERNAL/$NAME_FILE" "$folder"; done 2>&1`"; then
+	if OUTPUT="`for folder in ${ARRAY_FOLDERS_BACKUP[@]}; do zip $ARGS -ry "$PATH_EXTERNAL/$NAME_FILE" "$folder"; done 2>&1`"; then
 		cat <<- EOF >>"$LOG_MAIN"
 
 			`log-prefix` --- EXTERNAL PROCESS STARTED ---
