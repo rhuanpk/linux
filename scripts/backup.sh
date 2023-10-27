@@ -109,7 +109,7 @@ if "$FLAG_EXTERNAL"; then
 		FLAG_MOUNT_AUTO='true'
 	else
 		sudo mkdir "$PATH_EXTERNAL_MANU"
-		if OUTPUT="`sudo mount -o 'rw,uid=1000,gid=1000' -L backup-disk "$PATH_EXTERNAL_MANU" 2>&1`"; then
+		if OUTPUT="`sudo mount -o "rw,uid=`id -u`,gid=`id -g`" -L backup-disk "$PATH_EXTERNAL_MANU" 2>&1`"; then
 			FLAG_MOUNT_MANU='true'
 		else
 			sudo rmdir "$PATH_EXTERNAL_MANU"
