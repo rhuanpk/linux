@@ -36,7 +36,7 @@ PATH_DIR_LVL='b4ckups'
 DATE_FULL="`date '+%y-%m-%d'`"
 
 # Nomes:
-NAME_PLACE='test'
+NAME_PLACE='test' # home/work or hostname
 NAME_FILE="${DATE_FULL}_${NAME_PLACE}-backup.zip"
 
 # Logs:
