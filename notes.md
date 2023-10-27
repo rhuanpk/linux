@@ -1865,6 +1865,7 @@ rsync [<options>] </folder/origin_1> </folder/origin_2/> </file/origin_3> <desti
 - -v: modo verboso.
 - -h: aumenta a legibilidade.
 - -a: aplica recursividade, preserva permissões, usuários, grupos e timestamp (*inode*).
+- -u: skipa arquivos no qual o destino é mais novo.
 - -z: comprime os dados trafegados deixando o tamanho do *payload* menor porém consumindo mais processamento.
 - -e 'ssh -p <port>': mudar a porta padrão (22) de conexão.
 - --exclude=<pattern>: exclui arquivos ou diretórios pelo padrão passado aceitando *glob* ou de forma absoluta (*regex*?).
@@ -1877,7 +1878,7 @@ rsync -ahv --delete --exclude=initial-folder/ --exclude=*.mp4 ~/others ~/misc /t
 ```
 
 ```sh
-rsync -ahv --exclude={file1,folder2,.*} src/file/one.any src/folder/two/ dst/folder/backup/
+rsync -auhv --exclude={file1,folder2,.*} src/file/one.any src/folder/two/ dst/folder/backup/
 ```
 
 _OBSERVATIONS_:
