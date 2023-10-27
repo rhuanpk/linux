@@ -2399,11 +2399,13 @@ tar -tf compressed_folder.tar.gz
 - `-d`: especifica a pasta para ser descompactado;
 - `-l`: listar o conteúdo do arquivo compactado;
 - `-r`: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada);
+- `-b <path>`: especifica o diretório para o arquivo temporario (de cache) do zip;
+- `-y`: segue o link simbólico e zipa o arquivo original.
 
 Compactar:
 
 ```bash
-zip [-r] target_folder.zip /file/to/compressed.any /folder/to/compressed/*
+zip [-b /tmp] [-ry] target_folder.zip /file/to/compressed.any /folder/to/compressed/*
 ```
 
 Descompactar:
