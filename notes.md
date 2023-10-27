@@ -1876,6 +1876,10 @@ Exemplo:
 rsync -ahv --delete --exclude=initial-folder/ --exclude=*.mp4 ~/others ~/misc /tmp/backup/
 ```
 
+```sh
+rsync -ahv --exclude={file1,folder2,.*} src/file/one.any src/folder/two/ dst/folder/backup/
+```
+
 _OBSERVATIONS_:
 
 - o destino ou origem aceita o modo de login de protocolo ssh (`user@host:/path`).
