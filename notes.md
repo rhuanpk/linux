@@ -1873,7 +1873,7 @@ rsync [<options>] </folder/origin_1> </folder/origin_2/> </file/origin_3> <desti
 
 Exemplo:
 ```sh
-rsync -auhv --exclude={file1,folder2,.*} --exclude=*.any src/file/one.any src/folder/two/ /tmp/dst/folder/backup/
+rsync -auhv --include=/.files-* --exclude={file1,folder2,.*} --exclude=*.any src/file/one.any src/folder/two/ /tmp/dst/folder/backup/
 ```
 
 _OBSERVATIONS_:
