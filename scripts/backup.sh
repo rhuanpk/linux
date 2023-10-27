@@ -37,7 +37,7 @@ DATE_FULL="`date '+%y-%m-%d'`"
 
 # Nomes:
 NAME_PLACE='test'
-NAME_FILE="${DATE_FULL}_${NAME_PLACE}_backup.zip"
+NAME_FILE="${DATE_FULL}_${NAME_PLACE}-backup.zip"
 
 # Logs:
 LOG_MAIN="$home/.$script.log"
