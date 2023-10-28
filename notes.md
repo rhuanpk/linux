@@ -1241,6 +1241,27 @@ _pipeline_:
 sudo systemctl disable --now ssh.socket && sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf && sudo systemctl enable --now ssh.service
 ```
 
+### Comando _pssh_
+
+- `-i`: _logga_ mais mensagens (verbose);
+- `-h /path/to/hosts.list`: especifica o arquivo com todos os hosts ([user@]host[:port]);
+- `-H [user@]host[:port]`: passa um único host direto na linha decomando (para fazer testes de mesa?);
+- `-t <time>`: _timeout_ de cada host;
+- `-l <user>`: especifica o usuário que será logado;
+- `-I`: o que comando receber do input, envia como input para a conexão SSH;
+
+Programas necessários:
+```sh
+sudo apt install -y pssh
+```
+
+Executar comando em vários hosts:
+```sh
+$ parallel-ssh -h ./hosts -t 0 -i "wget -qP ~/path/to/save '<url>'"
+# ...
+$ parallel-ssh -h ./hosts -t 0 -i 'echo -e "password\n" | sudo -S apt update && echo -e "password\n" | sudo -S apt upgrade -y'
+```
+
 ### Comando *gpg*
 
 Gerar chave gpg (o geramento da chave não gera nenhuma saida e é guardada automáticamente no chaveiro gpg, para podermos acessa-la, logo, é só via exportamento):
