@@ -1260,6 +1260,8 @@ Executar comando em vários hosts:
 $ parallel-ssh -h ./hosts -t 0 -i "wget -qP ~/path/to/save '<url>'"
 # ...
 $ parallel-ssh -h ./hosts -t 0 -i 'echo -e "password\n" | sudo -S apt update && echo -e "password\n" | sudo -S apt upgrade -y'
+# ...
+$ echo 'password' | parallel-ssh -H user@host[.local] -t 0 -iAI 'sudo -S uptime'
 ```
 
 ### Comando *gpg*
