@@ -52,5 +52,4 @@ $sudo apt autoremove -y
 
 # Update and Clean
 ${sudo:+sudo -v}
-$sudo apt dist-upgrade -y
 $sudo apt full-upgrade -y
