@@ -5588,12 +5588,6 @@ git reset --hard <commit_hash>
 
 #### Amend
 
-Editar a mensagem do último _commit_:
-
-```bash
-git commit --amend -m 'new message'
-```
-
 Para adicionar um novo arquivo para o último _commit_ ou editar qualquer arquivo do _commit_, basta fazer as alterações desejadas e adicionar em _stage_ (`git add <path>`):
 
 ```bash
