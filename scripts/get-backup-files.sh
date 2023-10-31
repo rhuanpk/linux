@@ -48,6 +48,7 @@ declare -A ARRAY_PATHWAY_BACKUP=( \
 	['localbin']="$PATHWAY_BACKUP/local-bin" \
 	['history']="$PATHWAY_BACKUP/history" \
 	['git']="$PATHWAY_BACKUP/git" \
+	['vim']="$PATHWAY_BACKUP/vim" \
 )
 
 for pathway in ${ARRAY_PATHWAY_BACKUP[@]}; do
@@ -64,6 +65,7 @@ PATHWAY_GTK="$home/.config/gtk-3.0/settings.ini"
 PATHWAY_LOCALBIN="/usr/local/bin"
 PATHWAY_HISTORY="$home/.bash_history"
 PATHWAY_GIT="$home/.gitconfig"
+PATHWAY_VIM="$home/.vimrc"
 
 # Clean ups.
 cleanup-history
@@ -79,6 +81,7 @@ ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbi
 cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
 cp -f "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}/gitconfig.txt"
+cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/vimrc.txt"
 
 # Others commands to save.
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
