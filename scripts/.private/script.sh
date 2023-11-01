@@ -6,7 +6,7 @@
 #set -ex +o histexpand
 
 # >>> variable declaration!
-script="`basename $(readlink -f "$0")`"
+script="`basename "$0"`"
 uid="${UID:-`id -u`}"
 user="`id -un "${uid/#0/1000}"`"
 home="/home/$user"
@@ -16,7 +16,7 @@ SUDO='sudo'
 # >>> function declaration!
 usage() {
 cat << EOF
-Usage: ./$script [<option>]
+Usage: $script [<option>]
 
 Options:
 	-s: Forces keep sudo;
