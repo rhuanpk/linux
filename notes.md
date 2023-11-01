@@ -2392,13 +2392,13 @@ locate -b '\file.txt'
 Compactar em `.tar.gz`:
 
 ```bash
-tar -zcvf target_folder.tar.gz /file/to/compressed.any /folder/to/compressed/
+tar -zcvf target-folder.tar.gz /path/file/to/compact.any /path/folder/to/compact/
 ```
 
 Descompactar de `.tar.gz`:
 
 ```bash
-tar [-C /folder/to/decompress/] -zxvf compressed_folder.tar.gz
+tar [-C /path/folder/to/decompress/] -zxvf /path/to/compressed/folder.tar.gz
 ```
 
 ##### _.tar.xz_
@@ -2406,13 +2406,13 @@ tar [-C /folder/to/decompress/] -zxvf compressed_folder.tar.gz
 Compactar em `.(tar|tbz2).(xz|bz2)`:
 
 ```bash
-tar -cvf target_folder.tar.gz /file/to/compressed.any /folder/to/compressed/
+tar -cvf target-folder.tar.gz /path/file/to/compact.any /path/folder/to/compact/
 ```
 
 Descompactar de `.(tar|tbz2).(xz|bz2)`:
 
 ```bash
-tar [-C /folder/to/decompress/] -xvf compressed_folder.tar.xz
+tar [-C /path/folder/to/decompress/] -xvf /path/to/compressed/folder.tar.xz
 ```
 
 ##### _.tar.\*_
@@ -2420,7 +2420,7 @@ tar [-C /folder/to/decompress/] -xvf compressed_folder.tar.xz
 Ver conteúdo de `.tar.*`:
 
 ```bash
-tar -tf compressed_folder.tar.gz
+tar -tf /path/to/compressed/folder.tar.gz
 ```
 
 #### Comando _zip/unzip_
@@ -2434,64 +2434,66 @@ tar -tf compressed_folder.tar.gz
 Compactar:
 
 ```bash
-zip [-b /tmp] [-ry] target_folder.zip /file/to/compressed.any /folder/to/compressed/*
+zip [-b /tmp] [-ry] target-folder.zip /path/file/to/compact.any /path/folder/to/compact/*
 ```
 
 Descompactar:
 
 ```bash
-unzip [-d /path/to/decompress/] compressed_folder.zip
+unzip [-d /path/to/decompress/] /path/to/compressed/folder.zip
 ```
 
 Ver o conteúdo:
 
 ```bash
-unzip -l compressed_folder.zip
+unzip -l /path/to/compressed/folder.zip
 ```
 
 #### Comando _xz_
 
 - `-z`: para criar arquivos compactados;
 - `-d`: para descompactar arquivos;
-- `-v`: modo verboso (printa na tela o processamento);
+- `-k`: descompacta o arquivo e ainda mantem um cópia do compactado;
+- `-v`: modo verboso (printa na tela o processamento).
 
 Compactar:
 
 ```bash
-xz -vz /file/to/be/compressed
+xz -z [-v] /path/file/to/compact
 ```
 
 Descompactar:
 
 ```bash
-xz -vd compressed_file.xz
+xz -d [-kv] /path/to/file/compressed.xz
 ```
 
 #### Comando _7z_
 
-- `x`: para descompactar arquivos;
+- `x`: para descompactar arquivos.
 
 Descompactar:
 
 ```bash
-7z x compressed_file.any
+7z x /path/to/file/compressed.any
 ```
 
 #### Comando _gzip_
 
 - `-d`: para descompactar arquivo;
 - `-k`: descompacta o arquivo e ainda mantem um cópia do compactado;
+- `-v`: modo verboso (printa na tela o processamento).
 
 Compactar:
 
 ```bash
-gzip /file/to/compact.any
+gzip /path/file/to/compact
 ```
 
 Descompactar:
 
 ```bash
-gzip -d [-k] /gzip/file/to/decompress.gz
+gzip -d [-kv] /path/to/file/compressed.gz
 ```
 
 OBS: `gzip` igualmente os _xz_, "auto compacta" o arquivo.
