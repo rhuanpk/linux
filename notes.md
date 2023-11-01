@@ -2220,6 +2220,16 @@ Coloca linhas ao lado:
 paste <(<command>) <(<command>)
 ```
 
+### Comando _while_
+
+_TIP/TRICK_:
+```sh
+cat file.list | while read line; do
+    sleep .1
+    echo "$line"
+done
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
