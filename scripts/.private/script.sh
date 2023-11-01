@@ -8,7 +8,7 @@
 # >>> variable declaration!
 script="`basename $(readlink -f "$0")`"
 uid="${UID:-`id -u`}"
-user="${USER:-`id -un "$uid"`}"
+user="`id -un "${uid/#0/1000}"`"
 home="/home/$user"
 
 SUDO='sudo'
