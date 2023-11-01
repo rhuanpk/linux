@@ -44,7 +44,7 @@ if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
 	echo "$script: run with root privileges"
 	exit 1
 elif ! "${FLAG_SUDO:-false}"; then
-	if "${FLAG_ROOT:-false}" || [[ -n "$SUDO" && "$uid" -eq 0 ]]; then
+	if "${FLAG_ROOT:-false}" || [ "$uid" -eq 0 ]; then
 		unset SUDO
 	fi
 fi
