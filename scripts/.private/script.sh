@@ -15,7 +15,14 @@ SUDO='sudo'
 
 # >>> function declaration!
 usage() {
-	echo "usage; ./$script"
+cat << EOF
+Usage: ./$script [<option>]
+
+Options:
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-h: Print this help.
+EOF
 }
 
 # >>> pre statements!
