@@ -6,6 +6,7 @@
 #set -ex +o histexpand
 
 # >>> variable declaration!
+readonly version='0.0.0'
 script="`basename "$0"`"
 uid="${UID:-`id -u`}"
 user="`id -un "${uid/#0/1000}"`"
@@ -16,6 +17,10 @@ SUDO='sudo'
 # >>> function declaration!
 usage() {
 cat << EOF
+$script v$version
+
+Short description of how it works.
+
 Usage: $script [<option>]
 
 Options:
