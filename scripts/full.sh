@@ -1,55 +1,74 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Script that updates, fixes and cleans the system in one go.
 
-# >>> variable declarations !
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
-sudo='sudo'
+# >>> built-in sets!
+set -e
 
-# >>> function declarations !
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+# >>> variable declaration!
+readonly version='2.1.0'
+script="`basename "$0"`"
+uid="${UID:-`id -u`}"
+
+SUDO='sudo'
+
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
+
+Execute "all" apt commands to fix, update and cleanup.
+
+Usage: $script [<option>]
+
+Options:
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'srvh' OPTION; do
+	case "$OPTION" in
+		s) FLAG_SUDO=true;;
+		r) FLAG_ROOT=true;;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-set +o histexpand
+if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+	echo "$script: run with root privileges"
+	exit 1
+elif ! "${FLAG_SUDO:-false}"; then
+	if "${FLAG_ROOT:-false}" || [ "$uid" -eq 0 ]; then
+		unset SUDO
+	fi
+fi
 
-#verify_privileges
-[ '-w' = "$1" ] && {
-	unset sudo
-	shift
-}
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
+# ***** PROGRAM START *****
 # Fix
-${sudo:+sudo -v}
-$sudo dpkg --configure -a
-$sudo apt install -fy
+${SUDO:+sudo -v}
+$SUDO dpkg --configure -a
+$SUDO apt install -fy
 
 # Update
-${sudo:+sudo -v}
-$sudo apt update
-$sudo apt upgrade -y
-$sudo apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $sudo apt install -y
+${SUDO:+sudo -v}
+$SUDO apt update
+$SUDO apt upgrade -y
+$SUDO apt list --upgradable 2>&- \
+	| sed -nE 's~^(.*)/.*$~\1~p' \
+	| xargs $SUDO apt install -y
 
 # Clean
-${sudo:+sudo -v}
-$sudo apt clean -y
-$sudo apt autoclean -y
-$sudo apt autoremove -y
+${SUDO:+sudo -v}
+$SUDO apt clean -y
+$SUDO apt autoclean -y
+$SUDO apt autoremove -y
 
 # Update and Clean
-${sudo:+sudo -v}
-$sudo apt full-upgrade -y
+${SUDO:+sudo -v}
+$SUDO apt full-upgrade -y

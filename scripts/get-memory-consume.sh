@@ -1,82 +1,78 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Get the RAM consumption of some specific program.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='2.0.0'
+script="`basename "$0"`"
+uid="${UID:-`id -u`}"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+SUDO='sudo'
 
-# >>> function declarations !
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Pass the name of some program to know your RAM consume.
+
+Usage: $script [<option>] 'program'
+
+Options:
+	-f: Full output.
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Passe o nome de algum programa para saber o consumo de RAM do mesmo.\n\tExemplo: ./${script} [-f|--full] chrome"
+not-installed() {
+cat << EOF
+$script: --------------------------------------------
+$script: |   Necessary install the program: SMEM    |
+$script: |                                          |
+$script: |   Enter - Proced with the installation   |
+$script: |   Ctrl+c - Exit                          |
+$script: --------------------------------------------
+EOF
 }
 
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ ${#} -lt 1 -o "${1}" = '-h' -o "${1}" = '--help' ] && {
-        print_usage
-        exit 1
+lower2upper() {
+	echo "$1" | tr '[:lower:]' '[:upper:]'
 }
 
-# >>> *** PROGRAM START *** !
-# ---------- implementações -------------------------------------------------------------------------------------------------------------------
-#
-# 1. Fazer um cálculo para printar o resultado com cores diferente, pegar o tatal de RAM da máquina e caso seja 40% = verde, até 75% amarelo...
-#
-# ---------------------------------------------------------------------------------------------------------------------------------------------
+# >>> pre statements!
+while getopts 'fsrvh' OPTION; do
+	case "$OPTION" in
+		f) FLAG_FULL=true;;
+		s) FLAG_SUDO=true;;
+		r) FLAG_ROOT=true;;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# broken_flag=true
-# if ${broken_flag}; then
-# 	echo "Esse script precisa de ajustes! (caso queria usar mesmo assim, edite a flag como \"false\" dentro do script)\nSaindo..."
-# 	exit 1
-# fi
-
-# Mensagem caso precise instalar o smem
-no_installed(){
-        echo -e "\e[40;37;1m
-                \r${0}: ---------------------------------------------- \n \
-                \r${0}: |   Necessário instalar o programa: SMEM     | \n \
-                \r${0}: |                                            | \n \
-                \r${0}: |   Enter - Prosseguir para a instalação     | \n \
-                \r${0}: |   Ctrl+c - Cancelar                        | \n \
-                \r${0}: ---------------------------------------------- \e[m\n"
-}
-
-# Converte o nome do programa em maiúsculo
-lower_to_upper(){
-	echo "${1}" | tr '[:lower:]' '[:upper:]'
-}
-
-# Verifica se o smem está instalado, caso não, prossegue para a instalação
-# ---------------------------------------------------------------
-# Poderia chamar diretamente o "dpkg -l <program>" num if negado
-# ---------------------------------------------------------------
-if ! (dpkg -l smem >/dev/null 2>&1); then
-        no_installed && \
-        read readkey && \
-        sudo apt install smem -y
+if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+	echo "$script: run with root privileges"
+	exit 1
+elif ! "${FLAG_SUDO:-false}"; then
+	if "${FLAG_ROOT:-false}" || [ "$uid" -eq 0 ]; then
+		unset SUDO
+	fi
 fi
 
-[ "${1}" = "-f" -o "${1}" = "--full" ] && {
-        if ! (dpkg -l ${2} >/dev/null 2>&1); then
-                echo "Programa pode não existir..."
-        fi
-        smem -aktP ${2}
-} || {
-        if ! (dpkg -l ${1} >/dev/null 2>&1); then
-                echo "Programa pode não existir..."
-        fi
-        echo -e "\e[1m$(lower_to_upper ${1})\e[m: $(smem -aktP ${1} | tail -1 | tr -s ' ' | cut -d ' ' -f 5) (RAM)"
-}
+# ***** PROGRAM START *****
+if ! dpkg -l smem &>/dev/null; then
+        not-installed \
+	&& read readkey \
+	&& $SUDO apt install smem -y
+fi
+
+if ! dpkg -l "$1" &>/dev/null; then echo 'The program name can be not exists...'; fi
+if ! "${FLAG_FULL:-false}"; then
+	echo -e "\e[1m`lower2upper "$1"`\e[m: `smem -aktP "$1" | tail -1 | tr -s ' ' | cut -d ' ' -f 5` (RAM)"
+else
+	smem -aktP "$1"
+fi

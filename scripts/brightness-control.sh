@@ -1,54 +1,53 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Brightness control.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.0.0'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Change brightness value.
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage: $script [<option>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
-
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ $# -ge 1 -o "${1}" = '-h' -o "${1}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-pick_display() {
+pick-display() {
 	echo $(brightnessctl -l | grep -Ei '(backlight)' | tr ' ' '\n' | sed -n 2p | tr -d "'" | tail -n 1)
 }
 
-get_brighteness_percent() {
-	brightnessctl get -d $(pick_display)
+get-brighteness-percent() {
+	brightnessctl get -d $(pick-display)
 }
 
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
+
+# ***** PROGRAM START *****
+# nohup terminator --borderless --geometry='250x30' --command='bc' &
 while :; do
 	clear
-	echo -n "Br1ghtn355 $(get_brighteness_percent)0% [+/-]? "; read -n 1 VALUE
+	echo -n "Br1ghtn355 $(get-brighteness-percent)0% [+/-]? "; read -n 1 VALUE
 	if [ "${VALUE,,}" = "q" ]; then
 		exit 0
 	elif [ "${VALUE}" = "+" ]; then
-		sudo brightnessctl --quiet -d $(pick_display) set +5%
+		brightnessctl --quiet -d $(pick-display) set +5%
 	elif [ "${VALUE}" = "-" ]; then
-		sudo brightnessctl --quiet -d $(pick_display) set 5%-
+		brightnessctl --quiet -d $(pick-display) set 5%-
 	fi
 done
-
-# nohup terminator --borderless --geometry=175x30-0-0 --command='bc' &

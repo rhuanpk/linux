@@ -1,55 +1,72 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-# This script decompress most popular compress extensions,
-# creating a folder with same name of the file then decompress
-# inside her.
+# This script decompress most popular compress extensions.
+# Create a folder with same name of the file then decompress inside her.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.2.1'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Decompress all most popular compacting extension:
+	- .zip
+	- .xz
+	- .gz
+	- .tar.gz
+	- .tar.xz
+	- .tar
+	- .tbz2
+	- .tar.bz2
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+And try to decompress another compression types with \`7z\` command.
+This works create a folder with the name of file and move myself to it.
+
+NOTE: Have all compressed files in a separete folder.
+
+Usage: $script [<option>]
+
+Options:
+	-p <path>: Specifies the path where compressed files are located;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'p:vh' OPTION; do
+	case "$OPTION" in
+		p) PATHWAY="$OPTARG";;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
+# ***** PROGRAM START *****
+[ -n "$PATHWAY" ] && [ ! -d "$PATHWAY" ] && echo -e "$script: folder \"$PATHWAY\" not found"
+for file in `ls -1 $PATHWAY`; do
+	EXTENSION=`grep -oE '(\.[^[:digit:]]*.*)$' <<< "$file"`
+	FOLDER=`cut -d '.' -f 1 <<< "$file"`
 
-set +o histexpand
+	mkdir "./$FOLDER/"
+	mv "./$file" "./$FOLDER/"
+	cd "./$FOLDER/"
 
-verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-for file in $(ls -1); do
-
-	extension=$(grep -oE '(\.[^[[:digit:]]]*.*)$' <<< ${file})
-	folder=$(cut -d '.' -f 1 <<< ${file})
-
-	mkdir ./${folder}/
-	mv ./${file} ./${folder}/
-	cd ./${folder}/
-
-	if [ $extension = '.tar.gz' ]; then
-		tar -zxvf ./${file}
-	elif [[ $extension =~ ^.(tar|tbz2)(.(xz|bz2))?$ ]]; then
-		tar -xvf ./${file}
-	elif [ $extension = '.zip' ]; then
-		unzip ./${file}
+	if [[ "$EXTENSION" =~ ^\.(tar|tbz2)(.(xz|bz2))?$ ]]; then
+		tar -xvf "./$file"
+	else
+		case "$EXTENSION" in
+			'.tar.gz') tar -zxvf "./$file";;
+			'.zip') unzip "./$file";;
+			'.xz') xz -kdv "./$file";;
+			'.gz') gzip -kdv "./$file";;
+			*) 7z x "./$file";;
+		esac
 	fi
 
 	cd ../
-
 done

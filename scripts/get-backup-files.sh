@@ -1,39 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Make a backup of some important files.
 
-# >>> variable declarations !
-script=`basename $(readlink -f "$0")`
-home=${HOME:-/home/${USER:-`id -un`}}
-
-# >>> function declarations !
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
-}
-
-print_usage() {
-        echo -e "Run:\n\t./$script"
-}
-
-# >>> pre statements !
-set +o histexpand
-
-verify_privileges
-[ "$#" -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-cleanup-history() {
-	files=("${ARRAY_PATHWAY_BACKUP['history']}"/*)
-	for file in ${files[@]: 0:$((${#files[@]}-1))}; do
-		find "$file" -mtime +2 -exec rm -f '{}' \;
-	done
-}
+# >>> variable declaration!
+readonly version='1.1.0'
+script="`basename "$0"`"
+uid="${UID:-`id -u`}"
+user="`id -un "${uid/#0/1000}"`"
+home="/home/$user"
 
 PATHWAY_BACKUP=$home/Documents/config-files-backup/`hostname`
 declare -A ARRAY_PATHWAY_BACKUP=( \
@@ -50,11 +24,6 @@ declare -A ARRAY_PATHWAY_BACKUP=( \
 	['git']="$PATHWAY_BACKUP/git" \
 	['vim']="$PATHWAY_BACKUP/vim" \
 )
-
-for pathway in ${ARRAY_PATHWAY_BACKUP[@]}; do
-	[ ! -d "$pathway/" ] && mkdir -p "$pathway/"
-done
-
 PATHWAY_OPT='/opt'
 PATHWAY_FONTS="$home/Documents/fonts"
 PATHWAY_ICONS="$home/.icons"
@@ -66,6 +35,43 @@ PATHWAY_LOCALBIN="/usr/local/bin"
 PATHWAY_HISTORY="$home/.bash_history"
 PATHWAY_GIT="$home/.gitconfig"
 PATHWAY_VIM="$home/.vimrc"
+
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
+
+Make a backup of some important files.
+
+Usage: $script [<option>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
+}
+
+cleanup-history() {
+	files=("${ARRAY_PATHWAY_BACKUP['history']}"/*)
+	for file in ${files[@]: 0:$((${#files[@]}-1))}; do
+		find "$file" -mtime +2 -exec rm -f '{}' \;
+	done
+}
+
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
+
+# ***** PROGRAM START *****
+# Create necessary folders.
+for pathway in ${ARRAY_PATHWAY_BACKUP[@]}; do
+	[ ! -d "$pathway/" ] && mkdir -p "$pathway/"
+done
 
 # Clean ups.
 cleanup-history

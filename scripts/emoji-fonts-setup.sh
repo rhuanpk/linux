@@ -1,55 +1,73 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Setup packages and dot files for emoji fonts.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.0.0'
+script="`basename "$0"`"
+uid="${UID:-`id -u`}"
+user="`id -un "${uid/#0/1000}"`"
+home="/home/$user"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+SUDO='sudo'
 
-# >>> function declarations !
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Automaticlly set emoji fonts for browsers.
+
+Usage: $script [<option>]
+
+Options:
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'srvh' OPTION; do
+	case "$OPTION" in
+		s) FLAG_SUDO=true;;
+		r) FLAG_ROOT=true;;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
+if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+	echo "$script: run with root privileges"
+	exit 1
+elif ! "${FLAG_SUDO:-false}"; then
+	if "${FLAG_ROOT:-false}" || [ "$uid" -eq 0 ]; then
+		unset SUDO
+	fi
+fi
 
-set +o histexpand
+# ***** PROGRAM START *****
+PACKAGES=('fonts-symbola' 'fonts-noto-color-emoji')
+PATHWAY="$home/.config/fontconfig/conf.d"
 
-verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-packages=(fonts-symbola fonts-noto-color-emoji)
-pathway=$HOME/.config/fontconfig/conf.d
-
-for package in ${packages[@]}; do
-	if ! dpkg -s $package &>/dev/null; then
-		echo "this script needs the $package package but not installed, it will be installed!"
-		if sudo apt install -y $package; then
-			echo "package $package that's ok!"
+for package in "${PACKAGES[@]}"; do
+	if ! dpkg -s "$package" &>/dev/null; then
+		echo "$script: NEEDS the \"$package\" package but not installed, it will be installed"
+		if $SUDO apt install -y "$package"; then
+			echo "$script: package \"$package\" that's OK"
 		else
 			cat <<- eof
-				some wrong occured with package $package
-				exiting (with 1) without complete the script...
+				$script: some WRONG occured with package "$package"
+				$script: exiting (with 1) WITHOUT complete the script
 			eof
 		fi
 	fi
 done
 
-mkdir -pv "$pathway"
-cat << \eof > $pathway/fonts.conf
+[ ! -d "$PATHWAY" ] && mkdir -pv "$PATHWAY"
+cat << \EOF > "$PATHWAY/fonts.conf"
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
 <fontconfig>
@@ -76,7 +94,7 @@ cat << \eof > $pathway/fonts.conf
 		</prefer>
 	</alias>
 </fontconfig>
-eof
+EOF
 fc-cache -f
 
-echo "all done, restart the applications to see the changes!"
+echo "$script: ALL DONE, restart the applications to see the changes"

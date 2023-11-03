@@ -1,151 +1,150 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-##################################################################################
-#
-# Script que dá push em todos os repos automáticamente.
-# Requisitos:
-#    1. Ter o credential.helper ativado
-#
-# A variável "_repo_paths" deve receber o caminho do diretório aonde ficam todos os repos.
-#
-##################################################################################
+# Script that uploads all repositories automatically.
+# Requirements:
+# 	1. Have credential.helper enabled.
+# The variable "_REPO_PATHS" must receive the path of the directory where all repos are located.
 
-script=`basename "${0}"`
+# >>> built-in sets!
+set +o histexpand
 
-_repo_paths='/tmp'
-flag_custom_mode=false
-flag_git_pull_all=false
+# >>> variable declaration!
+readonly version='2.0.0'
+script="`basename "$0"`"
+
+FILE_PATH=~/.config/git-all.path
+#_REPO_PATHS='/tmp'
+FLAG_CUSTOM='false'
+FLAG_PULL='false'
+
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
+
+`formatter 1 DESCRIPTION`
+
+`formatter 1 Normal Mode`:
+	Pass the git command to be used as a parameter, if no parameters are passed it will push by default.
+	The parameter can be passed without double quotes.
+
+	In this usage mode, neither the confirmation message nor the branch can be defined.
+	By default it confirms with the message "refresh!" in the master branch.
+
+`formatter 1 Custom Mode`:
+	At each iteration of the loop you can set the message and branch of the current repository.
+	This mode only accepts git push.
+
+`formatter 1 USAGE`
+
+Example passing parameters:
+	$script [<option>] `formatter 33 git status`
+OR
+	$script [<option>] `formatter 33 '"git pull origin master"'`
+
+Example without passing parameters:
+	$script [<option>]
+
+`formatter 1 OPTIONS`
+	`formatter 1 -l`: List the atual path selected and exit with 0;
+	`formatter 1 -s`: Set a new path to grab the folders;
+	`formatter 1 -c`: Start the CUSTOM MODE;
+	`formatter 1 -g`: Pull in all repos;
+	`formatter 1 -p \<path\>`: Set a temporary path (that's valid only this time) to grab the folders;
+	`formatter 1 -v`: Print version;
+	`formatter 1 -h`: Print this message and exit with 2.
+
+`formatter 1 OBSERVATIONS`
+	For some features works is necessary to setup \`--set-upstream-to\` with: git branch --set-upstream-to=<remote/branch>
+EOF
+}
 
 formatter() {
-	formatting="${1}"
-	[[ "${formatting}" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || message="${*}"
-	echo -e "\e[${formatting}m${message}\e[m"
+	formatting="$1"
+	[[ "$formatting" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || message="$*"
+	echo -e "\e[${formatting}m$message\e[m"
 }
 
-print_usage(){
+get-path() {
+	{ echo "$(< "$FILE_PATH")"; } 2>&-
+}
+
+print-path() {
 	cat <<- eof
 
-		####################################################################################################
-		#
-		# `formatter 1 SYNOPSIS`
-		#
-		# `formatter 1 Normal Mode`:
-		# 	Pass the git command to be used as a parameter,
-		# 	if no parameters are passed it will push by default.
-		# 	The parameter can be passed without double quotes.
-		#
-		# 	In this usage mode, neither the confirmation
-		# 	message nor the branch can be defined.
-		# 	By default it confirms with the message "refresh!" in the master branch.
-		#
-		# `formatter 1 Custom Mode`:
-		# 	At each iteration of the loop you can set
-		# 	the message and branch of the current repository.
-		# 	This mode only accepts git push.
-		#
-		# `formatter 1 HOW TO USE`
-		#
-		# Example passing parameters:
-		# 	${script} `formatter 33 git status`
-		# OR
-		# 	${script} `formatter 33 '"git pull origin master"'`
-		#
-		# Example without passing parameters:
-		# 	${script}
-		#
-		# `formatter 1 OPTIONS`
-		#
-		# 	`formatter 1 -h`: Print this message and exit with 0.
-		# 	`formatter 1 -v`: View the atual path selected and exit with 0.
-		# 	`formatter 1 -s`: Set a new path to grab the folders.
-		# 	`formatter 1 -p`: Set a temporary path (that's valid only this time) to grab the folders.
-		# 	`formatter 1 -c`: Start the CUSTOM MODE.
-		# 	`formatter 1 -g`: Pull in all repos.
-		#
-		####################################################################################################
+		Atual path: "$(formatter 33 `get-path`)"!
 
 	eof
 }
 
-print_exiting() {
-	echo -e "\n`formatter '31;1' '>>> Invalid option !'`\n`print_usage`\n"
-}
-
-print_path() {
-	cat <<- eof
-
-		Atual path: `formatter 33 ${_repo_paths}`
-
-	eof
-}
-
-switch_path(){
-	echo -e "\nAtual path: `formatter 33 ${_repo_paths}`\n"
-	read -p "Enter with the new path: " new_path
-	if [ -z "${new_path}" ]; then
-		echo -e "\n`formatter 31 '> The path can not is null !'`\n"; exit 1
-	elif [ ! -d "${new_path}" ]; then
-		echo -e "\n`formatter 31 '> The path not exist !'`\n"; exit 1
+switch-path() {
+	print-path
+	read -ep "Enter with the new path: " path
+	path="${path/#~/$HOME}"
+	if [ -z "$path" ]; then
+		echo -e "\n`formatter 31 '> The path can not is null!'`\n"
+		exit 1
+	elif [ ! -d "$path" ]; then
+		echo -e "\n`formatter 31 '> The path not exist!'`\n"
+		exit 1
 	else
-		if sudo sed -Ei "s~(^_repo_paths=')(.*)~\1${new_path}'~" "${0}"; then
-			echo -e "\n`formatter 32 '> New path successfully changed !'`\n"; exit 0
+		if echo "${path/%\//}" >"$FILE_PATH"; then
+			echo -e "\n`formatter 32 '> New path successfully changed!'`\n"
 		else
-			echo -e "\n`formatter 31 '> New path NOT successfully changed !'`\n"; exit 0
+			echo -e "\n`formatter 31 '> New path NOT successfully changed!'`\n"
 		fi
 	fi
 }
 
 pushing() {
-	git_message="${1:-'refresh'}"
-	git_branch="${2:-`git branch --show-current`}"
+	GIT_MESSAGE="${1:-'refresh'}"
 	git add ./
-	git commit -m "${git_message}"
-	git push origin "${git_branch}"
+	git commit -m "$GIT_MESSAGE"
+	git push
 }
 
-while getopts 'hvsp:cg' opts 2>/dev/null; do
-	case ${opts} in
-		h) print_usage; exit 0;;
-		v) print_path; exit 0;;
-		s) switch_path;;
-		p) _repo_paths="${OPTARG}";;
-		c) flag_custom_mode=true;;
-		g) flag_git_pull_all=true;;
-		?) print_exiting; exit 1;;
+# >>> pre statements!
+while getopts 'lscgp:vh' OPTION; do
+	case "$OPTION" in
+		l) print-path; exit 0;;
+		s) switch-path; exit 0;;
+		c) FLAG_CUSTOM=true;;
+		g) FLAG_PULL=true;;
+		p) _REPO_PATHS="$OPTARG";;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
 	esac
 done
+shift $(("$OPTIND"-1))
 
-shift $((${OPTIND}-1))
-
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+[ ! -f "$FILE_PATH" ] || [ ! -s "$FILE_PATH" ] && {
+	echo -e "\n$script: file path is not exists or set ups, use \`-s\` flag!\n"
+	exit 1
 }
 
-############ BEGIN OF PROGRAM ############
-
-verify_privileges
-
-for directory in `ls ${_repo_paths}`; do
-	if ! cd ${_repo_paths}/"${directory}" 2>&-; then
-		echo -e "\nwarning: ${directory} is not a folder!"
+# ***** PROGRAM START *****
+_REPO_PATHS="`get-path`"
+for directory in $_REPO_PATHS/*; do
+	if ! output=`cd "$directory" 2>&1`; then
+		{
+			[[ "$output" =~ [nN]ot\ a\ directory ]] \
+			&& echo -e "\n$script: warning: \"$directory\" is not a folder!"
+		} || {
+			[[ "$output" =~ [pP]ermission\ denied ]] \
+			&& echo -e "\n$script: warning: \"$directory\" don't has permission!";
+		} || \
+			echo -e "\n$script: warning: some wrong occurred on entering in \"$directory\"!"
 	else
-		echo -e "\n → git in *${directory^^}* !\n"
-		if ${flag_custom_mode}; then
+		echo -e "\n → git in *${directory^^}*!\n"
+		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
-			[ ${answer,,} = 'n' ] 2>&- && continue
-			read -rp "Enter with the message: " git_message
-			read -rp "Enter with the branch: " git_branch
-			echo ""
-			pushing $git_message $git_branch
-		elif ${flag_git_pull_all}; then
-			git pull origin "`git branch --show-current`"
+			[ "${answer,,}" = 'n' ] 2>&- && continue
+			read -rp "Enter with the message: " GIT_MESSAGE; echo
+			pushing $GIT_MESSAGE
+		elif "$FLAG_PULL"; then
+			git pull
 		else
-			[ $# -eq 0 ] && pushing || $*
+			[ "$#" -eq 0 ] && pushing || $*
 		fi
 	fi
-done
-
-echo ""
+done; echo
