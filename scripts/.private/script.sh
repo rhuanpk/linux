@@ -26,15 +26,17 @@ Usage: $script [<option>]
 Options:
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
+	-v: Print version;
 	-h: Print this help.
 EOF
 }
 
 # >>> pre statements!
-while getopts 'srh' OPTION; do
+while getopts 'srvh' OPTION; do
 	case "$OPTION" in
 		s) FLAG_SUDO=true;;
 		r) FLAG_ROOT=true;;
+		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
 done
