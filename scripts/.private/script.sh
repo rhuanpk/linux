@@ -21,7 +21,7 @@ $script v$version
 
 Short description of how it works.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-s: Forces keep sudo;
