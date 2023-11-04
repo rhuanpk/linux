@@ -1600,6 +1600,13 @@ sed -nE 's/^some_string\(to_match\) (.*)/\1/p' /path/to/file.txt
 
 OBS: dessa forma é como se o `sed` buscasse a linha e já a recortasse (equivalente a uma pipeline de `grep | cut | sed | tr`), apesar de que o utilizador pode ficar limitado ao uso de *regex* pois os metacaracteres `.*` serão expandidos e não utilizado para a busca.
 
+Parar na primeira linha casada:
+```sh
+sed -nE '/<regex>/{s/<regex>/\1/p;q}'
+```
+
+OBS: dessa forma é como se o **sed** percorresse as linhas de entrada até encontrar o primeiro `<regex>` descrito no exemplo, depois disso ele executa o que está entro do bloco de condição (`{}`) e como consequência pedimos para ele sair logo em seguida com `;q`.
+
 ### Comando *xargs*
 
 - `cat file.txt | xargs sudo apt install -y`
