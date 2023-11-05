@@ -34,7 +34,6 @@ operation() {
 	SIGNAL="$1"
 	OLD_VALUE="`get-old-value`"
 	[ -z "$OLD_VALUE" ] && OLD_VALUE='0.0'
-	echo "$OLD_VALUE${SIGNAL}0.1"
 	xinput set-prop "$DEVICE_ID" "$PROPERTY_ID" `/usr/bin/bc <<< "$OLD_VALUE${SIGNAL}0.1"` 2>&-
 }
 
@@ -59,7 +58,7 @@ PROPERTY_ID=$(
 	| cut -d '(' -f 2
 )
 while :; do
-	#clear
+	clear
 	read -n 1 -p "Sp33d P01n73r: `get-old-value` [+/-]? " answer
 	[ 'q' = "${answer,,}" ] && break || {
 		if [ '-' = "$answer" ]; then
