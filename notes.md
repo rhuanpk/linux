@@ -5198,8 +5198,13 @@ mplayer tv:///dev/videoX &>/dev/null
 
 #### Criar túnel para conexão SSH
 
-1. Instalação (caso falhe pode ser o _link_ que quebrou):
-	`curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | sudo tar -C /usr/local/bin/ -zxvf -`
+1. Instalação :
+```sh
+# via oficial repos
+sudo tee '/etc/apt/sources.list.d/ngrok.list' <<< "deb https://ngrok-agent.s3.amazonaws.com buster main" && curl -fsSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/ngrok.gpg && sudo apt update && sudo apt install -y ngrok
+# via standalone package (caso falhe pode ser o _link_ que quebrou)
+curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | sudo tar -C /usr/local/bin/ -zxvf -
+```
 
 1. Configuração (da sua conta _web_ do **ngrok**):
 	`ngrok config add-authtoken <api_token>`
