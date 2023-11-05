@@ -2,32 +2,35 @@
 
 # Use `mkdir` and return the path (that was created or that already exists).
 
-# >>> variable declarations !
-SCRIPT=`basename "$0"`
-#HOME=${HOME:-/home/${USER:-`id -un`}}
+# >>> variable declaration!
+readonly version='1.0.0'
+script="`basename "$0"`"
 
-# >>> function declarations !
-verify-privileges() {
-       [ "${UID:-`id -u`}" -eq 0 ] && {
-               echo -e "ERROR: Run this program without privileges!\nExiting..."
-               exit 1
-       }
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
+
+Use \`mkdir\` and return the path (that was created or that already exists).
+
+Usage: $script [<options>] /path/to/folder
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print-usage() {
-        echo -e "Run:\n\t$SCRIPT <folder>"
-}
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-set +o histexpand
-
-#verify-privileges
-[ "$#" -ge 2 -o "$#" -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print-usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
+# ***** PROGRAM START *****
 PATHSPEC=${1:?need a pathway to create}
 [[ "$PATHSPEC" =~ / ]] && {
 	echo "$SCRIPT: pathway cannot have depth!"

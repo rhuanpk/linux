@@ -16,7 +16,7 @@ $script v$version
 
 Dump the storaged cache in the system.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-s: Forces keep sudo;

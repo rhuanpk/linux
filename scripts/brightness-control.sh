@@ -13,7 +13,7 @@ $script v$version
 
 Change brightness value.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-v: Print version;

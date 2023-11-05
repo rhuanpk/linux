@@ -1,48 +1,66 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Move all or some specifies scripts to the PATH directories.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.1.0'
+script="`basename "$0"`"
+uid="${UID:-`id -u`}"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+SUDO='sudo'
+GIT_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
+SCRIPTS_PATH="${PK_LOAD_LINUX:-`wget -qO - "$GIT_URL" | bash - 2>&- | grep -F linux`}"
 
-# >>> function declarations !
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Move all or some specifies scripts to the \`/usr/local/bin\` folder.
+NOTE: Execute this script first time inside your self folder with \`./\`.
+
+Usage:
+	- To move all: $script
+	- To move some scripts: $script 'script-1.sh' 'script-2.sh'
+
+Options:
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\tTo move all: ${script}\n\tTo move some scripts: $script script_name_1.sh script_name_2.sh"
-}
+# >>> pre statements!
+[ -z "$SCRIPTS_PATH" ] && SCRIPTS_PATH="`pwd`" || SCRIPTS_PATH+='/scripts'
 
-# >>> pre statements !
+while getopts 'srvh' OPTION; do
+	case "$OPTION" in
+		s) FLAG_SUDO=true;;
+		r) FLAG_ROOT=true;;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-set +o histexpand
+if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+	echo "$script: run with root privileges"
+	exit 1
+elif ! "${FLAG_SUDO:-false}"; then
+	if "${FLAG_ROOT:-false}" || [ "$uid" -eq 0 ]; then
+		unset SUDO
+	fi
+fi
 
-verify_privileges
-[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-git_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-std_scripts_path=${PK_LOAD_LINUX:-$(wget -qO - $git_url | bash - 2>&- | grep -F linux)}
-[ -z $std_scripts_path ] && std_scripts_path=$(pwd)
-std_scripts_path+=/scripts
-
-[ ${#} -eq 0 ] && {
-	for file in ${std_scripts_path}/*.sh; do
-		sudo cp -v ${file} /usr/local/bin/$(basename ${file%.*})
+# ***** PROGRAM START *****
+[ "$#" -eq 0 ] && {
+	for file in "$SCRIPTS_PATH"/*.sh; do
+		$SUDO cp -v "$file" "/usr/local/bin/`basename ${file%.*}`"
 	done
 } || {
-	for file in ${@}; do
-		if ! sudo cp -v ${std_scripts_path}/${file} /usr/local/bin/${file%.*}; then
+	for file; do
+		if ! $SUDO cp -v "$SCRIPTS_PATH/$file" "/usr/local/bin/${file%.*}"; then
 			print_usage
 			exit 1
 		fi

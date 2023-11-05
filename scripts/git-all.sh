@@ -38,12 +38,12 @@ $script v$version
 `formatter 1 USAGE`
 
 Example passing parameters:
-	$script [<option>] `formatter 33 git status`
+	$script [<options>] `formatter 33 git status`
 OR
-	$script [<option>] `formatter 33 '"git pull origin master"'`
+	$script [<options>] `formatter 33 '"git pull origin master"'`
 
 Example without passing parameters:
-	$script [<option>]
+	$script [<options>]
 
 `formatter 1 OPTIONS`
 	`formatter 1 -l`: List the atual path selected and exit with 0;

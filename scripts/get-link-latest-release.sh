@@ -13,7 +13,7 @@ $script v$version
 
 Returns all URL's of assets the latest GitHub release.
 
-Usage: $script [<option>] 'user/repo'
+Usage: $script [<options>] 'user/repo'
 
 Options:
 	-v: Print version;

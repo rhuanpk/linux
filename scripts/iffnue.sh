@@ -1,48 +1,39 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Errnue validate if you want to continue or no and respectively returns true or false.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.0.0'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Return 0 for 'y' or 'Y' and 1 for default (any other values) value.
+For custom message pass your prhase like arguments.
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage: $script [<options>] ['any number'] ['of'] ['messages']
+
+Options:
+	-a: Auto mode: return in the firts char inputted;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-	cat <<- eof
-		#######################################################
-		#
-		# >>> $script !
-		#
-		# Return 1 for default value and 0 for 'y' or 'Y'.
-		# For custom message pass your prhase like arguments.
-		#
-		# Run:
-		# 	$script ['any number'] ['of'] ['messages']
-		#
-		#######################################################
-	eof
-}
+# >>> pre statements!
+while getopts 'avh' OPTION; do
+	case "$OPTION" in
+		a) ARGS+=' -n 1';;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-message=${*:-continue? [y/N] }
-read -rp "${message}" answer
-[ -z "${answer}" ] || [ y != "${answer,,}" ] && exit 1 || exit 0
+# ***** PROGRAM START *****
+message="${*:-continue? [y/N] }"
+read $ARGS -ep "$message" answer
+[ -z "$answer" ] || [ y != "${answer,,}" ] && exit 1 || exit 0

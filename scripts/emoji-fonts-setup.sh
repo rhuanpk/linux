@@ -18,7 +18,7 @@ $script v$version
 
 Automaticlly set emoji fonts for browsers.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-s: Forces keep sudo;

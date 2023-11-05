@@ -13,7 +13,7 @@ $script v$version
 
 Take the consumption of ram memory
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-v: Print version;

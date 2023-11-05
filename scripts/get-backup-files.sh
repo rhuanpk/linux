@@ -43,7 +43,7 @@ $script v$version
 
 Make a backup of some important files.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-v: Print version;

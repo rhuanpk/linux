@@ -27,7 +27,7 @@ This works create a folder with the name of file and move myself to it.
 
 NOTE: Have all compressed files in a separete folder.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-p <path>: Specifies the path where compressed files are located;

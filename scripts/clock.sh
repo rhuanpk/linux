@@ -13,7 +13,7 @@ $script v$version
 
 Simple CLI clock that uses built-in date command.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-v: Print version;

@@ -14,7 +14,7 @@ $script v$version
 Simple and intelligent counter.
 Counting 1 by 1 pressioning ENTER or pass negative value to decrease (-<value>).
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-v: Print version;

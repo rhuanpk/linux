@@ -16,7 +16,7 @@ $script v$version
 
 Pass the name of some program to know your RAM consume.
 
-Usage: $script [<option>] 'program'
+Usage: $script [<options>] 'program'
 
 Options:
 	-f: Full output.

@@ -19,7 +19,7 @@ $script v$version
 
 Execute "all" apt commands to fix, update and cleanup.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-s: Forces keep sudo;

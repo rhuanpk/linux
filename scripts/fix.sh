@@ -18,7 +18,7 @@ $script v$version
 
 Execute apt commands to fix up packages.
 
-Usage: $script [<option>]
+Usage: $script [<options>]
 
 Options:
 	-s: Forces keep sudo;
