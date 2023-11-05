@@ -3,7 +3,7 @@
 # Start or kill the highlight-pointer.
 
 # >>> variable declaration!
-readonly version='0.0.0'
+readonly version='1.1.0'
 script="`basename "$0"`"
 
 # >>> function declaration!
