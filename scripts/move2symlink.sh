@@ -9,8 +9,6 @@
 readonly version='1.1.0'
 script="`basename "$0"`"
 uid="${UID:-`id -u`}"
-user="`id -un "${uid/#0/1000}"`"
-home="/home/$user"
 
 SUDO='sudo'
 SETLOAD_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'

@@ -3,7 +3,7 @@
 # Decrease or increase pointer speed.
 
 # >>> variable declaration!
-readonly version='1.0.0'
+readonly version='1.1.0'
 script="`basename "$0"`"
 
 # >>> function declaration!
@@ -27,13 +27,14 @@ get-device-id() {
 }
 
 get-old-value() {
-	echo "`xinput list-props "$DEVICE_ID" | grep -Ei '(Accel Speed \()' | tr -d '[[:blank:]]' | cut -d ':' -f 2 | grep -Eio '^([[:digit:]]{1}\.[[:digit:]]{1})'`"
+	echo "`xinput list-props "$DEVICE_ID" | grep -iE '(Accel Speed \()' | tr -d '[[:blank:]]' | cut -d ':' -f 2 | grep -oiE '^-?[[:digit:]]{1}\.[[:digit:]]{1}'`"
 }
 
 operation() {
 	SIGNAL="$1"
 	OLD_VALUE="`get-old-value`"
 	[ -z "$OLD_VALUE" ] && OLD_VALUE='0.0'
+	echo "$OLD_VALUE${SIGNAL}0.1"
 	xinput set-prop "$DEVICE_ID" "$PROPERTY_ID" `/usr/bin/bc <<< "$OLD_VALUE${SIGNAL}0.1"` 2>&-
 }
 
@@ -49,9 +50,11 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 DEVICE_ID="`get-device-id 'Mouse'`"
-[ -z "$DEVICE_ID" ] && DEVICE_ID="`get-device-id 'Touchpad'`"
+if ! lsusb | grep -qi mouse || [ -z "$DEVICE_ID" ]; then
+	DEVICE_ID="`get-device-id 'Touchpad'`"
+fi
 PROPERTY_ID=$(
-	xinput list-props  \
+	xinput list-props "$DEVICE_ID" \
 	| grep -oiE '(Accel Speed \([[:digit:]]+)' \
 	| cut -d '(' -f 2
 )
