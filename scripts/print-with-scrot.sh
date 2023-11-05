@@ -1,59 +1,58 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Tira prints com o scrot e já manda pro diretório correto.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.0.0'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Printscreen with scrot utility and sends to \`~/Pictures/screenshots/\` folders if exists.
+Moreover sends to clipboard too.
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage: $script [<options>] [<delay>]
+
+Options:
+	<delay>: Time delay before start printing;
+	-s: Area select;
+	-p: Show pointer in printscreen;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
-
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
-
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-
-# example:
-# scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
 
 is-integer() {
-	[[ "$1" =~ ^[0-9]*$ ]] && return 0 || return 1
+	[[ "$1" =~ ^[0-9]+$ ]] && return 0 || return 1
 }
 
+# >>> pre statements!
+while getopts 'spvh' OPTION; do
+	case "$OPTION" in
+		s) ARGS_ARR+='-s -f ';;
+		p) ARGS_ARR+='-p ';;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
+
+
+# ***** PROGRAM START *****
+# scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
 cd /tmp
 
-if `is-integer $1` && [ ! "${1:-0}" -gt 0 ]; then
-	sleep .25
+if `is-integer $1` && [ "${1:-0}" -gt 0 ]; then
+	ARGS_ARR+="-d $1 "
 else
-	if `is-integer $1`; then
-		args_arr="-d $1 ${@:2}"
-	else
-		args_arr=$@
-	fi
+	sleep .25
 fi
-[[ "$args_arr" =~ '-s' ]] && args_arr+=' -f'
 
 scrot \
-	$args_arr \
+	$ARGS_ARR \
 	-e 'xclip -selection clipboard -target image/png $f'
 
 mv /tmp/*scrot.png ~/Pictures/screenshots/

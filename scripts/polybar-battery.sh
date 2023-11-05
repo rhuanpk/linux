@@ -1,40 +1,41 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Prints the battery percentage if it is "ac adapter".
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='1.1.0'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+AC_ADAPTER=`acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2`
 
-# >>> function declarations !
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Prints the battery percentage if it is "ac adapter".
+
+Usage: $script [<options>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
+# ***** PROGRAM START *****
+[ 'power_supply' = "$AC_ADAPTER" ] && IS_POWER_SUPPLY=true
 
-set +o histexpand
-
-verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-ac_adapter=$(acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2)
-[ "${ac_adapter}" = 'power_supply' ] && is_power_supply=true
-
-if ! ${is_power_supply:-false}; then
-	battery_percent=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)
-	echo "| Battery: ${battery_percent:-0%} "
+if ! "${IS_POWER_SUPPLY:-false}"; then
+	BATTERY_PERCENT=`acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2`
+	echo "| Battery: ${BATTERY_PERCENT:-0%} "
 fi

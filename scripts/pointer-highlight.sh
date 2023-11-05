@@ -1,33 +1,36 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Start or kill the highlight-pointer.
 
-# >>> variable declarations !
-SCRIPT=`basename "$0"`
-HOME=${HOME:-/home/${USER:-`id -un`}}
+# >>> variable declaration!
+readonly version='0.0.0'
+script="`basename "$0"`"
 
-# >>> function declarations !
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
+
+Start or kill the highlight-pointer.
+
+Usage: $script [<options>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./$SCRIPT"
-}
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-set +o histexpand
-
-#verify_privileges
-[ "$#" -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
+# ***** PROGRAM START *****
 if ! ps -C highlight-pointer &>/dev/null; then
 	highlight-pointer \
 		--show-cursor \
