@@ -6451,6 +6451,29 @@ This is the link of my [personal repo][repo].
 And [here][repo] too.
 ```
 
+Itens colapsados:
+
+```md
+## Markdown Details
+
+<details open>
+<summary>Summary 1</summary>
+
+Ordered list:
+1. Item 1.1
+1. Item 1.2
+1. <details>
+    <summary>Summary 2 (Item 1.3)</summary>
+
+    - Item 1.3.1
+    - Item 1.3.2
+    - Item 1.3.3
+1. Item 1.4
+
+</details>
+</details>
+```
+
 ---
 
 <a id="estudos"></a>
