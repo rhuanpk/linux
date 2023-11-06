@@ -1,45 +1,39 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # It does the entire push process automatically and if no parameter is passed, it commits with a standard message.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='2.1.0'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Automatic run \`git add ./\` -> \`git commit -m "<message>"\` -> \`git push\`.
+If \`<message>\` param is not passed use 'refresh' message as default.
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+For works fine, setup upstream linked branch with: \`git branch --set-upstream-to=<remote/branch>\`
+
+Usage: $script [<options>] ['<message>']
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "\
-		\rTo the default commit (message: \"refresh\"), run:\n\
-			\r\t${script})\n\n\
-		\r\
-		\rFor commit with a specific message, run:\n\
-			\r\t${script}) \"commit message\"\
-		\r"
-}
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-[ -z "${1}" ] && MSG=refresh || MSG="${1}"
-[ -z "${2}" ] && BRANCH=$(git branch --show-current) || BRANCH="${2}"
-
+# ***** PROGRAM START *****
 git add ./
-git commit -m "${MSG}"
-git push origin "${BRANCH}"
+git commit -m "${1:-refresh}"
+git push

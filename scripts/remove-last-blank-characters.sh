@@ -1,59 +1,39 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Remove Last Clank character remove thats in all lines in file passed like argument.
 
-# >>> variable declarations !
+# >>> variable declaration!
+readonly version='2.0.0'
+script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
 
-readonly version=0.0.0
+Remove Last Blank Character (rlbc) remove thats in all lines in passed file like argument.
 
-# >>> function declarations !
+Usage: $script [<options>] /path/to/file-text.any ['/path/to/other/file text.any' ...]
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-	cat <<- eof
-		####################################################################################################
-		#
-		# >>> $script !
-		#
-		# DESCRIPTION
-		# 	Remove Last Blank Character (rlbc) remove thats in all lines in passed file like argument.
-		#
-		# USAGE
-		# 	$script [-hv] /path/to/file.any
-		#
-		# OPTIONALS
-		# 	-v, --version
-		# 		Print the versions and exit with 0.
-		#
-		# 	-h, --help
-		# 		Print this help and exit with 0.
-		#
-		####################################################################################################
-	eof
-}
-
-# >>> pre statements !
-
-set +o histexpand
-
-#verify_privileges
-while getopts 'hv' option; do
-	case $option in
-		v) echo "${script}: version ${version}!"; exit 0;;
-		h) print_usage; exit 0;;
+# >>> pre statements!
+while getopts 'vh' OPTION; do
+	case "$OPTION" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
 	esac
 done
-shift $((${OPTIND}-1))
+shift $(("$OPTIND"-1))
 
-# >>> *** PROGRAM START *** !
-file="${1:?need a file to argument!}"
-sed -Ei 's/[[:blank:]]+$//g' $file
+# ***** PROGRAM START *****
+[ "$#" -lt 1 ] && echo "$script: need one or more files to run"
+for file; do
+	if ! sed -Ei 's/[[:blank:]]+$//g' "$file"; then
+		echo "$script: error in \"$file\""
+	fi
+done
