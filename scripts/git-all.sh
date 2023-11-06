@@ -135,7 +135,8 @@ for directory in $_REPO_PATHS/*; do
 		} || \
 			echo -e "\n$script: warning: some wrong occurred on entering in \"$directory\"!"
 	else
-		echo -e "\n → git in *${directory^^}*!\n"
+		cd "$directory" 2>&1
+		echo -e "\n → git in *`basename ${directory^^}`*!\n"
 		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
