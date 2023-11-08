@@ -3510,6 +3510,15 @@ eval $'cat << eof\nhello\neof'
 eval $'read foo << eof\nhello\neof'
 ```
 
+### Iterar Sobe Cada Letra de Uma String
+
+```sh
+foo='string'; for ((index=0; index < ${#foo}; index++)); do echo "${foo:$index:1}"; done
+while read -n1 line; do echo "$line"; done < <(echo -n 'string')
+grep --only-matching --color=never '.' <<< 'string' | while read line; do echo "$line"; done
+for char in `sed -E 's/(.)/\1\n/g' <<< 'string'`; do echo "$char"; done
+```
+
 ---
 
 <a id="db_configuracao"></a>
