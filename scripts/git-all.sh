@@ -125,12 +125,12 @@ shift $(("$OPTIND"-1))
 # ***** PROGRAM START *****
 _REPO_PATHS="`get-path`"
 for directory in $_REPO_PATHS/*; do
-	if ! output=`cd "$directory" 2>&1`; then
+	if ! OUTPUT=`cd "$directory" 2>&1`; then
 		{
-			[[ "$output" =~ [nN]ot\ a\ directory ]] \
+			[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
 			&& echo -e "\n$script: warning: \"$directory\" is not a folder!"
 		} || {
-			[[ "$output" =~ [pP]ermission\ denied ]] \
+			[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
 			&& echo -e "\n$script: warning: \"$directory\" don't has permission!";
 		} || \
 			echo -e "\n$script: warning: some wrong occurred on entering in \"$directory\"!"
