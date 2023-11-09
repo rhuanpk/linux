@@ -3118,7 +3118,7 @@ Pegar o _hash_ de algum arquivo:
 md5sum /path/to/file.any
 ```
 
-### Conversão de Arquivos
+### Manipulação de Arquivos de Texto e Mídia
 
 #### Utilitários do ImageMagick
 
@@ -3180,6 +3180,30 @@ pdftoppm -png /path/to/file.pdf /path/to/file.pdf
 
 # multiples, one to one
 find /folder/to/search -maxdepth 1 -type f -name -name '*.pdf' -exec pdftoppm -png '{}' '{}' \;
+```
+
+#### Comando _ffmpeg_
+
+Instalação:
+```sh
+apt install ffmpeg
+```
+
+MKV to MP4:
+```sh
+ffmpeg -i /path/to/video/input.mkv -codec copy /path/to/save/output.mp4
+```
+
+#### Tool Kit _mkvtoolnix_
+
+Instalação:
+```sh
+apt install mkvtoolnix
+```
+
+Mesclar arquivos mp4 (depois é necessário converter de volta para mp4):
+```sh
+mkvmerge -o output.mp4 multi-monitors-0.mp4 \+ multi-monitors-1.mp4
 ```
 
 ### Como Matar Um ou Muitos "Programas"
