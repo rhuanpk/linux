@@ -54,8 +54,8 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 [ -n "$PATHWAY" ] && {
-	[ ! -d "$PATHWAY" ] && echo -e "$script: error: folder \"$PATHWAY\" not found"
-	if ! OUTPUT=`cd "$PATHWAY" 2>&1`; then
+	[ ! -d "$PATHWAY" ] && { echo -e "$script: error: folder \"$PATHWAY\" not found"; exit 1; } \
+	|| if ! OUTPUT=`cd "$PATHWAY" 2>&1`; then
 		{
 			[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
 			&& echo -e "\n$script: error: \"$PATHWAY\" is not a folder"
@@ -64,6 +64,7 @@ shift $(("$OPTIND"-1))
 			&& echo -e "\n$script: error: \"$PATHWAY\" don't has permission";
 		} || \
 			echo -e "\n$script: error: some wrong occurred on entering in \"$PATHWAY\""
+		exit 1
 	fi	
 }; cd "$PATHWAY"
 for file in *; do
