@@ -8,6 +8,7 @@ set -e
 # >>> variable declaration!
 readonly version='1.1.0'
 script="`basename "$0"`"
+uid="${UID:-`id -u`}"
 
 SUDO='sudo'
 
