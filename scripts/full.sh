@@ -52,23 +52,32 @@ fi
 # ***** PROGRAM START *****
 # Fix
 ${SUDO:+sudo -v}
+echo '> dpkg --configure -a'
 $SUDO dpkg --configure -a
+echo '> apt install -fy'
 $SUDO apt install -fy
 
 # Update
 ${SUDO:+sudo -v}
+echo '> apt update'
 $SUDO apt update
+echo '> apt upgrade -y'
 $SUDO apt upgrade -y
+echo '> apt install --upgradeable'
 $SUDO apt list --upgradable 2>&- \
 	| sed -nE 's~^(.*)/.*$~\1~p' \
 	| xargs $SUDO apt install -y
 
 # Clean
 ${SUDO:+sudo -v}
+echo '> apt clean -y'
 $SUDO apt clean -y
+echo '> apt autoclean -y'
 $SUDO apt autoclean -y
+echo '> apt autoremove -y'
 $SUDO apt autoremove -y
 
 # Update and Clean
 ${SUDO:+sudo -v}
+echo '> apt full-upgrade -y'
 $SUDO apt full-upgrade -y
