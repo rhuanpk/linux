@@ -5283,6 +5283,9 @@ curl -sS http://127.0.0.1:4040/api/tunnels | jq -C | grep -E '(public_url|addr)'
 kill -KILL `ps -o pid -C ngrok | tail -n +2`
 ```
 
+_OBSERVATIONS_:
+- Caso tenha _firewall_, habiliar a porta nele?
+
 ### Extrair arquivo iso
 
 Programas necessários:
