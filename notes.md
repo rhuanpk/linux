@@ -3314,6 +3314,23 @@ Ler QR Code da câmera:
 zbarcam [--raw] [-q]
 ```
 
+### Unset de Variáveis/Funções/Aliases
+
+Variáveis:
+```sh
+unset <variable>
+```
+
+Funções:
+```sh
+unset -f <function>
+```
+
+Aliases:
+```sh
+unalias <alias>
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
