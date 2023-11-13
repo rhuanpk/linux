@@ -5257,10 +5257,10 @@ sudo tee '/etc/apt/sources.list.d/ngrok.list' <<< "deb https://ngrok-agent.s3.am
 curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | sudo tar -C /usr/local/bin/ -zxvf -
 ```
 
-1. Configuração (da sua conta _web_ do **ngrok**):
+- Configuração (da sua conta _web_ do **ngrok**):
 	`ngrok config add-authtoken <api_token>`
 
-1. Iniciar o _revers proxy_:
+- Iniciar o _reverse proxy_ para SSH:
 	`ngrok tcp 22`
 
 Depois de iniciado, uma das linhas incia com "_Forwarding_" aonde:
@@ -5279,6 +5279,12 @@ Agora basta fazer a conexão como:
 
 ```bash
 ssh -p <ngrok_port> <your_user>@<ngrok_domain>
+```
+
+- Iniciar o _reverse proxy_ para HTTP:
+```sh
+# the server will be exposed by "forwarding url"
+ngrok http 8000
 ```
 
 _tips_:
@@ -6118,6 +6124,56 @@ git config --global includeIf.'gitdir:~/path/to/folder/projects/'.path ~/path/to
 ```
 
 OBS: necessário a "/" no final do caminho do em `gitdir`.
+
+### Bare
+
+#### "Servidor Remoto" Local
+
+1. Defina o servidor remoto local:
+	`git clone --bare /path/to/local/project /mnt/project.git`
+1. Adicione o servidor remoto local no projeto local:
+	`git remote add drive /mnt/project.git`
+
+_OBSERVATIONS_:
+- Caso necessário outra pessoa pode pegar a mídia externa que está sendo usada como servidor externo, plugar em sua máquina, adiciona-lo como remote e pegar suas atualização com `pull`:
+	1. `git remote add drive /mnt/project.git`
+	1. `git pull drive main`
+
+#### Expor "Servidor Remoto" Local
+
+1. _Entre no "servidor remoto" local_
+1. Atualize o _bare_:
+	`git --bare update-server-info`
+1. Troque os _hooks_ de update:
+	`mv hooks/post-update{.sample,}`
+1. Suba um mini servidor web (como em **python**):
+	`python -m http.server 8000`
+1. _Faça o clone teste_:
+    `git clone http://localhost:8000 project`
+1. <details>
+    <summary>Acesse de fora</summary>
+
+    - <details>
+        <summary>Utilize uma VPN</summary>
+
+        Para clonar, ao invés de usar `localhost`, utilize o IP da sua VPN ou seu _DDNS_.
+    ou
+    - <details>
+        <summary>Utilize um <em>Reverse Proxy</em></summary>
+
+        1. Exponha a porta 8000 como HTTP (que aponta para nosso mini _web server_):
+            `ngrok http 8000`
+        1. Clone de fora da rede com:
+            `git clone https://<uuid>.ngrok.io project`
+    </details>
+    </details>
+</details>
+
+_OBSERVATIONS_:
+- Sugestões VPN:
+    - `PiVPN`
+	- `tailscale`
+	- `ZEROTIER`
 
 ### Commands
 
