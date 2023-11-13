@@ -3351,6 +3351,32 @@ Aliases:
 unalias <alias>
 ```
 
+### Recuperar Arquivos de um `rm` Comando
+
+1. SE for um arquivo editavel:
+    1. Pegue pid do na segunda coluna e o descritor de arquivo na quarta coluna:
+        `lsof | grep '/path/to/file'`
+    1. Copie o arquivo direto do descritor:
+        `cp /proc/<pid>/fd/<fd> /path/to/restored/file`
+1. Desmonte imediatamente o sistema de arquivos ou remonte somente leitura:
+    - Para desmontar:
+        `umount /dev/sdXY`
+    - Para remontar somente leitura:
+        `mount -o remount,ro /dev/sdXY`
+1. Faça backup da partição:
+    `dd if=/dev/sdX[Y] of=/tmp/backup.hd bs=4M`
+1. <details>
+    <summary>Execute a recuperação</summary>
+
+    - <details>
+        <summary>Caso <code>ext4</code></summary>
+
+        - `extundelete --restore-all {/dev/sdX[Y]|/path/to/backup.hd}`\
+        OBS: Veja outras opções do comando com:
+            `man extundelete`
+    </details>
+</details>
+
 ---
 
 <a id="db_gnulinux-bash"></a>
