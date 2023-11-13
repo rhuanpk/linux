@@ -3524,7 +3524,8 @@ $ echo ${variable%%/*}
 
 _REFERENCELINKS_:
 
-- [Environment Variables (from Debian wiki)](https://wiki.debian.org/EnvironmentVariables).
+- [Environment Variables (from Debian wiki)](https://wiki.debian.org/EnvironmentVariables);
+- [ArchWiki](https://wiki.archlinux.org/title/bash#Configuration_files).
 
 ### HEREDOC
 
