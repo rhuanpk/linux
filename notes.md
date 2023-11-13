@@ -1584,6 +1584,19 @@ Criar pendrive bootavel:
 sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=256159 conv=fdatasync status=progress; sync
 ```
 
+Criar backup de partição/HD:
+```sh
+sudo dd if=/dev/sdX[Y] of=/tmp/backup.hd bs=4M
+```
+
+Criando um _virtual disk__ (VD):
+- `dd if=/dev/zero of=/tmp/vd.img bs=1M count=8`
+- `mkfs.vfat -F 32 /tmp/vd.img`
+- _`hexdump -C /tmp/vd.img | more`_
+- `mount -o loop,rw -t vfat /tmp/vd.img /mnt`
+- `cd /mnt/ && touch file.txt; cd -`
+- `umount /mnt`
+
 ### Comando *sed*
 
 Substituir nova linha por algum caracter:
@@ -2235,6 +2248,13 @@ cat file.list | while read line; do
     sleep .1
     echo "$line"
 done
+```
+
+### Comando _mount_
+
+Montar arquivo iso:
+```sh
+mount -o ro -t iso9660 /path/to/img.iso /mnt
 ```
 
 ### Comando *xclip*
