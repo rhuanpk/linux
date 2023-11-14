@@ -2834,6 +2834,18 @@ qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX
 qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/dev/sdXY,format=raw,if=virtio
 ```
 
+#### Compartilhar Pasta do Host com Guest
+
+- Compartilhe a pasta com a VM:
+```sh
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -virtfs local,path=/path/to/shared-folder,mount_tag=shared-folder,security_model=passthrough
+```
+
+- Monte a pasta por dentro da VM:
+```sh
+mount -o trans=virtio -t 9p <mount-tag> /mnt
+```
+
 #### Clonagem de Disco Virtual
 
 ```bash
