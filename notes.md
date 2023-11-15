@@ -3507,26 +3507,26 @@ $ echo ${variable%%/*}
 
 ### Classes Unix
 
-| Classes    | Descrição                                                             |
-| ---------- | --------------------------------------------------------------------- |
-| [:alnum:]  | Alfabéticos e númericos `[a-z A-Z 0-9]`.                              |
-| [:alpha:]  | Alfabéticos `[a-z A-Z]`.                                              |
-| [:blank:]  | Caractere em branco, espaço ou tab `[\t]`.                            |
-| [:cntrl:]  | Caracteres de controle `[\x00-\x1F-\x7F]`.                            |
-| [:digit:]  | Números `[0-9]`.                                                      |
-| [:graph:]  | Qualquer caractere visível (ou seja, exceto em branco) `[\x20-\x7E].` |
-| [:lower:]  | Letras minúsculas `[a-z]`.                                            |
-| [:upper:]  | Letras maiúsculas `[A-Z]`.                                            |
-| [:print:]  | Caracteres visíveis (ou seja, exceto os de controle) `[\x20-\x7E]`.   |
-| [:punct:]  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{\|}~]`.                         |
-| [:space:]  | Espaço em branco `[\t\r\n\v\f]`.                                      |
-| [:xdigit:] | Número hexadecimais `[0-9 a-f A-F]`.                                  |
+| Classes      | Descrição                                                             |
+| ------------ | --------------------------------------------------------------------- |
+| `[:alnum:]`  | Alfabéticos e númericos `[a-z A-Z 0-9]`.                              |
+| `[:alpha:]`  | Alfabéticos `[a-z A-Z]`.                                              |
+| `[:blank:]`  | Caractere em branco, espaço ou tab `[\t]`.                            |
+| `[:cntrl:]`  | Caracteres de controle `[\x00-\x1F-\x7F]`.                            |
+| `[:digit:]`  | Números `[0-9]`.                                                      |
+| `[:graph:]`  | Qualquer caractere visível (ou seja, exceto em branco) `[\x20-\x7E].` |
+| `[:lower:]`  | Letras minúsculas `[a-z]`.                                            |
+| `[:upper:]`  | Letras maiúsculas `[A-Z]`.                                            |
+| `[:print:]`  | Caracteres visíveis (ou seja, exceto os de controle) `[\x20-\x7E]`.   |
+| `[:punct:]`  | Pontuação `[-!"#$%&'()*+,./:;?@[\\\]_{\|}~]`.                         |
+| `[:space:]`  | Espaço em branco `[\t\r\n\v\f]`.                                      |
+| `[:xdigit:]` | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
-| Classes   | Abreviação |
-| --------- | ---------- |
-| [:digit:] | \d.        |
-| [:alnum:] | \w.        |
-| [:space:] | \s.        |
+| Classes     | Abreviação |
+| ----------- | ---------- |
+| `[:digit:]` | \d.        |
+| `[:alnum:]` | \w.        |
+| `[:space:]` | \s.        |
 
 ### Expansão de Variáveis
 
@@ -3630,6 +3630,14 @@ while read -n1 line; do echo "$line"; done < <(echo -n 'string')
 grep --only-matching --color=never '.' <<< 'string' | while read line; do echo "$line"; done
 for char in `sed -E 's/(.)/\1\n/g' <<< 'string'`; do echo "$char"; done
 ```
+
+### Palavra Chave `return`
+
+Usar quando dentro de uma função você não quiser encerrar o script por completo (com comando `exit` por exemplo), ou seja, quando quiser somente sair da função antecipadamente.
+
+Com esse comando podemos especificar o código de retorno da função com `return <code>` e caso não especifique o código de retorno o comando automáticamente retornará a função com o código de retorno do último comando executado.
+
+E o comando também só será útil caso queira retornar de forma antecipada pois caso utilize o `return` na última linha, NÃO ter o `return` terá o mesmo efeito.
 
 ---
 
