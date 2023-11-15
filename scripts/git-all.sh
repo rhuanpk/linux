@@ -39,7 +39,9 @@ $script v$version
 
 Example passing parameters:
 	$script [<options>] `formatter 33 git status`
-OR
+
+	OR
+
 	$script [<options>] `formatter 33 '"git pull origin master"'`
 
 Example without passing parameters:
