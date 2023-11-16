@@ -2257,6 +2257,16 @@ Montar arquivo iso:
 mount -o ro -t iso9660 /path/to/img.iso /mnt
 ```
 
+### Comando _declare_
+
+Criar array associativo:
+```sh
+declare -A ARRAY=(
+    [index1]=value1
+    [index2]='value 2'
+)
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
