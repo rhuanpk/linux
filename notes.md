@@ -324,6 +324,8 @@ acpi --battery
 Comando _xev_:
 
 ```bash
+xev
+xev -event keyboard
 xev | sed -ne '/^KeyPress/,/^$/p'
 ```
 
