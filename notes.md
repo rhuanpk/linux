@@ -6206,6 +6206,11 @@ git config --list --show-origin
 
 OBS: caso você esteja dentro de um repo também será mostrado as configurações locais do repo.
 
+Trocar editor padrão:
+```sh
+git config --global core.editor <editor>
+```
+
 #### `includeIf` (_repo groups_)
 
 Definir arquivo de configuração específico para todos os repos dentro de terminada pasta:
