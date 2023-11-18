@@ -1136,6 +1136,14 @@ OBS:
 - Caso queria retirar a autênticação por senha para poder logar somente com chaves:
 	`PasswordAuthentication no`.
 
+No _server_ (aonde roda o _sshd_) é necessário _setar_ nas configurações:
+```conf
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+AllowTcpForwarding yes
+```
+
 _OBSERVATIONS_:
 
 - Caso tenha _firewall_ habilitado, libere a porta `tcp` para realizar as conexões.
