@@ -1079,43 +1079,62 @@ Arquivos de coniguração:
 
 #### Conexões
 
-Apenas "CLI":
+- `-p <port>`: troca a porta padrão (22).
+- `-X`: habilita o redirecionamento para _Xorg_;
+- `-Y`: desabilita o _xauth_ plugin de segurança (necessário caso erro ao executar apps via `-X`);
+
+##### Apenas CLI
+
+Conexão:
 
 ```bash
-ssh user@192.168.0.1
+ssh [-p <port>] user@host
 ```
 
-Acessar "GUI":
+##### Acessar GUI
+
+Programas necessários:
+```sh
+apt install xauth
+```
+
+Conexão:
 
 ```bash
-ssh -X user@192.168.0.1
+ssh -X [-Y] user@192.168.0.1
 ```
 
-OBS: Caso dê algum erro de conexão com interface remova a pasta .Xauthority da *home*: `rm -rfv ~/.Xauthority`
+OBS: Caso dê algum erro de conexão com interface também pode tentar remover o arquivo `.Xauthority` da _home_: `rm -fv ~/.Xauthority`
 
 **Medidas de segurança**:
 
 - Aumentar a porta de conexão:
-	`Port <port_number>`.
+	`Port <port>`.
 
-- Tempo de inatividade (em segundos) até tomar *dc* (*disconect*):
-	- `ClientAliveInterval <value>`.
-	- `ClientAliveCountMax 0`.
+- Não permitir o acesso direto ao _root user_:
+	`PermitRootLogin no`.
 
 - Não permitir senha vazias:
 	`PermitEmptyPasswords no`.
 
-- Não permitir o acesso direto ao *root user*:
-	`PermitRootLogin no`.
+- Quantidade e tempo de inatividade (sem tráfego de pacotes) até tomar _dc_ (_disconect_):
+	- Tempo de inatividade cada _request TCPKeepAlive_:
+		`ClientAliveInterval <seconds>`.
+	- Quantidade de _request TCPKeepAlive_ antes do _dc_:
+		`ClientAliveCountMax <count>`.
 
-- Explicitar o protocolo mais a tual a ser usado:
-	`Protocol 2`.
+- Máximo de conexões simultâneas:
+	`MaxSessions <count>`
+
+- Máximo de tentativas de conexão:
+	`MaxAuthTries <tries>`.
 
 - Caso queria retirar a autênticação por senha para poder logar somente com chaves:
 	`PasswordAuthentication no`.
 
-- Máximo de tentativas de conexão:
-	`MaxAuthTries <tries_number>`.
+_OBSERVATIONS_:
+
+- Caso tenha _firewall_ habilitado, libere a porta `tcp` para realizar as conexões.
 
 _REFERENCELINKS_:
 
