@@ -1104,7 +1104,11 @@ Conexão:
 ssh -X [-Y] user@192.168.0.1
 ```
 
-OBS: Caso dê algum erro de conexão com interface também pode tentar remover o arquivo `.Xauthority` da _home_: `rm -fv ~/.Xauthority`
+OBS:
+
+- Caso dê algum erro de conexão com interface também pode tentar remover o arquivo `.Xauthority` da _home_: `rm -fv ~/.Xauthority`
+- Talvez seja necessário definir a variável DISPLAY antes do comando:
+	`DISPLAY=:0 ssh [<options>] <host>`
 
 **Medidas de segurança**:
 
