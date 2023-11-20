@@ -2300,6 +2300,18 @@ declare -A ARRAY=(
 )
 ```
 
+### Comando _ftp_
+
+Programas necessários:
+```sh
+apt install ftp
+```
+
+Se conectar no servidor:
+```sh
+ftp [ftp://][<user>@]<ip>[:<port>]/
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
