@@ -2312,6 +2312,18 @@ Se conectar no servidor:
 ftp [ftp://][<user>@]<ip>[:<port>]/
 ```
 
+### Comando _filebrowser_
+
+Programas necessários:
+```sh
+curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+```
+
+Iniciar servidor:
+```sh
+filebrowser [-a <ip>] [-p <port>] -r /path/to/share/folder
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
