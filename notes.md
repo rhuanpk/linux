@@ -3468,6 +3468,18 @@ unalias <alias>
     </details>
 </details>
 
+### Descobrir Hostnames Com Seus IP's
+
+Programas necessários:
+```sh
+apt install arp-scan avahi-daemon avahi-utils
+```
+
+Comando:
+```sh
+arp-scan --localnet --quiet --format='${ip}' | grep -E '^([[:digit:]]{1,4}\.?)+$' | xargs avahi-resolve -va
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
