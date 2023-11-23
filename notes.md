@@ -1046,10 +1046,10 @@ tail -f file.txt
 
 ### Comando _ssh_
 
-Instalação:
+Programas necessários:
 
 ```bash
-sudo apt install -y ssh
+sudo apt install -y {ssh|openssh-server}
 ```
 
 #### Arquivos
@@ -1082,6 +1082,9 @@ Arquivos de coniguração:
 - `-p <port>`: troca a porta padrão (22).
 - `-X`: habilita o redirecionamento para _Xorg_;
 - `-Y`: desabilita o _xauth_ plugin de segurança (necessário caso erro ao executar apps via `-X`);
+- `-f`: não abre o _shell_ interativo e coloca o processo em background (só pode ser usado executando um comando no _host_);
+- `-N`: "bloqueia" _RCE_ (Remote Code Execution);
+- `-L <local-port>:<dst-host>:<dst-port>`: ???
 
 ##### Apenas CLI
 
