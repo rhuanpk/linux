@@ -6378,13 +6378,13 @@ git config --global http.sslverify false
 git checkout <other_branch> -- ./path/to/{folder|file.any}
 ```
 
-#### Compara Arquivos de Entre Duas Branchs
+#### Comparar Arquivos Entre Duas Commits/Branchs
 
 ```bash
-git diff <origin_branch> <target_branch> -- file-name.any
+git diff <src-branch/commit> <dst-branch/commit> -- file.any
 ```
 
-#### Compara Duas Branchs Pelo Commit Pai Mais Recente
+#### Comparar Duas Branchs Pelo Commit Pai Mais Recente
 
 ```sh
 # `git diff $(git merge-base <source> <target>) <target>` is an alias from git itself for:
