@@ -3308,6 +3308,11 @@ MKV to MP4:
 ffmpeg -i /path/to/video/input.mkv -codec copy /path/to/save/output.mp4
 ```
 
+VIDEO to GIF:
+```sh
+ffmpeg -i /path/to/video/input.any /path/to/save/output.gif
+```
+
 #### Tool Kit _mkvtoolnix_
 
 Instalação:
