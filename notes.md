@@ -6775,6 +6775,13 @@ Ordered list:
 </details>
 ```
 
+Imagens clicaveis:
+```md
+[![alt text][1]][1]
+
+[1]: <link-image> "image text"
+```
+
 ---
 
 <a id="estudos"></a>
