@@ -1,51 +1,81 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-# sudo apt install sudo acpi libnotify-bin -y
-# sudo visudo -f /etc/sudoers.d/users
-#    > "rhuan ALL=NOPASSWD:/usr/bin/systemctl"
-# */2 * * * * /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
+# Checks the battery percentage and suspend for safety when necessary.
 
-# Checks the battery percentage, if it is 9% or less the system is suspended.
-
-# >>> variable declarations !
-
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
-
-# >>> function declarations !
-
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
-}
-
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
-
-# >>> pre statements !
-
+# >>> built-in sets!
 set +o histexpand
 
-#verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
+# >>> variable declaration!
+readonly version='1.1.0'
+script="`basename "$0"`"
+uid="${UID:-`id -u`}"
+
+SUDO='sudo'
+
+# >>> function declaration!
+usage() {
+cat << EOF
+$script v$version
+
+Checks the battery percentage, if it is 9% or less the system is suspended.
+
+Usage: $script [<options>]
+
+Options:
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-# >>> *** PROGRAM START *** !
+privileges() {
+	FLAG_SUDO="${1:?needs sudo flag}"
+	FLAG_ROOT="${2:?needs root flag}"
+	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+		echo "$script: run with root privileges"
+		exit 1
+	elif ! "$FLAG_SUDO"; then
+		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
+			unset SUDO
+		fi
+	fi
+}
+
+check-needs() {
+	PACKAGES=('acpi' 'libnotify-bin')
+	for package in "${PACKAGES[@]}"; do
+		if ! dpkg -s "$package" &>/dev/null; then
+			read -p "$script: this script needs the \"$package\" package but not installed, install this? [Y/n] " answer
+			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && $SUDO apt install -y "$package"
+		fi
+	done
+}
+
+# >>> pre statements!
+while getopts 'srvh' option; do
+	case "$option" in
+		s) privileges true false;;
+		r) privileges false true;;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
+
+check-needs
+
+# ***** PROGRAM START *****
 # cron: */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
-# export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$(id -u)/bus
+# export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/`id -u`/bus
 
-battery_power=$(acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2)
-[ "$(acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2)" = 'on-line' ] && is_pluged=true || is_pluged=false
+BATTERY_POWER=`acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2`
+[ "`acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2`" = 'on-line' ] && IS_PLUGED=true || IS_PLUGED=false
 
-if ! ${is_pluged}; then
-	if [ ${battery_power%\%} -le 9 ]; then
-		sudo systemctl suspend
-	elif [ ${battery_power%\%} -le 11 ]; then
-		notify-send 'Battery Power low!' "Low battery: ${battery_power} or less, plug it into outlet."
+if ! $IS_PLUGED; then
+	if [ ${BATTERY_POWER%\%} -le 9 ]; then
+		systemctl suspend
+	elif [ ${BATTERY_POWER%\%} -le 11 ]; then
+		notify-send 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
 	fi
 fi
