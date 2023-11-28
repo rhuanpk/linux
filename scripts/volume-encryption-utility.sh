@@ -13,8 +13,6 @@ uid="${UID:-`id -u`}"
 
 SUDO='sudo'
 VOLUME_PATH='/tmp/private'
-#array()
-#options=`IFS=,; echo "${array[*]}"`
 
 # >>> function declaration!
 usage() {
@@ -102,8 +100,6 @@ mount-private() {
 			3>&1 1>&2 2>&3
 		)
 	} || {
-		# criar cada variável e fazer outra função para passar de forma interativa perguntando o valor de cada variável (algumas com padrão (opção -i do read))
-		# não mudar opção padrão do FNEK a menos que saiba o que está fazendo (colocar isso no usage)
 		# ecryptfs_enable_filename_crypto=yes
 		OUTPUT=$(
 			$SUDO mount \
