@@ -2327,6 +2327,18 @@ Iniciar servidor:
 filebrowser [-a <ip>] [-p <port>] -r /path/to/share/folder
 ```
 
+### Comando _screenkey_
+
+Programas necessários:
+```sh
+apt install screenkey
+```
+
+Mostrar as telcas que estão sendo digitadas:
+```sh
+screenkey -m -t 1 -s small -g 1323x853+334+180 --compr-cnt 1 --no-whitespace --vis-shift
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -3725,6 +3737,27 @@ Usar quando dentro de uma função você não quiser encerrar o script por compl
 Com esse comando podemos especificar o código de retorno da função com `return <code>` e caso não especifique o código de retorno o comando automáticamente retornará a função com o código de retorno do último comando executado.
 
 E o comando também só será útil caso queira retornar de forma antecipada pois caso utilize o `return` na última linha, NÃO ter o `return` terá o mesmo efeito.
+
+### Leitura de Arquivo Nativa
+
+```sh
+echo "$(< /path/to/file.any)"
+```
+
+### Montar _String_ de Opções Sem Espaços
+
+```sh
+options=('option1' 'option2' 'option3' 'option4')
+cmd --options "`IFS=,; echo "${options[*]}"`"
+```
+
+or
+
+```sh
+array=('option1' 'option2' 'option3' 'option4')
+options=`IFS=,; echo "${array[*]}"`
+cmd "$options"
+```
 
 ---
 
