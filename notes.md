@@ -4376,8 +4376,20 @@ sudo apt install dbus-x11 -y
 
 Para alguns tipos de scripts pode ser que seja necessário explicitar a variável **$DISPLAY** junto com o comando do cron (quando há a necessidade de printar notificações ou interações GUI?):
 
-```bash
+```sh
+DISPLAY=:0
+* * * * * /absolute/path/to/script.sh
+```
+or
+```sh
 * * * * * export DISPLAY=:0; /absolute/path/to/script.sh
+```
+
+_OBSERVATIONS_:
+
+Dentro do **crontab** redirecionamento de _STDOUT_ podem não funcionar, mas de _STDERR_ sim como por exemplo:
+```sh
+* * * * * /absolute/path/to/script.sh 2>/tmp/cron.log
 ```
 
 ### Criar UEFI *iso file* a partir de uma iso BIOS
