@@ -2202,7 +2202,7 @@ Fazer com que a busca seja **case insensitive** (estando no estado de comando do
 - `-t`: _Seta_ um _timeout_ para cancelamento do comando;
 - `-a`: A entrada será um _array_, ou seja, a cada espaço, um novo índice;
 - `-p`: Imprime uma mensagem antes do cursor;
-- `-i`: Caso utilizando ReadLine (opção `-e`, coloca uma mensagem padrão na caixa de _input_).
+- `-i`: Caso utilizando ReadLine (opção `-e`), coloca uma mensagem padrão na caixa de _input_.
 
 ```bash
 read -re -t 3 -a ARRAY -p 'Your name: ' -i 'Linus Torvalds'
