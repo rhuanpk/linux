@@ -92,7 +92,7 @@ mount-private() {
 		echo "$script: \"$VOLUME_PATH/\" already mounted"
 		exit 0
 	fi
-	[ ! -d "$VOLUME_PATH/" ] && {
+	if [ ! -d "$VOLUME_PATH/" ]; then
 		OUTPUT=$(
 			mkdir -p "$VOLUME_PATH/" \
 			&& chmod 600 "$VOLUME_PATH/" \
@@ -100,13 +100,24 @@ mount-private() {
 				--types ecryptfs \
 				"$VOLUME_PATH/" "$VOLUME_PATH/" \
 			3>&1 1>&2 2>&3
-		); :
-	} || {
+		)
+		RETURN="$?"
+		if [ "$RETURN" -ne 0 ]; then
+			rmdir "$VOLUME_PATH/"
+		else
+			read 
+		fi
+	else
 		OPTIONS=(
 			'key=passphrase'
-			'ecryptfs_cipher=aes'
-			'ecryptfs_key_bytes=32'
+			'ecryptfs_unlink_sigs'
+			"ecryptfs_key_bytes=$ECRYPTFS_BYTES"
+			"ecryptfs_cipher=$ECRYPTFS_CIPHER"
+			"ecryptfs_sig=$ECRYPTFS_SIGNATURE"
 			'ecryptfs_passthrough=no'
+		)
+		[ -n "$ECRYPTFS_FNEK" ] && OPTIONS+=(
+			"ecryptfs_fnek_sig=$ECRYPTFS_FNEK"
 			'ecryptfs_enable_filename_crypto=yes'
 		)
 		OUTPUT=$(
@@ -116,8 +127,8 @@ mount-private() {
 				"$VOLUME_PATH/" "$VOLUME_PATH/" \
 			3>&1 1>&2 2>&3
 		)
-	}
-	RETURN="$?"
+		RETURN="$?"
+	fi
 	default-message "$RETURN" 'mounting private folder' "$OUTPUT"
 	exit "$RETURN"
 }
