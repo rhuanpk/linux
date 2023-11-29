@@ -12,26 +12,27 @@ script="`basename "$0"`"
 uid="${UID:-`id -u`}"
 
 SUDO='sudo'
-VOLUME_PATH='/tmp/private'
+VOLUME_PATH='/tmp/.private'
 
 # >>> function declaration!
 usage() {
 cat << EOF
 $script v$version
 
-Its a volume encryption utility (a bash script with simple instructions).
+This script it is a simple volume encryption utility (a bash script with simple instructions).
 
 Usage: $script [<options>]
 
 Options:
 	-t: Print status of volume;
-	-p </path/to/folder>: Set as new folder to used like the volume;
 	-m: Mount the volume;
 	-u: Umount the volume;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
 	-h: Print this help.
+
+	-p </path/to/folder>: Set a new folder to used like the volume.
 EOF
 }
 
@@ -55,6 +56,16 @@ privileges() {
 	fi
 }
 
+check-needs() {
+	PACKAGES=('ecryptfs-utils')
+	for package in "${PACKAGES[@]}"; do
+		if ! dpkg -s "$package" &>/dev/null; then
+			read -p "$script: this script needs the \"$package\" package but not installed, install this? [Y/n] " answer
+			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && $SUDO apt install -y "$package"
+		fi
+	done
+}
+
 default-message() {
 	RETURN="${1:?needs a code to verify}"
 	OPERATION="${2:?needs a message to show}"
@@ -64,16 +75,6 @@ default-message() {
 	} || {
 		echo -e "$script: failed on $OPERATION:\n$OUTPUT"
 	}
-}
-
-check-needs() {
-	PACKAGES=('ecryptfs-utils')
-	for package in "${PACKAGES[@]}"; do
-		if ! dpkg -s "$package" &>/dev/null; then
-			read -p "$script: this script needs the \"$package\" package but not installed, install this? [Y/n] " answer
-			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && $SUDO apt install -y "$package"
-		fi
-	done
 }
 
 change-path() {
@@ -86,6 +87,7 @@ change-path() {
 }
 
 mount-private() {
+	check-needs
 	if is-mounted; then
 		echo "$script: \"$VOLUME_PATH/\" already mounted"
 		exit 0
@@ -98,14 +100,19 @@ mount-private() {
 				--types ecryptfs \
 				"$VOLUME_PATH/" "$VOLUME_PATH/" \
 			3>&1 1>&2 2>&3
-		)
+		); :
 	} || {
-		# ecryptfs_enable_filename_crypto=yes
+		OPTIONS=(
+			'key=passphrase'
+			'ecryptfs_cipher=aes'
+			'ecryptfs_key_bytes=32'
+			'ecryptfs_passthrough=no'
+			'ecryptfs_enable_filename_crypto=yes'
+		)
 		OUTPUT=$(
 			$SUDO mount \
 				--types ecryptfs \
-				--options \
-					key=passphrase,ecryptfs_cipher=aes,ecryptfs_key_bytes=32,ecryptfs_passthrough=no \
+				--options "`IFS=,; echo "${OPTIONS[*]}"`" \
 				"$VOLUME_PATH/" "$VOLUME_PATH/" \
 			3>&1 1>&2 2>&3
 		)
@@ -129,8 +136,6 @@ umount-private() {
 is-mounted() { mountpoint "$VOLUME_PATH/" &>/dev/null; }
 
 # >>> pre statements!
-check-needs
-
 while getopts 'tp:musrvh' option; do
 	case "$option" in
 		t) print-status; exit 0;;
