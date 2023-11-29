@@ -3759,6 +3759,14 @@ options=`IFS=,; echo "${array[*]}"`
 cmd "$options"
 ```
 
+### Comando `test` Como um `if` Tradicional
+
+```sh
+[ 0 -eq 0 ] && { ls /foo; :; } || echo false
+```
+
+OBS: Nesse caso o comando do bloco verdade falhará, e caso não tenha o ":;", o bloco false também será executado. Isso não é uma falha, muito pelo contrário, de fato é o comportamento correto uma vez que você entende o intuito do comando `test` e o funcionamento dos operadores lógicos diretamente no _shell_. Isso é apenas um _trick_ para que o comportamento dessa expressão seja o mais próximo de um **if** tradicional.
+
 ---
 
 <a id="db_configuracao"></a>
