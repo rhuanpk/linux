@@ -6664,6 +6664,12 @@ Mostra informações do pacote já instalado:
 pacman -Qi <package>
 ```
 
+Mostra os arquivos do pacote:
+
+```bash
+pacman -Ql [-q] <package> [<package> ...] [| grep /bin]
+```
+
 Instala apenas as dependências:
 
 ```bash
