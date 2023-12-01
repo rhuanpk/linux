@@ -13,6 +13,10 @@ uid="${UID:-`id -u`}"
 
 SUDO='sudo'
 VOLUME_PATH='/tmp/.private'
+ECRYPTFS_BYTES=
+ECRYPTFS_CIPHER=
+ECRYPTFS_SIGNATURE=
+ECRYPTFS_FNEK=
 
 # >>> function declaration!
 usage() {
@@ -27,6 +31,7 @@ Options:
 	-t: Print status of volume;
 	-m: Mount the volume;
 	-u: Umount the volume;
+	-c: Configure variables;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -77,13 +82,38 @@ default-message() {
 	}
 }
 
-change-path() {
-	NEW_PATH="${1:?need a path to set new mount point}"
-	LINE_AND_PATH=`grep -nE '^VOLUME_PATH=.*$' "$location"`
-	OUTPUT=$($SUDO sed -i "${LINE_AND_PATH%:*}s~${LINE_AND_PATH#*=}~'`realpath ${NEW_PATH/%\//}`'~" "$location" 2>&1)
+set-variable() {
+	VARIABLE_NAME="${1:?need a variable to change}"
+	NEW_VALUE="${2:?need a path to set new mount point}"
+	IS_PATH="$3"
+	if "${IS_PATH:-false}"; then
+		NEW_VALUE="`realpath ${NEW_VALUE/%\//}`"
+	fi
+	LINE_AND_PATH=`grep -nE "^$VARIABLE_NAME=.*$" "$location"`
+	OUTPUT=$($SUDO sed -i "${LINE_AND_PATH%:*}s~${LINE_AND_PATH#*=}$~'$NEW_VALUE'~" "$location" 2>&1)
 	RETURN="$?"
 	default-message "$RETURN" 'changing path of private folder' "$OUTPUT"
 	exit "$RETURN"
+}
+
+setup-variables() {
+	IS_RECONFIG="${1:?need a bool to know if are reconfig}"
+	echo "$script: entering into variables setup!"
+	for config in \
+		'ECRYPTFS_CIPHER' \
+		'ECRYPTFS_BYTES' \
+		'ECRYPTFS_SIGNATURE' \
+		'ECRYPTFS_FNEK'; \
+	do
+		MESSAGE="$script (setup) - $config"
+		[ "$config" = 'ECRYPTFS_FNEK' ] && MESSAGE+=' (empty if not set)'
+		MESSAGE+=': '
+		if "$IS_RECONFIG"; then
+			OPTIONS="-i '$(eval echo \$$config)'"
+		fi
+		read $OPTIONS -ep "$MESSAGE" answer
+		set-variable "$config" "$answer"
+	done
 }
 
 mount-private() {
@@ -105,7 +135,7 @@ mount-private() {
 		if [ "$RETURN" -ne 0 ]; then
 			rmdir "$VOLUME_PATH/"
 		else
-			read 
+			setup-variables false
 		fi
 	else
 		OPTIONS=(
@@ -147,12 +177,14 @@ umount-private() {
 is-mounted() { mountpoint "$VOLUME_PATH/" &>/dev/null; }
 
 # >>> pre statements!
-while getopts 'tp:musrvh' option; do
+privileges false false
+while getopts 'tp:mucsrvh' option; do
 	case "$option" in
 		t) print-status; exit 0;;
-		p) change-path "$OPTARG";;
+		p) set-variable 'VOLUME_PATH' "$OPTARG" true;;
 		m) mount-private;;
 		u) umount-private;;
+		c) setup-variables true;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
