@@ -2066,26 +2066,6 @@ _REFERENCELINKS_:
 
 - <https://easylinuxtipsproject.blogspot.com/p/sandbox.html>;
 
-### Comando _kill_
-
-Mata o processo pelo _id_:
-
-```bash
-kill -KILL <process_id>
-```
-
-Mata todos os processos com tal nome:
-
-```bash
-killall -KILL <process_name>
-```
-
-Verificar algum processo (signal 0 apenas verifica se o processo está vivo ou não):
-
-```bash
-kill -0 <process_id>
-```
-
 ### Comando _nslookup_
 
 Resolver _hostnames_/domínios:
@@ -2409,6 +2389,66 @@ Para colar:
 
 ```bash
 <command> {`v`|$(v)}
+```
+
+### Família _kill_
+
+- `pid`: _process id_.
+
+#### Comando _kill_
+
+- `-0`: verifica se o processo está vivo.
+
+Envia _signal's_ ao processo:
+```sh
+kill [[-s] <siginal>] [-0] <pid>
+```
+
+#### Comando _killall_
+
+Envia _signal's_ a todos os processos com o nome:
+```sh
+killall [[-s] <siginal>] <name>
+```
+
+#### Comando _pkill_
+
+- `-u`: faz o _match_ para processos de um usuário específico;
+- `-f`: faz o _match_ do _pattern_ não somente com o nome do comando executado mas inclusive com toda a sua linha de argumentos.
+
+Envia _signal's_ a todos os processos que casam com o _RegEx_:
+```sh
+pkill [-f] [-u <user>] '^string'
+```
+
+### Família _ps_
+
+#### Comando _ps_
+
+- `-a`: lista todos os processos;
+- `-ux`: lista os processos do usuário atual;
+- `-p <pid>`: lista um único processo pelo seu _PID_;
+- `-C <name>`: lista os processos correspondentes ao nome.
+
+Lista os _PID's_ e informações dos processos:
+```sh
+ps [-aux] [-p <pid>] [-C <name>]
+```
+
+#### Comando _pgrep_
+
+- `-l`: mostra também o nome do processo.
+
+Lista os _PID's_ dos processos que casam com o _RegEx_:
+```sh
+pgrep [-l] <name>
+```
+
+#### Comando _pstree_
+
+Exibe os processos em forma de árvore:
+```sh
+pstree
 ```
 
 ### Saber meu *ip externo*
@@ -3336,48 +3376,6 @@ Mesclar arquivos mp4 (depois é necessário converter de volta para mp4):
 ```sh
 mkvmerge -o output.mp4 multi-monitors-0.mp4 \+ multi-monitors-1.mp4
 ```
-
-### Como Matar Um ou Muitos "Programas"
-
-Use case:
-
-> Qual o comando CLI para matar um processo? Eu abri varias abas no edge, e o PC meio q travou. Oque fazer nesse cenario?
-
-#### kill e killall
-
-Você terá duas formas de fazer isso, pelo **_PID_** do processo ou pelo seu **nome**. Em ambos os casos você teria que saber mais ou menos o nome do comando que executou esse programa.
-
-##### kill
-
-Se for pelo **_PID_**, você pode executar:
-
-```sh
-kill -9 <PID>
-```
-
-`<PID>` será trocado pelo _PID_ do processo e o parâmetro `-9` fará o processo ser morto de forma forçada.
-
-##### killall
-
-Se for pelo _nome_, você pode executar:
-
-```sh
-killall <name>
-```
-
-`<name>` será trocado pelo nome do processo.
-
-OBS: O `killall` irá matar todos os processos daquele comando.
-
-Bom, depois de saber como matar um processo pelo seu **_PID_** ou matar todos os processos de um comando pelo seu **nome**, deve estar surgindo uma dúvida na sua cabeça: Beleza, mas como eu vou saber o nome do programa que eu quero fechar ou se quer saber o seu **_PID_**?
-
-Existem várias maneiras mas aqui vai algumas...
-
-1. Suposição: É a forma mais rápida e simples. Se o programa que quer fechar é o **Edge**, tem uma grande chance do nome do seu binário ser "edge" mesmo (ou algo muito parecido).
-
-1. Usando o "Tab": Junto com a dica número 1 você pode usar o recurso do Tab que autocompleta o comando para você. No caso se quiser testar se existe algum comando no sistema que se chame "edge" ou parecido, você pode digitar "edg" e apertar Tab para ver se o seu _shell_ irá completar algo para você. Se tiver várias opções e no meio delas existir algo como "edge-browser", não restará dúvidas que esse é o nome do programa que quer matar.
-
-1. Comando `pgrep`: Eses é o utulitário do sistema para listagem dos processos (no qual você pode passar somente parte do nome para a busca). Seguindo o exemplo do **Edge**, podiramos executar `pgrep -l edge` e todos os comandos com esse nome serão listados junto os _PID's_ e dessa forma você saberá o nome completo do comando que está buscando (caso já não seja "edge" mesmo).
 
 ### Saída dos comandos lado a lado
 
@@ -5998,7 +5996,8 @@ OBSERVATIONS:
 
 - `-u`: _stashear_ arquivos não traqueados (#saving,#listing);
 - `-p`: _patch_ dos arquivos (#listing);
-- `-k`: apesar de _stashear_ o que está em _staging_, não o limpa (#saving).
+- `-S`: aplica o **stash** somente sobre o _staging_ (#saving);
+- `-k`: apesar de _stashear_ o que está em _staging_, não o limpa (#saving);
 - `-m <message>`: _stashear_ com mensagem específica (#saving);
 - `--index`: restaurar preservando o _staging_ (#applying).
 
