@@ -6531,6 +6531,11 @@ cat -v /path/to/saved/diff.patch | sed 's/\^\[\[[[:digit:]]*m//g' | git apply -
 - Com a flag ``: listará as informações de escopo do "grupo" (ver #includeIf-repo-groups);
 - Com a flag `--local`: listará as informações do arquivo de configuração do repo local (`/path/to/project/.git/config`).
 
+#### Descartar Somente Alterações do Index
+
+1. `git stash --staged`
+1. `git stash drop`
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
