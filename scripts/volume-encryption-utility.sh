@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variable declaration!
-readonly version='1.2.0'
+readonly version='2.0.0'
 location="`realpath "$0"`"
 script="`basename "$0"`"
 uid="${UID:-`id -u`}"
@@ -15,8 +15,8 @@ SUDO='sudo'
 VOLUME_PATH='/tmp/.private'
 ECRYPTFS_BYTES=
 ECRYPTFS_CIPHER=
-ECRYPTFS_SIGNATURE=
 ECRYPTFS_FNEK=
+#ECRYPTFS_SIGNATURE=
 
 # >>> function declaration!
 usage() {
@@ -86,23 +86,25 @@ set-variable() {
 	VARIABLE_NAME="${1:?need a variable to change}"
 	NEW_VALUE="${2:?need a path to set new mount point}"
 	IS_PATH="$3"
+	MESSAGE='changing config variable'
 	if "${IS_PATH:-false}"; then
 		NEW_VALUE="`realpath ${NEW_VALUE/%\//}`"
+		MESSAGE='changing path of private folder'
 	fi
 	LINE_AND_PATH=`grep -nE "^$VARIABLE_NAME=.*$" "$location"`
 	OUTPUT=$($SUDO sed -i "${LINE_AND_PATH%:*}s~${LINE_AND_PATH#*=}$~'$NEW_VALUE'~" "$location" 2>&1)
 	RETURN="$?"
-	default-message "$RETURN" 'changing path of private folder' "$OUTPUT"
-	exit "$RETURN"
+	default-message "$RETURN" "$MESSAGE" "$OUTPUT"
+	return "$RETURN"
 }
 
 setup-variables() {
 	IS_RECONFIG="${1:?need a bool to know if are reconfig}"
 	echo "$script: entering into variables setup!"
+	#'ECRYPTFS_SIGNATURE' \
 	for config in \
 		'ECRYPTFS_CIPHER' \
 		'ECRYPTFS_BYTES' \
-		'ECRYPTFS_SIGNATURE' \
 		'ECRYPTFS_FNEK'; \
 	do
 		MESSAGE="$script (setup) - $config"
@@ -138,12 +140,12 @@ mount-private() {
 			setup-variables false
 		fi
 	else
+		#"ecryptfs_sig=$ECRYPTFS_SIGNATURE"
 		OPTIONS=(
 			'key=passphrase'
 			'ecryptfs_unlink_sigs'
 			"ecryptfs_key_bytes=$ECRYPTFS_BYTES"
 			"ecryptfs_cipher=$ECRYPTFS_CIPHER"
-			"ecryptfs_sig=$ECRYPTFS_SIGNATURE"
 			'ecryptfs_passthrough=no'
 		)
 		[ -n "$ECRYPTFS_FNEK" ] && OPTIONS+=(
