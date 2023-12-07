@@ -15,7 +15,6 @@ SUDO='sudo'
 VOLUME_PATH='/tmp/.private'
 ECRYPTFS_BYTES=
 ECRYPTFS_CIPHER=
-#ECRYPTFS_CRYPTO=
 
 # >>> function declaration!
 usage() {
@@ -100,7 +99,6 @@ set-variable() {
 setup-variables() {
 	IS_RECONFIG="${1:?need a bool to know if are reconfig}"
 	echo "$script: entering into variables setup!"
-	#'ECRYPTFS_CRYPTO'; \
 	for config in \
 		'ECRYPTFS_CIPHER' \
 		'ECRYPTFS_BYTES'; \
@@ -134,7 +132,6 @@ mount-private() {
 			setup-variables false
 		fi
 	else
-		#"ecryptfs_enable_filename_crypto=$ECRYPTFS_CRYPTO"
 		OPTIONS=(
 			'key=passphrase'
 			"ecryptfs_key_bytes=$ECRYPTFS_BYTES"
