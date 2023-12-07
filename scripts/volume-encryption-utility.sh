@@ -15,8 +15,7 @@ SUDO='sudo'
 VOLUME_PATH='/tmp/.private'
 ECRYPTFS_BYTES=
 ECRYPTFS_CIPHER=
-ECRYPTFS_FNEK=
-#ECRYPTFS_SIGNATURE=
+#ECRYPTFS_CRYPTO=
 
 # >>> function declaration!
 usage() {
@@ -43,8 +42,8 @@ EOF
 
 print-status() {
 	cat <<- eof
-		Current folder setuped: "$VOLUME_PATH/"
-		Is-mounted: `if is-mounted; then echo true; else echo false; fi`
+		$script: current folder setuped: "$VOLUME_PATH/"
+		$script: is-mounted: `if is-mounted; then echo true; else echo false; fi`
 	eof
 }
 
@@ -84,7 +83,7 @@ default-message() {
 
 set-variable() {
 	VARIABLE_NAME="${1:?need a variable to change}"
-	NEW_VALUE="${2:?need a path to set new mount point}"
+	NEW_VALUE="${2:?need a value to change}"
 	IS_PATH="$3"
 	MESSAGE='changing config variable'
 	if "${IS_PATH:-false}"; then
@@ -101,17 +100,15 @@ set-variable() {
 setup-variables() {
 	IS_RECONFIG="${1:?need a bool to know if are reconfig}"
 	echo "$script: entering into variables setup!"
-	#'ECRYPTFS_SIGNATURE' \
+	#'ECRYPTFS_CRYPTO'; \
 	for config in \
 		'ECRYPTFS_CIPHER' \
-		'ECRYPTFS_BYTES' \
-		'ECRYPTFS_FNEK'; \
+		'ECRYPTFS_BYTES'; \
 	do
-		MESSAGE="$script (setup) - $config"
-		[ "$config" = 'ECRYPTFS_FNEK' ] && MESSAGE+=' (empty if not set)'
-		MESSAGE+=': '
-		if "$IS_RECONFIG"; then
-			OPTIONS="-i '$(eval echo \$$config)'"
+		OLD_VALUE="$(eval echo \$$config)"
+		MESSAGE="$script (setup) - $config: "
+		if "$IS_RECONFIG" && [ -n "$OLD_VALUE" ]; then
+			OPTIONS="-i $OLD_VALUE"
 		fi
 		read $OPTIONS -ep "$MESSAGE" answer
 		set-variable "$config" "$answer"
@@ -125,14 +122,11 @@ mount-private() {
 		exit 0
 	fi
 	if [ ! -d "$VOLUME_PATH/" ]; then
-		OUTPUT=$(
-			mkdir -p "$VOLUME_PATH/" \
-			&& chmod 600 "$VOLUME_PATH/" \
-			&& $SUDO mount \
-				--types ecryptfs \
-				"$VOLUME_PATH/" "$VOLUME_PATH/" \
-			3>&1 1>&2 2>&3
-		)
+		mkdir -p "$VOLUME_PATH/" \
+		&& chmod 600 "$VOLUME_PATH/" \
+		&& $SUDO mount \
+			--types ecryptfs \
+			"$VOLUME_PATH/" "$VOLUME_PATH/"
 		RETURN="$?"
 		if [ "$RETURN" -ne 0 ]; then
 			rmdir "$VOLUME_PATH/"
@@ -140,28 +134,20 @@ mount-private() {
 			setup-variables false
 		fi
 	else
-		#"ecryptfs_sig=$ECRYPTFS_SIGNATURE"
+		#"ecryptfs_enable_filename_crypto=$ECRYPTFS_CRYPTO"
 		OPTIONS=(
 			'key=passphrase'
-			'ecryptfs_unlink_sigs'
 			"ecryptfs_key_bytes=$ECRYPTFS_BYTES"
 			"ecryptfs_cipher=$ECRYPTFS_CIPHER"
 			'ecryptfs_passthrough=no'
 		)
-		[ -n "$ECRYPTFS_FNEK" ] && OPTIONS+=(
-			"ecryptfs_fnek_sig=$ECRYPTFS_FNEK"
-			'ecryptfs_enable_filename_crypto=yes'
-		)
-		OUTPUT=$(
-			$SUDO mount \
-				--types ecryptfs \
-				--options "`IFS=,; echo "${OPTIONS[*]}"`" \
-				"$VOLUME_PATH/" "$VOLUME_PATH/" \
-			3>&1 1>&2 2>&3
-		)
+		$SUDO mount \
+			--types ecryptfs \
+			--options "`IFS=,; echo "${OPTIONS[*]}"`" \
+			"$VOLUME_PATH/" "$VOLUME_PATH/"
 		RETURN="$?"
 	fi
-	default-message "$RETURN" 'mounting private folder' "$OUTPUT"
+	default-message "$RETURN" 'mounting private folder'
 	exit "$RETURN"
 }
 
@@ -178,7 +164,7 @@ umount-private() {
 
 is-mounted() { mountpoint "$VOLUME_PATH/" &>/dev/null; }
 
-# >>> pre statements!
+# ***** PROGRAM START *****
 privileges false false
 while getopts 'tp:mucsrvh' option; do
 	case "$option" in
@@ -194,5 +180,3 @@ while getopts 'tp:mucsrvh' option; do
 	esac
 done
 shift $(("$OPTIND"-1))
-
-# ***** PROGRAM START *****
