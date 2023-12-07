@@ -2319,6 +2319,13 @@ Mostrar as telcas que estão sendo digitadas:
 screenkey -m -t 1 -s small -g 1323x853+334+180 --compr-cnt 1 --no-whitespace --vis-shift
 ```
 
+### Comando _modprobe_
+
+Verificar se um modolo já está carregado:
+```sh
+modprobe --dry-run --first-time <module> && echo "not loaded" || echo "loaded"
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
