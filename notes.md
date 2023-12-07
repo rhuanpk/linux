@@ -3772,6 +3772,17 @@ cmd "$options"
 
 OBS: Nesse caso o comando do bloco verdade falhará, e caso não tenha o ":;", o bloco false também será executado. Isso não é uma falha, muito pelo contrário, de fato é o comportamento correto uma vez que você entende o intuito do comando `test` e o funcionamento dos operadores lógicos diretamente no _shell_. Isso é apenas um _trick_ para que o comportamento dessa expressão seja o mais próximo de um **if** tradicional.
 
+### Descritores de Arquivos (_File Descriptors_ (_FD's_))
+
+Ver os descritores de arquivos do shell atual:
+```sh
+ls /proc/"$$"/fd/
+```
+
+OBS:
+- inclusive caso você abra um novo para escrita ou leitura ele também será listado e você identificará seu tipo pelas permissões;
+- inclusive dá para enviar algo para o descritor de arquivo de otro processo com redirecionamento: `<command> >/proc/<pid>/fd/<fd>`
+
 ---
 
 <a id="db_configuracao"></a>
