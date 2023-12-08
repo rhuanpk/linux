@@ -52,6 +52,8 @@ ferramentas/programas
 
 - evince (vizualiador de pdf) // sudo apt install evince
 
+- krop (cortador de pdf) // sudo apt install krop
+
 - copyq (gerenciador de área de transferencia)
 
 	1) $ flatpak install --user https://flathub.org/repo/appstream/com.github.hluk.copyq.flatpakref
