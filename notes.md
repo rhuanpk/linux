@@ -6554,6 +6554,18 @@ cat -v /path/to/saved/diff.patch | sed 's/\^\[\[[[:digit:]]*m//g' | git apply -
 1. `git stash --staged`
 1. `git stash drop`
 
+#### Alterar Modo de Prompt
+
+Desabilitar o _prompt_ (git espera encontrar as credenciais no ambiente):
+```sh
+GIT_TERMINAL_PROMPT=0 <command>
+```
+
+Habilitar o _prompt_ (git forçara a entrada manual das credenciais):
+```sh
+GIT_TERMINAL_PROMPT=1 <command>
+```
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
