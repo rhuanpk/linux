@@ -6608,6 +6608,16 @@ _pipeline_:
 git branch -m <new_branch> && git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch> && git fetch <remote> && git branch -u <remote>/<new_branch>
 ```
 
+#### Setar Manualmente Branch Upstream das Branchs Locais
+
+Comando:
+```sh
+for branch in `git branch --color=never | sed -E 's/^[ \*] //g'`; do
+	git switch "$branch" \
+	&& git branch -u "origin/$branch"
+done
+```
+
 ### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
