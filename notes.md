@@ -6731,25 +6731,31 @@ Remove o pacote junto com as dependências não usadas por outros pacotes:
 ```bash
 pacman -Rs <package>
 ```
+
+Limpa o cache dos pacotes:
+```sh
+pacman -Sc [-c]
+```
+
 ### AUR
 
 Instalação manual:
 
 1. Clone o repositório:
-	`git clone '<repo>'`
+	`$ git clone '<repo>'`
 1. Entre no repositório:
-	`cd ./<repo>/`
+	`$ cd ./<repo>/`
 1. Instale o pacote:
 	- <details>
 		<summary>With SUDO</summary>
 
-		`makepkg -srci`
+		`$ sudo makepkg -srci`
 	- <details>
-		<summary>Without SUDO</summary>
+		<summary>With ROOT</summary>
 
-		1. `makepkg -src`
+		1. `$ makepkg -src`
 			- OBS: Caso reclame de dependência, instale com `pacman` e refaça essa estapa.
-		1. `pacman -U <package>.zst`
+		1. `# pacman -U <package>.zst`
 	</details>
 	</details>
 
