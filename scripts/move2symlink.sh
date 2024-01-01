@@ -15,7 +15,7 @@ SETLOAD_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.priva
 PATHWAY=${PK_LOAD_LINUX:-`wget -qO - "$SETLOAD_URL" | bash - 2>&- | grep linux`}
 ALL_FILES=`ls -1 "$PATHWAY"/*.sh`
 ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
-EXPRESSION='(backup|git-all|volume-encryption-utility)\.sh'
+EXPRESSION='(backup|volume-encryption-utility)\.sh'
 
 # >>> function declaration!
 usage() {
