@@ -1160,7 +1160,7 @@ _REFERENCELINKS_:
 Criar ssh key:
 
 ```bash
-ssh-keygen -t rsa -b 4096
+ssh-keygen [-t rsa [-b 4096]] [-t ed25519 [-a 32]]
 ```
 
 Iniciar um agente *ssh* (quando algo buscar por uma chave é o *ssh-agent* que irá fornecer):
