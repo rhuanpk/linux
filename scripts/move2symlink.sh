@@ -13,7 +13,7 @@ uid="${UID:-`id -u`}"
 SUDO='sudo'
 SETLOAD_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 PATHWAY=${PK_LOAD_LINUX:-`wget -qO - "$SETLOAD_URL" | bash - 2>&- | grep linux`}
-ALL_FILES=`ls -1 "$PATHWAY"/*.sh`
+ALL_FILES=`ls -1 "$PATHWAY"/scripts/*.sh`
 ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
 EXPRESSION='(backup|volume-encryption-utility)\.sh'
 
@@ -61,7 +61,7 @@ execute-all() {
 # >>> pre statements!
 [ -z "$PATHWAY" ] && PATHWAY="`pwd`" || PATHWAY+='/scripts'
 
-while getopts 'srvh' OPTION; do
+while getopts 'lsrvh' OPTION; do
 	case "$OPTION" in
 		l) FLAG_SYMLINK=true;;
 		s) FLAG_SUDO=true;;
