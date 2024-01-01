@@ -120,22 +120,22 @@ done
 shift $(("$OPTIND"-1))
 
 [ ! -f "$FILE_PATH" ] || [ ! -s "$FILE_PATH" ] && {
-	echo -e "\n$script: file path is not exists or set ups, use \`-s\` flag!\n"
+	echo -e "\n$script: error: file path is not exists or set ups, use \`-s\` flag\n"
 	exit 1
 }
 
 # ***** PROGRAM START *****
-_REPO_PATHS="`get-path`"
+[ -z "$_REPO_PATHS" ] && _REPO_PATHS="`get-path`"
 for directory in $_REPO_PATHS/*; do
 	if ! OUTPUT=`cd "$directory" 2>&1`; then
 		{
 			[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-			&& echo -e "\n$script: warning: \"$directory\" is not a folder!"
+			&& echo -e "\n$script: warning: \"$directory\" is not a folder"
 		} || {
 			[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-			&& echo -e "\n$script: warning: \"$directory\" don't has permission!";
+			&& echo -e "\n$script: warning: \"$directory\" don't has permission";
 		} || \
-			echo -e "\n$script: warning: some wrong occurred on entering in \"$directory\"!"
+			echo -e "\n$script: warning: some wrong occurred on entering in \"$directory\""
 	else
 		cd "$directory" 2>&1
 		echo -e "\n → git in *`basename ${directory^^}`*!\n"
