@@ -5404,19 +5404,24 @@ trans -b en:pt-br -i file.txt
 
 ### Comando *jq*
 
-Pretty Printer Formatter for JSON files:
+- `-r`: saída pura;
+- `-c`: mimificado;
+- `-C`: colorido;
+- `-M`: sem cor;
 
-Completo:
+Comando:
 
-- `jq . file.json`
+- `jq file.json`
+- `jq file.json > pretty.json`
 - `cat file.json | jq`
-- `jq . file.json > pretty.json`
-- `curl -fsSL --request GET --url 'https://jsonplaceholder.typicode.com/posts' --header 'Content-Type: application/json' | jq`
+- `jq <<< '{"foo":"bar"}'`
+- `curl -fsSL 'https://jsonplaceholder.typicode.com/posts' -H 'content-type: application/json' | jq`
 
-Mimificado:
+Acessando atributo do objeto JSON:
 
-- `jq -c < file.json`
-- `cat file.json | jq -c`
+```sh
+jq [-r] '.xpto.array.[2]' <<< '{"foo":"bar","xpto":{"hello":"world","array":[true,42,"string"]}}'
+```
 
 ### Comando *mocp*
 
