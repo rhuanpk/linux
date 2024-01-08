@@ -37,5 +37,5 @@ shift $(("$OPTIND"-1))
 
 if ! "${IS_POWER_SUPPLY:-false}"; then
 	BATTERY_PERCENT=`acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2`
-	echo "| Battery: ${BATTERY_PERCENT:-0%}"
+	echo "Battery: ${BATTERY_PERCENT:-0%} |"
 fi
