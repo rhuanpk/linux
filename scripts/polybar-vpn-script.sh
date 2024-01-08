@@ -32,4 +32,12 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 VALIDATES="tun0|wg0|`hostname`"
-[[ "`ip -br link | cut -d ' ' -f 1`" =~ ($VALIDATES) ]] && echo '(VPN) |' || echo '|'
+if ping -c 1 iana.org &>/dev/null; then
+	[[ "`ip -br link | cut -d ' ' -f 1`" =~ ($VALIDATES) ]] && {
+		echo '(VPN) |'
+	} || {
+		echo '|'
+	}
+else
+	echo
+fi
