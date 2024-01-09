@@ -32,6 +32,8 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 while :; do
-	echo "`wpctl get-volume '@DEFAULT_AUDIO_SINK@' | cut -d ' ' -f 2` ♪"
+	VOLUME="`wpctl get-volume '@DEFAULT_AUDIO_SINK@'`"
+	[[ "$VOLUME" =~ MUTED ]] && SYMBOL='✗' || SYMBOL='♪'
+	echo "`cut -d ' ' -f 2 <<< "$VOLUME"` $SYMBOL"
 	sleep .1
 done
