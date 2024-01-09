@@ -22,11 +22,11 @@ EOF
 }
 
 pick-display() {
-	echo $(brightnessctl -l | grep -Ei '(backlight)' | tr ' ' '\n' | sed -n 2p | tr -d "'" | tail -n 1)
+	brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"
 }
 
 get-brighteness-percent() {
-	brightnessctl get -d $(pick-display)
+	brightnessctl get -d `pick-display`
 }
 
 # >>> pre statements!
