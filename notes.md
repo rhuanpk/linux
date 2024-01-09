@@ -3505,6 +3505,18 @@ Comando:
 arp-scan --localnet --quiet --format='${ip}' | grep -E '^([[:digit:]]{1,4}\.?)+$' | xargs avahi-resolve -va
 ```
 
+### Pegar IP Local
+
+Com `ip` comando:
+```sh
+ip address show | grep -FA2 'state UP' | sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p'
+```
+
+Com `hostname` comando:
+```sh
+hostname -I | cut -d ' ' -f 1
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
