@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-# Return boolena if has VPN connection.
+# Prints the local ip for polybar module.
 
 # >>> variable declaration!
 readonly version='1.0.0'
@@ -11,7 +11,7 @@ usage() {
 cat << EOF
 $script v$version
 
-Return boolena if has VPN connection.
+Prints the local ip for polybar module.
 
 Usage: $script [<options>]
 
@@ -31,6 +31,17 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-IFNAMES="`ip -br link | cut -d ' ' -f 1`"
-VPNS="tun0|wg0|`hostname`"
-[[ "$IFNAMES" =~ ($VPNS) ]]
+INTERFACE="`ip a | grep -FA2 'state UP'`"
+IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
+[ -n "$INTERFACE" ] && {
+	if [ "`wc -l < /proc/net/wireless`" -gt 2 ]; then
+		TYPE='w_IP'
+	else
+		TYPE='e_IP'
+	fi
+} || TYPE='Network'
+[ -z "$IP" ] && IP='N/A'
+if pvs; then
+	IP+=' (VPN)'
+fi
+echo "$TYPE: $IP |"

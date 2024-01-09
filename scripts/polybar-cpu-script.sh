@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-# Print the CPU usage for polybar module.
+# Prints the CPU usage for polybar module.
 
 # >>> variable declaration!
 readonly version='1.0.0'
@@ -11,7 +11,7 @@ usage() {
 cat << EOF
 $script v$version
 
-Short description of how it works.
+Prints the CPU usage for polybar module.
 
 Usage: $script [<options>]
 
