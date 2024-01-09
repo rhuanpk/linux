@@ -3609,9 +3609,9 @@ $ echo ${variable%%/*}
 | `(foo)#`      | Zero ou mais ocorrências de foo. |
 | `(foo)##`     | Uma ou mais ocorrências de foo.  |
 
-### Classes Unix
+### Classes POSIX
 
-| Classes      | Descrição                                                             |
+| Classe       | Descrição                                                             |
 | ------------ | --------------------------------------------------------------------- |
 | `[:alnum:]`  | Alfabéticos e númericos `[a-z A-Z 0-9]`.                              |
 | `[:alpha:]`  | Alfabéticos `[a-z A-Z]`.                                              |
@@ -3626,11 +3626,13 @@ $ echo ${variable%%/*}
 | `[:space:]`  | Espaço em branco `[\t\r\n\v\f]`.                                      |
 | `[:xdigit:]` | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
-| Classes     | Abreviação |
-| ----------- | ---------- |
-| `[:digit:]` | \d.        |
-| `[:alnum:]` | \w.        |
-| `[:space:]` | \s.        |
+Perl equivalente (_PCRE_):
+
+| Classe      | Equivalente |
+| ----------- | ----------- |
+| `[:digit:]` | `\d`        |
+| `[:alnum:]` | `\w`        |
+| `[:space:]` | `\s`        |
 
 ### Expansão de Variáveis
 
