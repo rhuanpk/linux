@@ -2326,6 +2326,13 @@ Verificar se um modolo já está carregado:
 modprobe --dry-run --first-time <module> && echo "not loaded" || echo "loaded"
 ```
 
+### Comando _xsetroot_
+
+Resetar o background padrão do sistema:
+```sh
+xsetroot
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
