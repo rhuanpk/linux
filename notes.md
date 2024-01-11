@@ -3608,7 +3608,9 @@ $ echo ${variable%%/*}
 > https:
 ```
 
-### Bash Glob's estendidos.
+### Glob's Estendidos
+
+Bash:
 
 | Glob         | Descrição                                               |
 | ------------ | ------------------------------------------------------- |
@@ -3618,7 +3620,7 @@ $ echo ${variable%%/*}
 | `@(pattern)` | Corresponde exatamente a uma ocorrência do padrão.      |
 | `!(pattern)` | Corresponde a tudo, exceto o padrão.                    |
 
-### Zsh Glob's estendidos.
+Zsh:
 
 | Glob          | Descrição                        |
 | ------------- | -------------------------------- |
@@ -3645,7 +3647,7 @@ $ echo ${variable%%/*}
 | `[:space:]`  | Espaço em branco `[\t\r\n\v\f]`.                                      |
 | `[:xdigit:]` | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
-Perl equivalente (_PCRE_):
+Perl equivalentes (_PCRE_):
 
 | Classe      | Equivalente |
 | ----------- | ----------- |
@@ -3785,7 +3787,7 @@ options=`IFS=,; echo "${array[*]}"`
 cmd "$options"
 ```
 
-### Comando `test` Como um `if` Tradicional
+### Comando `test` Como Um `if` Tradicional
 
 ```sh
 [ 0 -eq 0 ] && { ls /foo; :; } || echo false
@@ -3803,6 +3805,14 @@ ls /proc/"$$"/fd/
 OBS:
 - inclusive caso você abra um novo para escrita ou leitura ele também será listado e você identificará seu tipo pelas permissões;
 - inclusive dá para enviar algo para o descritor de arquivo de otro processo com redirecionamento: `<command> >/proc/<pid>/fd/<fd>`
+
+### Arrays
+
+Operador de atribuição:
+```sh
+array=(one two)
+array+=(three)
+```
 
 ---
 
