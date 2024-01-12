@@ -5,7 +5,7 @@
 # >>> built-in sets!
 #set -ex +o histexpand
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='0.0.0'
 readonly location="`realpath "$0"`"
 readonly script="`basename "$0"`"
@@ -15,7 +15,7 @@ readonly home="/home/$user"
 
 SUDO='sudo'
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
