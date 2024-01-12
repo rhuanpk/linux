@@ -32,11 +32,15 @@ Options:
 EOF
 }
 
-# Keeping set up the `SUDO` variable makes automatically retain or discard the sudo command.
-# `-s` option forces to keep the sudo command.
-# `-r` option forces to "unset" sudo command.
-# Comment the `SUDO` variable to require run as root.
-# Case not use sudo in the script don't worry, nothing changes.
+# Observations:
+# - If you do not use sudo, delete all related parts;
+# - If using sudo:
+# 	- If you want to change the sudo state only via option, delete the automatic privilege;
+# 	- If you have disabled automatic privileges and need pre getopts scaling, use it before it.
+# 	- (maybe necessary add a else clausule to sets up $SUDO variable again?)
+# - About the flags:
+# 	- The `-s` option forces retention of the sudo command;
+# 	- The `-r` option forces the sudo command to be "disabled".
 privileges() {
 	FLAG_SUDO="${1:?needs sudo flag}"
 	FLAG_ROOT="${2:?needs root flag}"
@@ -60,6 +64,8 @@ while getopts 'srvh' option; do
 	esac
 done
 shift $(("$OPTIND"-1))
+
+privileges false false
 
 # ***** PROGRAM START *****
 # <commands>
