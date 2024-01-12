@@ -5443,8 +5443,8 @@ trans -b en:pt-br -i file.txt
 
 Comando:
 
-- `jq file.json`
-- `jq file.json > pretty.json`
+- `jq '.' file.json`
+- `jq '.' file.json > pretty.json`
 - `cat file.json | jq`
 - `jq <<< '{"foo":"bar"}'`
 - `curl -fsSL 'https://jsonplaceholder.typicode.com/posts' -H 'content-type: application/json' | jq`
