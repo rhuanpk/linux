@@ -4967,7 +4967,8 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 - `:g!/<string>/d`: deleta todas as linhas que NÃO contenham a *string* passada;
 - `g/^$/d`: deleta todas as linhas em branco :);
 - `/<string>\c`: pesquisa com case insensitive;
-- `/<string>\C`: pesquisa com case sensitive.
+- `/<string>\C`: pesquisa com case sensitive;
+- `[<range-lines>]g/<regex>/s/<old-string>/<new-string>/[gci]`: nas linhas casadas com o regex faça a troca.
 
 ### Swapfile
 
