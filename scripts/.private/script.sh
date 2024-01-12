@@ -7,11 +7,11 @@
 
 # >>> variable declaration!
 readonly version='0.0.0'
-location="`realpath "$0"`"
-script="`basename "$0"`"
-uid="${UID:-`id -u`}"
-user="`id -un "${uid/#0/1000}"`"
-home="/home/$user"
+readonly location="`realpath "$0"`"
+readonly script="`basename "$0"`"
+readonly uid="${UID:-`id -u`}"
+readonly user="`id -un "${uid/#0/1000}"`"
+readonly home="/home/$user"
 
 SUDO='sudo'
 
