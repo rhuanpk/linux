@@ -3814,6 +3814,18 @@ array=(one two)
 array+=(three)
 ```
 
+### Test
+
+O comando `test` por padrão sem nenhum argumento valida com a opção `-n`, logo:
+```sh
+[ -n "$FOO" ]
+```
+
+É equivlaente a:
+```sh
+[ "$FOO" ]
+```
+
 ---
 
 <a id="db_configuracao"></a>
