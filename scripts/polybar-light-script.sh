@@ -32,6 +32,7 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 while :; do
-	echo "$(brightnessctl get -d `brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"`) ✩"
+	BACKLIGHT="$(brightnessctl get -d `brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"`)"
+	echo "☀️ $(bc <<< "$BACKLIGHT/10")%"
 	sleep .1
 done

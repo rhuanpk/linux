@@ -34,6 +34,6 @@ shift $(("$OPTIND"-1))
 while :; do
 	VOLUME="`wpctl get-volume '@DEFAULT_AUDIO_SINK@'`"
 	[[ "$VOLUME" =~ MUTED ]] && SYMBOL='✗' || SYMBOL='♪'
-	echo "`cut -d ' ' -f 2 <<< "$VOLUME"` $SYMBOL"
+	echo "$SYMBOL $(printf '%.0f' $(bc <<< "`cut -d ' ' -f 2 <<< "$VOLUME"`*100"))%"
 	sleep .1
 done
