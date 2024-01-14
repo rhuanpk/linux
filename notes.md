@@ -5004,6 +5004,8 @@ Modo de Comando:
 	`:[<range-lines>]g/<regex>/s/<old-string>/<new-string>/[gci]`
 - regex no range de linhas (o segundo valor do range pode ser outro _pattern_):
     `:/<pattern>/,$g/<string>`
+- executar mais de um comando por linha:
+    `:%s/<pattern>/<replacement>/[gci] | :%s/<pattern>/<replacement>/[gci]`
 
 Modo de Pesquisa:
 - pesquisa com case insensitive:
