@@ -4959,28 +4959,57 @@ OBS: Caso duas pessoas compartilhem a mesma sessão tmux você terá um bash com
 
 ### Vim
 
-- `ctrl+w v`: split vertical;
-- `ctrl+w s`: split horizontal;
-- `ctrl+w w`: navega entre as janelas;
-- `:e /path/to/file.any`: abre o arquivo no caminho passado;
-- `:term`: abre uma janela dedicada a ser um terminal;
-- `:vertical :term`: abre uma janela dedicada a ser um terminal esplitado na vertical;
-- `:! pwd`: executa um comando e volta para o vim;
-- `:r! pwd`: executa um comando e seu retorno vai direto para o arquivo que está sendo editado;
-- `ctrl+w e`: *scroll* de linha a linha para baixo;
-- `ctrl+w y`: *scroll* de linha a linha para cima;
-- `:reg`: faz a listagem do histórico de *deletes/yanks* (*"reg"* é a abreviação de *"register"*);
-- `<register_name>p`: cola um registro específico do histórico;
-- `%d`: limpa o arquivo (deleta todas as linhas);
-- `<begin_number>,<end_number>d`: deleta o range de linhas informados;
-- `dgg`: deleta da linha atual até o início do arquivo;
-- `.,$d`: deleta da linha atual até o final do arquivo;
-- `:g/<string>/d`: deleta todas as linhas que contenham a *string* passada;
-- `:g!/<string>/d`: deleta todas as linhas que NÃO contenham a *string* passada;
-- `g/^$/d`: deleta todas as linhas em branco :);
-- `/<string>\c`: pesquisa com case insensitive;
-- `/<string>\C`: pesquisa com case sensitive;
-- `[<range-lines>]g/<regex>/s/<old-string>/<new-string>/[gci]`: nas linhas casadas com o regex faça a troca.
+Modo Normal:
+- split vertical:
+	`ctrl+w v`
+- split horizontal:
+	`ctrl+w s`
+- navega entre as janelas:
+	`ctrl+w w`
+- _scroll_ de linha a linha para baixo:
+	`ctrl+w e`
+- _scroll_ de linha a linha para cima:
+	`ctrl+w y`
+- cola um registro específico do histórico:
+	`<register_name>p`
+- deleta da linha atual até o início do arquivo:
+	`dgg`
+
+Modo de Comando:
+- abre o arquivo no caminho passado:
+	`:e /path/to/file.any`
+- abre uma janela dedicada a ser um terminal:
+	`:term`
+- abre uma janela dedicada a ser um terminal esplitado na vertical:
+	`:vertical :term`
+- executa um comando e volta para o vim:
+	`:! pwd`
+- executa um comando e seu retorno vai direto para o arquivo que está sendo editado:
+	`:r! pwd`
+- faz a listagem do histórico de _deletes/yanks_ ("_reg_" é a abreviação de "_register_"):
+	`:reg`
+- limpa o arquivo (deleta todas as linhas):
+	`:%d`
+- deleta o range de linhas informados:
+	`:<begin-number>,<end-number>d`
+- deleta da linha atual até o final do arquivo:
+	`:.,$d`
+- deleta todas as linhas que contenham a _string_ passada:
+	`:g/<string>/d`
+- deleta todas as linhas que NÃO contenham a _string_ passada:
+	`:g!/<string>/d`
+- deleta todas as linhas em branco :):
+	`:g/^$/d`
+- nas linhas casadas com o regex faça a troca:
+	`:[<range-lines>]g/<regex>/s/<old-string>/<new-string>/[gci]`
+- regex no range de linhas (o segundo valor do range pode ser outro _pattern_):
+    `:/<pattern>/,$g/<string>`
+
+Modo de Pesquisa:
+- pesquisa com case insensitive:
+	`/<string>\c`
+- pesquisa com case sensitive:
+	`/<string>\C`
 
 ### Swapfile
 
