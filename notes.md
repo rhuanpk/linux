@@ -2541,6 +2541,7 @@ ps [-aux] [-p <pid>] [-C <name>]
 #### Comando _pgrep_
 
 - `-l`: mostra também o nome do processo.
+- `-f`: faz o _match_ do _pattern_ não somente com o nome do comando executado mas inclusive com toda a sua linha de argumentos.
 
 Lista os _PID's_ dos processos que casam com o _RegEx_:
 ```sh
