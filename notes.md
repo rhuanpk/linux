@@ -2405,6 +2405,45 @@ Para colar:
 <command> {`v`|$(v)}
 ```
 
+### Usuários e Grupos
+
+Adicionar usuário (mod):
+```sh
+adduser [<options>] <user>
+```
+
+Adicionar usuário (vanila):
+```sh
+# creates the user (and add your groups)
+useradd -m [-G <group>[,<group>...]] <user>
+# sets a new password for the new user
+passwd <user>
+```
+
+Remover usuário (mod):
+```sh
+deluser [<options>] <user>
+```
+
+Adicionar usuário a um ou muitos grupos:
+```sh
+usermod -aG <group>[,<group>...] <user>
+```
+
+OBS: Omitindo a flag `-a` você deixará o usuário somente com os usuários especificados e todos os outros grupos serão removidos.
+
+Remover usuário de um grupo:
+```sh
+gpasswd -d <user> <group>
+```
+
+#### Comando _newgrp_
+
+Caso tenha feito a adição de um usuário a um grupo e não possa reiniciar a sessão para que a modiciação seja aplicada o comando `newgrp` irá recarregar a sessão do _shell_ atual do usuário corrente com o grupo específicado:
+```sh
+newgrp <group>
+```
+
 ### Família _kill_
 
 - `pid`: _process id_.
@@ -3523,6 +3562,26 @@ Com `hostname` comando:
 ```sh
 hostname -I | cut -d ' ' -f 1
 ```
+
+### Configuração de Polkit
+
+#### Habilitar Suspensão do Sistema Para Determinado Usuário Sem Ser Necessário Autenticação
+
+1. Adicionar nova regra no arquivo `/etc/polkit-1/rules.d/<file-name>.rules`:
+```js
+polkit.addRule(function(action, subject) {
+    if (subject.user == "user" && (action.id == "org.freedesktop.login1.suspend" || action.id == "org.freedesktop.login1.suspend-multiple-session")) {
+        return polkit.Result.YES;
+    }
+});
+```
+
+2. Reinicie o serviço:
+```sh
+systemctl restart polkit
+```
+
+OBS: Caso necessário, troque "suspend" por "hibernete" ou crie sua própria regra.
 
 ---
 
