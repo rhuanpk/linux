@@ -56,8 +56,8 @@ check-needs
 
 while getopts 'cd:vh' option; do
 	case "$option" in
-		c) OPTIONS+=' -c'
-		d) OPTIONS+=" -d $OPTARG"
+		c) OPTIONS+=' -c';;
+		d) OPTIONS+=" -d $OPTARG";;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
@@ -65,6 +65,9 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
+if pgrep -f ffmpeg >/dev/null; then
+	echo "$script: warning: \"ffmpeg\" is running, byzanz maybe fail"
+fi
 read -r XAXIS YAXIS WIDTH HEIGHT < <(slop -qf '%x %y %w %h')
 byzanz-record -x "$XAXIS" -y "$YAXIS" -w "$WIDTH" -h "$HEIGHT" "$FILE" $OPTIONS
 echo "$script: file: \"$FILE\"."
