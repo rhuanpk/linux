@@ -1,186 +1,169 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Remove the next line of pattern if him is blank.
 
-# >>> variable declarations !
+# >>> built-in sets!
+set +o histexpand
 
-format_red='\e[31m'
-format_green='\e[32m'
-format_yellow='\e[33m'
-format_cyan='\e[36m'
-format_bold='\e[1m'
-format_underlined='\e[4m'
-format_reset='\e[m'
+# >>> variables declaration!
+readonly version='2.0.0'
+readonly script="`basename "$0"`"
 
-readonly script=$(basename "${0}")
-readonly version=0.0.0
-readonly home=${HOME:-/home/${USER:-$(whoami)}}
+FORMAT_RED='\e[31m'
+FORMAT_GREEN='\e[32m'
+FORMAT_YELLOW='\e[33m'
+FORMAT_CYAN='\e[36m'
+FORMAT_BOLD='\e[1m'
+FORMAT_UNDERLINED='\e[4m'
+FORMAT_RESET='\e[m'
 
-getopt_short_options='hvm:f:t:'
-getopt_long_options='help,version,pattern:,pathway:,typeof:'
+GETOPT_SHORT_OPTIONS='hvm:f:t:'
+GETOPT_LONG_OPTIONS='help,version,pattern:,pathway:,typeof:'
 
-regex_default='(-h|--help|-v|--version)'
-regex_requires='(-m|--pattern).*(-f|--pathway).*(-t|--typeof)'
+REGEX_DEFAULT='(-h|--help|-v|--version)'
+REGEX_REQUIRES='(-m|--pattern).*(-f|--pathway).*(-t|--typeof)'
 
-log_file=`mktemp /tmp/${script}_XXXXXXXXXXXXXX.log`
+LOG_FILE="`mktemp /tmp/$script-XXXXXXXXXX.log`"
 
-# >>> function declarations !
+# >>> functions declaration!
+print-usage() {
+cat << EOF
+$script v$version
 
-print_usage() {
-	cat <<- eof
-		####################################################################################################
-		#
-		# >>> `echo -e ${format_bold}${script}${format_reset}` !
-		#
-		# DESCRIPTION
-		# 	Script to remove the next blank line referring to the line to be searched for the informed
-		# 	regex pattern.
-		#
-		# 	E.g. if I look for the pattern '.*line with this expression$', the script will remove all
-		# 	the lines whose next line of this expression is blank.
-		#
-		# USAGE
-		# 	$script [-hv] -m <argument> -f <argument> -t <typeof>
-		#
-		# REQUIRES
-		#	-m, --pattern '<argument>'
-		# 		Is <argument> a string single quoted with the regex pattern (perl/grep).
-		#
-		# 	and
-		#
-		#	-f, --pathway <argument>
-		# 		Is <argument> a pathway to the file or directory (whithout backslash) to search.
-		#
-		# 	and
-		#
-		# 	-t, --typeof <typeof> 
-		# 		See `echo -e ${format_underlined}TYPEOF${format_reset}` section for <typeof> options.
-		#
-		# OPTIONALS
-		# 	-v, --version
-		# 		Print the versions and exit with 0.
-		#
-		# 	-h, --help
-		# 		Print this help and exit with 0.
-		#
-		# TYPEOF
-		# 	Options for <typeof> argument.
-		#
-		# 	f, file
-		# 		Option for execute from a single file.
-		#
-		# 	d, directory
-		# 		Option for all files in a directory.
-		#
-		####################################################################################################
-	eof
+DESCRIPTION
+	Script to remove the next blank line referring to the line to be searched for the informed
+	regex pattern.
+
+	E.g. if I look for the pattern '.*line with this expression$', the script will remove all
+	the lines whose next line of this expression is blank.
+
+USAGE
+	$script [-hv] -m <argument> -f <argument> -t <typeof>
+
+REQUIRES
+	-m, --pattern '<argument>'
+		Is <argument> a string single quoted with the regex pattern (perl/grep).
+
+	and
+
+	-f, --pathway <argument>
+		Is <argument> a pathway to the file or directory (whithout backslash) to search.
+
+	and
+
+	-t, --typeof <typeof> 
+		See `echo -e ${FORMAT_UNDERLINED}TYPEOF${FORMAT_RESET}` section for <typeof> options.
+
+OPTIONALS
+	-v, --version
+		Print the versions and exit with 0.
+
+	-h, --help
+		Print this help and exit with 0.
+
+TYPEOF
+	Options for <typeof> argument.
+
+	f, file
+		Option for execute from a single file.
+
+	d, directory
+		Option for all files in a directory.
+EOF
 }
 
-print_version() {
-	echo -e "${format_bold}${script}${format_reset}: version ${version}!"
+print-version() {
+	echo -e "${FORMAT_BOLD}${script}${FORMAT_RESET}: version ${version}!"
 }
 
-print_leaving() {
-	echo -e "${format_green}thanks${format_reset}..."
+print-leaving() {
+	echo -e "${FORMAT_GREEN}thanks${FORMAT_RESET}..."
 	exit 0
 }
 
-print_exiting() {
-	echo -e "${format_yellow}exiting${format_reset}..." >&2
+print-exiting() {
+	echo -e "${FORMAT_YELLOW}exiting${FORMAT_RESET}..." >&2
 	exit 1
-}
-
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "${format_red}ERROR${format_reset}: run this program ${format_bold}without${format_reset} privileges!" >&2
-		print_exiting
-	}
 }
 
 iffnue() {
 	read -rp 'remove next blank lines? [y/N] ' answer
-	([ -z "${answer}" ] || [ y != "${answer,,}" ])
+	([ -z "$answer" ] || [ y != "${answer,,}" ])
 }
 
-remove_nonprinting() {
-	file=${1:?need specify a file to remove noprinting characters!}
-	cat -v $file | sed -E 's~\^\[\[([[:digit:]]+;?)*m\^\[\[K~~g'
+remove-nonprinting() {
+	FILE="${1:?need specify a file to remove noprinting characters!}"
+	cat -v "$FILE" | sed -E 's~\^\[\[([[:digit:]]+;?)*m\^\[\[K~~g'
 }
 
-format_make_cyan() {
-	string=${1:?need a string to format in cyan!}
-	echo -e "${format_cyan}${string}${format_reset}"
+format-make-cyan() {
+	STRING=${1:?need a string to format in cyan!}
+	echo -e "${FORMAT_CYAN}${STRING}${FORMAT_RESET}"
 }
 
-# >>> pre statements !
-
-set +o histexpand
-
-#verify_privileges
-
-if ! options=`getopt -l $getopt_long_options -n $script -- $getopt_short_options "${@}"`; then
-	print_exiting
-elif ! [[ $options =~ $regex_default || $options =~ $regex_requires ]]; then
-	echo -e "\
-		\r${script}: ${format_red}missing required options${format_reset}!\n\
-		\r${script}: ${format_bold}-h${format_reset} or ${format_bold}--help${format_reset} to see!\
-	" >&2
-	print_exiting
+# >>> pre statements!
+if ! OPTIONS=`getopt -l "$GETOPT_LONG_OPTIONS" -n "$script" -- "$GETOPT_SHORT_OPTIONS" "$@"`; then
+	print-exiting
+elif ! [[ "$OPTIONS" =~ $REGEX_DEFAULT || "$OPTIONS" =~ $REGEX_REQUIRES ]]; then
+	cat <<- EOF >&2
+		$script: ${FORMAT_RED}missing required options${FORMAT_RESET}!
+		$script: ${FORMAT_BOLD}-h${FORMAT_RESET} or ${FORMAT_BOLD}--help${FORMAT_RESET} to see!
+	EOF
+	print-exiting
 fi
-eval "set -- ${options}"
+eval "set -- $OPTIONS"
 while :; do
-	option="${1}"
-	argument="${2}"
+	OPTION="$1"
+	ARGUMENT="$2"
 	case $option in
-		-m|--pattern) pattern="${argument}"; shift 2;;
-		-f|--pathway) pathway="${argument}"; shift 2;;
-		-t|--typeof) typeof="${argument}"; shift 2;;
-		-v|--version) print_version; exit 0;;
-		-h|--help) print_usage; exit 0;;
+		-m|--pattern) PATTERN="${ARGUMENT}"; shift 2;;
+		-f|--pathway) PATHWAY="${ARGUMENT}"; shift 2;;
+		-t|--typeof) TYPEOF="${ARGUMENT}"; shift 2;;
+		-v|--version) print-version; exit 0;;
+		-h|--help) print-usage; exit 0;;
 		--) shift; break;;
-		*) echo -e "${format_red}script panic${format_reset}!"; exit 1;;
+		*) echo -e "${FORMAT_RED}script panic${FORMAT_RESET}!"; exit 1;;
 	esac
 done
 
-# >>> *** PROGRAM START *** !
+# ***** PROGRAM START *****
 cat <<- eof
-	>>> ${script} !
+	>>> $script!
 
-	`format_make_cyan pattern`: ${pattern:?need a pattern to match!}
-	`format_make_cyan pathway`: ${pathway:?need a pathway to find!}
-	`format_make_cyan typeof`: ${typeof:?need a typeof to specify!}
+	`format-make-cyan pattern`: ${PATTERN:?need a pattern to match!}
+	`format-make-cyan pathway`: ${PATHWAY:?need a pathway to find!}
+	`format-make-cyan typeof`: ${TYPEOF:?need a typeof to specify!}
 
-	logfile: $log_file
+	logfile: $LOG_FILE
 
 eof
-if [ "${typeof,,}" = f ] || [ "${typeof,,}" = file ]; then
-	eval "grep --color=always -nFA 1 '${pattern}' '${pathway%/}'" | tee $log_file | less -R
+if [ "${TYPEOF,,}" = 'f' ] || [ "${TYPEOF,,}" = 'file' ]; then
+	eval "grep --color=always -nFA 1 '$PATTERN' '${PATHWAY%/}'" | tee "$LOG_FILE" | less -R
 	if ! iffnue; then
-		for log_line in $(seq 2 3 `wc -l < $log_file`); do
-			blank_line=`remove_nonprinting $log_file | tail -n +${log_line} | head -1 | cut -d - -f 1`
-			#sed -i `bc <<< "${blank_line}-${count:-0}"`d $pathway
-			sed -i "$((${blank_line}-${count:-0}))d" $pathway
+		for log_line in $(seq 2 3 `wc -l < "$LOG_FILE"`); do
+			BLANK_LINE=`remove-nonprinting "$LOG_FILE" | tail -n +"$log_line" | head -1 | cut -d '-' -f 1`
+			sed -i "$(("$BLANK_LINE"-"${count:-0}"))d" "$PATHWAY"
 			let count++
 		done
-		print_leaving
+		print-leaving
 	else
-		print_leaving
+		print-leaving
 	fi
-elif [[ "${typeof,,}" = d || "${typeof,,}" = directory ]]; then
-	eval "grep --color=always -nrIFA 1 '${pattern}' '${pathway}/'" | tee $log_file | less -R
+elif [[ "${TYPEOF,,}" = 'd' || "${TYPEOF,,}" = 'directory' ]]; then
+	eval "grep --color=always -nrIFA 1 '${PATTERN}' '${PATHWAY}/'" | tee "$LOG_FILE" | less -R
 	if ! iffnue; then
-		for file_and_line in `remove_nonprinting $log_file | grep --color=never -E '[[:digit:]]+-$' | sed -E 's/.$//'`; do
-			atual_file="${file_and_line%-*}"
-			[ $atual_file != ${previous_file:-""} ] && unset count
-			sed -i "$((${file_and_line##*-}-${count:-0}))d" $atual_file
-			previous_file=${atual_file}
+		for file_and_line in `remove-nonprinting "$LOG_FILE" | grep --color=never -E '[[:digit:]]+-$' | sed -E 's/.$//'`; do
+			ATUAL_FILE="${file_and_line%-*}"
+			[ "$ATUAL_FILE" != "${PREVIOUS_FILE:-''}" ] && unset count
+			sed -i "$(("${file_and_line##*-}"-"${count:-0}"))d" "$ATUAL_FILE"
+			PREVIOUS_FILE="$ATUAL_FILE"
 			let count++
 		done
-		print_leaving
+		print-leaving
 	else
-		print_leaving
+		print-leaving
 	fi
 else
-	echo -e "${script}: ${format_red}incorrect${format_reset} typeof argument!" >&2
-	print_exiting
+	echo -e "$script: ${FORMAT_RED}incorrect${FORMAT_RESET} typeof argument!" >&2
+	print-exiting
 fi

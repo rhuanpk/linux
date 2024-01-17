@@ -8,16 +8,16 @@
 # >>> built-in sets!
 set +o histexpand
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='2.0.0'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
 FILE_PATH=~/.config/git-all.path
 #_REPO_PATHS='/tmp'
 FLAG_CUSTOM='false'
 FLAG_PULL='false'
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
@@ -37,14 +37,14 @@ $script v$version
 
 `formatter 1 USAGE`
 
-Example passing parameters:
+Usage passing parameters:
 	$script [<options>] `formatter 33 git status`
 
 	OR
 
 	$script [<options>] `formatter 33 '"git pull origin master"'`
 
-Example without passing parameters:
+Usage without passing parameters:
 	$script [<options>]
 
 `formatter 1 OPTIONS`

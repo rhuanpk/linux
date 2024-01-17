@@ -3,11 +3,11 @@
 # This script decompress most popular compress extensions.
 # Create a folder with same name of the file then decompress inside her.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.3.1'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version

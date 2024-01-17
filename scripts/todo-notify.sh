@@ -1,42 +1,44 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Send notification to desktop to remind todo list.
 
-# >>> variable declarations !
+# >>> built-in sets!
+#set -ex +o histexpand
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> variables declaration!
+readonly version='1.1.0'
+readonly script="`basename "$0"`"
+readonly uid="${UID:-`id -u`}"
+readonly user="`id -un "${uid/#0/1000}"`"
+readonly home="/home/$user"
 
-# >>> function declarations !
+TODO_FILE="$home/Documents/annotations/.todo-list.txt"
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
+
+Send notification to desktop to remind todo list.
+
+Usage: $script [<options>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'vh' option; do
+	case "$option" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
+# ***** PROGRAM START *****
 # cron: 0 * * * * export DISPLAY=:0; /usr/local/bin/pk/tn 2>/tmp/cron_error.log
 
-home=${HOME:-"/home/${USER:-$(whoami)}"}
-todo_list_path_file=${home}/Documents/annotations/.todo-list.txt
-
-[ -s ${todo_list_path_file} ] && {
-        message=$(cat ${todo_list_path_file})
-        notify-send '>>> ToDo List !' "${message}"
-}
+[ -s "$TODO_FILE" ] && notify-send '>>> ToDo List!' "$(< "$TODO_FILE")"

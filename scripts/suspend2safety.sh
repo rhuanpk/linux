@@ -5,14 +5,15 @@
 # >>> built-in sets!
 set +o histexpand
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.1.0'
-script="`basename "$0"`"
-uid="${UID:-`id -u`}"
+readonly script="`basename "$0"`"
+readonly uid="${UID:-`id -u`}"
 
 SUDO='sudo'
+BATTERY_POWER="`acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2`"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
@@ -22,8 +23,6 @@ Checks the battery percentage, if it is 9% or less the system is suspended.
 Usage: $script [<options>]
 
 Options:
-	-s: Forces keep sudo;
-	-r: Forces unset sudo;
 	-v: Print version;
 	-h: Print this help.
 EOF
@@ -43,6 +42,7 @@ privileges() {
 }
 
 check-needs() {
+	privileges false false
 	PACKAGES=('acpi' 'libnotify-bin')
 	for package in "${PACKAGES[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
@@ -53,29 +53,26 @@ check-needs() {
 }
 
 # >>> pre statements!
-while getopts 'srvh' option; do
+check-needs
+
+while getopts 'vh' option; do
 	case "$option" in
-		s) privileges true false;;
-		r) privileges false true;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
 
-check-needs
-
 # ***** PROGRAM START *****
 # cron: */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
 # export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/`id -u`/bus
 
-BATTERY_POWER=`acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2`
-[ "`acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2`" = 'on-line' ] && IS_PLUGED=true || IS_PLUGED=false
+[ "`acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2`" = 'on-line' ] && IS_PLUGED='true' || IS_PLUGED='false'
 
-if ! $IS_PLUGED; then
-	if [ ${BATTERY_POWER%\%} -le 9 ]; then
+if ! "$IS_PLUGED"; then
+	if [ "${BATTERY_POWER%\%}" -le '9' ]; then
 		systemctl suspend
-	elif [ ${BATTERY_POWER%\%} -le 11 ]; then
+	elif [ "${BATTERY_POWER%\%}" -le '11' ]; then
 		notify-send 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
 	fi
 fi

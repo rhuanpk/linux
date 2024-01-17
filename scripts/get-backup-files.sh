@@ -2,12 +2,12 @@
 
 # Make a backup of some important files.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.1.0'
-script="`basename "$0"`"
-uid="${UID:-`id -u`}"
-user="`id -un "${uid/#0/1000}"`"
-home="/home/$user"
+readonly script="`basename "$0"`"
+readonly uid="${UID:-`id -u`}"
+readonly user="`id -un "${uid/#0/1000}"`"
+readonly home="/home/$user"
 
 PATHWAY_BACKUP=$home/Documents/config-files-backup/`hostname`
 declare -A ARRAY_PATHWAY_BACKUP=( \
@@ -36,7 +36,7 @@ PATHWAY_HISTORY="$home/.bash_history"
 PATHWAY_GIT="$home/.gitconfig"
 PATHWAY_VIM="$home/.vimrc"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version

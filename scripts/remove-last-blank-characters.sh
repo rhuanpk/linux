@@ -2,11 +2,11 @@
 
 # Remove Last Clank character remove thats in all lines in file passed like argument.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='2.0.0'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version

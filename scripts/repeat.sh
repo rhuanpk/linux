@@ -1,75 +1,64 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Loop for commands.
 
-# >>> variable declarations!
-script=`basename $(readlink -f "$0")`
+# >>> variables declaration!
+readonly version='2.0.0'
+readonly script="`basename "$0"`"
 
-#home=${HOME:-/home/${USER:-`id -nu`}}
-#home=${HOME:-/home/${USER:-`whoami`}}
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations!
-verify-privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Script that leaves some command in a loop with update time control.
+
+Syntax:
+	$script <time> <command>
+
+Usage:
+	$script 3 lsblk
+	$script 1 'sudo fdisk -l'
+	$script 5 "ls -lhAF ~/"
+
+Options:
+	- <time>: Time (in seconds thats can are decimal values) to updating:
+	- <command>: Command to reapeat.
+	-v: Print version;
+	-h: Print this help.
+
+Tips/Tricks:
+	- If you want to repeat any alias or custom function, use BASH_ENV in-line.
+EOF
 }
 
-print-usage() {
-        cat <<- EOF
-		#######################################################################################
-		#
-		# >>> $script !
-		#
-		#
-		# Script que deixar algum comando em loop com controle de tempo de atualização
-		#
-		# Parâmetros passados:
-		#
-		# 	1: Tempo (em segundos) para atualização do comando; # Proteção de aspas opcional.
-		#
-		# 	2: Comando a ser repetido; # Proteção de aspas opcional.
-		#
-		# Exemplos:
-		#
-		# $script 3 lsblk
-		#
-		# $script 1 'sudo fdisk -l /dev/sda'
-		#
-		# $script 5 "ls -lhF ~/*"
-		#
-		# Dicas:
-		#
-		# 	1. Caso deseje repitira algum alias ou função customizade passe com BASH_ENV.
-		#
-		#######################################################################################
-	EOF
-}
+# >>> pre statements!
+while getopts 'vh' option; do
+	case "$option" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-
-# >>> pre statements !
-
-set +o histexpand
-
-#verify-privileges
-[ "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print-usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
+# ***** PROGRAM START *****
 unset TIME COMMAND
 
-TIME=${@:1:1}
-COMMAND=${*:2}
+COMMAND='ls --color=always -lhAF'
+if [[ "$1" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+	TIME="$1"
+	[ "$#" -gt '1' ] && COMMAND="${*:2}"
+else
+	TIME='1'
+	[ "$#" -gt '0' ] && COMMAND="$*"
+fi
 
 if alias "$COMMAND" &>/dev/null; then
-	COMMAND=$(sed -En "s/^alias $COMMAND='(.*)'/\1/p" <<< "`alias $COMMAND`")
+	COMMAND="$(sed -En "s/^alias $COMMAND='(.*)'$/\1/p" <<< "`alias $COMMAND`")"
 fi
 
 while :; do
-	sleep ${TIME:?'needs informe a time delay as first param!'}
 	clear
-	eval "${COMMAND:?'needs informe a command to run as second param!'}"
+	eval "${COMMAND:?'needs informe a command to run as second param'}"
+	sleep "${TIME:?'needs informe a time delay as first param'}"
 done

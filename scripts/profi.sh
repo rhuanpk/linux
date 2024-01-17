@@ -2,11 +2,11 @@
 
 # My custom rofi.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.0.0'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version

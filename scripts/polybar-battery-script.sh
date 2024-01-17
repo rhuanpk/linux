@@ -2,13 +2,13 @@
 
 # Prints the battery percentage if it is "ac adapter".
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.1.0'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
 AC_ADAPTER=`acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2`
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version

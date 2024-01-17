@@ -1,12 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Advanced multi file renamer.
 
-# >>> variable declarations !
+# >>> built-in sets!
+set +o histexpand
 
-readonly SCRIPT=`basename "$0"`
-readonly HOME="/home/${USER:-$(id -un `id -u`)}"
-readonly VERSION=2.1.0
+# >>> variables declaration!
+readonly version='2.2.0'
+readonly script="`basename "$0"`"
 
 FONT_BOLD=1
 FONT_UNDERLINE=4
@@ -39,46 +40,42 @@ LIST_ACCENTS=`
 	eof
 `
 
-LOG_FILE=/tmp/renameplace-`date +%y-%m-%d_%H:%M:%S`.log
+LOG_FILE="/tmp/$script-`date +%y-%m-%d_%H:%M:%S`.log"
 
-# >>> function declarations !
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
 
-verify_privileges() {
-	[ "$UID" -eq 0 ] && {
-		cat <<- eof
-			ERROR: Run this program without privileges!
-			Exiting...
-		eof
-		exit 1
-	}
-}
+Advanced multiple file renamer.
 
-print_usage() {
-	echo -e "Run:\n\t$SCRIPT"
+Usage: $script [<options>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
 message-invalid-option() {
-	echo -en "\nInvalid option! <press_enter> "; read zkt
+	echo -en "\nInvalid option! <press_enter> "; read
 }
 
 message-quit() {
-	MAX_DOTS=3
-	clear
-	for ((i=0;i<=2;i++)); do
+	MAX_DOTS='3'
+	clear; for ((i=0;i<3;i++)); do
 		format "$FONT_BOLD" '\n\t*** THANK YOU ***\n'
 		for ((j=0;j<="$MAX_DOTS";++j)); do
-			[[ "$j" -eq 0 ]] && echo -en "Exiting "
-			sleep .1
-			echo -n .
+			[[ "$j" -eq '0' ]] && echo -en 'Exiting '
+			sleep .1; echo -n '.'
 			[[ "$j" -eq "$MAX_DOTS" ]] && clear
 		done
-	done; echo
-	clear
-	echo "$SCRIPT: log file: '$LOG_FILE'."
+	done
+	echo "$script: log file: '$LOG_FILE'."
 }
 
 message-default-simply() {
-	MESSAGE=${1:-need a message to print!}
+	MESSAGE="${1:-need a message to print!}"
 	cat <<- eof
 
 		>> $MESSAGE!
@@ -90,34 +87,21 @@ message-default-simply() {
 
 
 format() {
-	formatting=${1:-need a message to format!}
-	[[ "$formatting" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || message="${*}"
-	echo -e "\e[${formatting}m$message\e[m"
+	FORMATTING="${1:-need a message to format!}"
+	[[ "$FORMATTING" =~ ([[:digit:]]+;?)* ]] && MESSAGE="${@:2}" || MESSAGE="$*"
+	echo -e "\e[${FORMATTING}m$MESSAGE\e[m"
 }
 
 list-directory() {
-	ls -1hF --color
+	ls --color=always -1hF
 }
 
-# >>> pre statements !
-
-set +o histexpand
-
-#verify_privileges
-[ "$#" -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
 start-test-mode() {
-	TMP_FOLDER=/tmp/tmp
-	echo -e "\nCreate a safe folder for tests in \"/tmp/tmp/\", move to it and generate random files for tests! [Y/n] "; read ANSWER
+	TMP_FOLDER='/tmp/tmp'
+	echo -ne "\nCreate a safe folder for tests in \"/tmp/tmp/\", move to it and generate random files for tests! [Y/n] "; read ANSWER
 	[ -z "$ANSWER" ] || [ y = "${ANSWER,,}" ] && {
-		[ ! -d "$TMP_FOLDER/" ] && {
-			mkdir -pv "$TMP_FOLDER/" \
-			&& cd "$TMP_FOLDER/"
-		} || cd "$TMP_FOLDER/"
+		[ ! -d "$TMP_FOLDER/" ] && mkdir -pv "$TMP_FOLDER/"
+		cd "$TMP_FOLDER/"
 		touch ./file-{0..4}.{txt,tmp}
 	}
 }
@@ -165,7 +149,7 @@ submenu-blank-spaces() {
 	done
 
 }
-# corrigindo espaços em BRAAANCO (identação das linhas)
+
 submenu-upper-lower() {
 
 	to-upper() {
@@ -208,8 +192,8 @@ submenu-upper-lower() {
 
 remove-accents() {
 	clear
-	INDEX_SEQUENCE=0
-	INDEX_PARSE=1
+	INDEX_SEQUENCE='0'
+	INDEX_PARSE='1'
 	for file in *; do
 		while read -a accents; do
 			if OUTPUT=`mv --verbose -- "$file" "${file//[${accents[$INDEX_SEQUENCE]}]/${accents[$INDEX_PARSE]}}" 2>&-`; then
@@ -223,7 +207,7 @@ remove-accents() {
 submenu-file-names() {
 
 	message-default-composed() {
-		MESSAGE=${1:-need a message to print!}
+		MESSAGE="${1:-need a message to print!}"
 		cat <<- eof
 
 			>> $MESSAGE!
@@ -236,7 +220,7 @@ submenu-file-names() {
 	}
 
 	message-input() {
-		MESSAGE=${1:-need a message to print!}
+		MESSAGE="${1:-need a message to print!}"
 		echo -en "\nEnter the `format "$COLOR_YELLOW;$FONT_BOLD" "$MESSAGE"` of each file name: "
 	}
 
@@ -292,7 +276,7 @@ submenu-file-names() {
 		read -p 'Input string: ' INPUT
 		read -p 'String de saida: ' OUTPUT
 		[ -z "$INPUT" ] && [ -z "$OUTPUT" ] && {
-			echo -en "\nGo backing to the previous menu whithout doing anything... <press_enter> "; read zkt
+			echo -en "\nGo backing to the previous menu whithout doing anything... <press_enter> "; read
 			submenu-file-names
 		}
 		for file in *; do
@@ -339,9 +323,9 @@ submenu-file-names() {
 		get-name() {
 			echo "`ls -1 | sed -n "${1}p"`"
 		}
-		COUNT_LINES=`ls -1 | wc -l`
-		for index in `seq $COUNT_LINES`; do
-			FILE_NAMES[$index]=`get-name $index`
+		COUNT_LINES="`ls -1 | wc -l`"
+		for index in `seq "$COUNT_LINES"`; do
+			FILE_NAMES["$index"]=`get-name "$index"`
 		done
 		let COUNT_LINES++
 		for i in `seq "$COUNT_LINES"`; do
@@ -354,7 +338,7 @@ submenu-file-names() {
 
 			eof
 			for ((j=1;j<"$COUNT_LINES";j++)); do
-				[ "${FILE_NAMES[$i]}" = "`get-name $j`" ] && format "$BACKGROUND_BLACK;$COLOR_YELLOW;$FONT_BOLD" "`get-name $j`" || get-name "$j"
+				[ "${FILE_NAMES[$i]}" = "`get-name $j`" ] && format "$BACKGROUND_BLACK;$COLOR_YELLOW;$FONT_BOLD" "`get-name "$j"`" || get-name "$j"
 			done
 			if [ "$i" -lt "$COUNT_LINES" ]; then
 				echo; read -rep "Entre com o novo nome do arquivo \"${FILE_NAMES[$i]}\": " -i "${FILE_NAMES[$i]}" NEW_NAME
@@ -454,4 +438,14 @@ menu-main() {
 	done
 }
 
+# >>> pre statements!
+while getopts 'vh' option; do
+	case "$option" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
+
+# ***** PROGRAM START *****
 menu-main

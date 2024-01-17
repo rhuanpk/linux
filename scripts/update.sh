@@ -1,35 +1,57 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Default system update.
 
-# >>> variable declarations !
+# >>> variables declaration!
+readonly version='1.1.0'
+readonly script="`basename "$0"`"
+readonly uid="${UID:-`id -u`}"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+SUDO='sudo'
 
-# >>> function declarations !
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
+Default system update.
+
+Usage: $script [<options>]
+
+Options:
+	-s: Forces keep sudo;
+	-r: Forces unset sudo;
+	-v: Print version;
+	-h: Print this help.
+EOF
+}
+
+privileges() {
+	FLAG_SUDO="${1:?needs sudo flag}"
+	FLAG_ROOT="${2:?needs root flag}"
+	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+		echo "$script: run with root privileges"
 		exit 1
-	}
+	elif ! "$FLAG_SUDO"; then
+		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
+			unset SUDO
+		fi
+	fi
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'srvh' option; do
+	case "$option" in
+		s) privileges true false;;
+		r) privileges false true;;
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
+privileges false false
 
-set +o histexpand
-
-#verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-sudo apt update -y
-sudo apt upgrade -y
+# ***** PROGRAM START *****
+$SUDO apt update
+$SUDO apt upgrade -y

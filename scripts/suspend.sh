@@ -1,46 +1,34 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-# Call the "plock" and suspend the system.
+# Sleep before suspend the system.
 
-# >>> variable declarations !
+# >>> variables declaration!
+readonly version='1.1.0'
+readonly script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Sleep before suspend the system (via systemctl) and if not timeout is provided 0s is the default.
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage: $script [<options>] [<timeout-seconds>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-	cat <<- eof
-		##################################################
-		#
-		# >>> $script !
-		#
-		# Custom screen suspender.
-		#
-		# Usage:
-		#
-		# 	$script [<timeout_seconds>]
-		#
-		##################################################
-	eof
-}
+# >>> pre statements!
+while getopts 'vh' option; do
+	case "$option" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ $# -gt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-sleep "${1:-0}"; plock && sudo systemctl suspend
+# ***** PROGRAM START *****
+sleep "${1:-0}"; systemctl suspend

@@ -2,16 +2,16 @@
 
 # Move all or some specifies scripts to the PATH directories.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.1.0'
-script="`basename "$0"`"
-uid="${UID:-`id -u`}"
+readonly script="`basename "$0"`"
+readonly uid="${UID:-`id -u`}"
 
 SUDO='sudo'
 GIT_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 SCRIPTS_PATH="${PK_LOAD_LINUX:-`wget -qO - "$GIT_URL" | bash - 2>&- | grep -F linux`}"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
@@ -31,27 +31,33 @@ Options:
 EOF
 }
 
+privileges() {
+	FLAG_SUDO="${1:?needs sudo flag}"
+	FLAG_ROOT="${2:?needs root flag}"
+	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
+		echo "$script: run with root privileges"
+		exit 1
+	elif ! "$FLAG_SUDO"; then
+		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
+			unset SUDO
+		fi
+	fi
+}
+
 # >>> pre statements!
 [ -z "$SCRIPTS_PATH" ] && SCRIPTS_PATH="`pwd`" || SCRIPTS_PATH+='/scripts'
 
-while getopts 'srvh' OPTION; do
-	case "$OPTION" in
-		s) FLAG_SUDO=true;;
-		r) FLAG_ROOT=true;;
+while getopts 'srvh' option; do
+	case "$option" in
+		s) privileges true false;;
+		r) privileges false true;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
 
-if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
-	echo "$script: run with root privileges"
-	exit 1
-elif ! "${FLAG_SUDO:-false}"; then
-	if "${FLAG_ROOT:-false}" || [ "$uid" -eq 0 ]; then
-		unset SUDO
-	fi
-fi
+privileges false false
 
 # ***** PROGRAM START *****
 [ "$#" -eq 0 ] && {

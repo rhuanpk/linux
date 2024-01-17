@@ -1,36 +1,37 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Print the fingerprint of ssh public key argument or all in default ~/.ssh/.
 
-# >>> variable declarations !
+# >>> variables declaration!
+readonly version='1.1.0'
+readonly script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Print the fingerprint of ssh public key argument or all in default ~/.ssh/.
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage: $script [<options>]
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        echo -e "Run:\n\t./${script}"
-}
+# >>> pre statements!
+while getopts 'vh' option; do
+	case "$option" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
+	esac
+done
+shift $(("$OPTIND"-1))
 
-# >>> pre statements !
-
-set +o histexpand
-
-verify_privileges
-[ $# -ge 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-        print_usage
-        exit 1
-}
-
-# >>> *** PROGRAM START *** !
-for public_key in ${home}/.ssh/*.pub; do
-	echo "key → ${public_key}:"; ssh-keygen -lf ${public_key}
+# ***** PROGRAM START *****
+for pub in $HOME/.ssh/*.pub; do
+	echo "key → $pub:"
+	ssh-keygen -lf $pub
 done

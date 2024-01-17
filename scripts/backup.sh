@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Script criado para realização de backup para alguma pasta de serviço de cloud storage e para alguma mídia externa.
 

@@ -1,61 +1,39 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Returns the conversion of the passed argument to string, whether int, float, string, or file.
 
-# >>> variable declarations !
+# >>> variables declaration!
+readonly version='1.1.0'
+readonly script="`basename "$0"`"
 
-script=$(basename "${0}")
-home=${HOME:-/home/${USER:-$(whoami)}}
+# >>> functions declaration!
+usage() {
+cat << EOF
+$script v$version
 
-# >>> function declarations !
+Returns the argument casting to a string.
+	
+Syntax:
+	$script [<options>] <unique-argument>
 
-verify_privileges() {
-	[ $UID -eq 0 ] && {
-		echo -e "ERROR: Run this program without privileges!\nExiting..."
-		exit 1
-	}
+Usage:
+	$script "{some string|/path/to/file.txt|<integer>|<float>}"
+
+Options:
+	-v: Print version;
+	-h: Print this help.
+EOF
 }
 
-print_usage() {
-        cat <<- eof
-		####################################################################################################
-		#
-		# This program returns the argument casting to a string.
-		#
-		# Syntax:
-		#
-		# 	./${script} <unique_argument>
-		#
-		# E.g.:
-		# 	./${script} "{some string|/path/to/file.txt|<integer>|<float>}"
-		#
-		# Options:
-		#
-		# 	-h: Print this message and exit with 1.
-		#
-		####################################################################################################
-	eof
-}
-
-# >>> pre statements !
-
-set +o histexpand
-
-#verify_privileges
-#[ $# -lt 1 -o "${1,,}" = '-h' -o "${1,,}" = '--help' ] && {
-#        print_usage
-#        exit 1
-#}
-
-# >>> *** PROGRAM START *** !
-while getopts 'hf' opt; do
-	case $opt in
-		h) print_usage; exit 0;;
-		# f) file_convert=true;;
-		?) print_usage; exit 1;;
+# >>> pre statements!
+while getopts 'vh' option; do
+	case "$option" in
+		v) echo "$version"; exit 0;;
+		:|?|h) usage; exit 2;;
 	esac
 done
-shift $((${OPTIND}-1))
+shift $(("$OPTIND"-1))
 
-any="${1}"
-[[ -f $any && ! $any =~ [[:blank:]]+ ]] && cat $any || echo $any
+# ***** PROGRAM START *****
+ANY="${1:?need something to convert}"
+[[ -f "$ANY" && ! "$ANY" =~ [[:blank:]]+ ]] && cat "$ANY" || echo "$ANY"

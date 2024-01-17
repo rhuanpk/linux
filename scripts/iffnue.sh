@@ -2,11 +2,11 @@
 
 # Errnue validate if you want to continue or no and respectively returns true or false.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.0.0'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
@@ -34,6 +34,6 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-message="${*:-continue? [y/N] }"
+readonly message="${*:-continue? [y/N] }"
 read $ARGS -ep "$message" answer
 [ -z "$answer" ] || [ y != "${answer,,}" ] && exit 1 || exit 0

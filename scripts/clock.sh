@@ -2,11 +2,11 @@
 
 # A simple clock in loop.
 
-# >>> variable declaration!
+# >>> variables declaration!
 readonly version='1.0.0'
-script="`basename "$0"`"
+readonly script="`basename "$0"`"
 
-# >>> function declaration!
+# >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
@@ -31,6 +31,4 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-while :; do
-	echo -en "`date +%T`\r"
-done
+while :; do echo -en "`date +%T`\r"; done
