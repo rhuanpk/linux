@@ -2355,6 +2355,9 @@ OBS: deixe o menor zoom possível do terminal.
 
 ### Comando _slop_
 
+- `-q`: silencia a saída;
+- `-f`: formata a saída.
+
 Programas necessários:
 ```sh
 sudo apt install slop
@@ -2364,6 +2367,21 @@ Retorna a área selecionada no estilo `x,y+width+height` (`left,top+right+bottom
 ```sh
 slop
 ```
+
+Formatando a saída:
+```sh
+# %x: x axis
+# %y: y axis
+# %w: width
+# %h: height
+# %g: geometry (%wx%h+%x+%y)
+# %i: window id
+# %%: literal '%'
+slop -f '%x %y %w %h %g %i'
+```
+
+_OBSERVATIONS_:
+- ver o man do comando para mais detalhes e dicas.
 
 ### Comando *xclip*
 
