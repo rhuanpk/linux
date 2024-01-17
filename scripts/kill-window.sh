@@ -31,4 +31,4 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-xdotool windowkill `xdotool selectwindow`
+xdotool selectwindow windowkill
