@@ -46,7 +46,7 @@ check-needs() {
 	PACKAGES=('acpi' 'libnotify-bin')
 	for package in "${PACKAGES[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
-			read -p "$script: this script needs the \"$package\" package but not installed, install this? [Y/n] " answer
+			read -p "$script: is needed the \"$package\" package, install? [Y/n] " answer
 			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && $SUDO apt install -y "$package"
 		fi
 	done
