@@ -42,7 +42,7 @@ privileges() {
 
 check-needs() {
 	privileges false false
-	PACKAGES=('slop' 'byzanz')
+	PACKAGES=('slop' 'byzanz' 'xclip' 'libnotify-bin')
 	for package in "${PACKAGES[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
 			read -p "$script: is needed the \"$package\" package, install? [Y/n] " answer
@@ -70,4 +70,6 @@ if pgrep -f ffmpeg >/dev/null; then
 fi
 read -r XAXIS YAXIS WIDTH HEIGHT < <(slop -qf '%x %y %w %h')
 byzanz-record -x "$XAXIS" -y "$YAXIS" -w "$WIDTH" -h "$HEIGHT" "$FILE" $OPTIONS
+notify-send "${script^} (script) - DONE!" "You gif already in your clipboard and:\n$FILE"
+xclip -sel clip -rmlastnl <<< "$FILE"
 echo "$script: file: \"$FILE\"."
