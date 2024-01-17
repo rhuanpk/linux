@@ -5033,6 +5033,8 @@ Modo Normal:
 	`<register_name>p`
 - deleta da linha atual até o início do arquivo:
 	`dgg`
+- deleta da linha atual até o final do arquivo:
+    `dG`
 
 Modo de Comando:
 - abre o arquivo no caminho passado:
@@ -5065,6 +5067,16 @@ Modo de Comando:
     `:/<pattern>/,$g/<string>`
 - executar mais de um comando por linha:
     `:%s/<pattern>/<replacement>/[gci] | :%s/<pattern>/<replacement>/[gci]`
+- ir para o próximo _buffer_ (arquivo):
+    `bn`
+- ir para _buffer_ anterior:
+    `bp`
+- avançar _n_ _buffers_:
+    `<number>bn`
+- retroceder _n_ _buffers_:
+    `<number>bp`
+- ir para um _buffer_ específico pelo índice ou pelo nome:
+    `b {<index>|<name>}`
 
 Modo de Pesquisa:
 - pesquisa com case insensitive:
