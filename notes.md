@@ -2353,6 +2353,18 @@ gifwrap -f /path/to/image.gif
 
 OBS: deixe o menor zoom possível do terminal.
 
+### Comando _slop_
+
+Programas necessários:
+```sh
+sudo apt install slop
+```
+
+Retorna a área selecionada no estilo `x,y+width+height` (`left,top+right+bottom`):
+```sh
+slop
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
