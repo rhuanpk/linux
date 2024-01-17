@@ -2344,6 +2344,15 @@ Resetar o background padrão do sistema:
 xsetroot
 ```
 
+### Comando _gifwrap_
+
+Ver gifs pelo terminal:
+```sh
+gifwrap -f /path/to/image.gif
+```
+
+OBS: deixe o menor zoom possível do terminal.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
