@@ -5079,6 +5079,8 @@ Modo Normal:
 	`ctrl+w e`
 - _scroll_ de linha a linha para cima:
 	`ctrl+w y`
+- entre no modo bloco visual:
+    `ctrl+v`
 - cola um registro específico do histórico:
 	`<register_name>p`
 - deleta da linha atual até o início do arquivo:
