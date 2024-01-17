@@ -2212,6 +2212,11 @@ _REFERENCELINKS_:
 
 - [Blog do Viva o Linux](https://www.vivaolinux.com.br/dica/Como-aumentar-ou-reduzir-a-velocidade-de-um-video-via-linha-de-comando).
 
+Gravar a tela:
+```sh
+ffmpeg -f x11grab -y -framerate 60 -s "$(xdpyinfo | grep dimensions | awk '{print $2}' )" -i "${DISPLAY:-:0.0}" -c:v libx264 -preset superfast -crf 21 "$(date +'%Y-%m-%d_%H-%M-%S').mp4"
+```
+
 ### Comando _date_
 
 _Printa_ o formato padrão de hora com o timezone definido pelo seu sistema:
