@@ -2176,9 +2176,10 @@ efibootmgr -c -d /dev/sdX -p Y -l '\path\to\<some>x64.efi' -L 'New Boot Entry'
 
 ### Comando _less_
 
-Fazer com que a busca seja **case insensitive** (estando no estado de comando do less (com o _prompt_ "`:`")):
-- Para buscas simples: `-i`;
-- Para buscas também com padrões: `-I`.
+- `:-i`: _case insensitive_ para buscas simples;
+- `:-I`: _case insensitive_ para buscas também com padrões;
+- `:m`: define uma marca para a página atual;
+- `'<mark>`: vai para a marca;
 
 ### Comando _read_
 
@@ -5040,6 +5041,8 @@ Modo Normal:
 	`dgg`
 - deleta da linha atual até o final do arquivo:
     `dG`
+- entrar na janela de comandos:
+    `q:`
 
 Modo de Comando:
 - abre o arquivo no caminho passado:
