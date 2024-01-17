@@ -5118,6 +5118,17 @@ Modo de Pesquisa:
 - pesquisa com case sensitive:
 	`/<string>\C`
 
+#### Tips/Tricks
+
+Gravar comandos num registrador e executar _n_ vezes:
+1. `q<letter>`: começa a gravar um novo registrador de nome _<letter>_;
+1. `:<command>`: executa comando;
+1. `:<command>`: executa outros comandos se desejado;
+1. `q`: persiste o novo registrador;
+1. `<number>@<letter>`: usa ele _n_ vezes.
+
+OBS: após cada execução do registrador o cursor irá para a próxima linha.
+
 ### Swapfile
 
 Criar _swap_ como arquivo:
