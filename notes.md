@@ -1656,6 +1656,11 @@ sed -nE '/<regex>/{s/<regex>/\1/p;q}'
 
 OBS: dessa forma é como se o **sed** percorresse as linhas de entrada até encontrar o primeiro `<regex>` descrito no exemplo, depois disso ele executa o que está entro do bloco de condição (`{}`) e como consequência pedimos para ele sair logo em seguida com `;q`.
 
+Fazer a substituição somente nas linhas que casam com o _RegEx_:
+```sh
+sed '/<pattern>/s/<pattern>/<replacement>/' /path/to/file.txt
+```
+
 ### Comando *xargs*
 
 - `cat file.txt | xargs sudo apt install -y`
