@@ -1516,11 +1516,17 @@ Utilizando com *heredocument*:
 cat << EOF > file.txt
 ```
 
-### Comando *progress*
+### Comando _progress_
 
-```bash
-<command> | progress -m
-```
+- `-p <pid>`: monitora o comando pelo _PID_;
+- `-c <command>`: monitora o comando pelo nome (ex: cp);
+- `-m`: monitora em loop até o comando morrer;
+- `-M`: monitor ativo mesmo sem comandos sendo monitorados.
+
+- `<command> & progress -mp "$!"`
+- `<command>; progress -mc <command>`
+- `<command>; progress -Mc <command>`
+- `progress -M [-c <command>]`
 
 ### Comando *cut*
 
