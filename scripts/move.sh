@@ -10,6 +10,7 @@ readonly uid="${UID:-`id -u`}"
 SUDO='sudo'
 GIT_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 SCRIPTS_PATH="${PK_LOAD_LINUX:-`wget -qO - "$GIT_URL" | bash - 2>&- | grep -F linux`}"
+LOCAL_BIN='/usr/local/bin'
 
 # >>> functions declaration!
 usage() {
@@ -24,6 +25,7 @@ Usage:
 	- To move some scripts: $script 'script-1.sh' 'script-2.sh'
 
 Options:
+	-h: Saves the scripts in '~/.local/bin/';
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -47,8 +49,9 @@ privileges() {
 # >>> pre statements!
 [ -z "$SCRIPTS_PATH" ] && SCRIPTS_PATH="`pwd`" || SCRIPTS_PATH+='/scripts'
 
-while getopts 'srvh' option; do
+while getopts 'hsrvh' option; do
 	case "$option" in
+		h) LOCAL_BIN=~/.local/bin/;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -58,15 +61,16 @@ done
 shift $(("$OPTIND"-1))
 
 privileges false false
+$SUDO mkdir -pv "$LOCAL_BIN"
 
 # ***** PROGRAM START *****
 [ "$#" -eq 0 ] && {
 	for file in "$SCRIPTS_PATH"/*.sh; do
-		$SUDO cp -v "$file" "/usr/local/bin/`basename ${file%.*}`"
+		$SUDO cp -v "$file" "$LOCAL_BIN/`basename ${file%.*}`"
 	done
 } || {
 	for file; do
-		if ! $SUDO cp -v "$SCRIPTS_PATH/$file" "/usr/local/bin/${file%.*}"; then
+		if ! $SUDO cp -v "$SCRIPTS_PATH/$file" "$LOCAL_BIN/${file%.*}"; then
 			print_usage
 			exit 1
 		fi

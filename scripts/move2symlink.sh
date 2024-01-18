@@ -2,9 +2,6 @@
 
 # OBS: Whenever you add a new function, add it to the "ALL_FUNCTIONS" array.
 
-# >>> built-in sets!
-#set -ex +o histexpand
-
 # >>> variables declaration!
 readonly version='1.1.0'
 readonly script="`basename "$0"`"
@@ -16,6 +13,7 @@ PATHWAY=${PK_LOAD_LINUX:-`wget -qO - "$SETLOAD_URL" | bash - 2>&- | grep linux`}
 ALL_FILES=`ls -1 "$PATHWAY"/scripts/*.sh`
 ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
 EXPRESSION='(backup|volume-encryption-utility)\.sh'
+LOCAL_BIN='/usr/local/bin/pk'
 
 # >>> functions declaration!
 usage() {
@@ -28,6 +26,7 @@ Usage: $script [<options>]
 
 Options:
 	-l: Move only those that will be converted to symlinks;
+	-h: Saves the scripts in '~/.local/bin/';
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -55,28 +54,27 @@ make-shorthand() {
 
 copy2symlink() {
 	for file in `grep -vE "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$SUDO ln -sfv "$file" "/usr/local/bin/pk/`make-shorthand "$file"`"
+		$SUDO ln -sfv "$file" "$LOCAL_BIN/`make-shorthand "$file"`"
 	done
 }
 
 copy2binary() {
 	for file in `grep -E "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$SUDO cp -v "$file" "/usr/local/bin/pk/`make-shorthand "$file"`"
+		$SUDO cp -v "$file" "$LOCAL_BIN/`make-shorthand "$file"`"
 	done
 }
 
 execute-all() {
-	for func in "${ALL_FUNCTIONS[@]}"; do
-		$func
-	done
+	for func in "${ALL_FUNCTIONS[@]}"; do $func; done
 }
 
 # >>> pre statements!
 [ -z "$PATHWAY" ] && PATHWAY="`pwd`" || PATHWAY+='/scripts'
 
-while getopts 'lsrvh' OPTION; do
+while getopts 'lhsrvh' OPTION; do
 	case "$OPTION" in
 		l) FLAG_SYMLINK=true;;
+		h) LOCAL_BIN=~/.local/bin/;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -86,6 +84,7 @@ done
 shift $(("$OPTIND"-1))
 
 privileges false false
+$SUDO mkdir -pv "$LOCAL_BIN"
 
 # ***** PROGRAM START *****
 if "$FLAG_SYMLINK"; then
