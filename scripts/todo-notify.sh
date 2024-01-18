@@ -2,9 +2,6 @@
 
 # Send notification to desktop to remind todo list.
 
-# >>> built-in sets!
-#set -ex +o histexpand
-
 # >>> variables declaration!
 readonly version='1.1.0'
 readonly script="`basename "$0"`"
