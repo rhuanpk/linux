@@ -2389,6 +2389,19 @@ slop -f '%x %y %w %h %g %i'
 _OBSERVATIONS_:
 - ver o man do comando para mais detalhes e dicas.
 
+### Comando _realpath_
+
+- `-s`: links simbólicos não são expandidos;
+- `-z`: troca nova linha por nulo;
+- `--relative-to=<folder>`: retorna o caminho relativo para chegar no arquivo por dentro da pasta passada.
+
+Retorna o caminho absoluto dos arquivos passados como argumento:
+```sh
+realpath [<options>] <file> [<file> ...]
+```
+
+OBS: por padrão se o arquivo for um link simbólico, será expandido.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
