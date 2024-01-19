@@ -741,16 +741,17 @@ ncdu [<path>]
 
 ### Comando *grep*
 
-- -i: *Case insensitive*.
-- -r: Recursividade não seguindo symlinks.
-- -n: Número da linhas da ocorrência.
-- -E: Expressão regular extendida.
-- -R: Recursividade seguindo symlinks.
-- -A \<number\>: Quantidade de linhas a baixo da *match line* para ser exibida.
-- -o: Somente a ocorrência e não a linha toda da mesma.
-- -v: Inverte a ocorrência, todas as linhas que não casaram.
-- -s: Suprime somente as mensagens de erro.
-- -I: Rejeita arquivos binários na busca.
+- `-i`: *case insensitive*;
+- `-r`: recursividade não seguindo symlinks;
+- `-n`: número da linhas da ocorrência;
+- `-E`: expressão regular extendida;
+- `-R`: recursividade seguindo symlinks;
+- `-o`: somente a ocorrência e não a linha toda da mesma
+- `-v`: inverte a ocorrência, todas as linhas que não casaram;
+- `-s`: suprime somente as mensagens de erro;
+- `-I`: rejeita arquivos binários na busca;
+- `-m <number>`: pare depois de _n_ ocorrências.
+- `-A <number>`: quantidade de linhas a baixo da *match line* para ser exibida;
 
 ```bash
 grep -irnE '^(hello|world)' {/some/path/file.txt|/some/path/}
