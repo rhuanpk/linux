@@ -31,7 +31,7 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-INTERFACE="`ip a | grep -FA2 'state UP'`"
+INTERFACE="`ip a | grep -Fm1 -A2 'state UP'`"
 IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
 [ -n "$INTERFACE" ] && {
 	if [ "`wc -l < /proc/net/wireless`" -gt 2 ]; then
