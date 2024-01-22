@@ -31,7 +31,12 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
+COUNT="`ls -1 ~/.ssh/*.pub | wc -l`"
+INDEX='1'
 for pub in $HOME/.ssh/*.pub; do
-	echo "key → $pub:"
-	ssh-keygen -lf $pub
+	echo -e "key » `dirname "$pub"`/\033[36m`basename "${pub%.*}"`\033[m.pub:"
+	echo -e "- content: $(< "$pub")"
+	echo -e "- fingerprint: `ssh-keygen -lf "$pub"`"
+	[ "$INDEX" -lt "$COUNT" ] && echo
+	let INDEX++
 done
