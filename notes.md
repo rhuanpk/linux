@@ -2403,6 +2403,13 @@ realpath [<options>] <file> [<file> ...]
 
 OBS: por padrão se o arquivo for um link simbólico, será expandido.
 
+### Comando _apropos_
+
+Pesquisar manpages para determinado assunto que case:
+```sh
+apropos <something>
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
