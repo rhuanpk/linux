@@ -1264,6 +1264,10 @@ _Auto accept_ novo host:
 ssh -o StrictHostKeychecking=no <user>@<host>
 ```
 
+Comando _ssh-keyscan_:
+
+Ele lista as chaves pública do próprio servidor SSH (**sshd**) que são as credenciais validadas na hora de se conectar em um novo _host_ (yes/no).
+
 #### Troubleshooting
 
 A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para o daemon (`ssh.service`) e por exemplo a porta é ouvido pelo que diz o `ssh.socket`, nesse caso, o que resolve é desabilitar o `ssh.socket`, remover o arquivo que força a sua chamada e habilitar o `ssh.service`:
