@@ -6778,6 +6778,7 @@ OBS:
 - No final haverá a substituição: `https://remote.any/user/repo.git` -> `ssh://remote-any/user/repo.git`
 - Tenha a chave ssh no agente
 - O mesmo vale caso queira fazer o inverso, `SSH` to `HTTPS`
+- Também é possível fazer via _CLI_: `git config --global url.'git@<remote>:'.insteadOf 'https://<remote>/'`
 
 #### Aplicar Diff Patch Gerado com Cor
 
