@@ -1256,18 +1256,6 @@ Para mostrar mensagem antes de se logar precisa colocar a mensagem no *banner*:
 Depois coloque o caminho do *banner* na variável dentro do arquivo de configuração:
 	`Banner /etc/ssh/banner`
 
-#### Tips
-
-_Auto accept_ novo host:
-
-```bash
-ssh -o StrictHostKeychecking=no <user>@<host>
-```
-
-Comando _ssh-keyscan_:
-
-Ele lista as chaves pública do próprio servidor SSH (**sshd**) que são as credenciais validadas na hora de se conectar em um novo _host_ (yes/no).
-
 #### Troubleshooting
 
 A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para o daemon (`ssh.service`) e por exemplo a porta é ouvido pelo que diz o `ssh.socket`, nesse caso, o que resolve é desabilitar o `ssh.socket`, remover o arquivo que força a sua chamada e habilitar o `ssh.service`:
@@ -1281,6 +1269,19 @@ _pipeline_:
 ```bash
 sudo systemctl disable --now ssh.socket && sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf && sudo systemctl enable --now ssh.service
 ```
+
+_TIPS/TRICKS_:
+
+- _Auto accept_ novo host:
+```bash
+ssh -o StrictHostKeychecking=no <user>@<host>
+```
+
+- Comando _ssh-keyscan_:
+Ele lista as chaves pública do próprio servidor SSH (**sshd**) que são as credenciais validadas na hora de se conectar em um novo _host_ (yes/no).
+
+_OBSERVATIONS_:
+- Caso o limite de tentativas de autenticação seja 3 e tenha 3 chaves no agente, quando a conexão for estabelecida, tentará ser feito a autenticação com essas 3 chaves e todas as tentativas serão gastas e caso na primeira tentativa por senha falhar, a conexão será encerrada (se não, teria 3 tentativas por senha a serem tentadas).
 
 ### Comando _pssh_
 
