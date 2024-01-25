@@ -2415,6 +2415,17 @@ Pesquisar manpages para determinado assunto que case:
 apropos <something>
 ```
 
+### Comando _sort_
+
+- `-m`: mescla os arquvios antes de sortear;
+- `-t`: especifica o delimitador;
+- `-k`: especifica por campo sortear.
+
+Organizar arquivos por ordenação:
+```sh
+sort [-m] [-t <char>] [-k <field>] /path/to/sorting-file.txt[ /path/to/another.txt...] [>/path/to/save/sorted-file.txt]
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
@@ -5171,16 +5182,21 @@ Modo de Pesquisa:
 - pesquisa com case sensitive:
 	`/<string>\C`
 
-#### Tips/Tricks
+_TIPS/TRICKS_:
 
-Gravar comandos num registrador e executar _n_ vezes:
-1. `q<letter>`: começa a gravar um novo registrador de nome _<letter>_;
-1. `:<command>`: executa comando;
-1. `:<command>`: executa outros comandos se desejado;
-1. `q`: persiste o novo registrador;
-1. `<number>@<letter>`: usa ele _n_ vezes.
+- Gravar comandos num registrador e executar _n_ vezes:
+    1. `q<letter>`: começa a gravar um novo registrador de nome _<letter>_;
+    1. `:<command>`: executa comando;
+    1. `:<command>`: executa outros comandos se desejado;
+    1. `q`: persiste o novo registrador;
+    1. `<number>@<letter>`: usa ele _n_ vezes.
 
 OBS: após cada execução do registrador o cursor irá para a próxima linha.
+
+- Trocar todas as variáveis para maiúsculas:
+```sh
+:<range>s/\(\([[:alpha:]]\+_\?\)\+=\)/\U\1/gc | :<range>s/\(${\?\([[:alpha:]]\+_\?\)\+}\?\)/\U\1/gc
+```
 
 ### Swapfile
 
