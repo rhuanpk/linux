@@ -1358,7 +1358,7 @@ gpg --symmetric /path/to/file.any
 Descriptografar de forma simétrica a chave (*password* única):
 
 ```bash
-gpg --decrypt /path/to/file.any
+gpg [--no-symkey-cache] --decrypt /path/to/file.any
 ```
 
 Importar chave pública para o chaveiro:
@@ -1409,12 +1409,6 @@ Criptografar de forma asimétrica (*pair of keys*):
 gpg --encrypt --recipient <pub_key_id> /path/to/file.any
 ```
 
-Descriptografar de forma asimétrica (*pair of keys*):
-
-```bash
-gpg --output /path/to/file.decrypted --decrypt /path/to/file.any
-```
-
 OBS: Nesse caso você não precisa informar o recipiente privado (a chave privada) pois em tese ela já está em seu chaveiro privado.
 
 Mudar o "nível de segurança da chave":
@@ -1429,6 +1423,13 @@ Desempacote blindagem ASCII e empacota blindando em OpenPGP (*output redirecting
 ```bash
 gpg --dearmor /path/to/armored_key.asc
 ```
+
+#### Agente
+
+Formas de recarregar/matar o agente:
+1. `gpgconf --kill gpg-agent`
+1. `gpgconf --reload gpg-agent`
+1. `gpg-connect-agent reloadagent /bye`
 
 _OBSERVATIONS_:
 
