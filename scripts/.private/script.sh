@@ -45,7 +45,7 @@ privileges() {
 	FLAG_SUDO="${1:?needs sudo flag}"
 	FLAG_ROOT="${2:?needs root flag}"
 	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
-		echo "$script: run with root privileges"
+		echo "$script: error: run with root privileges"
 		exit 1
 	elif ! "$FLAG_SUDO"; then
 		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
