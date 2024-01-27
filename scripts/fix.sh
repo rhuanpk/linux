@@ -22,6 +22,7 @@ Execute apt commands to fix up packages.
 Usage: $script [<options>]
 
 Options:
+	-f: Runs \`apt --fix-broken\` first;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -43,8 +44,9 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'srvh' option; do
+while getopts 'fsrvh' option; do
 	case "$option" in
+		f) APT_FIRST='true';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -56,5 +58,10 @@ shift $(("$OPTIND"-1))
 privileges false false
 
 # ***** PROGRAM START *****
-$SUDO dpkg --configure -a
-$SUDO apt install -fy
+if ! "${APT_FIRST:-false}"; then
+	$SUDO dpkg --configure -a
+	$SUDO apt install -fy
+else
+	$SUDO apt install -fy
+	$SUDO dpkg --configure -a
+fi
