@@ -59,7 +59,7 @@ check-needs() {
 	PACKAGES=('package1' 'package2')
 	for package in "${PACKAGES[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
-			read -p "$script: is needed the \"$package\" package, install? [Y/n] " answer
+			read -p "$script: info: is needed the \"$package\" package, install? [Y/n] " answer
 			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && $SUDO apt install -y "$package"
 		fi
 	done
