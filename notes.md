@@ -3784,7 +3784,7 @@ Zsh:
 | `(foo)#`      | Zero ou mais ocorrências de foo. |
 | `(foo)##`     | Uma ou mais ocorrências de foo.  |
 
-### Classes POSIX
+### Classes de Caracteres POSIX
 
 | Classe       | Descrição                                                             |
 | ------------ | --------------------------------------------------------------------- |
@@ -3793,7 +3793,7 @@ Zsh:
 | `[:blank:]`  | Caractere em branco, espaço ou tab `[\t]`.                            |
 | `[:cntrl:]`  | Caracteres de controle `[\x00-\x1F-\x7F]`.                            |
 | `[:digit:]`  | Números `[0-9]`.                                                      |
-| `[:graph:]`  | Qualquer caractere visível (ou seja, exceto em branco) `[\x20-\x7E].` |
+| `[:graph:]`  | Qualquer caractere visível (ou seja, exceto em branco) `[\x20-\x7E]`. |
 | `[:lower:]`  | Letras minúsculas `[a-z]`.                                            |
 | `[:upper:]`  | Letras maiúsculas `[A-Z]`.                                            |
 | `[:print:]`  | Caracteres visíveis (ou seja, exceto os de controle) `[\x20-\x7E]`.   |
