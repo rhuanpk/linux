@@ -53,11 +53,11 @@ check-needs() {
 	fi
 	for package in "${PACKAGES[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
-			read -p "$script: is needed the \"$package\" package, install? [Y/n] " answer
+			read -p "$script: info: is needed the \"$package\" package, install? [Y/n] " answer
 			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && {
 				if ! $SUDO apt install -y "$package" && [ "$package" = 'vagrant' ]; then
 					cat <<- EOF
-						$script: warning: vagrant repository may not be configured, check how to do this on:
+						$script: warn: vagrant repository may not be configured, check how to do this on:
 						https://github.com/rhuanpk/studies/blob/main/sysadmin/vagrant/vagrant-notes.md#installation
 					EOF
 					continue
@@ -125,7 +125,7 @@ EOF
 	vagrant plugin install 'vagrant-qemu'
 	cat <<- EOF
 		$script: info: everything seems fine
-		$script: go to workspace folder running: cd "$WORKSPACE_FOLDER/"
-		$script: and upload the vm: vagrant up
+		$script: hint: go to workspace folder running: cd "$WORKSPACE_FOLDER/"
+		$script: hint: and upload the vm: vagrant up
 	EOF
 }
