@@ -14,6 +14,7 @@ ALL_FILES=`ls -1 "$PATHWAY"/scripts/*.sh`
 ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
 EXPRESSION='(backup|volume-encryption-utility)\.sh'
 LOCAL_BIN='/usr/local/bin/pk'
+NO_SHORTHANDS=('vagrant-start.sh')
 
 # >>> functions declaration!
 usage() {
@@ -52,15 +53,20 @@ make-shorthand() {
 	[[ "$NAME" =~ - ]] && tr '-' '\n' <<< "$NAME" | cut -c 1 | tr -d '\n' || echo "$NAME"
 }
 
+make-filename() {
+	FILE="`basename "${1:?needs a file to validade}"`"
+	[[ "${NO_SHORTHANDS[@]}" =~ $FILE ]] && echo "${FILE%.sh}" || echo "`make-shorthand "$FILE"`"
+}
+
 copy2symlink() {
 	for file in `grep -vE "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$SUDO ln -sfv "$file" "$LOCAL_BIN/`make-shorthand "$file"`"
+		$SUDO ln -sfv "$file" "$LOCAL_BIN/`make-filename "$file"`"
 	done
 }
 
 copy2binary() {
 	for file in `grep -E "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$SUDO cp -v "$file" "$LOCAL_BIN/`make-shorthand "$file"`"
+		$SUDO cp -v "$file" "$LOCAL_BIN/`make-filename "$file"`"
 	done
 }
 
@@ -73,7 +79,7 @@ execute-all() {
 
 while getopts 'lhsrvh' OPTION; do
 	case "$OPTION" in
-		l) FLAG_SYMLINK=true;;
+		l) FLAG_SYMLINK='true';;
 		h) LOCAL_BIN=~/.local/bin/;;
 		s) privileges true false;;
 		r) privileges false true;;
