@@ -2574,12 +2574,15 @@ pkill [-f] [-u <user>] '^string'
 
 - `-a`: lista todos os processos;
 - `-ux`: lista os processos do usuário atual;
+- `-f`: lista a linha completa do comando;
 - `-p <pid>`: lista um único processo pelo seu _PID_;
-- `-C <name>`: lista os processos correspondentes ao nome.
+- `-C <name>`: lista os processos correspondentes ao nome;
+- `-o <output>`: especifica as colunas de saída;
+- `--no-headers`: não mostra os cabeçalhos na saída.
 
 Lista os _PID's_ e informações dos processos:
 ```sh
-ps [-aux] [-p <pid>] [-C <name>]
+ps [-aux] [-f] [-p <pid>] [-C <name>]
 ```
 
 #### Comando _pgrep_
@@ -2589,7 +2592,7 @@ ps [-aux] [-p <pid>] [-C <name>]
 
 Lista os _PID's_ dos processos que casam com o _RegEx_:
 ```sh
-pgrep [-l] <name>
+pgrep [-fl] <pattern>
 ```
 
 #### Comando _pstree_
@@ -2598,6 +2601,19 @@ Exibe os processos em forma de árvore:
 ```sh
 pstree
 ```
+
+_TIPS/TRICKS_:
+
+Buscar por somente um processo:
+
+- Da forma padrão com `grep`:
+	`ps -aux | grep <pattern>`
+
+- Via _proc file_:
+	`cat /proc/<pid>/cmdline`
+
+- Com `pgrep`:
+	`ps -fp $(pgrep '<pattern>') --width $(("$(tput cols)"*"$(tput lines)"))`
 
 ### Saber meu *ip externo*
 
