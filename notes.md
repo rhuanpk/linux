@@ -2428,6 +2428,21 @@ Organizar arquivos por ordenação:
 sort [-m] [-t <char>] [-k <field>] /path/to/sorting-file.txt[ /path/to/another.txt...] [>/path/to/save/sorted-file.txt]
 ```
 
+### Comando _dmesg_
+
+- `-w`: modo _tail_;
+- `-H`: mais legível para humanos;
+- `-C`: limpa o cache do **dmesg**;
+- `-c`: limpa o cache do **dmesg** depois de printar na tela.
+
+Comando:
+```sh
+dmesg [<options>]
+```
+
+_TIPS/TRICKS_:
+- Antes de limpar o histórico salve ele: `dmesg -H > /tmp/dmesg_$(date '+%F_%T').log`
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
