@@ -2443,6 +2443,13 @@ dmesg [<options>]
 _TIPS/TRICKS_:
 - Antes de limpar o histórico salve ele: `dmesg -H > /tmp/dmesg_$(date '+%F_%T').log`
 
+### Comando _iptables_
+
+Listar as regras:
+```sh
+iptables -S
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
