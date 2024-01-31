@@ -6050,6 +6050,13 @@ Mostrar as fontes do **figlet**:
 showfigfonts
 ```
 
+### Comando _showrgb_
+
+Procurar pelo RGB de alguma cor:
+```sh
+showrgb | grep -i '<color>'
+```
+
 ---
 
 <a id="ubuntu"></a>
