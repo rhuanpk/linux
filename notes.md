@@ -3774,6 +3774,26 @@ systemctl restart polkit
 
 OBS: Caso necessário, troque "suspend" por "hibernete" ou crie sua própria regra.
 
+### Como Ler Cabeçalho de Contexto (_DIFF_)
+
+O cabeçalho de exemplo `@@ -37,6 +35,8 @@` significa:
+- `-37,6`: indica que as alterações começam na linha 37 do arquivo original e se estende por 6 linhas;
+- `+35,8`: indica que as linhas adicionadas começam na linha 35 do novo arquivo e se estendem por 8 linhas.
+
+Ou seja, as linhas citadas na verdade não começam desde a primeira linha alterada mas da primeira linha mostrada de todo o contexto e o restante das linhas são o restante das linhas do contexto e não quantas linhas mais foram alteradas.
+
+### Pegar a Linha Mais Longa de Um Arquivo
+
+Passando arquivo como argumento:
+```sh
+grep -nE "^.{`wc -L < /path/to/file.any`}$" /path/to/file.any
+```
+
+Usando _pipe_:
+```sh
+<command> | grep -nE "^.{`<command> | wc -L`}$"
+```
+
 ---
 
 <a id="db_gnulinux-bash"></a>
