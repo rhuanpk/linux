@@ -6437,10 +6437,11 @@ _OBERSAVTIONS_:
 
 ### Log's
 
-- --all: caso sua branch esteja atrás, mostra logs dos ramos a frente também.
-- --oneline: mostra o log de forma resumida, um por linha.
-- --patch: mostras as alteraçẽos feitas nos commits.
-- --graph: dsenha uma gráfo da time line dos logs.
+- `--all`: caso sua branch esteja atrás, mostra logs dos ramos a frente também;
+- `--oneline`: mostra o log de forma resumida, um por linha;
+- `--patch`: mostras as alteraçẽos feitas nos commits;
+- `--graph`: dsenha uma gráfo da time line dos logs;
+- `--author=<name>`: filtra os logs pelo autor.
 
 Mostra o log de commits:
 
@@ -6802,7 +6803,7 @@ _OBSERVATIONS_:
 - _Printa_ o _hash_ do _commit_ em comum de duas _branchs_: `git merge-base <first_branch> <second_branch>`
 - _Printa_ o _hash_ de objeto git do arquivo (seja pasta ou diretório): `git hash-object path/to/any-file`
 
-### Any others
+### Tips & Tricks
 
 #### Sintaxe de URL's:
 
@@ -6948,6 +6949,14 @@ Habilitar o _prompt_ (git forçara a entrada manual das credenciais):
 ```sh
 GIT_TERMINAL_PROMPT=1 <command>
 ```
+
+#### Remover Commit do Meio do Log
+
+Utilize `git rebase -i` ou `git revert`. O **revert** é preferível por ser uma abordagem mais "segura" pois evitará pushs forçados, o que bagunçaria o histórico de todos (claro que se as alterações ainda não estiverem no remoto, utilizar o **rebase -i** não seria um problema).
+
+#### _Author_ X _Commiter_
+
+O autor é a pessoa que originalmente escreveu o código. O committer, por outro lado, é considerado a pessoa que cometeu o código em nome do autor original. Isso é importante no Git porque o Git permite reescrever o histórico ou aplicar patches em nome de outra pessoa.
 
 ### Troubleshooting
 
