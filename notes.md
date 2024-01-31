@@ -2234,27 +2234,32 @@ ffmpeg -f x11grab -y -framerate 60 -s "$(xdpyinfo | grep dimensions | awk '{prin
 ### Comando _date_
 
 _Printa_ o formato padrão de hora com o timezone definido pelo seu sistema:
-
-```bash
+```sh
 date
 ```
 
 _Printar_ saida formatada (yyyy-mm-dd hh:mm:ss):
-
-```bash
+```sh
 date '+%Y-%m-%d %H:%M:%S'
 ```
 
 _Printar_ os segundos desde a Época (1970-01-01 00:00 UTC)
-
-```bash
+```sh
 date '+%s'
 ```
 
 Converter segundos (desde a Época) em data:
-
-```bash
+```sh
 date --date='@<seconds>' '+%F %T'
+```
+
+Passar fuso horário específico:
+```sh
+# timezone name
+TZ='Asia/Tokyo' date
+
+# or abbreviations
+TZ='EST' date
 ```
 
 ### Comando _ncal_
