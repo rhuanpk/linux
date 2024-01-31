@@ -2455,6 +2455,58 @@ Listar as regras:
 iptables -S
 ```
 
+### Comando _tcpdump_
+
+- `-i <ifname>`: interface de rede a ser monitorada;
+- `-G <seconds>`: quanto tempo ficará capturando;
+- `-W <count>`: quantas vezes capturará;
+- `-w /path/to/tcpdump-%F_%T.pcap`: arquivo de saída do tipo _packet capture_;
+- `host <id/domain> [or <id/domain>...]`: _ip_ ou domínio a ser monitorado;
+
+Instalação:
+```sh
+apt install tcpdump
+```
+
+Monitorar tráfego de rede:
+```sh
+tcpdump -i eth0 -G <seconds> -W <count> -w 'tcpdump_%F-%T.pcap' host <ip/domain> or host <ip/domain>
+```
+
+### Comando _timedatectl_
+
+Verificar infos de data e hora e se tudo esta ok:
+```sh
+timedatectl status
+```
+
+Sincronizar RTC com UTC (de onde a info é buscada, não altera fuso):
+```sh
+timedatectl set-local-rtc 0
+```
+
+OBS: para reverter faça: `timedatectl set-local-rtc 1`
+
+Listar os timezones:
+```sh
+timedatectl list-timezones
+```
+
+Definir timezone no sistema:
+```sh
+timedatectl set-timezone <timezone/abbreviation>
+```
+
+Timezones com abreviações:
+```sh
+for timezone in `timedatectl list-timezones`; do echo "$timezone (`env TZ="$timezone" date +'%Z'`)"; done
+```
+
+Listar todas as abreviações dos timezones:
+```sh
+timedatectl list-timezones | xargs -I '{}' env TZ='{}' date +'%Z' | sort -u
+```
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
