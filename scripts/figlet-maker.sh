@@ -80,12 +80,9 @@ COLS="`tput cols`"
 FILE="$(mktemp "/tmp/figlet_`cut -d ' ' -f 1 <<< "$TEXT"`_XXXXXXX-`date +'%y%m%d%H%M%S'`.txt")"
 for font in /usr/share/figlet/*; do
 	FONT="`basename "${font%.*}"`"
-	if BANNER="`figlet -w "$COLS" -f "$FONT" "$TEXT"`" 2>&-; then
-		cat <<- EOF | tee -a "$FILE"
-			>>> $FONT <<<
-			$BANNER
+	tee -a "$FILE" <<< ">>> $FONT <<<"
+	figlet -w "$COLS" -f "$FONT" "$TEXT" | tee -a "$FILE"
+	tee -a "$FILE" <<< $'\n'
 
-		EOF
-	fi
 done
 echo "$script: log file: \"$FILE\""
