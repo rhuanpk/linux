@@ -20,6 +20,9 @@ Usage: $script [<options>] <text>
 
 Options:
 	-u: Do the setup for figlet fonts;
+	-q: Do not print output, only and generates the file;
+	-l: List all font names;
+	-f '<font1[|font2...]>': Filter by font name(s) (without your extension);
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -60,12 +63,19 @@ setup() {
 	echo "$script: setup finished, $MESSAGE"
 }
 
+list-fonts() {
+	ls -1 /usr/share/figlet/*.{flf,tlf} | less -R
+}
+
 # >>> pre statements!
 check-needs
 
-while getopts 'usrvh' option; do
+while getopts 'uqlf:srvh' option; do
 	case "$option" in
 		u) setup; exit;;
+		q) FLAG_QUIET='true';;
+		l) list-fonts; exit;;
+		f) FILTER="$OPTARG";;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -78,11 +88,21 @@ shift $(("$OPTIND"-1))
 TEXT="${1:?needs a text to banner}"
 COLS="`tput cols`"
 FILE="$(mktemp "/tmp/figlet_`cut -d ' ' -f 1 <<< "$TEXT"`_XXXXXXX-`date +'%y%m%d%H%M%S'`.txt")"
-for font in /usr/share/figlet/*; do
+for font in /usr/share/figlet/*.{flf,tlf}; do
 	FONT="`basename "${font%.*}"`"
-	tee -a "$FILE" <<< ">>> $FONT <<<"
-	figlet -w "$COLS" -f "$FONT" "$TEXT" | tee -a "$FILE"
-	tee -a "$FILE" <<< $'\n'
+	if test "$FILTER" && ! [[ "$FONT" =~ ^($FILTER)$ ]]; then continue; fi
+	if BANNER="`figlet -w "$COLS" -f "$FONT" "$TEXT" 2>&-`"; then
+		if ! "${FLAG_QUIET:-false}"; then
+			cat <<- EOF | tee -a "$FILE"
+				>>> $FONT <<<
+				$BANNER
 
+			EOF
+		else
+			echo ">>> $FONT <<<" >> "$FILE"
+			echo "$BANNER" >> "$FILE"
+			echo >> "$FILE"
+		fi
+	fi
 done
 echo "$script: log file: \"$FILE\""
