@@ -4099,31 +4099,25 @@ O comando `test` por padrão sem nenhum argumento valida com a opção `-n`, log
 ### ANSI Colors
 
 Escapes:
-- <details>
-<summary>Forma longa</summary>
-
+- Forma longa:
     - Iniciar: `\033[<ansi>;<ansi>m`
     - Resetar: `\033[m`
 
-- <details>
-<summary>Forma abreviada</summary>
-
+- Forma abreviada:
     - Iniciar: `\e[<ansi>;<ansi>m`
     - Resetar: `\e[m`
-</details>
-</details>
 
 Cores:
-| Color   | Code | \| | Effect    | Code |
-| ------- | ---- | -- | --------- | ---- |
-| Black   | 30   | \| | Regular   | 0    |
-| Red     | 31   | \| | Bold      | 1    |
-| Green   | 32   | \| | Dim       | 2    |
-| Yellow  | 33   | \| | Italic    | 3    |
-| Blue    | 34   | \| | Underline | 4    |
-| Magenta | 35   | \| | Blink     | 5    |
-| Cyan    | 36   | \| | Invert    | 7    |
-| White   | 37   | \| | Hidden    | 8    |
+| Color   | Code | - | Effect    | Code |
+| ------- | ---- | - | --------- | ---- |
+| Black   | 30   | - | Regular   | 0    |
+| Red     | 31   | - | Bold      | 1    |
+| Green   | 32   | - | Dim       | 2    |
+| Yellow  | 33   | - | Italic    | 3    |
+| Blue    | 34   | - | Underline | 4    |
+| Magenta | 35   | - | Blink     | 5    |
+| Cyan    | 36   | - | Invert    | 7    |
+| White   | 37   | - | Hidden    | 8    |
 
 _TIPS/TRICKS_:
 - Quando for utilizdo as cores para setar na `PS1` variável proteja a expressão:
@@ -6053,6 +6047,9 @@ nohup highlight-pointer \
 
 ### Comando _figlet_
 
+- `-f <font>`: font name;
+- `-w <width>`: width pixels (should use `tput cols`).
+
 Instalação:
 
 ```bash
@@ -6062,7 +6059,7 @@ sudo apt install -y figlet
 _Printar_ a menssagem como _banner_:
 
 ```bash
-figlet [-f <fontname>] "TEXT FOR BANNER"
+figlet [-f <fontname>] [-w <width>] "TEXT FOR BANNER"
 ```
 
 Adicionar fontes:
