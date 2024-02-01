@@ -5541,8 +5541,14 @@ Adicionar pastas em "Palces":
 
 #### Notify-send
 
-```bash
-notify-send 'Atenção!' 'Reinicialização necessária.'
+```sh
+notify-send 'Summary' 'Message body.'
+```
+
+#### Noti
+
+```sh
+noti <command>
 ```
 
 #### Zenity
