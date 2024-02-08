@@ -31,4 +31,4 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-rofi -modi run,window -show run
+rofi -modi drun,run,window -show drun -window-format '{w} - {c} * {t}'
