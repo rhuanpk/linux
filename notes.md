@@ -2507,6 +2507,23 @@ Listar todas as abreviações dos timezones:
 timedatectl list-timezones | xargs -I '{}' env TZ='{}' date +'%Z' | sort -u
 ```
 
+### Comando _sleep_
+
+Sintaxe:
+```sh
+sleep <number>[s|m|h|d] [<number> ...]
+```
+
+Comando:
+```sh
+# sleep 1 minute and 30 seconds
+sleep 1m 30s
+```
+
+_OBSERVATIONS_:
+- cada valor de tempo passado para o sleep será somado;
+- "s" (segundos) é o padrão.
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
