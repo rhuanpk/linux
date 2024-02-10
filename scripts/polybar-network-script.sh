@@ -42,6 +42,6 @@ IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
 } || TYPE='Network'
 [ -z "$IP" ] && IP='N/A'
 if pvs; then
-	IP+=' (VPN)'
+	IP+=' (%{F#FF00FF}VPN%{F-})'
 fi
-echo "$TYPE: $IP |"
+echo "%{F#10E3E3}$TYPE%{F-}: $IP %{F#555555}|%{F-}"

@@ -33,6 +33,6 @@ shift $(("$OPTIND"-1))
 # ***** PROGRAM START *****
 while :; do
 	BACKLIGHT="$(brightnessctl get -d `brightnessctl -l | sed -nE "s/^Device '(.*)' .*backlight.*$/\1/p"`)"
-	echo "☀️ $(bc <<< "$BACKLIGHT/10")%"
+	echo -e "\U2600 $(bc <<< "$BACKLIGHT/10")%"
 	sleep .1
 done

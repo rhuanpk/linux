@@ -6,8 +6,6 @@
 readonly version='1.1.0'
 readonly script="`basename "$0"`"
 
-AC_ADAPTER=`acpi --ac-adapter 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2`
-
 # >>> functions declaration!
 usage() {
 cat << EOF
@@ -33,9 +31,15 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
+AC_ADAPTER=`acpi -a 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2`
 [ 'power_supply' = "$AC_ADAPTER" ] && IS_POWER_SUPPLY=true
 
 if ! "${IS_POWER_SUPPLY:-false}"; then
-	BATTERY_PERCENT=`acpi | tr -d '[[:blank:]]' | cut -d ',' -f 2`
-	echo "⚡ ${BATTERY_PERCENT:-0%} “"
+	BATTERY_PERCENT=`acpi -b | tr -d '[[:blank:]]' | cut -d ',' -f 2 | cut -d '%' -f 1`
+	case "`acpi -b`" in
+		*Full*) echo -e "\U1F5F2 %{T4}${BATTERY_PERCENT:-0}%{T-}%";;
+		*Charging*) echo -e "\U1F5F2 ${BATTERY_PERCENT:-0}%";;
+		*Discharging*) echo -e "\U1F5F2 %{F#FF00FF}${BATTERY_PERCENT:-0}%{F-}%";;
+		*Low*) echo -e "\U1F5F2 %{F#BD2C40}${BATTERY_PERCENT:-0}%{F-}%";;
+	esac
 fi
