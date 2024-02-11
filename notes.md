@@ -1763,18 +1763,53 @@ OBS:
 - As opções `-P` e `-O` não podem ser usadas juntas.
 - Opção `-c`: simplesmente inicie novamente o download com esta opção estando na mesma pasta que está o arquivo imcompleto.
 
-### Comando *journalctl*
+### Comando _journalctl_
 
-Monitorar algum *.service* do sistema:
+Monitora logs do sistema/_daemons_:
 
-- -x: deixa visualmente a saida mais legível (pretty);
-- -f: fica seguindo/escutando novos logs do *deamon* (equivalente ao `tail -f`);
-- -u: especifique o nome da unidade;
-- -p: prioridade/tipo de logs (emerg (0), alert (1), crit (2), err (3), warning (4), notice (5), info (6), debug (7));
-- -b: logs do boot atual.
+- `-x`: deixa visualmente a saida mais legível (pretty);
+- `-f`: fica seguindo/escutando o log (equivalente ao `tail -f`);
+- `-u <unit>`: especifique o nome do serviço para _loggar_ (pode especificar múltimos `-u`);
+- `-b [<boot>]`: nulo ou 0 = boot atual, 1 = último boot e etc;
+- `-n <lines>`: imprima as última _n_ linhas;
+- <details>
+    <summary><code>-p {&lt;priority&gt;|&lt;code&gt;}</code>: filtra por prioridade:</summary>
 
+    - `emerg` (`0`): o sistema está inutilizável;
+    - `alert` (`1`): medidas devem ser tomadas imediatamente;
+    - `crit` (`2`): condições críticas;
+    - `error` (`3`): condições de erro;
+    - `warning` (`4`): condições de aviso;
+    - `notice` (`5`): condição normal, mas significativa;
+    - `info` (`6`): mensagem informativa;
+    - `debug` (`7`): mensagens que são úteis para depuração.
+- <details>
+    <summary><code>-o &lt;format&gt;</code>: formata a saída:</summary>
+
+    - `cat`: inclua apenas mensagens dos logs;
+    - `short`: forma padrão;
+    - `json`: json raw;
+    - `json-pretty`: json indentado;
+    - `verbose`: log completo.
+- <details>
+    <summary><code>--since &lt;time&gt; [--until &lt;time&gt;]</code>: filtra desde algum data ou por um <i>range</i> de data:</summary>
+
+    - `2021-11-23 23:02:15`
+    - `2021-05-04`
+    - `12:00`
+    - `5 hour ago, or 32 min ago`
+    - `yesterday`, `today`, `now`
+</details>
+</details>
+</details>
+
+- `--no-pager`: não use um paginador (_less_ por exemplo) e printa tudo diretamente no console;
+- `--list-boots`: list o histórico de boots;
+- `--disk-usage`: mostra quanto de disco os logs estão consumindo.
+
+Exemplo:
 ```bash
-sudo journalctl -xfu <name_service>.service
+sudo journalctl -xfu <name>.service
 ```
 
 ### Comando *trap*
