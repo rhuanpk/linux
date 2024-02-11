@@ -37,7 +37,7 @@ AC_ADAPTER=`acpi -a 2>&1 | tr -d '[[:blank:]]' | cut -d ':' -f 2`
 if ! "${IS_POWER_SUPPLY:-false}"; then
 	BATTERY_PERCENT=`acpi -b | tr -d '[[:blank:]]' | cut -d ',' -f 2 | cut -d '%' -f 1`
 	case "`acpi -b`" in
-		*Full*) echo -e "\U1F5F2 %{T4}${BATTERY_PERCENT:-0}%{T-}%";;
+		*Full*|*Not*) echo -e "\U1F5F2 %{T4}${BATTERY_PERCENT:-0}%{T-}%";;
 		*Charging*) echo -e "\U1F5F2 ${BATTERY_PERCENT:-0}%";;
 		*Discharging*) echo -e "\U1F5F2 %{F#FF00FF}${BATTERY_PERCENT:-0}%{F-}%";;
 		*Low*) echo -e "\U1F5F2 %{F#BD2C40}${BATTERY_PERCENT:-0}%{F-}%";;
