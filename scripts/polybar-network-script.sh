@@ -44,4 +44,4 @@ IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
 if pvs; then
 	IP+=' (%{F#FF00FF}VPN%{F-})'
 fi
-echo "%{F#10E3E3}$TYPE%{F-}: $IP %{F#555555}|%{F-}"
+echo "%{F#10E3E3}$TYPE:%{F-} $IP %{F#555555}|%{F-}"
