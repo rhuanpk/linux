@@ -1419,7 +1419,9 @@ _OBSERVATIONS_:
 
 - Todos os argumentos `<key_id>` podem ser substituídos pelos meio de identificação da chave, por exemplos, *e-mail* ou *fingerprint* da mesma;
 
-- Todos os comandos que pedem a senha via GUI podem usar a versão CLI com `--pinentry-mode loopback` ou `--batch --passphrase <password>`.
+- Todos os comandos que pedem a senha via GUI podem usar a versão CLI com `--pinentry-mode loopback` ou `--batch --passphrase <password>`;
+
+- Caso precise trocar a interface de dialogo da senha do gpg (que usa o pinentry) execute `update-alternatives --config pinentry` ou para mudar a configuração apenas para o gpg `pinentry-program /usr/bin/pinentry-{curses|tty} >> ~/.gnupg/gpg-agent.conf`.
 
 ### Comando *scp*
 
