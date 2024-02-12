@@ -1632,6 +1632,8 @@ Criando um _virtual disk__ (VD):
 
 ### Comando *sed*
 
+- `-n`: suprime a saída padrão e mostra somente o que casa?
+
 Substituir nova linha por algum caracter:
 
 ```bash
