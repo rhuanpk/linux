@@ -31,6 +31,8 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
+readonly TMP_FILE='/tmp/pns.tmp'
+TMP_FILE_STATE="`[ -f "$TMP_FILE" ] && wc -l < "$TMP_FILE"`"
 INTERFACE="`ip a | grep -Fm1 -A2 'state UP'`"
 IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
 [ -n "$INTERFACE" ] && {
@@ -41,6 +43,10 @@ IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
 	fi
 } || TYPE='Network'
 [ -z "$IP" ] && IP='N/A'
+[ "${TMP_FILE_STATE:=0}" -eq 1 ] && {
+	IP+=" %{F#555555}-%{F-} `nmcli -t -f active,ssid device wifi | sed -nE 's/^yes:(.*)$/\1/p'`"
+}
+[ "$TMP_FILE_STATE" -ge 2 ] && rm "$TMP_FILE"
 if pvs; then
 	IP+=' (%{F#FF00FF}VPN%{F-})'
 fi
