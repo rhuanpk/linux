@@ -5831,10 +5831,16 @@ Também lê por cento de stdin:
 <a id="db_any_commands"></a>
 [<span style="font-size:14px;">Any commands</span>](#menu)
 
-### Comando *yt-dlp*
+### Comando _yt-dlp_
 
-```bash
-yt-dlp -S "ext:mp4,res:1080" <url>
+Baixar áudio:
+```sh
+yt-dlp -x --audio-format mp3 <yt-url>
+```
+
+Baixar vídeo:
+```sh
+yt-dlp -S ext:mp4,res:1080 <yt-url>
 ```
 
 ### Comando *trans*
