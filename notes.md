@@ -4435,7 +4435,7 @@ Somente o nome da distro:
 lsb_release -cs
 ```
 
-### Infos do sistema
+### Informações do Sistema
 
 #### Comandos
 
