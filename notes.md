@@ -1406,6 +1406,12 @@ Desempacote blindagem ASCII e empacota blindando em OpenPGP (*output redirecting
 gpg --dearmor /path/to/armored_key.asc
 ```
 
+Tipos de entrada para senha:
+- Via _default setting_: _não passe nenhuma opção_
+- Via _plain text_: `--batch --passphrase <password>`
+- Via _hidden prompt_: `--pinentry-mode loopback`
+- Via _STDIN_: `<password> | --batch --passphrase-fd 0` ou `--batch --passphrase-fd 0 <<< <password>`
+
 #### Agente
 
 Formas de recarregar/matar o agente:
@@ -1418,8 +1424,6 @@ _OBSERVATIONS_:
 - Todos os redirecionamento de arquivo feitos podem ser substituídos pelo arugmneto do próprio comando (`--output /path/to/file.any`), logo isso implica que se não passado o argumento próprio ou o redirecionamento do arquivo, a STDOUT é a padrão (a tela);
 
 - Todos os argumentos `<key_id>` podem ser substituídos pelos meio de identificação da chave, por exemplos, *e-mail* ou *fingerprint* da mesma;
-
-- Todos os comandos que pedem a senha via GUI podem usar a versão CLI com `--pinentry-mode loopback` ou `--batch --passphrase <password>`;
 
 - Caso precise trocar a interface de dialogo da senha do gpg (que usa o pinentry) execute `update-alternatives --config pinentry` ou para mudar a configuração apenas para o gpg `pinentry-program /usr/bin/pinentry-{curses|tty} >> ~/.gnupg/gpg-agent.conf`.
 
