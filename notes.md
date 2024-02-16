@@ -4232,61 +4232,61 @@ _TIPS/TRICKS_:
 <a id="db_configuracao"></a>
 [<span style="font-size:14px;">Configuração</span>](#menu)
 
-### Comando *xrandr*
+### Comando _xrandr_
 
-#### Mudar resolução da tela via terminal:
+#### Mudar Resolução da Tela Via Terminal
+
+##### A Partir de Uma Resolução Já Existente
 
 1. Verificar as saidas de vídeos possíveis:
-
 ```bash
 xrandr
 ```
 
-OBS: Guarda a informação do nome da sua saida de vídeos que por acaso pode ser DP1, VGA1 ou HDM1 por exemplo.
-
-2. Caso a resolução desejada já esteja disponível, pode aplica-la
-
-	1. Seta nova resolução:
-		`xrandr -s 1920x1080`
-
-1. Caso ainda não tenha a resolução desejada, adicione um novo modo com a desejada
-
-	1. Pegando as cordenadas da tela informando a **resolução** e **hz** desejados:
-		`cvt 1920 1080 90`
-	1. Copie tudo o que estiver depois de *"Modeline "*:
-		`"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora criamos um novo modo com a informação coletada:
-		`xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
-	1. Agora adicionamos o novo modo criado ao *xrandr*:
-		`xrandr --addmode Virtual1 1920x1080_90.00`
-	1. Caso o passo anterior também já não sete a resolução de forma automática, setar manualmente o novo modo adicionado:
-		`xrandr --output Virtual1 --mode 1920x1080_90.00`
-
-##### Adicionar alterações de forma permanente
-
-Adicione os comandos de criação, adição e definição do novo modo no *profile file*:
-
-```
-xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync
-xrandr --addmode Virtual1 1920x1080_90.00
-xrandr --output Virtual1 --mode 1920x1080_90.00
+2. Defina a resolução com:
+```sh
+xrandr -s 1920x1080
 ```
 
-#### Mescar Monitores
+##### Caso Precise Criar/Forçar Uma Resolulção Não Listada
 
-Liste os monitores disponíveis:
+1. Pegue as cordenadas da tela informando a **resolução** e **hz** (_hertz_) desejados com o comando `cvt`:
+    `cvt 1920 1080 90`
 
-```bash
-xrandr --listactivemonitors
-# ou utilize a pipeline:
-# xrandr --listactivemonitors | sed -nE 's/.*  (.*)$/\1/p' | tr '\n' ',' | sed 's/,$//'
-```
+    - OBS: Copie tudo o que estiver depois de "Modeline ":
+        `"1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
 
-Execute o comando:
+1. Crie um novo modo xrandr com a informação coletada:
+    `xrandr --newmode "1920x1080_90.00"  269.00  1920 2064 2272 2624  1080 1083 1088 1140 -hsync +vsync`
 
-```bash
-xrandr --setmonitor MERGE-1 auto VGA-1,HDMI-1
-```
+1. Adicione o novo modo criado ao xrandr:
+	`xrandr --addmode Virtual1 1920x1080_90.00`
+
+1. Defina o novo modo adicionado:
+	`xrandr --output Virtual1 --mode 1920x1080_90.00`
+
+<details>
+<summary># TIPS & TRICKS</summary>
+
+- Para adicionar a nova resolução de forma permanente, coloque no seu **shell rc** os comandos `--newmode`, `--addmode` e `--output`.
+</details>
+
+#### Mesclar Monitores
+
+1. Liste os monitores disponíveis:
+    `xrandr --listactivemonitors`
+
+Ou utilize a _pipeline_:
+    `xrandr --listactivemonitors | sed -nE 's/.*  (.*)$/\1/p' | tr '\n' ',' | sed 's/,$//'`
+
+2. Execute:
+    `xrandr --setmonitor MERGE-1 auto VGA-1,HDMI-1`
+
+#### Mudar Escala
+
+Exemplos:
+1. `xrandr --output eDP-1 --scale 1.25 [--filter {bilinear|nearest}]`
+2. `xrandr --output eDP-1 --scale-from 1920x1080`
 
 ### Variável *$PATH*
 
