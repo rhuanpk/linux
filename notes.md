@@ -2548,6 +2548,67 @@ _OBSERVATIONS_:
 - cada valor de tempo passado para o sleep será somado;
 - "s" (segundos) é o padrão.
 
+### Comando _pandoc_
+
+Programas necessários:
+```sh
+apt install pandoc
+```
+
+#### MD para PDF
+
+- `--from=markdown`: especifíca o tipo de arquivo de entrada;
+- `--to=pdf`: especifíca o tipo de arquivo de saía;
+- `--output=/path/to/output.pdf`: especifíca o caminho do arquivo de saída;
+- `--pdf-engine=pdflatex`: especifíca o gerador;
+- `--variable=geometry:margin=1in`: informa opções para gerador (nesse caso a margem do arquivo);
+- `--template=<template>.tex`: especifica o caminho para o arquivo de template;
+- `--toc`: gera a tabela de conteúos(sumírio);
+- `--number-sections`: faz títulos e sub títulos numerados;
+- `--highlight-style={tango|breezedark}`: define o tema dos _highlights_ (formatações com craze).
+
+Programas necessários:
+```sh
+apt install texlive-latex-extra [texlive-latex-base]
+```
+
+Converter:
+```sh
+pandoc [<options>] /path/to/input.md
+```
+
+<details>
+    <summary>Template example:</summary>
+
+```tex
+\documentclass{article} % specify document type
+\usepackage[hidelinks]{hyperref} % add hiperlinks support
+\usepackage{tocloft} % allow changes in Content of Table (TOC) table
+\usepackage{mdframed} % add box shadows support
+\usepackage[margin=1in]{geometry} % set 1 inch margins
+\usepackage{helvet} % uses Helvetica font
+\renewcommand{\familydefault}{\sfdefault} % define sans serif as default
+
+% includes syntax highlighting definitions if necessary
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% pandoc internal command to adjust the distance between list items
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\begin{document} % begin of document
+
+\tableofcontents % generetes the table of contents
+\clearpage % jump to a new page
+
+$body$ % body of document
+
+\end{document} % end of document
+```
+</details>
+
 ### Comando *xclip*
 
 #### Copiar para a área de transferência
