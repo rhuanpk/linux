@@ -3896,6 +3896,17 @@ Usando _pipe_:
 <command> | grep -nE "^.{`<command> | wc -L`}$"
 ```
 
+### Compactar Descompactar dentro do _ranger_
+
+Compactar:
+    _selecionar os arquivos_ > `!` > `[-w] zip [<options>] compressed.zip %s`
+
+Descompactar:
+    _seleciona o arquivo_ > `!` > `[-w] unzip [<options>] %s`
+
+Descompactar múltiplos:
+    _selecionar os arquivos_ > `!` > `[-w] for archive in %s; do unzip [<options>] "$archive"; done`
+
 ---
 
 <a id="db_gnulinux-bash"></a>
