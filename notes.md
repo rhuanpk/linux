@@ -1425,7 +1425,7 @@ _OBSERVATIONS_:
 
 - Todos os argumentos `<key_id>` podem ser substituídos pelos meio de identificação da chave, por exemplos, *e-mail* ou *fingerprint* da mesma;
 
-- Caso precise trocar a interface de dialogo da senha do gpg (que usa o pinentry) execute `update-alternatives --config pinentry` ou para mudar a configuração apenas para o gpg `pinentry-program /usr/bin/pinentry-{curses|tty} >> ~/.gnupg/gpg-agent.conf`.
+- Caso precise trocar a interface de dialogo da senha do gpg (que usa o pinentry) execute `update-alternatives --config pinentry` ou para mudar a configuração apenas para o gpg: `pinentry-program /usr/bin/pinentry-{curses|tty} >> ~/.gnupg/gpg-agent.conf`. Outra forma seria desinstalar o "pinentry program" na qual não deseja utilizar mais, exemplo: `apt remove pinentry-gnome`.
 
 ### Comando *scp*
 
