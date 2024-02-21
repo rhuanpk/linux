@@ -1735,22 +1735,24 @@ Requisição com "multipart/form-data":
 curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d '<field>=<value>' <url>
 ```
 
-### Comando *wget*
+### Comando _wget_
 
-- -P: diretório alternativo para salvar o arquivo.
-- -O: mudar o nome de saida do arquivo.
-- -c: continua um download que foi interrompido.
+- `-P`: diretório alternativo para salvar o arquivo;
+- `-O`: mudar o nome de saida do arquivo;
+- `-c`: continua um download que foi interrompido;
+- `-r`: baixa pastas de forma recursiva;
+- `-np`: se especificar uma pasta de download, não baixa o conteúdo das pastas pai (superiores).
 
 Sintaxe comum para download:
 
 ```bash
-wget [-P /path/to/save/|-O altered_name.any] <url>
+wget [-P /path/to/save/|-O archive-name.any] <url>
 ```
 
-OBS:
+_OBSERVATIONS_:
 
-- As opções `-P` e `-O` não podem ser usadas juntas.
-- Opção `-c`: simplesmente inicie novamente o download com esta opção estando na mesma pasta que está o arquivo imcompleto.
+- As opções `-P` e `-O` não podem ser usadas juntas;
+- Use a opção `-c` na pasta aonde está o arquivo de download interminado.
 
 ### Comando _journalctl_
 
