@@ -2552,35 +2552,43 @@ _OBSERVATIONS_:
 
 ### Comando _pandoc_
 
+- `-f {markdown|html}`: especifíca o tipo de arquivo de entrada;
+- `-t {markdown|pdf|plain|html}`: especifíca o tipo de arquivo de saía;
+- `-o /path/to/output.{md|pdf|txt|html}`: especifíca o caminho do arquivo de saída;
+- `--pdf-engine=pdflatex`: especifíca a _engine_;
+- `--template=<template>.tex`: especifica o caminho para o arquivo de template;
+- `--toc`: gera a tabela de conteúos(sumírio);
+- `-N`: faz títulos e sub títulos numerados;
+- `--highlight-style={tango|breezedark}`: define o tema dos _highlights_ (formatações com craze);
+- `--list-highlight-styles`: lista os estilos disponíveis;
+- <details>
+	<summary><code>-V &lt;option&gt;</code>: informa opções para a <i>engine</i>:</summary>
+
+	- `geometry:margin=1in`
+	- `fontfamily:{helvet|dejavu}`
+	- `hyperlink=true`
+	- `colorlinks=true`
+</details>
+
 Programas necessários:
 ```sh
 apt install pandoc
 ```
 
-#### MD para PDF
-
-- `--from=markdown`: especifíca o tipo de arquivo de entrada;
-- `--to=pdf`: especifíca o tipo de arquivo de saía;
-- `--output=/path/to/output.pdf`: especifíca o caminho do arquivo de saída;
-- `--pdf-engine=pdflatex`: especifíca o gerador;
-- `--variable=geometry:margin=1in`: informa opções para gerador (nesse caso a margem do arquivo);
-- `--template=<template>.tex`: especifica o caminho para o arquivo de template;
-- `--toc`: gera a tabela de conteúos(sumírio);
-- `--number-sections`: faz títulos e sub títulos numerados;
-- `--highlight-style={tango|breezedark}`: define o tema dos _highlights_ (formatações com craze).
+#### Converter MD para PDF
 
 Programas necessários:
 ```sh
-apt install texlive-latex-extra [texlive-latex-base]
+apt install texlive-latex-base [texlive-latex-extra] [texlive-fonts-extra]
 ```
 
-Converter:
+Comando:
 ```sh
 pandoc [<options>] /path/to/input.md
 ```
 
 <details>
-    <summary>Template example:</summary>
+<summary>&gt;Template Example&lt;</summary>
 
 ```tex
 \documentclass{article} % specify document type
@@ -2610,6 +2618,11 @@ $body$ % body of document
 \end{document} % end of document
 ```
 </details>
+
+_REFERENCELINKS_:
+
+- [Pandoc Manual](https://pandoc.org/MANUAL.html);
+- [LATEX Fonts](https://tug.org/FontCatalogue/).
 
 ### Comando *xclip*
 
