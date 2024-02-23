@@ -1664,6 +1664,11 @@ Fazer a substituição somente nas linhas que casam com o _RegEx_:
 sed '/<pattern>/s/<pattern>/<replacement>/' /path/to/file.txt
 ```
 
+Imprimir somente um range de linhas:
+```sh
+sed -n '/<pattern>/,/<pattern>/p'
+```
+
 ### Comando *xargs*
 
 - `cat file.txt | xargs sudo apt install -y`
