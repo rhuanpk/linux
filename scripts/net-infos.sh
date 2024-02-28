@@ -60,21 +60,26 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-SSID="`nmcli -g 'NAME' connection show --active | sed -n '1p'`"
-BSSID="`nmcli -g 802-11-wireless.seen-bssids connection show "$SSID" | tr -d '\\'`"
-IFNAME="`nmcli -g 'GENERAL.TYPE,GENERAL.DEVICE' device show | grep -A1 '^wifi$' | sed -n '2p'`"
-
 while :; do
+	SEPARATOR="$(printf -- '*%.0s' $(seq '0' "$(("`tput cols`"-2))"))"
+
+	SSID="`nmcli -g 'NAME' connection show --active | sed -n '1p'`"
+	BSSID="`nmcli -g 802-11-wireless.seen-bssids connection show "$SSID" | tr -d '\\'`"
+	IFNAME="`nmcli -g 'GENERAL.TYPE,GENERAL.DEVICE' device show | grep -A1 '^wifi$' | sed -n '2p'`"
+
 	clear
 
 	echo '> ip -br -c a'
 	ip -br -c a
 
-	echo -e "\n> nmcli connection show --active"
+	echo -e "\n$SEPARATOR\n\n> nmcli connection show --active"
 	nmcli connection show --active
 
-	echo -e "\n> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\""
+	echo -e "\n$SEPARATOR\n\n> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\""
 	nmcli device wifi list bssid "$BSSID" ifname "$IFNAME"
+
+	echo -e "\n$SEPARATOR\n\n> ping -c 1 'linux.org'"
+	ping -c 1 'linux.org'
 
 	tput cup `tput cols` 0
 	sleep 3
