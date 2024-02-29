@@ -6434,6 +6434,13 @@ Remover:
 git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>
 ```
 
+#### Criação de Branchs
+
+A partir de uma remoto já existente:
+```sh
+git switch -c <local-branch> <remote>/<remote-branch>
+```
+
 ### Commits
 
 #### Revert
