@@ -2633,6 +2633,8 @@ _REFERENCELINKS_:
 
 ### Comando *xclip*
 
+- `-f`: printa o conteúdo além de enviar para a área de transferências;
+
 #### Copiar para a área de transferência
 
 Copiar:
