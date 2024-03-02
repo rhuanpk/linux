@@ -2233,7 +2233,9 @@ efibootmgr -c -d /dev/sdX -p Y -l '\path\to\<some>x64.efi' -L 'New Boot Entry'
 - `-t`: _Seta_ um _timeout_ para cancelamento do comando;
 - `-a`: A entrada será um _array_, ou seja, a cada espaço, um novo índice;
 - `-p`: Imprime uma mensagem antes do cursor;
-- `-i`: Caso utilizando ReadLine (opção `-e`), coloca uma mensagem padrão na caixa de _input_.
+- `-i`: Caso utilizando ReadLine (opção `-e`), coloca uma mensagem padrão na caixa de _input_;
+- `-n <chars>`: Retorna depois de _N_ caracteres e caso receba o delemitador de linha (tecla _return_) antes, não o inclui no _input_;
+- `-N <chars>`: Igual o `-n` porém, inclui o delimitador de linha caso retorne antes.
 
 ```bash
 read -re -t 3 -a ARRAY -p 'Your name: ' -i 'Linus Torvalds'
