@@ -10,19 +10,20 @@ readonly user="`id -un "${uid/#0/1000}"`"
 readonly home="/home/$user"
 
 PATHWAY_BACKUP=$home/Documents/config-files-backup/`hostname`
-declare -A ARRAY_PATHWAY_BACKUP=( \
-	['opt']="$PATHWAY_BACKUP/opt" \
-	['fonts']="$PATHWAY_BACKUP/fonts" \
-	['iconthemes']="$PATHWAY_BACKUP/icons-themes" \
-	['terminator']="$PATHWAY_BACKUP/terminator" \
-	['dpkg']="$PATHWAY_BACKUP/dpkg" \
-	['neofetch']="$PATHWAY_BACKUP/neofetch" \
-	['misc']="$PATHWAY_BACKUP/misc" \
-	['gtk']="$PATHWAY_BACKUP/gtk" \
-	['localbin']="$PATHWAY_BACKUP/local-bin" \
-	['history']="$PATHWAY_BACKUP/history" \
-	['git']="$PATHWAY_BACKUP/git" \
-	['vim']="$PATHWAY_BACKUP/vim" \
+declare -A ARRAY_PATHWAY_BACKUP=(
+	['opt']="$PATHWAY_BACKUP/opt"
+	['fonts']="$PATHWAY_BACKUP/fonts"
+	['iconthemes']="$PATHWAY_BACKUP/icons-themes"
+	['terminator']="$PATHWAY_BACKUP/terminator"
+	['dpkg']="$PATHWAY_BACKUP/dpkg"
+	['neofetch']="$PATHWAY_BACKUP/neofetch"
+	['misc']="$PATHWAY_BACKUP/misc"
+	['gtk']="$PATHWAY_BACKUP/gtk"
+	['localbin']="$PATHWAY_BACKUP/local-bin"
+	['history']="$PATHWAY_BACKUP/history"
+	['git']="$PATHWAY_BACKUP/git"
+	['vim']="$PATHWAY_BACKUP/vim"
+	['cron']="$PATHWAY_BACKUP/cron"
 )
 PATHWAY_OPT='/opt'
 PATHWAY_FONTS="$home/Documents/fonts"
@@ -69,7 +70,7 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 # Create necessary folders.
-for pathway in ${ARRAY_PATHWAY_BACKUP[@]}; do
+for pathway in "${ARRAY_PATHWAY_BACKUP[@]}"; do
 	[ ! -d "$pathway/" ] && mkdir -p "$pathway/"
 done
 
@@ -93,6 +94,7 @@ cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/vimrc.txt"
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
 neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
+crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/contab.txt"
 
 # Complex commands to save.
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/`date +%y-%m-%d_%H%M%S_bash-history.gz`"
