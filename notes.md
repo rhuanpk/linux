@@ -1746,7 +1746,8 @@ curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d '<field>=<v
 - `-O`: mudar o nome de saida do arquivo;
 - `-c`: continua um download que foi interrompido;
 - `-r`: baixa pastas de forma recursiva;
-- `-np`: se especificar uma pasta de download, não baixa o conteúdo das pastas pai (superiores).
+- `-np`: se especificar uma pasta de download, não baixa o conteúdo das pastas pai (superiores);
+- `--backups 0`: sobrescrever o arquivo caso ele já exista.
 
 Sintaxe comum para download:
 
