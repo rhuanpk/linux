@@ -9,7 +9,7 @@ readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
 readonly home="/home/$user"
 
-PATHWAY_BACKUP=$home/Documents/config-files-backup/`hostname`
+PATHWAY_BACKUP="$home/Documents/config-files-backup/hosts/`hostname`"
 declare -A ARRAY_PATHWAY_BACKUP=(
 	['opt']="$PATHWAY_BACKUP/opt"
 	['fonts']="$PATHWAY_BACKUP/fonts"
@@ -97,6 +97,6 @@ neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/contab.txt"
 
 # Complex commands to save.
-FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/`date +%y-%m-%d_%H%M%S_bash-history.gz`"
+FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`date +%y-%m-%d_%H%M%S`.gz"
 gzip -c9 "$PATHWAY_HISTORY" >"$FILE_NAME_HISTORY"
 chmod 600 "$FILE_NAME_HISTORY"
