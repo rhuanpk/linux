@@ -2876,10 +2876,17 @@ Buscar por links simbólicos quebrados e excluílos:
 find ./ -xtype l -exec rm -fv '{}' \;
 ```
 
+Find `printf`:
+
+```bash
+find ./ -printf '%C+\t%p\n'
+```
+
 _OBSERVATIONS_:
 
 - pastas para o parâmetro `-path` não pode contem `/` no final;
 - para qualquer tipo de _match pattern_ (inclusive para diretórios) é aceito _wildcards_, exemplo: `find ./ \( -path '*/folder' -o -path '*/.folder' \) -prune -o -name '*f?le*'`;
+- utilizando `\;` para finalizar o `find` fará com que cada ocorrência seja um novo comando porém com `\+` fará a concatenação, como: `<command> <arg1> <arg2>...`
 
 #### Comando *locate*
 
