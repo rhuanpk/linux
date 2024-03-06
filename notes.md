@@ -875,31 +875,28 @@ Data/hora:
 date
 ```
 
-### Comando *sudo*
+### Comando _sudo_
 
-- -S: aceita receber entrada via *pipe* (*STDIN*) e espera receber no final da string uma nova linha.
-- -k: reseta ou não salva a senha no cache
-- -v: valida ou atualiza o tempo de cache da senha
+- `-S`: aceita receber entrada via *pipe* (*STDIN*) e espera receber no final da string uma nova linha;
+- `-k`: reseta ou não salva a senha no cache;
+- `-v`: valida ou atualiza o tempo de cache da senha.
 
-#### Passar senha de forma automática
+#### Passar Senha de Forma Automática
 
 Alta usabilidade em scripts:
-
-```bash
+```sh
 echo -e "<password>\n" | sudo -S <command>
 ```
 
-#### Tempo do cache da senha
+#### Tempo do Cache da Senha
 
 Reseta o tempo de cache:
-
-```bash
+```sh
 sudo -k
 ```
 
 Rodar o comando sem guardar a senha em cache:
-
-```bash
+```sh
 sudo -k <command>
 ```
 
@@ -910,41 +907,51 @@ Definir zero cache permanentemente:
 1. Colocar o seguinte conteúdo:
 	`Defaults:ALL timestamp_timeout=0`
 
-#### Validação da senha e refresh do cache
+#### Validação da Senha e Refresh do Cache
 
-Dentro de scripts: caso queria validar a senha do usuário e sem precisar rodar o sudo com algum comando:
-
-```bash
-read -rsp 'Entre com a senha: ' password
+Dentro de scripts: caso queria validar a senha do usuário sem precisar rodar o sudo com algum comando:
+```sh
+read -sp 'SUDO password: ' password
 echo -e "${password}\n" | sudo -Sv
 ```
 
-Dentro de script ou mesmo fora: atualizar o cache da senha:
-
-```bash
+Dentro de script ou mesmo fora: renovar o cache da senha:
+```sh
 sudo -v
 ```
 
-#### Arquivo *sudoers*
+#### Arquivo _sudoers_ & Comando _visudo_
 
-- Sempre editar o arquivo com o comando `visudo`
-- Caso precise fazer alguma alteração nesse arquivo, altere o `/etc/sudoers.d`
+- Caso precise de alguma alteração no **sudoers**, crie um novo arquivo dentro de `/etc/sudoers.d/`;
+- Sempre edite o arquivo original ou o arquivo de usuário com o comando `visudo`;
 
-Para criar um novo arquivo de config para poder manipular as configs:
+Editar o arquivo **sudoers** original:
+```sh
+sudo visudo
+```
 
-```bash
+Criar um arquivo de usuário:
+```sh
 sudo visudo -f /etc/sudoers.d/users
 ```
-Para dizer que tal usuário pode executar somente alguns comandos como sudo:
 
-```bash
-user ALL=/usr/bin/dmesg,/usr/sbin/fdisk
+#### Dar Privilégios de SUDO para Algum Usuário
+
+- Define num arquivo **sudoers**:
+```sh
+<user> ALL=(ALL) [NOPASSWD:]{ALL|/absolute/path/command[,...]}
 ```
 
-Para não precisar de senha:
+Ou
 
-```bash
-user ALL=NOPASSWD:/usr/bin/dmesg,/usr/sbin/fdisk
+- Coloque o usuário no grupo **sudo** (full privileges):
+```sh
+sudo usermod -aG sudo <user>
+```
+
+Para fazer a limitação de comando ou senha separadamente no arquivo **sudoers**:
+```sh
+<user> ALL=[NOPASSWD:]/absolute/path/command[,...]
 ```
 
 ### Comando *exec*
