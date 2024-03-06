@@ -962,25 +962,35 @@ Minimizar tela do terminal corrente:
 1. `var=$(xdotool getactivewindow)`
 1. `xdotool windowminimize $var`
 
-### Comando *su*
+### Comando _su_
 
-Trocar de usuário:
+- `-c <command>`: executa o comando no usuário;
+- `-s <shell>`: especifica o shell de login;
+- `-p`: preserva o ambiente (não funciona com `--login`).
 
-```bash
-su <user>
+- _Loga_ num shell interativo de algum usuário;
+- Não muda pasta de origem;
+- Somente troca as variáveis **HOME** **USER** (também **USER** e **LOGNAME** se usuário não for `root`);
+- Caso não especifique usuário o padrão é "root";
+- Pode haver conflitos de ambiente por não ser um "full login":
+```sh
+su [<user>]
 ```
 
-Trocar para o usuário root sem senha definida:
-
-```bash
-sudo su - root
+- `-`, `-l` ou `--login` faz o "login completo" no usuário resetando todo o ambiente;
+- Muda para a pasta **home** do usuário;
+- Evita conflitos de ambiente:
+```sh
+su - [<user>]
 ```
 
-Rodar um comando como se estivesse logado como root:
-
-```bash
-su -c "<command>"
+- Caso especificado usuário pode passar opções do seu shell de login (se **bash** por exemplo, pode passar `-x` para o _trace_):
+```sh
+su <user> [<arguments>]
 ```
+
+_TIPS/TRICKS_:
+- Caso queira executar comandos em múltiplas linhas, _heredoc_ não é possível, utilize _line breaks_ (`\` no final da linha).
 
 ### Comando *cd*
 
