@@ -1714,46 +1714,43 @@ shc -e 01/01/1991 -m 'Expirou, contate "rhuan.pksf@gmail.com".' -rf script.sh [-
 
 Será gerado dois arquivos, o binário propriamente dito e o código fonte em C que pode ser exlcuido ou você pode compila-lo também com `gcc script.sh.x.c`.
 
-### Comando *curl*
+### Comando _curl_
 
-- -f: caso *request* retorne algum código de erro, suprime a saida (*body response*).
-- -s: silência o **curl**, suprime o progresso ou mensagens de erro, porém, mostra a *response* normalmente.
-- -S: mostra o erro, caso ele ocorra enquanto a saida está silênciada (`-s`).
-- -L: tentar encontrar a nova *url* caso a que esteja batendo tenha caido.
-- -o: informa o nome de saida do arquivo.
-- -d: *put* no *field* informado.
-- -k: desabilita verificações de segurança (*SSL* e etc).
-- -u <user>:<password>: para fazer autênticação única.
-- -v: modo verboso.
-- -i: retorna o cabeçalho da requisição.
+- `-f`: caso *request* retorne algum código de erro, suprime a saida (*body response*);
+- `-s`: silência o **curl**, suprime o progresso ou mensagens de erro, porém, mostra a *response* normalmente;
+- `-S`: mostra o erro, caso ele ocorra enquanto a saida está silênciada (`-s`);
+- `-L`: tentar encontrar a nova *url* caso a que esteja batendo tenha caido;
+- `-o`: informa o nome e o local do arquivo de saída;
+- `-X`: tipo da request;
+- `-H`: _seta_ cabeçalhos da request;
+- `-d`: informe o conteúdo da request;
+- `-k`: desabilita verificações de segurança (_SSL_ e etc);
+- `-v`: modo verboso;
+- `-i`: _printa_ o cabeçalho da requisição;
+- `-u <user>:<password>`: para fazer autênticação única.
 
 Sintaxe comum para download:
-
-```bash
-curl [-o /path/to/save.any] -fsSL <url>
+```sh
+curl -fsSLo /path/to/save.any <url>
 ```
 
 Popular *field* no *html* de determinado endereço:
-
-```bash
-curl -d <field_name>='<message>' <url>
+```sh
+curl -d "<field_name>='<message>'" <url>
 ```
 
 Sintaxe básica para request:
-
-```bash
+```sh
 curl -fsSL --request <method> --url <url> --header 'Content-Type: application/json' [--data '<json>']
 ```
 
 Arquivos na request:
-
-```bash
+```sh
 curl <url> -X POST -H 'Content-Type: multipart/form-data' -F 'file=@/path/to/file.zip'
 ```
 
 Requisição com "multipart/form-data":
-
-```bash
+```sh
 curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d '<field>=<value>' <url>
 ```
 
