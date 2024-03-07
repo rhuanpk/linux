@@ -90,7 +90,7 @@ Path de todos os usuários:
 /usr/share/fonts
 ```
 
-Path pessoal do usuário (${XDG_CONFIG}):
+Path pessoal do usuário:
 
 ```bash
 ~/.local/share/fonts
@@ -4503,6 +4503,76 @@ OBS:
 - para todas as operações que envolvam o *grub* atualize ele com `sudo update-grub`.
 
 - as imagens que *grub* aceita para definir como *background* são imagens *jpg* ou *png* de 256 cores.
+
+### XDG
+
+É um conjunto de especificações para **caminhos de diretórios**, **esquemas de URL** e **_mime types_**.
+
+- As variáeveis estão em: `~/.config/user-dirs.dirs`
+- Os _mime types_ em: `/usr/share/mime/types`
+
+_Labels_ (`<label>`):
+- `DESKTOP`
+- `DOWNLOAD`
+- `TEMPLATES`
+- `PUBLICSHARE`
+- `DOCUMENTS`
+- `MUSIC`
+- `PICTURES`
+- `VIDEOS`
+
+#### Comando _xdg-user-dir_
+
+Somente retorna o valor das variáveis XDG:
+```sh
+xdg-user-dir <label>
+```
+
+#### Comando _xdg-user-dirs-update_
+
+Atualiza os valores das variáveis caso houve alguma alteração:
+```sh
+xdg-user-dirs-update
+```
+
+Define um novo valor para um das variáveis XDG:
+```sh
+xdg-user-dirs-update --set <label> $HOME/New/xdg/path
+```
+
+#### Comando _xdg-mime_
+
+Descobrir o _mime type_ de algum arquivo:
+```sh
+xdg-mime query filetype {file.any/directory}
+```
+
+Saber o programa definido para determinado _mime type_:
+```sh
+xdg-mime query default <mime/type>
+```
+
+Definir o programa a abrir determinado _mime type_:
+```sh
+xdg-mime default <program>.desktop <mime/type>
+```
+
+#### Comando _xdg-settings_
+
+Verificar as propriedades do **xdg-settings**:
+```sh
+xdg-settings --list
+```
+
+Pegar o valor de alguma propriedade:
+```sh
+xdg-settings get <property> [<subproperty>]
+```
+
+Definir o valor de uma propriedade:
+```sh
+xdg-settings set <property> [<subproperty>] <value>
+```
 
 ---
 
