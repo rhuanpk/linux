@@ -1,5 +1,5 @@
 <a id="menu"></a>
-# >>> Comandos Aleatoriamente Úteis !
+# >>> Comandos Aleatoriamente Úteis!
 
 - [Debian Base](#debian_base)
 	- [Customização](#db_customizacao)
@@ -4009,33 +4009,48 @@ function '/any/pathway/to/folder/with/compound name'
 
 OBS: quando por exemplo em scripts ou em função, alguma variável recebe algum argumento por parâmetro, se esse argumento for "composto" (uma _string_ que contenha espaços), apesar de que obviamente você precisa protejer esse argumento ou espacar o espaço em branco, do lado de dentro, a variável não precisa receber esse parâmetro protegendo ele, mas em qualquer momento posterior que essa variável expandir (na hora de sua utilização), terá sim que protejela.
 
-### Caracteres de Escape para Cores
-
-
-```bash
-echo $'\033[00;31m <string> \033[00m'
-echo $'\e[31m <string> \e[m'
-```
-
-### Expansão de variáveis (parâmetros)
+### Expansão de Parâmetros
 
 #### `#`, `##`, `%`, `%%`
 
 ```bash
-$ variable=https://sub.domain.xyz/downloads/archive.tar.gz
+$ foo=https://sub.domain.xyz/downloads/archive.tar.gz
 
-$ echo ${variable#*/}
+$ echo ${foo#*/}
 > /sub.domain.xyz/downloads/archive.tar.gz
 
-$ echo ${variable##*/}
+$ echo ${foo##*/}
 > archive.tar.gz
 
-$ echo ${variable%/*}
+$ echo ${foo%/*}
 > https://sub.domain.xyz/downloads
 
-$ echo ${variable%%/*}
+$ echo ${foo%%/*}
 > https:
 ```
+
+#### Array
+
+| Expansão            | Descrição                                                  |
+| ------------------- | ---------------------------------------------------------- |
+| `${array[@]}`       | Imprime todos os elementos do array em strings protegidas. |
+| `${array[*]}`       | Imprime todos os elementos do array em uma única string.   |
+| `${array[N]}`       | Imprime o elemento na posição ‘N’.                         |
+| `${#array[@]}`      | Imprime o total de elementos do array.                     |
+| `${!array[@]}`      | Imprime os índices do array.                               |
+| `${array[@]:N}`     | Imprime todos os elementos a partir da posição ‘N’.        |
+| `${array[@]:N:M}`   | Imprime ‘M’ elementos a partir da posição ‘N’.             |
+| `${array[@]: -N}`   | Imprime os últimos ‘N’ elementos.                          |
+| `${array[@]: -N:M}` | Imprime ‘M’ elementos a partir da última ‘N’ posição.      |
+
+_TIPS/TRICKS_:
+
+- As expansões de parâmetros `:-`, `:=`, `:+` e `:?` podem ser usadas sem o caracter ":":
+    - A expressão COM o ":": é ativada quando a variável for **vazia** ou **não existir**;
+    - A expressão SEM o ":": é ativada somente se a variável **não existir**.
+
+- As expansão de parâmetros `^`, `^^`, `,`, `,,`, `~` e `~~` aceitam _wildcards_:
+    `echo "${foo^^[aeiou]}"`
 
 ### Glob's Estendidos
 
@@ -4083,20 +4098,6 @@ Perl equivalentes (_PCRE_):
 | `[:digit:]` | `\d`        |
 | `[:alnum:]` | `\w`        |
 | `[:space:]` | `\s`        |
-
-### Expansão de Variáveis
-
-| Expansão          | Descrição                                                   |
-| ----------------- | ----------------------------------------------------------- |
-| `${var[@]}`       | Imprime todos os elementos do array em strings protegidas.  |
-| `${var[*]}`       | Imprime todos os elementos do array em uma única expressão. |
-| `${var[P]}`       | Imprime o elemento na posição ‘P’.                          |
-| `${#var[@]}`      | Imprime o total de elementos do array.                      |
-| `${!var[@]}`      | Imprime os índices do array.                                |
-| `${var[@]:N}`     | Imprime todos os elementos a partir da posição ‘N’.         |
-| `${var[@]:N:M}`   | Imprime ‘M’ elementos a partir da posição ‘N’.              |
-| `${var[@]: -N}`   | Imprime os últimos ‘N’ elementos.                           |
-| `${var[@]: -N:M}` | Imprime ‘M’ elementos a partir da última ‘N’ posição.       |
 
 ### Sinais de Processos
 
@@ -4180,10 +4181,23 @@ eval $'read foo << eof\nhello\neof'
 
 ### Iterar Sobe Cada Letra de Uma String
 
+1ª Opção:
 ```sh
 foo='string'; for ((index=0; index < ${#foo}; index++)); do echo "${foo:$index:1}"; done
+```
+
+2ª Opção:
+```sh
 while read -n1 line; do echo "$line"; done < <(echo -n 'string')
+```
+
+3ª Opção:
+```sh
 grep --only-matching --color=never '.' <<< 'string' | while read line; do echo "$line"; done
+```
+
+4ª Opção:
+```sh
 for char in `sed -E 's/(.)/\1\n/g' <<< 'string'`; do echo "$char"; done
 ```
 
@@ -4222,7 +4236,7 @@ cmd "$options"
 [ 0 -eq 0 ] && { ls /foo; :; } || echo false
 ```
 
-OBS: Nesse caso o comando do bloco verdade falhará, e caso não tenha o ":;", o bloco false também será executado. Isso não é uma falha, muito pelo contrário, de fato é o comportamento correto uma vez que você entende o intuito do comando `test` e o funcionamento dos operadores lógicos diretamente no _shell_. Isso é apenas um _trick_ para que o comportamento dessa expressão seja o mais próximo de um **if** tradicional.
+OBS: Nesse caso o comando do bloco verdade falhará (`ls /foo`), e caso não tenha o ":;", o bloco false também será executado pois como o operador `&&`, o operador `||` avalia o código de saída do último comando executado (comando anterior a ele) e não a condição do comando `test` (para isso temos especificamente o comando `if`). Isso não é uma falha, muito pelo contrário, de fato é o comportamento correto uma vez que você entende o intuito e o funcionamento dos operadores lógicos do _shell_... Esse exemplo é apenas um _trick_ para que o comportamento dessa expressão seja o mais próximo de um **if** tradicional.
 
 ### Descritores de Arquivos (_File Descriptors_ (_FD's_))
 
@@ -4258,30 +4272,67 @@ O comando `test` por padrão sem nenhum argumento valida com a opção `-n`, log
 ### ANSI Colors
 
 Escapes:
+
 - Forma longa:
     - Iniciar: `\033[<ansi>;<ansi>m`
-    - Resetar: `\033[m`
+    - Resetar: `\033[00m`
 
 - Forma abreviada:
     - Iniciar: `\e[<ansi>;<ansi>m`
-    - Resetar: `\e[m`
+    - Resetar: `\e[00m`
 
 Cores:
-| Color   | Code | - | Effect    | Code |
-| ------- | ---- | - | --------- | ---- |
-| Black   | 30   | - | Regular   | 0    |
-| Red     | 31   | - | Bold      | 1    |
-| Green   | 32   | - | Dim       | 2    |
-| Yellow  | 33   | - | Italic    | 3    |
-| Blue    | 34   | - | Underline | 4    |
-| Magenta | 35   | - | Blink     | 5    |
-| Cyan    | 36   | - | Invert    | 7    |
-| White   | 37   | - | Hidden    | 8    |
+| Color   | Code    | - | Effect    | Code |
+| ------- | ------- | - | --------- | ---- |
+| Black   | {3\|4}0 | - | Regular   | 0    |
+| Red     | {3\|4}1 | - | Bold      | 1    |
+| Green   | {3\|4}2 | - | Dim       | 2    |
+| Yellow  | {3\|4}3 | - | Italic    | 3    |
+| Blue    | {3\|4}4 | - | Underline | 4    |
+| Magenta | {3\|4}5 | - | Blink     | 5    |
+| Cyan    | {3\|4}6 | - | Invert    | 7    |
+| White   | {3\|4}7 | - | Hidden    | 8    |
+
+_EXAMPLES_:
+
+- Com echo:
+```sh
+echo $'\e[1;31;43m<string>\e[m'
+```
 
 _TIPS/TRICKS_:
+
 - Quando for utilizdo as cores para setar na `PS1` variável proteja a expressão:
 ```sh
 \[\e[<ansi>m\]foobar\[\e[m\]
+```
+
+### Imprimir Variável Pelo Valor com Expansão de Parâmetro
+
+Simples:
+```sh
+foo='bar'
+bar='xpto'
+# eval echo "\$$foo"
+echo "${!foo}"
+```
+
+Avançado (expansão não é possível aqui):
+```sh
+bar1='boo'
+bar2='baz'
+foo=1
+eval echo "\$bar$foo"
+foo=2
+eval echo "\$bar$foo"
+```
+
+### `:`
+
+Liberar avaliação "seca":
+```sh
+: ${foo:=bar}
+echo "$foo"
 ```
 
 ---
