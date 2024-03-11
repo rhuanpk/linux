@@ -7245,6 +7245,22 @@ Utilize `git rebase -i` ou `git revert`. O **revert** é preferível por ser uma
 
 O autor é a pessoa que originalmente escreveu o código. O committer, por outro lado, é considerado a pessoa que cometeu o código em nome do autor original. Isso é importante no Git porque o Git permite reescrever o histórico ou aplicar patches em nome de outra pessoa.
 
+#### Pegar Código de Saída de Status
+
+_Exit status_ para arquivos modificados/deletados (**worktree**):
+```sh
+if git diff -s --exit-code <pathspec>; then
+	echo not changed
+else
+	echo changed
+fi
+```
+
+_Exit status_ para arquivos não traqueados (**untracked**):
+```sh
+git status --porcelain | grep '^\?\?'
+```
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
