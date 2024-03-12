@@ -5550,15 +5550,15 @@ Modo Normal:
 - _scroll_ de linha a linha para cima:
 	`ctrl+w y`
 - entre no modo bloco visual:
-    `ctrl+v`
+	`ctrl+v`
 - cola um registro específico do histórico:
 	`<register_name>p`
 - deleta da linha atual até o início do arquivo:
 	`dgg`
 - deleta da linha atual até o final do arquivo:
-    `dG`
+	`dG`
 - entrar na janela de comandos:
-    `q:`
+	`q:`
 
 Modo de Comando:
 - abre o arquivo no caminho passado:
@@ -5588,19 +5588,23 @@ Modo de Comando:
 - nas linhas casadas com o regex faça a troca:
 	`:[<range-lines>]g/<regex>/s/<old-string>/<new-string>/[gci]`
 - regex no range de linhas (o segundo valor do range pode ser outro _pattern_):
-    `:/<pattern>/,$g/<string>`
+	`:/<pattern>/,$g/<string>`
 - executar mais de um comando por linha:
-    `:%s/<pattern>/<replacement>/[gci] | :%s/<pattern>/<replacement>/[gci]`
+	`:%s/<pattern>/<replacement>/[gci] | :%s/<pattern>/<replacement>/[gci]`
 - ir para o próximo _buffer_ (arquivo):
-    `bn`
+	`:bn`
 - ir para _buffer_ anterior:
-    `bp`
+	`:bp`
 - avançar _n_ _buffers_:
-    `<number>bn`
+	`:<number>bn`
 - retroceder _n_ _buffers_:
-    `<number>bp`
+	`:<number>bp`
 - ir para um _buffer_ específico pelo índice ou pelo nome:
-    `b {<index>|<name>}`
+	`:b {<index>|<name>}`
+- listar arquivos no _buffer_:
+    `:ls`
+- mudar o _syntax highlifht_:
+    `:set filetype=<type>`
 
 Modo de Pesquisa:
 - pesquisa com case insensitive:
@@ -5611,18 +5615,20 @@ Modo de Pesquisa:
 _TIPS/TRICKS_:
 
 - Gravar comandos num registrador e executar _n_ vezes:
-    1. `q<letter>`: começa a gravar um novo registrador de nome _<letter>_;
-    1. `:<command>`: executa comando;
-    1. `:<command>`: executa outros comandos se desejado;
-    1. `q`: persiste o novo registrador;
-    1. `<number>@<letter>`: usa ele _n_ vezes.
+	1. `q<letter>`: começa a gravar um novo registrador de nome _<letter>_;
+	1. `:<command>`: executa comando;
+	1. `:<command>`: executa outros comandos se desejado;
+	1. `q`: persiste o novo registrador;
+	1. `<number>@<letter>`: usa ele _n_ vezes.
 
 OBS: após cada execução do registrador o cursor irá para a próxima linha.
 
-- Trocar todas as variáveis para maiúsculas:
+- Trocar todas as variáveis para maiúsculas (bash script):
 ```sh
 :<range>s/\(\([[:alpha:]]\+_\?\)\+=\)/\U\1/gc | :<range>s/\(${\?\([[:alpha:]]\+_\?\)\+}\?\)/\U\1/gc
 ```
+
+- Para adicionar um novo arquivo ao _buffer_ basta abrir com o comando `:e`.
 
 ### Swapfile
 
