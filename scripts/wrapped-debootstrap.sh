@@ -115,7 +115,7 @@ CODENAMES="$(get-codenames)" || exit
 IFS=$'\n' read -d '' -a CODENAMES <<< "$CODENAMES"
 clear; echo -e "$script (Wrapped Debootstrap) v$version\n"
 [ -d "$FOLDER/" ] && {
-	echo "WARN: the path folder already exists"
+	echo 'WARN: the path folder already exists'
 	read -p 'Overwrite existing folder? [y/N] '
 	[ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] && exit || rm -rfv "$FOLDER"
 	echo
@@ -129,7 +129,7 @@ while :; do
 	echo -ne "\nOption [1-$(("$COUNT"-1))]: "; read
 	IDS="`seq -s \| 1 $(("$COUNT"-1))`"
 	[[ "$REPLY" =~ ^($IDS)$ ]] && break || {
-		echo -n "ERROR: wrong option, select again"
+		echo -n 'ERR: wrong option, select again'
 		read -p ' - <enter>'
 		unset COUNT; clear
 	}
@@ -143,7 +143,10 @@ read -p "Exec \"mount -v proc $FOLDER/proc -t proc\"? [y/N] "
 [ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO mount -v proc "$FOLDER/proc" -t proc
 read -p "Exec \"mount -v sysfs $FOLDER/sysfs -t sysfs\"? [y/N] "
 [ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO mount -v sysfs "$FOLDER/sys" -t sysfs
+read -p "Exec \"mount -v devpts $FOLDER/dev/pts -t devpts\"? [y/N] "
+[ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO mount -v devpts "$FOLDER/dev/pts" -t devpts
 read -p "Exec \"cp -v /etc/hosts $FOLDER/etc/hosts\"? [y/N] "
 [ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO cp -v '/etc/hosts' "$FOLDER/etc/hosts"
 read -p "Exec \"cp -v '/proc/mounts' '$FOLDER/etc/mtab'\"? [y/N] "
 [ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO cp -v '/proc/mounts' "$FOLDER/etc/mtab"
+echo "INFO: if mounted any device umount them after finished the lab: umount $FOLDER/*/**"
