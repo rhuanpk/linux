@@ -142,7 +142,7 @@ $SUDO debootstrap\
 read -p "Exec \"mount -v proc $FOLDER/proc -t proc\"? [y/N] "
 [ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO mount -v proc "$FOLDER/proc" -t proc
 read -p "Exec \"mount -v sysfs $FOLDER/sysfs -t sysfs\"? [y/N] "
-[ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO mount -v sysfs "$FOLDER/sysfs" -t sysfs
+[ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO mount -v sysfs "$FOLDER/sys" -t sysfs
 read -p "Exec \"cp -v /etc/hosts $FOLDER/etc/hosts\"? [y/N] "
 [ -z "$REPLY" ] || [ 'y' != "${REPLY,,}" ] || $SUDO cp -v '/etc/hosts' "$FOLDER/etc/hosts"
 read -p "Exec \"cp -v '/proc/mounts' '$FOLDER/etc/mtab'\"? [y/N] "
