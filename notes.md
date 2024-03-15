@@ -4625,6 +4625,13 @@ Definir o valor de uma propriedade:
 xdg-settings set <property> [<subproperty>] <value>
 ```
 
+#### LC_ALL Não Definida
+
+Comando:
+```sh
+export LC_ALL='en_US.UTF-8'; dpkg-reconfigure locales
+```
+
 ---
 
 <a id="db_hardware"></a>
