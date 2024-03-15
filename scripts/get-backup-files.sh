@@ -24,6 +24,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['git']="$PATHWAY_BACKUP/git"
 	['vim']="$PATHWAY_BACKUP/vim"
 	['cron']="$PATHWAY_BACKUP/cron"
+	['dunst']="$PATHWAY_BACKUP/dunst"
 )
 PATHWAY_OPT='/opt'
 PATHWAY_FONTS="$home/Documents/fonts"
@@ -36,6 +37,7 @@ PATHWAY_LOCALBIN="/usr/local/bin"
 PATHWAY_HISTORY="$home/.bash_history"
 PATHWAY_GIT="$home/.gitconfig"
 PATHWAY_VIM="$home/.vimrc"
+PATHWAY_DUNST="$home/.config/dunst/dunstrc"
 
 # >>> functions declaration!
 usage() {
@@ -89,6 +91,7 @@ cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
 cp -f "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}/gitconfig.txt"
 cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/vimrc.txt"
+cp -f "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}/dunstrc.txt"
 
 # Others commands to save.
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
