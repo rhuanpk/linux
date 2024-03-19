@@ -2646,6 +2646,22 @@ _REFERENCELINKS_:
 - [Pandoc Manual](https://pandoc.org/MANUAL.html);
 - [LATEX Fonts](https://tug.org/FontCatalogue/).
 
+### Comando _ranger_
+
+Deselecionar todos itens selecionados:
+    `uv`
+
+#### (Des)Compressão
+
+Compactar:
+    _selecionar os arquivos_ > `!` > `[-w] zip [<options>] compressed.zip %s`
+
+Descompactar:
+    _seleciona o arquivo_ > `!` > `[-w] unzip [<options>] %s`
+
+Descompactar múltiplos:
+    _selecionar os arquivos_ > `!` > `[-w] for archive in %s; do unzip [<options>] "$archive"; done`
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
@@ -3941,17 +3957,6 @@ Usando _pipe_:
 ```sh
 <command> | grep -nE "^.{`<command> | wc -L`}$"
 ```
-
-### Compactar Descompactar dentro do _ranger_
-
-Compactar:
-    _selecionar os arquivos_ > `!` > `[-w] zip [<options>] compressed.zip %s`
-
-Descompactar:
-    _seleciona o arquivo_ > `!` > `[-w] unzip [<options>] %s`
-
-Descompactar múltiplos:
-    _selecionar os arquivos_ > `!` > `[-w] for archive in %s; do unzip [<options>] "$archive"; done`
 
 ---
 
