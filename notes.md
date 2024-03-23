@@ -1065,16 +1065,17 @@ tail -f file.txt
 ### Comando _ssh_
 
 Programas necessários:
-
-```bash
+```sh
 sudo apt install -y {ssh|openssh-server}
 ```
 
 #### Arquivos
 
 Pastas de configuração:
+```sh
+# Pasta de configuração do usuário (cliente)
+~/.ssh/
 
-```bash
 # Pasta geral de configuração
 /etc/ssh/
 
@@ -1086,8 +1087,10 @@ Pastas de configuração:
 ```
 
 Arquivos de coniguração:
+```sh
+# Arquivo de configuração do usuário (cliente)
+~/.ssh/config
 
-```bash
 # Arquivo geral de configuração do usuário (cliente)
 /etc/ssh/ssh_config
 
@@ -1097,7 +1100,7 @@ Arquivos de coniguração:
 
 #### Conexões
 
-- `-p <port>`: troca a porta padrão (22).
+- `-p <port>`: troca a porta padrão (22);
 - `-X`: habilita o redirecionamento para _Xorg_;
 - `-Y`: desabilita o _xauth_ plugin de segurança (necessário caso erro ao executar apps via `-X`);
 - `-f`: não abre o _shell_ interativo e coloca o processo em background (só pode ser usado executando um comando no _host_);
@@ -1108,8 +1111,7 @@ Arquivos de coniguração:
 ##### Apenas CLI
 
 Conexão:
-
-```bash
+```sh
 ssh [-p <port>] user@host
 ```
 
@@ -1121,18 +1123,35 @@ apt install xauth
 ```
 
 Conexão:
-
-```bash
+```sh
 ssh -X [-Y] user@192.168.0.1
 ```
 
 OBS:
-
-- Caso dê algum erro de conexão com interface também pode tentar remover o arquivo `.Xauthority` da _home_: `rm -fv ~/.Xauthority`
+- Caso dê algum erro de conexão com interface também pode tentar remover o arquivo `.Xauthority` da _home_:
+	`rm -fv ~/.Xauthority`
 - Talvez seja necessário definir a variável DISPLAY antes do comando:
 	`DISPLAY=:0 ssh [<options>] <host>`
 
-**Medidas de segurança**:
+No _server_ (aonde roda o _sshd_) é necessário _setar_ nas configurações:
+```conf
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost yes
+AllowTcpForwarding yes
+```
+
+_OBSERVATIONS_:
+
+- Caso tenha _firewall_ habilitado, libere a porta `tcp` para realizar as conexões.
+
+_REFERENCELINKS_:
+
+- <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
+
+#### Segurança
+
+Nos arquivos de configuração para o servidor/_daemon_/`sshd` (sessão [arquivos](#arquivos)):
 
 - Aumentar a porta de conexão:
 	`Port <port>`.
@@ -1158,97 +1177,78 @@ OBS:
 - Caso queria retirar a autênticação por senha para poder logar somente com chaves:
 	`PasswordAuthentication no`.
 
-No _server_ (aonde roda o _sshd_) é necessário _setar_ nas configurações:
-```conf
-X11Forwarding yes
-X11DisplayOffset 10
-X11UseLocalhost yes
-AllowTcpForwarding yes
-```
+- Bloquear ou liberar determinados IP:
+	`{Allow|Deny}Users <user>[@<ip>][ <user>[@<ip>]...]`
+	- OBS: corings `*` e `?` podem ser usados.
 
-_OBSERVATIONS_:
+##### Firewall
 
-- Caso tenha _firewall_ habilitado, libere a porta `tcp` para realizar as conexões.
-
-_REFERENCELINKS_:
-
-- <https://manpages.debian.org/unstable/openssh-server/sshd_config.5.en.html>.
+Liberar conexão só para determinado IP:
+- UFW: `ufw allow in from <ip> to any port <port> proto tcp`
 
 #### _ssh keys/agents_
 
 Criar ssh key:
-
-```bash
+```sh
 ssh-keygen [-t rsa [-b 4096]] [-t ed25519 [-a 32]]
 ```
 
 Iniciar um agente *ssh* (quando algo buscar por uma chave é o *ssh-agent* que irá fornecer):
-
-```bash
+```sh
 eval `ssh-agent -s`
 ```
 
 OBS: Essa forma passada é a forma oficial descrita no manual do *ssh*. outros meios de iniciar o *ssh-agent* seria `ssh-agent -s` ou `exec ssh-agent bash`.
 
 Adicionar chave ao agente:
-
-```bash
+```sh
 ssh-add -k ~/.ssh/id_rsa
 ```
 
 Verificar as chaves publicas adicionadas no agente:
-
-```bash
+```sh
 ssh-add -l
 ```
 
 Ver o *pid* e o *socket* do agente:
-
-```bash
+```sh
 printenv SSH_AGENT_PID SSH_AUTH_SOCK
 ```
 
 Remover *fingerprint* depreciado:
-
-```bash
+```sh
 ssh-keygen [-f /home/${USER}/.ssh/known_hosts] -R <host>
 ```
 
 Adicionar sua chave num servidor:
-
-```bash
+```sh
 ssh-copy-id -i <identity_file> [-p <port>] <user>@<host>
 ```
 
 Pegar as chaves pública de um servidor:
-
-```bash
+```sh
 ssh-keyscan [-p <port>] [-t {rsa|,dsa|,ecdsa|,ed25519}] <server_ip> >> ~/.ssh/know_hosts
 ```
 
 Trocar a senha de alguma chave:
-
-```bash
+```sh
 ssh-keygen -pf ~/.ssh/key_file
 ```
 
 ##### Adicionar a chave ao *ssh-agent* automáticamente.
 
 1. De forma manual (mais segura?):
-
 	- Deixe a chave ssh criptografada (com algum utilitário como *toplip*, *gpg* ou algum de sua escolha).
 	- Iniciado a sessão, descriptografe a chave.
 	- Faça o processo manual de colocar a chave no agente.
 
 2. De forma automática (usando o keychain):
-
 	- Configure o arquivo `~/.ssh/config`.
 	- Instale o *keychain*.
 	- Configure o *keychain* no `~/.bash_profile`.
 
 Exemplo de configuração para o *ssh* (`~/.ssh/config`):
-
-```bash
+```sh
 Host *
 	UseKeychain yes
 	AddKeysToAgent yes
@@ -1256,8 +1256,7 @@ Host *
 ```
 
 Exemplo de configuração `keychain` (`~/.bash_profile`):
-
-```bash
+```sh
 /usr/bin/keychain --clear ~/.ssh/id_rsa
 . ~/.keychain/$(hostname)-sh
 ```
@@ -1283,15 +1282,14 @@ A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para
 1. `sudo systemctl enable --now ssh.service`
 
 _pipeline_:
-
-```bash
+```sh
 sudo systemctl disable --now ssh.socket && sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf && sudo systemctl enable --now ssh.service
 ```
 
 _TIPS/TRICKS_:
 
 - _Auto accept_ novo host:
-```bash
+```sh
 ssh -o StrictHostKeychecking=no <user>@<host>
 ```
 
@@ -1299,6 +1297,7 @@ ssh -o StrictHostKeychecking=no <user>@<host>
 Ele lista as chaves pública do próprio servidor SSH (**sshd**) que são as credenciais validadas na hora de se conectar em um novo _host_ (yes/no).
 
 _OBSERVATIONS_:
+
 - Caso o limite de tentativas de autenticação seja 3 e tenha 3 chaves no agente, quando a conexão for estabelecida, tentará ser feito a autenticação com essas 3 chaves e todas as tentativas serão gastas e caso na primeira tentativa por senha falhar, a conexão será encerrada (se não, teria 3 tentativas por senha a serem tentadas).
 
 ### Comando _pssh_
@@ -2865,51 +2864,48 @@ curl -L http://ipecho.net/plain
 #### Comando *find*
 
 Sintaxe:
-
-```bash
+```sh
 find ./ -name file.txt
 ```
 
 Limitando a recursividade:
-
-```bash
+```sh
 find ./ -maxdepth 3 -name file.txt
 ```
 
 Excluir determinado path da busca:
-
-```bash
+```sh
 find ./ -path ./some_path -prune -o -name '*file*'
 ```
 
 Excluir vários paths da busca:
-
-```bash
+```sh
 find ./ \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
 ```
 
 Buscar for arquivos e excluílos:
-
-```bash
+```sh
 find ~/ -not \( -path '*/.*' -prune -o -path '*/folder' -prune \) -iname '*confli*' -exec rm -i '{}' \; 2>&-
 ```
 
 Excluir vários paths da busca e limitar a recursivedade:
-
-```bash
+```sh
 find ./ -maxdepth 2 \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
 ```
 
 Buscar por links simbólicos quebrados e excluílos:
-
-```bash
+```sh
 find ./ -xtype l -exec rm -fv '{}' \;
 ```
 
 Find `printf`:
-
-```bash
+```sh
 find ./ -printf '%C+\t%p\n'
+```
+
+Sair na primeira ocorrência:
+```sh
+find ./ -name file.any -print -quit
 ```
 
 _OBSERVATIONS_:
@@ -7601,6 +7597,57 @@ _REFERENCELINKS_:
 - [repositório trable](https://github.com/phhusson/treble_experimentations/).
 
 - [vbmeta](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqa2FlYmZLZjMtSVVzWnUzUkxYSFhNUkg4VVFfZ3xBQ3Jtc0tsMS15VFNteXlJdm1LYnJqSGhINXh4RkRqWjF2YUFsRXRHQVdjdks5bTBzMlREdkNPckIzQ25EMUJISGFacjlna1g5NjlQQVo3UGN5ckFkX184S2ZNamxfVm9rTmxHOWxkVXlENjFkTWVjeXhxakgzcw&q=https%3A%2F%2Fdl.google.com%2Fdevelopers%2Fandroid%2Fqt%2Fimages%2Fgsi%2Fvbmeta.img&v=PFDeme_gPGc).
+
+### Termux
+
+Pós [instalação](https://f-droid.org/en/packages/com.termux/):
+1. `pkg upgrade -y`
+1. `pkg install -y ranger vim tree curl git iproute2`
+1. `termux-setup-storage`
+
+Usuário:
+```sh
+whoami
+```
+
+IP's:
+```sh
+ip -br -c a
+```
+
+Ver logs do sistema?
+```sh
+logcat 'syslog:*'
+```
+
+#### SSH
+
+Instalação:
+```sh
+pkg install -y openssh
+```
+
+Iniciar o _daemon_:
+```sh
+sshd
+```
+
+Encerrar o _daemon_:
+```sh
+kill `find '/data/data/com.termux/files' -name 'sshd.pid' -exec cat '{}' \+ 2>&-`
+```
+
+##### Conexão
+
+Via senha:
+- Simplesmente defina uma senha com: `passwd`
+
+Caso queira usar chaves (sem precisar definir uma senha para fazer a cópia da `.pub`):
+1. Inicie o _daemon_ do SSH (`sshd`) no _host_;
+1. No **termux** copia a chave pública do _host_:
+	1. `scp <user>@<host>:~/.ssh/key.pub /tmp/key.pub`
+	1. `cat /tmp/key.pub >> ~/.ssh/authorized_keys`
+1. Caso deseje, pare o _daemon_ do SSH no _host_ agora.
 
 ---
 
