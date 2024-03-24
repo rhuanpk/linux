@@ -7622,7 +7622,7 @@ logcat 'syslog:*'
 
 #### SSH
 
-Instalação:
+Programas necessários:
 ```sh
 pkg install -y openssh
 ```
@@ -7648,6 +7648,43 @@ Caso queira usar chaves (sem precisar definir uma senha para fazer a cópia da `
 	1. `scp <user>@<host>:~/.ssh/key.pub /tmp/key.pub`
 	1. `cat /tmp/key.pub >> ~/.ssh/authorized_keys`
 1. Caso deseje, pare o _daemon_ do SSH no _host_ agora.
+
+#### PRoot Distro
+
+Programas necessários:
+```sh
+pkg install -y proot-distro
+```
+
+_Command help_:
+```sh
+proot-distro
+```
+
+Listar _distros_ para instalação:
+```sh
+proot-distro list
+```
+
+Instalar _distro_:
+```sh
+proot-distro install <distro>
+```
+
+_Logar_ na _distro_:
+```sh
+proot-distro login <distro>
+```
+
+Remover _distro_:
+```sh
+proot-distro remove <distro>
+```
+
+Resetar _distro_ do zero:
+```sh
+proot-distro reset <distro>
+```
 
 ---
 
