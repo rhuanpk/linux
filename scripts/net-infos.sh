@@ -64,7 +64,7 @@ while :; do
 	SEPARATOR="$(printf -- '*%.0s' $(seq '0' "$(("`tput cols`"-2))"))"
 
 	SSID="`nmcli -g 'NAME' connection show --active | sed -n '1p'`"
-	BSSID="`nmcli -g 802-11-wireless.seen-bssids connection show "$SSID" | tr -d '\\'`"
+	BSSID="`nmcli -g 802-11-wireless.seen-bssids connection show "$SSID" | tr -d '\\' | cut -d ',' -f 1`"
 	IFNAME="`nmcli -g 'GENERAL.TYPE,GENERAL.DEVICE' device show | grep -A1 '^wifi$' | sed -n '2p'`"
 
 	clear
