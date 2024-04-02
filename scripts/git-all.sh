@@ -126,7 +126,7 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 [ -z "$_REPO_PATHS" ] && _REPO_PATHS="`get-path`"
-for directory in $_REPO_PATHS/*; do
+for directory in "`realpath "$_REPO_PATHS"`"/*; do
 	if ! OUTPUT=`cd "$directory" 2>&1`; then
 		{
 			[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
