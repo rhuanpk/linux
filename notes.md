@@ -4050,8 +4050,11 @@ _TIPS/TRICKS_:
     - A expressão COM o ":": é ativada quando a variável for **vazia** ou **não existir**;
     - A expressão SEM o ":": é ativada somente se a variável **não existir**.
 
-- As expansão de parâmetros `^`, `^^`, `,`, `,,`, `~` e `~~` aceitam _wildcards_:
+- As expansões de parâmetros `^`, `^^`, `,`, `,,`, `~` e `~~` aceitam _wildcards_:
     `echo "${foo^^[aeiou]}"`
+
+- As expansões de parâmetros de "[_array's_](#array)" aceitam variáveis sem o operador:
+    `foo='hello'; index='1'; echo "${foo:index}"`
 
 ### Glob's Estendidos
 
