@@ -698,12 +698,13 @@ _REFERENCELINKS_:
 
 ### Comando *tree*
 
-- -a: lista também arquivos ocultos.
-- -F: na saida coloca uma `/` no final do nome do arquivo caso seja um diretório.
-- -L <value>: limita a quantidade de níveis de diretórios na buscar.
-- -C: *seta* "*color always*".
-- -p: coloca na saida as permissões dos arquivos.
-- -P <pattern>: retorna o que casar com o padrão (aceita coringas).
+- `-a`: lista também arquivos ocultos;
+- `-F`: na saida coloca uma `/` no final do nome do arquivo caso seja um diretório;
+- `-C`: *seta* "*color always*";
+- `-p`: coloca na saida as permissões dos arquivos;
+- `-L <value>`: limita a quantidade de níveis de diretórios na buscar;
+- `-P <pattern>`: retorna o que casar com o padrão (aceita coringas);
+- `-I <pattern>`: excluí os arquivos/pastas no padrão.
 
 ```bash
 tree [<options>]
