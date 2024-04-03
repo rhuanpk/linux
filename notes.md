@@ -1291,15 +1291,29 @@ _TIPS/TRICKS_:
 
 - _Auto accept_ novo host:
 ```sh
-ssh -o StrictHostKeychecking=no <user>@<host>
+ssh -o 'StrictHostKeychecking=no' <user>@<host> # or put in the config file
 ```
 
 - Comando _ssh-keyscan_:
 Ele lista as chaves pública do próprio servidor SSH (**sshd**) que são as credenciais validadas na hora de se conectar em um novo _host_ (yes/no).
 
+- Configurar **Host Key** que o servidor entrega (no arquivo de configuração do SSHD):
+```sh
+HostKey /etc/ssh/ssh_host_<type>_key
+```
+
+- Permitir que o cliente aceite mais tipos de **Host Key**'s:
+```sh
+ssh -o 'HostKeyAlgorithms=+<type>[,<type>...]' <user>@<host> # or put in the config file
+ssh -o 'PubkeyAcceptedKeyTypes=+<type>[,<type>...]' <user>@<host> # or put in the config file
+ssh -o 'PubkeyAcceptedAlgorithms=+<type>[,<type>...]' <user>@<host> # or put in the config file
+```
+
 _OBSERVATIONS_:
 
 - Caso o limite de tentativas de autenticação seja 3 e tenha 3 chaves no agente, quando a conexão for estabelecida, tentará ser feito a autenticação com essas 3 chaves e todas as tentativas serão gastas e caso na primeira tentativa por senha falhar, a conexão será encerrada (se não, teria 3 tentativas por senha a serem tentadas).
+
+- Na fase inicial da conexão SSH o **cliente** requisita a conexão ao **servidor** que por sua vez envia a sua chave pública (sua **Host Key**, que é a chave que é criada automáticamente pelo SSH quando instalado, é a chave do próprio SSHD) para o cliente validar que está se conectando realmente no servidor desejado e não algum impostor. Quando o servidor envia a sua **Host Key** o cliente verificar se ela já consta no `~/.ssh/know_hosts` e caso não, pergunta ao usuário se quer prosseguir com a conexão e então salva a _pub key_ no arquivo?
 
 ### Comando _pssh_
 
