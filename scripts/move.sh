@@ -3,31 +3,32 @@
 # Move all or some specifies scripts to the PATH directories.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
 SUDO='sudo'
 GIT_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
 SCRIPTS_PATH="${PK_LOAD_LINUX:-`wget -qO - "$GIT_URL" | bash - 2>&- | grep -F linux`}"
-LOCAL_BIN='/usr/local/bin'
+LOCAL_BIN=~/.local/bin
 
 # >>> functions declaration!
 usage() {
 cat << EOF
 $script v$version
 
-Move all or some specifies scripts to the \`/usr/local/bin\` folder.
-NOTE: Execute this script first time inside your self folder with \`./\`.
+Copy all or some specifies scripts to ~/.local/bin/ folder.
+Also remove the file extension on coping e.g.: 'script.sh' -> 'script'
+
+NOTE: Execute this script first time inside your self folder with "./".
 
 Usage:
-	- To move all: $script
-	- To move some scripts: $script 'script-1.sh' 'script-2.sh'
+	- To move all run: $script
+	- To move some scripts run: $script 'script1.sh' 'script2.sh'
 
 Options:
-	-h: Saves the scripts in '~/.local/bin/';
-	-s: Forces keep sudo;
-	-r: Forces unset sudo;
+	-u: Saves in \`/usr/local/bin/\`;
+	-l: List the scripts;
 	-v: Print version;
 	-h: Print this help.
 EOF
@@ -46,22 +47,37 @@ privileges() {
 	fi
 }
 
+list-scripts() {
+	cd "$SCRIPTS_PATH/"
+	echo "$script: in '`pwd`':"
+	ls -1 --color='auto' *.sh
+}
+
 # >>> pre statements!
+privileges false true
 [ -z "$SCRIPTS_PATH" ] && SCRIPTS_PATH="`pwd`" || SCRIPTS_PATH+='/scripts'
 
-while getopts 'hsrvh' option; do
+while getopts 'ulvh' option; do
 	case "$option" in
-		h) LOCAL_BIN=~/.local/bin/;;
-		s) privileges true false;;
-		r) privileges false true;;
+		u)
+			LOCAL_BIN='/usr/local/bin'
+			privileges false false
+		;;
+		l) list-scripts; exit;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
 
-privileges false false
-$SUDO mkdir -pv "$LOCAL_BIN"
+$SUDO mkdir -pv "$LOCAL_BIN/"
+[[ ! "$PATH" =~ "$LOCAL_BIN" ]] && {
+	cat <<- EOF >> ~/.bashrc
+
+		# By \`$script\` script
+		PATH+=':$LOCAL_BIN'
+	EOF
+}
 
 # ***** PROGRAM START *****
 [ "$#" -eq 0 ] && {
@@ -70,9 +86,6 @@ $SUDO mkdir -pv "$LOCAL_BIN"
 	done
 } || {
 	for file; do
-		if ! $SUDO cp -v "$SCRIPTS_PATH/$file" "$LOCAL_BIN/${file%.*}"; then
-			print_usage
-			exit 1
-		fi
+		$SUDO cp -v "$SCRIPTS_PATH/$file" "$LOCAL_BIN/${file%.*}"
 	done
 }
