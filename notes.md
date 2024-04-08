@@ -2676,6 +2676,13 @@ Descompactar:
 Descompactar múltiplos:
     _selecionar os arquivos_ > `!` > `[-w] for archive in %s; do unzip [<options>] "$archive"; done`
 
+### Comando _findmnt_
+
+Lista informações de pontos de montagem:
+```sh
+findmnt -T /mount/path
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
