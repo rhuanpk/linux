@@ -6,14 +6,15 @@
 #set -ex +o histexpand
 
 # >>> variables declaration!
-readonly version='0.0.0'
-readonly location="$(realpath "$0")"
-readonly script="$(basename "$0")"
-readonly uid="${UID:-$(id -u)}"
-readonly user="$(id -un "${uid/#0/1000}")"
-readonly home="/home/$user"
+# in this section we can break lines to better viewing
+declare -gr version; version='0.0.0'
+declare -gr location; location="$(realpath "$0")"
+declare -gr script; script="$(basename "$0")"
+declare -gr uid; uid="${UID:-$(id -u)}"
+declare -gr user; user="$(id -un "${uid/#0/1000}")"
+declare -gr home; home="/home/$user"
 
-sudo='sudo'
+declare -g sudo; sudo='sudo'
 
 # >>> functions declaration!
 usage() {
@@ -66,8 +67,8 @@ EOF
 # - The `-s` forces retain $sudo
 # - The `-r` forces unset $sudo
 privileges() {
-	local flag_sudo="$1"
-	local flag_root="$2"
+	declare flag_sudo; flag_sudo="$1"
+	declare flag_root; flag_root="$2"
 	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
 		echo "$script: error: run with root privileges"
 		exit 1
@@ -79,7 +80,8 @@ privileges() {
 }
 
 check-needs() {
-	local packages=('package1' 'package2')
+	declare -a packages
+	packages=('package1' 'package2')
 	for package in "${packages[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
 			read -rp "$script: info: is needed the \"$package\" package, install? [Y/n] "
