@@ -460,7 +460,15 @@ _REFERENCELINKS_:
 
 - [_reread/resort partitions_](https://serverfault.com/questions/36038/reread-partition-table-without-rebooting) (em caso mudança de na ordenação das partições);
 
-#### Aumentar (_grow_) e "Encolher" (_shrink_) Partições
+#### Comando _parted_
+
+Lista os discos na máquina:
+
+```bash
+parted -l
+```
+
+#### Aumentar (_grow_) e Encolher (_shrink_) Partições
 
 > "If you are growing a partition, you have to first resize the partition and then resize the filesystem on it, while for shrinking the filesystem must be resized before the partition to avoid data loss."
 
@@ -507,7 +515,7 @@ _OBSERVATIONS_:
 
 - caso a partição seja `exfat` realize somente o passo 2?
 
-#### Formulas de cálculo entre MB/GB e SETORES
+#### Formulas de cálculo Entre MB/GB e SETORES
 
 - SECTORS » MB: `<sectors>/2/1024`
 - SECTORS » GB: `<sectors>/2/1024^2`
@@ -515,26 +523,16 @@ _OBSERVATIONS_:
 - MB » SECTORS: `<megabytes>*1048576/512`
 - GB » SECTORS: `<gigabytes>*(1048576*1024)/512`
 
-#### Comando _parted_
-
-Lista os discos na máquina:
-
-```bash
-parted -l
-```
-
-#### Formatação e Gerenciamento de Labels de Partições:
+#### Formatação
 
 Programas necessários para `fat32`:
-
-```bash
+```sh
 sudo apt install mtools -y
 ```
 
 Programas necessários para `exfat`:
-
-```bash
-sudo apt install exfat-fuse -y
+```sh
+sudo apt install exfat-fuse exfatprogs -y
 ```
 
 ##### Comando _mkfs_
@@ -543,7 +541,7 @@ Formatar **fat32**:
 
 - `-n`: adiciona label na formatação.
 
-```bash
+```sh
 sudo mkfs.fat -F 32 [-n <label_name>] /dev/sdXY
 ```
 
@@ -551,7 +549,7 @@ Formatar **ext4**:
 
 - `-L`: adiciona label na formatação.
 
-```bash
+```sh
 sudo mkfs.ext4 [-L <label_name>] /dev/sdXY
 ```
 
@@ -559,51 +557,55 @@ Formatar **exfat**:
 
 - `-L`: adiciona label na formatação.
 
-```bash
+```sh
 sudo mkfs.exfat [-L <label_name>] /dev/sdXY
 ```
 
-##### Saber ou Renomear Labels
+#### Gerenciamento de Labels de Partições
 
-###### `ext4`
+Programas necessários para `fat32`:
+```sh
+sudo apt install mtools -y
+```
+
+Programas necessários para `exfat`:
+```sh
+sudo apt install exfatlabel -y
+```
+
+##### `ext4`
 
 Saber:
-
-```bash
+```sh
 sudo e2label /dev/sdXY
 ```
 
 Renomear:
-
-```bash
+```sh
 sudo e2label /dev/sdXY label_name
 ```
 
-###### `fat32`
+##### `fat32`
 
 Saber:
-
-```bash
+```sh
 sudo mlabel -i /dev/sdXY -s ::
 ```
 
 Renomear:
-
-```bash
+```sh
 sudo mlabel -i /dev/sdXY ::label_name
 ```
 
-###### `exfat`
+##### `exfat`
 
 Saber:
-
-```bash
+```sh
 sudo exfatlabel /dev/sdXY
 ```
 
 Renomear:
-
-```bash
+```sh
 sudo exfatlabel /dev/sdXY label_name
 ```
 
