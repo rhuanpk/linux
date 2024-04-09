@@ -2021,15 +2021,16 @@ Sintaxe:
 rsync [<options>] </folder/origin_1> </folder/origin_2/> </file/origin_3> <destiny>
 ```
 
-- -r: modo recursivo.
-- -v: modo verboso.
-- -h: aumenta a legibilidade.
-- -a: aplica recursividade, preserva permissões, usuários, grupos e timestamp (*inode*).
-- -u: skipa arquivos no qual o destino é mais novo.
-- -z: comprime os dados trafegados deixando o tamanho do *payload* menor porém consumindo mais processamento.
-- -e 'ssh -p <port>': mudar a porta padrão (22) de conexão.
-- --exclude=<pattern>: exclui arquivos ou diretórios pelo padrão passado aceitando *glob* ou de forma absoluta (*regex*?).
-- --delete: caso algum arquivo da fonte não exista mais no destino, no destino também é excluído.
+- `-r`: modo recursivo;
+- `-v`: modo verboso;
+- `-h`: aumenta a legibilidade;
+- `-a`: aplica recursividade, preserva permissões, usuários, grupos e timestamp (*inode*);
+- `-u`: skipa arquivos no qual o destino é mais novo;
+- `-z`: comprime os dados trafegados deixando o tamanho do *payload* menor porém consumindo mais processamento;
+- `-P`: mostra o progresso;
+- `-e 'ssh -p <port>'`: mudar a porta padrão (22) de conexão;
+- `--exclude=<pattern>`: exclui arquivos ou diretórios pelo padrão passado aceitando *glob* ou de forma absoluta (*regex*?);
+- `--delete`: caso algum arquivo da fonte não exista mais no destino, no destino também é excluído.
 
 Exemplo:
 ```sh
