@@ -129,33 +129,83 @@ sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 <a id="db_pacotes"></a>
 [<span style="font-size:14px;">Pacotes</span>](#menu)
 
-### Comando _apt_
+### Comando `apt`
 
-Remover completamente o programa:
-
-```bash
-sudo apt purge <package>
-```
-Fazer apenas o download do programa e suas dependências sem instalar:
-
-```bash
-sudo apt install --download-only <package>
+Remover completamente o programa (`#`):
+```sh
+apt purge <package>
 ```
 
-OBS: será salvo em `/var/cache/apt/archives`.
+Fazer apenas o download do programa e suas dependências sem instalar (`#`):
+```sh
+apt install --download-only <package>
+```
+
+OBS: os _deb's_ serão salvos em `/var/cache/apt/archives`.
+
+#### `apt-pinning`
+
+Edite no `/etc/apt/preferences.d/all`:
+```
+Package: *
+Pin: release a=stable
+Pin-Priority: 500
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 400
+
+Package: *
+Pin: release a=unstable
+Pin-Priority: 300
+```
+
+Com essa configuração de versão de pacotes e configurado também o `sources.list` você terá acesso a mais de uma versão de pacote por vez sendo que a estável será a prioridade e será baixada automática quando não específicado a versão.
+
+Para baixar de um _source_ diferente:
+
+1. `apt install <package>/<source>`:
+	- OBS: Tenta instalar a versão instável mantendo as dependências na versão **ESTÁVEL**.
+
+1. `apt install -t <source> <package>`:
+	- OBS: Tenta instalar a versão instável atualizando as dependências para a versão **INSTÁVEL** também.
 
 #### Chaves de Repo
 
-Adicionar chave de repo diretamente pelo fingerprint da mesma:
+##### Baixando Direto
 
-```bash
-sudo apt-key adv --keyserver <keyserver> --recv-keys <fingerprint>
+Comando:
+```sh
+curl -fsSL <repo-url-key> | [sudo] gpg --dearmor --output /etc/apt/trusted.gpg.d/<package-name>.gpg
 ```
+
+##### Usando `apt-key`
 
 _URL's_ de repositórios de chaves:
 
 - <hkp://p80.pool.sks-keyservers.net:80>;
 - <hkp://keyserver.ubuntu.com:80>;
+
+Adicionar chave de repo diretamente pelo fingerprint da mesma (`#`):
+```sh
+apt-key adv --keyserver <keyserver> --recv-keys <fingerprint>
+```
+
+#### _Mirro's_
+
+Debian `/etc/apt/sources.list`:
+```sh
+# stable
+deb http://deb.debian.org/debian/ stable main contrib non-free non-free-firmware
+deb http://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ stable-updates main contrib non-free non-free-firmware
+
+# testing
+deb http://deb.debian.org/debian/ testing main contrib non-free non-free-firmware
+
+# unstable
+deb http://deb.debian.org/debian/ sid main contrib non-free non-free-firmware
+```
 
 ### Comando *dpkg*
 
