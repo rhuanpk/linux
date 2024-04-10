@@ -72,15 +72,19 @@ get-path() {
 }
 
 print-path() {
+	git_path="`get-path`"
+	[ "$git_path" ] \
+		&& message="\"$(formatter 33 "$git_path")\"" \
+		|| message="$(formatter 31 none path sets)"
 	cat <<- eof
-		Atual path: "$(formatter 33 `get-path`)"!
+		Atual path: $message!
 	eof
 }
 
 switch-path() {
 	atual_path="`print-path`"
 	[ "$(sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p' <<< "$atual_path")" ] && echo -e "$atual_path"
-	read -ep "Enter with the new path: " path
+	read -ep "Enter the new path where the repositories are: " path
 	path="${path/#~/$HOME}"
 	if [ -z "$path" ]; then
 		echo -e "`formatter 31 '> The path can not is null!'`"
