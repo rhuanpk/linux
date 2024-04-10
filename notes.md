@@ -1752,6 +1752,11 @@ Imprimir somente um range de linhas:
 sed -n '/<pattern>/,/<pattern>/p'
 ```
 
+Remover todos caracteres de escape ANSI:
+```sh
+sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p'
+```
+
 ### Comando *xargs*
 
 - `cat file.txt | xargs sudo apt install -y`
