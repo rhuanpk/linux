@@ -93,7 +93,7 @@ privileges false false
 $SUDO mkdir -pv "$LOCAL_BIN"
 
 # ***** PROGRAM START *****
-if "$FLAG_SYMLINK"; then
+if "${FLAG_SYMLINK:-false}"; then
 	copy2symlink
 else
 	execute-all
