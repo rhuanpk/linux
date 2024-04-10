@@ -2815,6 +2815,23 @@ Para colar:
 <command> {`v`|$(v)}
 ```
 
+### Comando `podman`
+
+Erro:
+```
+... try resetting the pause process with "podman system migrate"
+```
+
+Ocorre depois do host reiniciar ou suspende, o podman perde a sessão, para resolver habilite a permanência de login:
+```sh
+loginctl enable-linger
+```
+
+Verifique se retorna "yes":
+```sh
+loginctl user-status | grep -m1 'Linger'
+```
+
 ### Usuários e Grupos
 
 Adicionar usuário (mod):
