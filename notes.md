@@ -4408,10 +4408,22 @@ eval echo "\$bar$foo"
 
 ### `:`
 
-Liberar avaliação "seca":
+Executar expansão "seca":
 ```sh
 : ${foo:=bar}
 echo "$foo"
+```
+
+### `printf`
+
+Printar caracteres em sequência:
+```sh
+printf -- '-%.0s' `seq <count>`
+```
+
+Ou:
+```sh
+printf -- '|%.0s\n' `seq <count>`
 ```
 
 ---
