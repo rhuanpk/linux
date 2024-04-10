@@ -73,27 +73,26 @@ get-path() {
 
 print-path() {
 	cat <<- eof
-
 		Atual path: "$(formatter 33 `get-path`)"!
-
 	eof
 }
 
 switch-path() {
-	print-path
+	atual_path="`print-path`"
+	[ "$(sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p' <<< "$atual_path")" ] && echo -e "$atual_path"
 	read -ep "Enter with the new path: " path
 	path="${path/#~/$HOME}"
 	if [ -z "$path" ]; then
-		echo -e "\n`formatter 31 '> The path can not is null!'`\n"
+		echo -e "`formatter 31 '> The path can not is null!'`"
 		exit 1
 	elif [ ! -d "$path" ]; then
-		echo -e "\n`formatter 31 '> The path not exist!'`\n"
+		echo -e "`formatter 31 '> The path not exist!'`"
 		exit 1
 	else
 		if echo "${path/%\//}" >"$FILE_PATH"; then
-			echo -e "\n`formatter 32 '> New path successfully changed!'`\n"
+			echo -e "`formatter 32 '> New path successfully changed!'`"
 		else
-			echo -e "\n`formatter 31 '> New path NOT successfully changed!'`\n"
+			echo -e "`formatter 31 '> New path NOT successfully changed!'`"
 		fi
 	fi
 }
@@ -120,25 +119,27 @@ done
 shift $(("$OPTIND"-1))
 
 [ ! -f "$FILE_PATH" ] || [ ! -s "$FILE_PATH" ] && {
-	echo -e "\n$script: error: file path is not exists or set ups, use \`-s\` flag\n"
+	echo -e "$script: error: file path is not exists or set ups, use \`-s\` flag"
 	exit 1
 }
 
 # ***** PROGRAM START *****
 [ -z "$_REPO_PATHS" ] && _REPO_PATHS="`get-path`"
+COUNT="$(ls -1d `realpath "$_REPO_PATHS"`/* | wc -l)"
 for directory in "`realpath "$_REPO_PATHS"`"/*; do
 	if ! OUTPUT=`cd "$directory" 2>&1`; then
+		directory="`formatter 1 "$directory"`"
 		{
 			[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-			&& echo -e "\n$script: warning: \"$directory\" is not a folder"
+			&& echo -e "$script: warning: \"$directory\" is not a folder"
 		} || {
 			[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-			&& echo -e "\n$script: warning: \"$directory\" don't has permission";
+			&& echo -e "$script: warning: \"$directory\" don't has permission";
 		} || \
-			echo -e "\n$script: warning: some wrong occurred on entering in \"$directory\""
+			echo -e "$script: warning: some wrong occurred on entering in \"$directory\""
 	else
 		cd "$directory" 2>&1
-		echo -e "\n → git in *`basename ${directory^^}`*!\n"
+		echo -e "→ git in *$(formatter 1 "`basename ${directory^^}`")*!\n"
 		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
@@ -150,4 +151,6 @@ for directory in "`realpath "$_REPO_PATHS"`"/*; do
 			[ "$#" -eq 0 ] && pushing || $*
 		fi
 	fi
-done; echo
+	((COUNT>1)) && echo -e "$(formatter 34 "$(printf -- '-%.0s' `seq 42`; echo)")"
+	let COUNT--
+done
