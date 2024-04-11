@@ -4745,6 +4745,40 @@ Comando:
 export LC_ALL='en_US.UTF-8'; dpkg-reconfigure locales
 ```
 
+### PipeWire
+
+Para o _setup_ siga o passo a passo da [wiki](https://wiki.debian.org/PipeWire).
+
+#### Módulo de Cancelamento de Ruído
+
+1. No arquivo `/usr/share/pipewire/pipewire.conf` na se sessão "context.modules":
+```
+  {   name = libpipewire-module-echo-cancel
+      args = {
+          # library.name  = aec/libspa-aec-webrtc
+          # node.latency = 1024/48000
+          # monitor.mode = false
+          capture.props = {
+             node.name = "Echo Cancellation Capture"
+          }
+          source.props = {
+             node.name = "Echo Cancellation Source"
+          }
+          sink.props = {
+             node.name = "Echo Cancellation Sink"
+          }
+          playback.props = {
+             node.name = "Echo Cancellation Playback"
+          }
+      }
+  }
+```
+
+Extra, no `pavucontrol` na parte de _input's_ deixe como _fallback_ o módulo de cancelamento de ruído que aponta para o canal _built-in_ e nele defina o seu dispositivo (como o _headphone_ por exemplo) como padrão.
+
+_REFERENCELINKS_:
+- [PipeWire Module Echo Cancel](https://docs.pipewire.org/page_module_echo_cancel.html).
+
 ---
 
 <a id="db_hardware"></a>
