@@ -3397,7 +3397,7 @@ gio mount -u '<device_path_name>'
 Instalação:
 
 ```bash
-sudo apt install qemu qemu-utils qemu-system-x86 -y
+sudo apt install -y qemu-system-x86 qemu-utils
 ```
 
 Criar disco:
