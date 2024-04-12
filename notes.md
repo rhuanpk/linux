@@ -1202,33 +1202,47 @@ _REFERENCELINKS_:
 
 Nos arquivos de configuração para o servidor/_daemon_/`sshd` (sessão [arquivos](#arquivos)):
 
-- Aumentar a porta de conexão:
-	`Port <port>`.
+- Trocar porta de conexão:
+	`Port <port>`
 
-- Não permitir o acesso direto ao _root user_:
-	`PermitRootLogin no`.
+- Permitir ou não o acesso direto ao _root user_:
+	`PermitRootLogin {yes|no}`
 
-- Não permitir senha vazias:
-	`PermitEmptyPasswords no`.
+- Permitir ou não senha vazias:
+	`PermitEmptyPasswords {yes|no}`
 
 - Quantidade e tempo de inatividade (sem tráfego de pacotes) até tomar _dc_ (_disconect_):
 	- Tempo de inatividade cada _request TCPKeepAlive_:
-		`ClientAliveInterval <seconds>`.
+		`ClientAliveInterval <seconds>`
 	- Quantidade de _request TCPKeepAlive_ antes do _dc_:
-		`ClientAliveCountMax <count>`.
+		`ClientAliveCountMax <count>`
 
 - Máximo de conexões simultâneas:
 	`MaxSessions <count>`
 
 - Máximo de tentativas de conexão:
-	`MaxAuthTries <tries>`.
+	`MaxAuthTries <tries>`
 
-- Caso queria retirar a autênticação por senha para poder logar somente com chaves:
-	`PasswordAuthentication no`.
+- Permitir ou não autênticação por senha (caso não a autênticação será feita somente via par de chaves):
+	`PasswordAuthentication no`
 
 - Bloquear ou liberar determinados IP:
 	`{Allow|Deny}Users <user>[@<ip>][ <user>[@<ip>]...]`
 	- OBS: corings `*` e `?` podem ser usados.
+
+Arquivo final de exemplo:
+```conf
+Port 9999
+PermitRootLogin no
+PermitEmptyPasswords no
+ClientAliveInterval 30
+ClientAliveCountMax 5
+MaxSessions 3
+MaxAuthTries 5
+PasswordAuthentication no
+AllowUsers user1 user2@ip2
+DenyUsers user3@ip3
+```
 
 ##### Firewall
 
