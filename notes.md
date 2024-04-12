@@ -4789,6 +4789,33 @@ Extra, no `pavucontrol` na parte de _input's_ deixe como _fallback_ o módulo de
 _REFERENCELINKS_:
 - [PipeWire Module Echo Cancel](https://docs.pipewire.org/page_module_echo_cancel.html).
 
+### Polybar
+
+Executar:
+```sh
+polybar [-r|--reload] [<bar>]
+```
+
+Em segundo plano:
+```sh
+nohup polybar [-r|--reload] [<bar>] &
+```
+
+Para especificar em qual monitor a polybar irá aparecer:
+```sh
+MONITOR=<monitor> polybar
+```
+
+- OBS: pegue o nome do monitor com: `xrandr [-q|--query]`
+
+Script para definir polybar em todos os monitores (by [community](https://github.com/polybar/polybar/issues/763#issuecomment-392960721)):
+```sh
+#!/bin/bash
+for monitor in $(polybar --list-monitors | cut -d':' -f1); do
+    MONITOR="$monitor" polybar --reload [bar] &
+done
+```
+
 ---
 
 <a id="db_hardware"></a>
