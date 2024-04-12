@@ -1119,41 +1119,37 @@ tail -f file.txt
 
 Programas necessários:
 ```sh
-sudo apt install -y {ssh|openssh-server}
+sudo apt install -y ssh
 ```
 
-#### Arquivos
-
-Pastas de configuração:
-```sh
-# Pasta de configuração do usuário (cliente)
-~/.ssh/
-
-# Pasta geral de configuração
-/etc/ssh/
-
-# Pasta de configuração do usuário (cliente)
-/etc/ssh/ssh_config.d/
-
-# Pasta de configuração do usuário (servidor)
-/etc/ssh/sshd_config.d/
-```
+#### Arquivos e Pastas
 
 Arquivos de coniguração:
-```sh
-# Arquivo de configuração do usuário (cliente)
-~/.ssh/config
+- Arquivo de configuração do usuário (cliente):
+    `~/.ssh/config`
 
-# Arquivo geral de configuração do usuário (cliente)
-/etc/ssh/ssh_config
+- Arquivo geral de configuração do usuário (cliente):
+    `/etc/ssh/ssh_config`
 
-# Arquivo geral de configuração do usuário (servidor)
-/etc/ssh/sshd_config
-```
+- Arquivo geral de configuração do usuário (servidor):
+    `/etc/ssh/sshd_config`
+
+Pastas de configuração:
+- Pasta de configuração do usuário (cliente):
+    `~/.ssh/`
+
+- Pasta geral de configuração:
+    `/etc/ssh/`
+
+- Pasta de configuração do usuário (cliente):
+    `/etc/ssh/ssh_config.d/`
+
+- Pasta de configuração do usuário (servidor):
+    `/etc/ssh/sshd_config.d/`
 
 #### Conexões
 
-- `-p <port>`: troca a porta padrão (22);
+- `-p <port>`: troca a porta padrão (que é `22`);
 - `-X`: habilita o redirecionamento para _Xorg_;
 - `-Y`: desabilita o _xauth_ plugin de segurança (necessário caso erro ao executar apps via `-X`);
 - `-f`: não abre o _shell_ interativo e coloca o processo em background (só pode ser usado executando um comando no _host_);
