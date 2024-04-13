@@ -4458,6 +4458,204 @@ Ou:
 printf -- '|%.0s\n' `seq <count>`
 ```
 
+### Comandos `test` Equivalentes `if`
+
+#### Um Comando Por Bloco
+
+<details>
+<summary>Simples</summary>
+
+`if`:
+```sh
+# in-block
+if <expression>; then
+    <command>
+fi
+
+# in-line
+if <expression>; then <command>; fi
+```
+
+`test`:
+```sh
+# in-block
+[ <expression> ] && {
+    <command>
+}
+
+# in-line
+[ <expression> ] && <command>
+```
+</details>
+
+<details>
+<summary>Else</summary>
+
+`if`:
+```sh
+# in-block
+if <expression>; then
+    <command>
+else
+    <command>
+fi
+
+# in-line
+if <expression>; then <command>; else <command>; fi
+```
+
+`test`:
+```sh
+# in-block
+[ <expression> ] && {
+    <command>
+} || {
+    <command>
+}
+
+# in-line
+[ <expression> ] && <command> || <command>
+```
+</details>
+
+<details>
+<summary>Else If</summary>
+
+`if`:
+```sh
+# in-block
+if <expression>; then
+    <command>
+elif <expression>; then
+    <command>
+else
+    <command>
+fi
+
+# in-line
+if <expression>; then <command>; elif <expression>; then <command>; else <command>; fi
+```
+
+`test`:
+```sh
+# in-block
+[ <expression> ] && {
+    <command>
+} || { [ <expression> ] && {
+    <command>
+} || {
+    <command>
+}; }
+
+# in-line
+[ <expression> ] && <command> || { [ <expression> ] && <command> || <command>; }
+```
+</details>
+
+#### Múltiplos Comandos Por Bloco
+
+<details>
+<summary>Simples</summary>
+
+`if`:
+```sh
+# in-block
+if <expression>; then
+    <command>
+    <command>
+fi
+
+# in-line
+if <expression>; then <command>; <command>; fi
+```
+
+`test`:
+```sh
+# in-block
+[ <expression> ] && {
+    <command>
+    <command>
+}
+
+# in-line
+[ <expression> ] && { <command>; <command>; }
+```
+</details>
+
+<details>
+<summary>Else</summary>
+
+`if`:
+```sh
+# in-block
+if <expression>; then
+    <command>
+    <command>
+else
+    <command>
+    <command>
+fi
+
+# in-line
+if <expression>; then <command>; <command>; else <command>; <command>; fi
+```
+
+`test`:
+```sh
+# in-block
+[ <expression> ] && {
+    <command>
+    <command>
+} || {
+    <command>
+    <command>
+}
+
+# in-line
+[ <expression> ] && { <command>; <command>; } || { <command>; <command>; }
+```
+</details>
+
+<details>
+<summary>Else If</summary>
+
+`if`:
+```sh
+# in-block
+if <expression>; then
+    <command>
+    <command>
+elif <expression>; then
+    <command>
+    <command>
+else
+    <command>
+    <command>
+fi
+
+# in-line
+if <expression>; then <command>; <command>; elif <expression>; then <command>; <command>; else <command>; <command>; fi
+```
+
+`test`:
+```sh
+# in-block
+[ <expression> ] && {
+    <command>
+    <command>
+} || { [ <expression> ] && {
+    <command>
+    <command>
+} || {
+    <command>
+    <command>
+}; }
+
+# in-line
+[ <expression> ] && { <command>; <command>; } || { [ <expression> ] && { <command>; <command>; } || { <command>; <command>; }; }
+```
+</details>
+
 ---
 
 <a id="db_configuracao"></a>
