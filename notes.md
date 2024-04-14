@@ -2751,6 +2751,25 @@ Lista informações de pontos de montagem:
 findmnt -T /mount/path
 ```
 
+### Comando `last`
+
+Lista o histórico de _logins_ no host:
+```sh
+last [--fulltimes] [--ip] [--limit <count>] [--system]
+```
+
+### Comando `getfacl`
+
+Programas necessários (`#`):
+```sh
+apt install acl
+```
+
+Apresentar de forma bonito os proprietários e permissões:
+```sh
+getfacl /path/to/file/or/folder[/*]
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
