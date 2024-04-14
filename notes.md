@@ -6022,21 +6022,23 @@ Modo de Pesquisa:
 
 _TIPS/TRICKS_:
 
+- Para adicionar um novo arquivo ao _buffer_ basta abrir com o comando `:e`.
+
 - Gravar comandos num registrador e executar _n_ vezes:
 	1. `q<letter>`: começa a gravar um novo registrador de nome _<letter>_;
 	1. `:<command>`: executa comando;
 	1. `:<command>`: executa outros comandos se desejado;
 	1. `q`: persiste o novo registrador;
 	1. `<number>@<letter>`: usa ele _n_ vezes.
+    - OBS: após cada execução do registrador o cursor irá para a próxima linha.
 
-OBS: após cada execução do registrador o cursor irá para a próxima linha.
-
-- Trocar todas as variáveis para maiúsculas (bash script):
-```sh
-:<range>s/\(\([[:alpha:]]\+_\?\)\+=\)/\U\1/gc | :<range>s/\(${\?\([[:alpha:]]\+_\?\)\+}\?\)/\U\1/gc
-```
-
-- Para adicionar um novo arquivo ao _buffer_ basta abrir com o comando `:e`.
+- Trocar todas as variáveis para minúsculas (bash script):
+    ```sh
+    :%s/^\(\s*\(\(readonly\|local\) \)\?\)\?\([[:alnum:]]\+_\?\)\+=/\L&/g | :%s/^\(\s*declare\)\( \(--\?\w\+ \)\?\)\(\([[:alnum:]]\+_\?\)\+\)=/\1\2\L\4=/g | :%s/\${\?.\?\([[:alnum:]]\+_\?\)\+\(\[.]\)\?}\?/\L&/g
+    ```
+    - OBSERVAÇÕES:
+        - Caso queria trocar todas maiúscula troque os `\L` por `\U`.
+        - Com esse RegEx, caso tenha alguma variável declarada dentro de um _heredoc_ por exemplo ela também será afetada, se tiver executadado num arquivo dentro de um repositório git execute `git restore -p ./` para desfazer as alterações nas variáveis indejadas (que serão poucas provavelmente).
 
 ### Swapfile
 
