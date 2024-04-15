@@ -3506,31 +3506,29 @@ qemu-img convert -pO qcow2 /path/to/base-disk.qcow2 /path/to/output-disk.qcow2
 
 ### Wi-fi CLI
 
-#### Comando *nmcli*
+#### Pacote `network-manager`
 
-Programa necessário:
-
-```bash
-sudo apt install network-amanger -y
+Programa necessário (`#`):
+```sh
+apt install network-amanger
 ```
 
-Listar redes dispníveis:
+##### Comando `nmcli`
 
-```bash
-nmcli device wifi list ifname wlp2s0
+Listar redes wifi dispníveis (`$`):
+```sh
+nmcli device wifi list [ifname <network-interface>]
 ```
 
-Conectar em rede simples (comum WPA2):
-
-```bash
-nmcli device wifi connect <ssid> password <password> ifname <network_interface>
+Conectar em rede simples (comum WPA2) (`$`):
+```sh
+nmcli device wifi connect <wifi-name> password <password> [ifname <network-interface>]
 ```
 
-Conectar em rede empresarial (enterprise WPA2 EAP):
-
-```bash
-$ nmcli con add type wifi ifname wlan0 con-name <connection_name> ssid <ssid>
-$ nmcli con edit id <connection_name>
+Conectar em rede empresarial (_enterprise_ WPA2-EAP) (`$`):
+```sh
+nmcli connection add type wifi connection-name <connection-name> ssid <wifi-name> [ifname <network-interface>]
+nmcli connection edit id <connection-name>
 nmcli> set ipv4.method auto
 nmcli> set wifi-sec.key-mgmt wpa-eap
 nmcli> set 802-1x.eap peap
@@ -3538,92 +3536,45 @@ nmcli> set 802-1x.phase2-auth mschapv2
 nmcli> set 802-1x.identity <username>
 nmcli> set 802-1x.password <password>
 nmcli> set 802-1x.ca-cert <certificate>
-nmcli> set 802-1x.anonymous-identity <anonymous_identity>
+nmcli> set 802-1x.anonymous-identity <anonymous-identity>
 nmcli> save
 nmcli> activate
 ```
 
-Simplesmente trocar de rede:
+- OBS: O nome da conexão (propriedade `connection-name`) pode ser literalmente qualquer nome e serve somente para referenciar a configuração de alguma conexão. Acontece que os gerenciadores de rede sempre colocam a `connection-name` o mesmo nome do **SSID** (nome da rede _Wi-Fi_) de forma automática, porém, a `connection-name` pode ser qualquer um.
 
-```bash
+Simplesmente trocar de rede (`$`):
+```sh
 nmcli device wifi connect <ssid>
 ```
 
-- Gerenciador simples gráfico do network-manager:
-	`nm-applet`
+###### VPN
 
-- Editor simples gráfico do network-manager:
-	`nm-connection-editor`
-
-#### Comando *iw*
-
-Instalação:
-
-```bash
-sudo apt install wireless-tools -y
+Adicionar (configurar) conexão _VPN_ (`$`):
+```sh
+nmcli connection import type <vpn-type> file /path/to/vpn-file.any
 ```
 
-OBS: Caso a interface esteja *down*: `ip link set <interface> up`
+- OBS: Depois basta se conectar com `nmtui-connect`.
 
-1. Verificar interfaces wireless:
-	`iwconfig`
-1. Verifique as redes disponíveis:
-	`iwlist <interface> scan | grep -iF essid`
-1. Rode o comando:
-	`iwconfig <interface> essid <network_name> mode managed`
-1. Gere o IP na rede:
-	`dhclient <interface>`
-1. Configure o arquivo *config file* de interfaces de rede:
-	1. Edite o arquivo `/etc/network/interfaces` com seu editor a escolha:
-		`sudo vim /etc/network/interfaces`
-	1. Insira as seguintes linhas no arquivo:
-
-```
-auto wlan0
-iface wlan0 inet dhcp
-wpa-ssid <network_name>
-wpa-psk <network_password>
-```
-
-6. Altere as permissões do arquivo pois deixará a senha exposta:
-	`sudo chmod 600 /etc/network/interfaces`
-1. Reinicie o serviço:
-	`sudo service networking restart`
-
-#### Comando *nmtui*
-
-Instalação:
-
-```bash
-sudo apt install network-manager -y
-```
-
-Conectar rede wi-fi via CLI:
-
-```bash
-nmtui-connect
-```
+_OBSERVATIONS_: Para **OpenVPN** instale o pacote `network-manager-openvpn`.
 
 #### Comando *nmap*
 
-Instalação:
-
-```bash
-sudo apt install nmap -y
+Programas necessários (`#`):
+```sh
+apt install nmap
 ```
 
-Saber ips conectados a minha rede:
-
-1. Saiba primeiro seu ip:
+Saber _IP's_ conectados a minha rede:
+1. Saiba primeiro seu _IP_ (`$`):
 	`ip address`
+1. Coloque no `nmap` (`#`):
+	`nmap -sA 192.168.0.1/24`
 
-1. Coloque no *nmap*:
-	`sudo nmap -sA 192.168.0.1/24`
-
-Saber quais portas estão sendo usadas por qual serviço na sua máquina:
-
-```bash
-sudo nmap -sV localhost
+Saber quais portas estão sendo usadas por qual serviço na sua máquina (`#`):
+```sh
+nmap -sV localhost
 ```
 
 ### Dispositivos de entrada
