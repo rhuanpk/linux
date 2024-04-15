@@ -31,7 +31,7 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-readonly TMP_FILE='/tmp/pns.tmp'
+readonly TMP_FILE='/tmp/pns.sig'
 TMP_FILE_STATE="`[ -f "$TMP_FILE" ] && wc -l < "$TMP_FILE"`"
 INTERFACE="`ip a | grep -Fm1 -A2 'state UP'`"
 IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
