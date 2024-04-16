@@ -5701,6 +5701,7 @@ sudo touch /etc/X11/xorg.conf.d/90-touchpad.conf
 Section "InputClass"
 	Identifier "touchpad"
 	Driver "libinput"
+	MatchIsTouchpad "on"
 	Option "Tapping" "true"
 	Option "NaturalScrolling" "true"
 	Option "ScrollMethod" "twofinger"
