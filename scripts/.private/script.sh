@@ -98,7 +98,9 @@ while getopts 'srvh' option; do
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
-		h|*) usage; exit 2;;
+		h) usage; exit 1;;
+		*) exit 2;;
+		#h|*) usage; exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
