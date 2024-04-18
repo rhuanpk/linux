@@ -6173,7 +6173,7 @@ Configurar "Open Terminal Here":
 1. Entre em:
 	`Edit » Configure custom actions... » Open Terminal Here » *engrenagem* » Command:`
 1. Colocar o seguinte valor:
-	`terminator --working-directory=%f`
+	`x-terminal-emulator --working-directory=%f`
 
 Adicionar pastas em "Palces":
 
