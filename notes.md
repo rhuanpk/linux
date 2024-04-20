@@ -1804,7 +1804,6 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 - `-o`: informa o nome e o local do arquivo de saída;
 - `-X`: tipo da request;
 - `-H`: _seta_ cabeçalhos da request;
-- `-d`: informe o conteúdo da request;
 - `-k`: desabilita verificações de segurança (_SSL_ e etc);
 - `-v`: modo verboso;
 - `-i`: _printa_ o cabeçalho da requisição;
@@ -1817,22 +1816,31 @@ curl -fsSLo /path/to/save.any <url>
 
 Popular *field* no *html* de determinado endereço:
 ```sh
-curl -d "<field_name>='<message>'" <url>
+curl -d "<field-name>=<content>" <url>
 ```
 
-Sintaxe básica para request:
+#### Tipos de _Content-Type_
+
+JSON:
 ```sh
-curl -fsSL --request <method> --url <url> --header 'Content-Type: application/json' [--data '<json>']
+curl [-H 'content-type: application/json'] -d '{"param1":"value1","param2":"value2"}' <url>
 ```
 
-Arquivos na request:
+URL Encoded:
 ```sh
-curl <url> -X POST -H 'Content-Type: multipart/form-data' -F 'file=@/path/to/file.zip'
+curl [-H 'content-type: application/x-www-form-urlencoded'] -d 'param1=value1&param2=value2' <url>
 ```
 
-Requisição com "multipart/form-data":
+- OBS: **Espaços em branco** trocados por "+".
+
+Form Data:
 ```sh
-curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d '<field>=<value>' <url>
+curl [-H 'content-type: multipart/form-data'] -F 'param1=value1' -F 'file=@/path/to/file.any' <url>
+```
+
+XML:
+```sh
+curl [-H 'content-type: application/xml'] -d '<root><element>value</element></root>' <url>
 ```
 
 ### Comando _wget_
