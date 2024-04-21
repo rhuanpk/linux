@@ -2778,6 +2778,26 @@ Apresentar de forma bonito os proprietários e permissões:
 getfacl /path/to/file/or/folder[/*]
 ```
 
+### Comando `base64`
+
+Tanto para codificar quanto para decodificar é necessário passar o dado via **arquivo** ou **entrada padrão**.
+
+- `-d`: decodifica base64 para o original;
+- `-w <cols>`: número de colunas na saída, `0` para em uma única linha.
+
+(De)Codificar:
+```sh
+base64 [-w <cols>] [-d] /path/to/file.any
+
+# or
+
+base64 [-w <cols>] [-d] <<< <data>
+
+# or
+
+<data> | base64 [-w <bols>] [-d]
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
