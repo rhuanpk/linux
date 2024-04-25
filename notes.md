@@ -6014,7 +6014,7 @@ _TIPS/TRICKS_:
 
 - Trocar todas as variáveis para minúsculas (bash script):
     ```sh
-    :%s/^\(\s*\(\(readonly\|local\) \)\?\)\?\([[:alnum:]]\+_\?\)\+=/\L&/g | :%s/^\(\s*declare\)\( \(--\?\w\+ \)\?\)\(\([[:alnum:]]\+_\?\)\+\)=/\1\2\L\4=/g | :%s/\${\?.\?\([[:alnum:]]\+_\?\)\+\(\[.]\)\?}\?/\L&/g
+    :%s/^\(\s*\(\(readonly\|local\) \)\?\)\?\([[:alnum:]]\+_\?\)\+=/\L&/g | :%s/\${\?.\?\([[:alnum:]]\+_\?\)\+\(\[.]\)\?}\?/\L&/g | :%s/^\(\s*declare\)\( \(--\?\w\+ \)\?\)\(\([[:alnum:]]\+_\?\)\+\)=/\1\2\L\4=/g
     ```
     - OBSERVAÇÕES:
         - Caso queria trocar todas maiúscula troque os `\L` por `\U`.
