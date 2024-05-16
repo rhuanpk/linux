@@ -7482,10 +7482,12 @@ git config --global core.editor <editor>
 
 Definir arquivo de configuração específico para todos os repos dentro de terminada pasta:
 ```sh
-git config --global includeIf.'gitdir:~/path/to/folder/projects/'.path ~/path/to/.gitconfig
+git config --global includeIf.'gitdir:~/path/to/folder/projects/'.path ./path/to/.gitconfig
 ```
 
-OBS: necessário a "/" no final do caminho do em `gitdir`.
+- _OBSERVATIONS_:
+    - Necessário a "/" no final do caminho do em `gitdir`;
+    - O `.` no início do caminho do `.gitconfig` é a relação da _home_ do usuário.
 
 ### Bare
 
