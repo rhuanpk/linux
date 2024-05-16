@@ -1907,9 +1907,14 @@ Monitora logs do sistema/_daemons_:
 - `--list-boots`: list o histórico de boots;
 - `--disk-usage`: mostra quanto de disco os logs estão consumindo.
 
-Exemplo:
-```bash
-sudo journalctl -xfu <name>.service
+Seguir os _logs_ de um serviço (`#`):
+```sh
+sudo journalctl -xfeu <unit>[.service]
+```
+
+Remover limpar os _logs_ (`#`):
+```sh
+journalctl --rotate --vacuum-size <size> [--unit <unit>.service]
 ```
 
 ### Comando *trap*
