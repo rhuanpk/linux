@@ -65,11 +65,14 @@ shift $(("$OPTIND"-1))
 		} || \
 			echo -e "\n$script: error: some wrong occurred on entering in \"$PATHWAY\""
 		exit 1
-	fi	
-}; cd "$PATHWAY"
+	fi
+}
 for file in *; do
-	EXTENSION=`grep -oE '\.[^[:digit:]]+$' <<< "$file"`
-	FOLDER=`cut -d '.' -f 1 <<< "$file"`
+	#EXTENSION=`grep -oE '\.[^[:digit:]]+$' <<< "$file"`
+	EXTENSION=".${file##*.}"
+	: EXTENSION="${EXTENSION:-noextension}"
+	#FOLDER=`cut -d '.' -f 1 <<< "$file"`
+	FOLDER="${file%.*}"
 
 	if [[ "$EXTENSION" =~ ^\.(tar|tbz2)(.(xz|bz2))?$ ]]; then
 		action 'tar -xvf'
@@ -79,7 +82,10 @@ for file in *; do
 			'.zip') action 'unzip';;
 			'.xz') action 'xz -kdv';;
 			'.gz') action 'gzip -kdv';;
+			'.rar') action 'unrar x';;
 			#*) 7z x "./$file" >&-;;
+			#'noextension') echo -e "\n$script: warn: file \"$file\" has no extension or is not recognized"
+			*) echo -e "\n$script: warn: file \"$file\" has no extension or is not recognized"
 		esac
 	fi
 done
