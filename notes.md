@@ -5904,6 +5904,12 @@ tmux
 - Mostra a hora:
 	`${mod}+t`
 
+- Matar painel atual:
+    `${mod}+x`
+
+- Matar janela atual:
+    `${mod}+&`
+
 #### Fora da sessão
 
 - Listar todas as sessões:
