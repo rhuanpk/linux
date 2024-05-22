@@ -4064,6 +4064,31 @@ Usando _pipe_:
 <command> | grep -nE "^.{`<command> | wc -L`}$"
 ```
 
+### VNC
+
+#### TigerVNC
+
+Server:
+1. Instalação (**#**):
+    `apt install tigervnc-scraping-server`
+1. Configuração (**$**):
+    1. `mkdir ~/.vnc`
+    1. `vncpasswd` > _set password_ > _choose "n"_
+1. Execute (**$**):
+    `x0vncserver -localhost no -passwordfile ~/.vnc/passwd -display :0`
+
+Client:
+1. Instalação (**#**):
+    `apt install tigervnc-viewer`
+1. Executar (**$**):
+    `vncviewer`
+
+_REFERENCELINKS_:
+- [Sir Rob Linux Brasil](https://youtu.be/YxodO52p94U)
+- [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-22-04)
+- [Baeldung](https://www.baeldung.com/linux/virtual-network-computing-server-configure)
+- [addictivetips](https://www.addictivetips.com/ubuntu-linux-tips/set-up-vnc-desktop-sharing-on-linux-with-tigervnc/)
+
 ---
 
 <a id="db_gnulinux-bash"></a>
