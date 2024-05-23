@@ -38,6 +38,7 @@ PATHWAY_HISTORY="$home/.bash_history"
 PATHWAY_GIT="$home/.gitconfig"
 PATHWAY_VIM="$home/.vimrc"
 PATHWAY_DUNST="$home/.config/dunst/dunstrc"
+PATHWAY_SHELLRC="$home/.config/shellrc"
 
 # >>> functions declaration!
 usage() {
@@ -71,35 +72,36 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-# Create necessary folders.
+# create necessary folders
 for pathway in "${ARRAY_PATHWAY_BACKUP[@]}"; do
 	[ ! -d "$pathway/" ] && mkdir -p "$pathway/"
 done
 
-# Clean ups.
+# clean ups
 cleanup-history
 
-# Commands ls to save.
+# commands ls to save
 ls -1 "$PATHWAY_OPT" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['opt']}/opt-programs.txt"
 ls -1 "$PATHWAY_FONTS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
 ls -1 "$PATHWAY_ICONS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/icons.txt"
 ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/themes.txt"
 ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
 
-# Commands cp to save.
+# commands cp to save
 cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/config.txt"
 cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/settings.txt"
 cp -f "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}/gitconfig.txt"
 cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/vimrc.txt"
 cp -f "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}/dunstrc.txt"
+cp -f "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['misc']}/shellrc.txt"
 
-# Others commands to save.
+# others commands to save
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
 neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/contab.txt"
 
-# Complex commands to save.
+# complex commands to save
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`date +%y-%m-%d_%H%M%S`.gz"
 gzip -c9 "$PATHWAY_HISTORY" >"$FILE_NAME_HISTORY"
 chmod 600 "$FILE_NAME_HISTORY"
