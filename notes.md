@@ -3042,7 +3042,7 @@ Excluir vários paths da busca:
 find ./ \( -path ./first/path -o -path ./second/path \) -prune -o -name '*file*'
 ```
 
-Buscar for arquivos e excluílos:
+Buscar por arquivos e excluílos:
 ```sh
 find ~/ -not \( -path '*/.*' -prune -o -path '*/folder' -prune \) -iname '*confli*' -exec rm -i '{}' \; 2>&-
 ```
