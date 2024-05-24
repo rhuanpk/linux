@@ -2803,6 +2803,18 @@ base64 [-w <cols>] [-d] <<< <data>
 <data> | base64 [-w <bols>] [-d]
 ```
 
+### Comando _xcompmgr_
+
+Programas necessários (**$**):
+```sh
+apt install xcompmgr
+```
+
+Executar o compositor:
+```sh
+xcompmgr [-cfn]
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
