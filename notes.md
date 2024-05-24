@@ -2815,6 +2815,13 @@ Executar o compositor:
 xcompmgr [-cfn]
 ```
 
+### Comando _xwininfo_
+
+Pegar informações de alguma janela:
+```sh
+xwininfo
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
