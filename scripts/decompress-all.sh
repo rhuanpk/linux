@@ -70,11 +70,13 @@ shift $(("$OPTIND"-1))
 for file in *; do
 	#EXTENSION=`grep -oE '\.[^[:digit:]]+$' <<< "$file"`
 	EXTENSION=".${file##*.}"
+	[[ "${file%$EXTENSION}" =~ \.(tar|tbz2)$ ]] && EXTENSION=".tar$EXTENSION"
 	: EXTENSION="${EXTENSION:-noextension}"
 	#FOLDER=`cut -d '.' -f 1 <<< "$file"`
-	FOLDER="${file%.*}"
+	#FOLDER="${file%.*}"
+	FOLDER="${file%$EXTENSION}"
 
-	if [[ "$EXTENSION" =~ ^\.(tar|tbz2)(.(xz|bz2))?$ ]]; then
+	if [[ "$EXTENSION" =~ ^\.(tar|tbz2)(\.(xz|bz2))?$ ]]; then
 		action 'tar -xvf'
 	else
 		case "$EXTENSION" in
