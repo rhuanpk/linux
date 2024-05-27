@@ -77,10 +77,10 @@ execute-all() {
 # >>> pre statements!
 [ -z "$PATHWAY" ] && PATHWAY="`pwd`" || PATHWAY+='/scripts'
 
-while getopts 'lhsrvh' OPTION; do
+while getopts 'lasrvh' OPTION; do
 	case "$OPTION" in
 		l) FLAG_SYMLINK='true';;
-		h) LOCAL_BIN=~/.local/bin/;;
+		a) LOCAL_BIN=~/.local/bin/;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
