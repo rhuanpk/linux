@@ -4279,33 +4279,65 @@ Perl equivalentes (_PCRE_):
 | 'T' (STOPPED)                | Processo está pausado porém ainda pode ser manipulado ou resumido (ctrl+z » SIGTSTP).                                            |
 | 'Z' (ZOMBIE)                 | Processo que foi encerrado porém ainda está na tabela de processos, significa que ainda pode estar finalizando alguma atividade. |
 
+### Tipos de Shell's
+
+Shell de Login:
+- Iniciado como resultado de um login;
+- Quando faz login a partir de um terminal virtual (TTY);
+- Quando se conecta via SSH;
+- Quando usa um gerenciador de login gráfico que inicia um shell de login.
+
+Shell de Não-Login:
+- Iniciado não como resultado de um login;
+- Abertura de um terminal dentro de um ambiente gráfico;
+- Execução de scripts que invocam shell's (_subshells_).
+
+Shell Interativo:
+- Espera e responde a comandos do usuário;
+
+Shell Não-Interativo:
+- Não (necessarimente) espera entrada do usuário;
+- Executado a partir de scripts ou comandos automatizados;
+- Comandos passados por argumentos (`bash -c '<command>'`).
+
 ### Ordem de Chamada dos Arquivos de Inicialização
 
-#### Usando Console de Texto
+#### Usando CLI
 
+Shells de Login:
 1. `/etc/environment`:
-    - OBS: independete (carregado pelo **PAM**).
+    - Independete (carregado pelo **PAM**);
 
-1. `/etc/profile`:
-    - OBS: independete (carregador pelo **Bash**).
+1. `/etc/profile` (`/etc/profile.d/*.sh`):
+    - Configuração global para _shells_ de _login_;
 
 1. `~/.bash_profile`:
-    - OBS: caso esse exista, os próximos não são carregados a menos que no mesmo seja feito o carregamento explícito.
+    - Configuração local do usuário para _shells_ de _login_;
 
 1. `~/.bash_login`:
-    - OBS: mesmo caso do anterior.
+    - Carregado caso o anterior não exista a menos que seja explícito;
 
 1. `~/.profile`:
-    - OBS: mesmo caso do anterior.
+    - Carregado caso o anterior não exista a menos que seja explícito.
+
+Shells Interativos:
+1. `/etc/bash.bashrc`:
+    - Configuração global para _shells_ interativos (e de não-login);
+
+1. `~/.bashrc`:
+    - Configuração local do usuario para _shells_ interativos (e de não-login).
 
 #### Usando GUI
 
-1. `/etc/environment`;
-    - OBS: independente (carregado pelo **PAM**).
+1. `/etc/environment`:
+    - Independente (carregado pelo **PAM**).
 
-1. `~/.xsessionrc`.
-    - OBS: independente (carregador pelo servidor gráfico (**X**));
-    - OBS: pode conter a chamada dos _shell's startup files_.
+1. `~/.xinitrc`:
+    - Independente (carregador pelo servidor gráfico (**X**));
+    - Pode conter a chamada dos _shell's startup files_.
+
+1. `/etc/X11/xinit/xinitrc`:
+    - Carregado caso o anterior não exista a menos que seja explícito;
 
 _REFERENCELINKS_:
 
@@ -4993,7 +5025,7 @@ Definir o valor de uma propriedade:
 xdg-settings set <property> [<subproperty>] <value>
 ```
 
-#### LC_ALL Não Definida
+#### LC\_ALL Não Definida
 
 Comando:
 ```sh
