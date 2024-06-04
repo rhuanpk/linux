@@ -3,7 +3,7 @@
 # Make a backup of some important files.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.4.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
@@ -25,6 +25,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['vim']="$PATHWAY_BACKUP/vim"
 	['cron']="$PATHWAY_BACKUP/cron"
 	['dunst']="$PATHWAY_BACKUP/dunst"
+	['ssh']="$PATHWAY_BACKUP/ssh"
 )
 PATHWAY_OPT='/opt'
 PATHWAY_FONTS="$home/Documents/fonts"
@@ -39,6 +40,7 @@ PATHWAY_GIT="$home/.gitconfig"
 PATHWAY_VIM="$home/.vimrc"
 PATHWAY_DUNST="$home/.config/dunst/dunstrc"
 PATHWAY_SHELLRC="$home/.config/shellrc"
+PATHWAY_SSH="$home/.ssh/config"
 
 # >>> functions declaration!
 usage() {
@@ -94,6 +96,7 @@ cp -f "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}/gitconfig.txt"
 cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/vimrc.txt"
 cp -f "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}/dunstrc.txt"
 cp -f "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['misc']}/shellrc.txt"
+cp -f "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}/config.txt"
 
 # others commands to save
 tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree-output.txt"
