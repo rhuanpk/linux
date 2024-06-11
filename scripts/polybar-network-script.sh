@@ -36,7 +36,7 @@ TMP_FILE_STATE="`[ -f "$TMP_FILE" ] && wc -l < "$TMP_FILE"`"
 INTERFACE="`ip a | grep -Em1 -A3 '[[:digit:]]+: (eth|enp|wl).*state UP'`"
 IP="`sed -nE 's/^.*inet (([[:digit:]]{1,3}.?){4})\/.*$/\1/p' <<< "$INTERFACE"`"
 [ -n "$INTERFACE" ] && {
-	if nmcli -g 'TYPE,STATE' device status | grep -qF 'ethernet:connected'; then
+	if nmcli -g 'TYPE,STATE' device status | grep -qF 'ethernet:connected' || [[ "$(sed -nE 's/^[[:digit:]]+: ([[:alnum:]]+):.*$/\1/p' <<< "$INTERFACE")" =~ ^e ]]; then
 		TYPE='e_IP'
 	else
 		TYPE='w_IP'
