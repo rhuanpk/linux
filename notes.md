@@ -1917,24 +1917,31 @@ Remover limpar os _logs_ (`#`):
 journalctl --rotate --vacuum-size <size> [--unit <unit>.service]
 ```
 
-### Comando *trap*
+### Comando _trap_
 
-Comando *built-in* do sistema que intercepta os sináis passsado por parâmetro do *script* no qual ele foi chamado.
+Comando _built-in_ do sistema para interceptar os sináis enviado ao _script_.
 
 ```bash
 #!/bin/bash
 
-trap "echo 'O programa foi encerrado!'" SIGINT SIGTSTP SIGTERM SIGKILL EXIT
+# record new command to signals
+trap "echo 'captured'" SIGTSTP EXIT
 
-read -p "Entre: " input
-echo "${input}"
+read -p 'Input: ' input
+echo "$input"
 
-trap - SIGINT SIGTSTP SIGTERM SIGKILL EXIT
+# reset signals to default
+trap - SIGTSTP EXIT
 ```
 
-No caso de exemplo, é chamando o comando de armadilha no qual é acionado quando o *script* que está rodando receber um dos sináis passado a partir do segundo argumento. Quando o mesmo é acionado, é executado o que está como primeiro parâmetro passado para o `trap` comando.
-
-Depois de se utilizar das trativas de armadilha, podemos resetar as funções padrões que o *script* teria antes de alterarmos seu comportamento chamando um `-` como primeiro argumento e partir do segundo, da mesma forma, todos os sinais usados.
+Sinais to próprio comando `trap`:
+- `EXIT`: executa no final do script, e também quando capturado:
+	- 02: **SIGINT** (`ctrl+c`)
+	- 15: **SIGTERM**
+- `DEBUG`: executa antes de cada comando simples
+- `RETURN`: execute no final do script quando for chamado com `.` ou `source`
+	- OBS: caso você defina o trap com esse sinal e depois o remova, terá que resetar o shell para que seu efeito passe
+- `ERR`: executa depois de cada erro
 
 ### Comando *systemctl*
 

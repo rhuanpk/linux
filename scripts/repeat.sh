@@ -42,15 +42,14 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-unset TIME COMMAND
-
+trap 'unset TIME COMMAND' EXIT
 COMMAND='ls --color=always -lhAF'
 if [[ "$1" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
 	TIME="$1"
-	[ "$#" -gt '1' ] && COMMAND="${*:2}"
+	[ "$#" -gt '1' ] && { COMMAND="$2"; ARGS="${*:3}"; }
 else
 	TIME='1'
-	[ "$#" -gt '0' ] && COMMAND="$*"
+	[ "$#" -gt '0' ] && { COMMAND="$1"; ARGS="${*:2}"; }
 fi
 
 if alias "$COMMAND" &>/dev/null; then
@@ -59,6 +58,6 @@ fi
 
 while :; do
 	clear
-	eval "${COMMAND:?'needs informe a command to run as second param'}"
+	eval "${COMMAND:?'needs informe a command to run as second param'} $ARGS"
 	sleep "${TIME:?'needs informe a time delay as first param'}"
 done
