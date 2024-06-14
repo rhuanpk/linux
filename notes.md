@@ -2238,7 +2238,7 @@ _REFERENCELINKS_:
 Resolver _hostnames_/domínios:
 
 ```bash
-nslookup <hostname/doamin>
+nslookup [-type=PTR] <hostname/doamin>
 ```
 
 ### Comando _arp-scan_
@@ -2263,16 +2263,21 @@ Instalação:
 sudo apt install -y dnsutils
 ```
 
-Resolver algum domínio especificando o servidor remoto:
+Resolver domínio:
 
 ```bash
-dig [+short] @<ip_dns_server> <domain_to_search> <record_type>
+dig [+short] [@<ip-dns>] <domain-to-search> [<record-type>]
 ```
 
 Verificar _nameservers_ do domínio:
 
 ```sh
-dig <domain_name> +trace @1.1.1.1
+dig +trace [@<ip-dns>] <domain-name>
+```
+
+Encontrar domínio pelo IP:
+```sh
+dig [+short] [@<ip-dns>] -x <ip-server>
 ```
 
 _OBSERVATIONS_:
