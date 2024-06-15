@@ -1942,6 +1942,7 @@ Sinais to próprio comando `trap`:
 - `RETURN`: execute no final do script quando for chamado com `.` ou `source`
 	- OBS: caso você defina o trap com esse sinal e depois o remova, terá que resetar o shell para que seu efeito passe
 - `ERR`: executa depois de cada erro
+- `WINCH`: executa quando a janela tem suas dimensões alteradas (diminuida ou aumentada)
 
 ### Comando *systemctl*
 
