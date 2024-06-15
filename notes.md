@@ -3569,6 +3569,14 @@ mount -o trans=virtio -t 9p <mount-tag> /mnt
 qemu-img convert -pO qcow2 /path/to/base-disk.qcow2 /path/to/output-disk.qcow2
 ```
 
+#### Troubleshooting
+
+Executar qemu _logado_ como root:
+1. Liberar acesso no `xhost` (**$**):
+    `xhost +si:localuser:root`
+1. Executar comando passando a variável `DISPLAY`:
+    `DISPLAY=:0 <command>`
+
 ### Wi-fi CLI
 
 #### Pacote `network-manager`
