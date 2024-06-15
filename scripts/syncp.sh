@@ -38,7 +38,7 @@ shift $(("$OPTIND"-1))
 sync &
 sync_pid="$!"
 sleep 1
-while ps -qp "$sync_pid" &>/dev/null; do
+while ps -p "$sync_pid" &>/dev/null; do
 	echo -en "\rSyncing $(grep -F 'Dirty:' /proc/meminfo | tr -s ' ' | cut -d' ' -f 2-)... "
 	sleep 1
 done
