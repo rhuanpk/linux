@@ -63,9 +63,9 @@ shift $(("$OPTIND"-1))
 while :; do
 	SEPARATOR="$(printf -- '*%.0s' $(seq '0' "$(("`tput cols`"-2))"))"
 
-	SSID="`nmcli -t -f 'NAME,TYPE' conn show --active | grep -vE '(vpn|tun|wireg|loop|brid)' | cut -d':' -f1`"
-	BSSID="`nmcli -t -f 802-11-wireless.seen-bssids conn show "$SSID" | cut -d':' -f2- | cut -d',' -f1`"
-	IFNAME="`nmcli -g 'GENERAL.TYPE,GENERAL.DEVICE' device show | grep -A1 '^wifi$' | sed -n '2p'`"
+	#SSID="`nmcli -t -f 'NAME,TYPE' conn show --active | grep -vE '(vpn|tun|wireg|loop|brid)' | cut -d':' -f1`"
+	#BSSID="`nmcli -t -f 802-11-wireless.seen-bssids conn show "$SSID" | cut -d':' -f2- | cut -d',' -f1`"
+	#IFNAME="`nmcli -g 'GENERAL.TYPE,GENERAL.DEVICE' device show | grep -A1 '^wifi$' | sed -n '2p'`"
 
 	clear
 
@@ -75,8 +75,8 @@ while :; do
 	echo -e "\n$SEPARATOR\n\n> nmcli connection show --active"
 	nmcli connection show --active
 
-	echo -e "\n$SEPARATOR\n\n> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\""
-	nmcli device wifi list bssid "$BSSID" ifname "$IFNAME"
+	#echo -e "\n$SEPARATOR\n\n> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\""
+	#nmcli device wifi list bssid "$BSSID" ifname "$IFNAME"
 
 	echo -e "\n$SEPARATOR\n\n> ping -c 1 'linux.org'"
 	ping -c 1 'linux.org'
