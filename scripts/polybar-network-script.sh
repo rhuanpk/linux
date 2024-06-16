@@ -63,11 +63,11 @@ fi
 
 [ "${sig_state:=0}" -eq 1 ] && {
 	if [ "$iftype" = 'w_IP' ]; then
-		if which -s nmcli; then
+		if type nmcli &>/dev/null; then
 			ssid="$(nmcli -t -f name,device conn show --active | grep -F "$ifname" | cut -d':' -f1)"
-		#elif which -s iwgetid; then
+		#elif type iwgetid &>/dev/null; then
 		#	ssid="$(iwgetid -r)"
-		#elif which -s iwconfig; then
+		#elif type iwconfig &>/dev/null; then
 		#	ssid="$(iwconfig "$ifname" | sed -nE 's/^.*ESSID:"(.*)".*$/\1/p')"
 		fi
 		[ "$ssid" ] && ip+=" %{F#555555}-%{F-} %{F#FF00FF}$ifname:%{F-} $ssid"
