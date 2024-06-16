@@ -5215,6 +5215,18 @@ Comando *lspci*:
 lspci -k | grep -E '(VGA|3D|Display)'
 ```
 
+### Driver de Rede
+
+Comando _inxi_:
+```sh
+inxi -N
+```
+
+Comando _lspci_:
+```sh
+lspci -nnk
+```
+
 ### Mover/Cortar/Diminuir partições
 
 - Extender partição com o espaço disponível: `sudo growpart /dev/sdXY`.
