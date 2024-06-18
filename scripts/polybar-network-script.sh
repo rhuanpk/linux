@@ -42,7 +42,7 @@ readonly sig='/tmp/pns.sig'
 sig_state="`[ -f "$sig" ] && wc -l < "$sig"`"
 
 # get interface routes
-route="$(ip route | grep '^default.*metric' | cut -d' ' -f'5,9,11' | sort -n -t' ' -k3 | head -1)"
+route="$(ip route | grep '^default.*metric' | grep -vE "(tun0|wg0|$(hostname))"  | cut -d' ' -f'5,9,11' | sort -n -t' ' -k3 | head -1)"
 
 # set interface name
 ifname="$(cut -d' ' -f1 <<< "$route")"
