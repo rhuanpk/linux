@@ -16,6 +16,7 @@ FILE_PATH=~/.config/git-all.path
 #_REPO_PATHS='/tmp'
 FLAG_CUSTOM='false'
 FLAG_PULL='false'
+FLAG_ERROR='false'
 
 # >>> functions declaration!
 usage() {
@@ -52,6 +53,7 @@ Usage without passing parameters:
 	`formatter 1 -s`: Set a new path to grab the folders;
 	`formatter 1 -c`: Start the CUSTOM MODE;
 	`formatter 1 -g`: Pull in all repos;
+	`formatter 1 -e`: Show errors on cd in repo if occurs;
 	`formatter 1 -p \<path\>`: Set a temporary path (that's valid only this time) to grab the folders;
 	`formatter 1 -v`: Print version;
 	`formatter 1 -h`: Print this message and exit with 2.
@@ -109,12 +111,13 @@ pushing() {
 }
 
 # >>> pre statements!
-while getopts 'lscgp:vh' OPTION; do
+while getopts 'lscgep:vh' OPTION; do
 	case "$OPTION" in
 		l) print-path; exit 0;;
 		s) switch-path; exit 0;;
 		c) FLAG_CUSTOM=true;;
 		g) FLAG_PULL=true;;
+		e) FLAG_ERROR=true;;
 		p) _REPO_PATHS="$OPTARG";;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
@@ -132,15 +135,20 @@ shift $(("$OPTIND"-1))
 COUNT="$(ls -1d `realpath "$_REPO_PATHS"`/* | wc -l)"
 for directory in "`realpath "$_REPO_PATHS"`"/*; do
 	if ! OUTPUT=`cd "$directory" 2>&1`; then
-		directory="`formatter 1 "$directory"`"
-		{
-			[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-			&& echo -e "$script: warning: \"$directory\" is not a folder"
-		} || {
-			[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-			&& echo -e "$script: warning: \"$directory\" don't has permission";
-		} || \
-			echo -e "$script: warning: some wrong occurred on entering in \"$directory\""
+		if "$FLAG_ERROR"; then
+			directory="`formatter 1 "$directory"`"
+			{
+				[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
+				&& echo -e "$script: warning: \"$directory\" is not a folder"
+			} || {
+				[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
+				&& echo -e "$script: warning: \"$directory\" don't has permission";
+			} || \
+				echo -e "$script: warning: some wrong occurred on entering in \"$directory\""
+			FLAG_SEPARATOR='true'
+		else
+			FLAG_SEPARATOR='false'
+		fi
 	else
 		cd "$directory" 2>&1
 		echo -e "→ git in *$(formatter 1 "`basename ${directory^^}`")*!\n"
@@ -154,7 +162,10 @@ for directory in "`realpath "$_REPO_PATHS"`"/*; do
 		else
 			[ "$#" -eq 0 ] && pushing || $*
 		fi
+		FLAG_SEPARATOR='true'
 	fi
-	((COUNT>1)) && echo -e "$(formatter 34 "$(printf -- '-%.0s' `seq 42`; echo)")"
+	if "$FLAG_SEPARATOR"; then
+		((COUNT>1)) && echo -e "$(formatter 34 "$(printf -- '-%.0s' `seq 42`; echo)")"
+	fi
 	let COUNT--
 done
