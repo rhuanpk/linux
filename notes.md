@@ -1,5 +1,5 @@
 <a id="menu"></a>
-# >>> Comandos Aleatoriamente Úteis!
+# Comandos Linux
 
 - [Debian Base](#debian_base)
 	- [Customização](#db_customizacao)
@@ -21,7 +21,7 @@
 - [Estudos](#estudos)
 
 <a id="debian_base"></a>
-## [> Debian base](#menu)
+## [Debian base](#menu)
 
 <a id="db_customizacao"></a>
 [<span style="font-size:14px;">Customização</span>](#menu)
@@ -62,7 +62,7 @@ Setar _oh-my-zsh_ no **root**:
 
 #### Instalar Novo Tema de Cursor
 
-Comando *[update-alternatives](#update-alternatives)*:
+Comando _[update-alternatives](#update-alternatives)_:
 
 ```bash
 sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /path/to/folder/your/cursor/index.theme 722
@@ -72,7 +72,7 @@ OBS: O arquivo ".theme" do cursor deve conter no início da sessão a seguinte p
 
 #### Aplicar novo tema de cursor
 
-Comando *[update-alternatives](#update-alternatives)*:
+Comando _[update-alternatives](#update-alternatives)_:
 
 ```bash
 sudo update-alternatives --config x-cursor-theme
@@ -898,7 +898,7 @@ Para saber qual:
 cat /usr/share/applications/defaults.list
 ```
 
-Para escolher o editor padrão modo texto/ver o editor padrão modo texto:
+Para escolher o editor padrão modo texto/ver o editor padrão modo texto (_[update-alternatives](#update-alternatives)_):
 
 ```bash
 sudo update-alternatives --config editor
@@ -906,7 +906,7 @@ sudo update-alternatives --config editor
 
 #### Terminal padrão
 
-Comando:
+Comando _[update-alternatives](#update-alternatives)_:
 
 ```bash
 sudo update-alternatives --config x-terminal-emulator
@@ -5852,22 +5852,24 @@ EndSection
 
 ### Update-alternatives
 
-Instalando um novo programa no *update-alternatives*:
-
-- link: link simbólico genérico já usado
-- name: propriedade do update-alternative que está modificando
-- path: caminho absoluto do programa original
-- priority: prioridade de utilização sobre outros
-
-```bash
-sudo update-alternatives --install <link> <name> <path> <priority>
+Definir o padrão para determinada propriedade (**#**):
+```sh
+update-alternatives --auto <name>
 ```
 
-Exemplo de **análise** via print:
+Instalando um novo programa no *update-alternatives* (**#**):
 
-![instalation-new-update-alternatives](/.assets/images/instalation-new-update-alternatives.png)
+- `link`: link simbólico genérico já usado pelo _update-alternative_
+- `name`: propriedade do update-alternative que está modificando
+- `path`: caminho absoluto do novo programa
+- `priority`: prioridade de utilização sobre outros (maior valor, maior prioridade)
 
-Link de exemplos de instalação e utilização com [cursores](#cursor) e somente de utilização para [editor de texto padrão](#editor-de-texto-padrão) e [terminal padrão](#terminal-padrão).
+```sh
+update-alternatives --install <link> <name> <path> <priority>
+```
+
+Para descobrir _link_ e _name_ usando a opção `--query` (**$**):
+![image-to-discover-link-and-name](./.assets/images/update-alternatives-install-option.png)
 
 ### Empacotamento *debian* (criar .deb)
 
@@ -5891,7 +5893,7 @@ Version: 0.0
 Architecture: all
 Essential: no
 Priority: optional
-Maintainer: rhuan-pk
+Maintainer: rhuanpk
 Description: Just a "hello".
 ```
 
@@ -6900,7 +6902,7 @@ showrgb | grep -i '<color>'
 ---
 
 <a id="ubuntu"></a>
-## [> Ubuntu](#menu)
+## [Ubuntu](#menu)
 
 ### Pesquisar pacotes
 
@@ -6976,7 +6978,7 @@ ctrl + alt + shift + r
 ---
 
 <a id="git"></a>
-## [> Git](#menu)
+## [Git](#menu)
 
 ### *Quick Start*
 
@@ -7889,7 +7891,7 @@ done
 ---
 
 <a id="github_cli"></a>
-## [> GitHub CLI](#menu)
+## [GitHub CLI](#menu)
 
 Ver os repositórios remotos:
 
@@ -7932,7 +7934,7 @@ gh pr review --aprrove
 ---
 
 <a id="arch_base"></a>
-## [> Arch Base](#menu)
+## [Arch Base](#menu)
 
 ### Pacman
 
@@ -8045,7 +8047,7 @@ systemctl start systemd-resolved.service && systemctl enable systemd-resolved.se
 ---
 
 <a id="android"></a>
-## [> Android](#menu)
+## [Android](#menu)
 
 ### Instalção de GSI (ROM)
 
@@ -8193,7 +8195,7 @@ proot-distro reset <distro>
 ---
 
 <a id="miscellaneous"></a>
-## [> Miscellaneous](#menu)
+## [Miscellaneous](#menu)
 
 ### Markdown
 
@@ -8246,7 +8248,7 @@ Imagens clicaveis:
 ---
 
 <a id="estudos"></a>
-## [> Estudos](#menu)
+## [Estudos](#menu)
 
 ### Tipos de datas
 
