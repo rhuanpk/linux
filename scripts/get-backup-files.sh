@@ -9,6 +9,7 @@ readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
 readonly home="/home/$user"
 
+# where data are stored
 PATHWAY_BACKUP="$home/Documents/config-files-backup/hosts/`hostname`"
 declare -A ARRAY_PATHWAY_BACKUP=(
 	['opt']="$PATHWAY_BACKUP/opt"
@@ -27,6 +28,8 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['dunst']="$PATHWAY_BACKUP/dunst"
 	['ssh']="$PATHWAY_BACKUP/ssh"
 )
+
+# place from to get data
 PATHWAY_OPT='/opt'
 PATHWAY_FONTS="$home/Documents/fonts"
 PATHWAY_ICONS="$home/.icons"
