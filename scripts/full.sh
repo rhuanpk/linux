@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.1.0'
+readonly version='2.2.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -22,6 +22,7 @@ Execute "all" apt commands to fix, update and cleanup.
 Usage: $script [<options>]
 
 Options:
+	-u: Forces try install upgradable packages;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -43,8 +44,9 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'srvh' option; do
+while getopts 'usrvh' option; do
 	case "$option" in
+		u) FLAG_UPGRADABLE='true';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -56,25 +58,30 @@ shift $(("$OPTIND"-1))
 privileges false false
 
 # ***** PROGRAM START *****
-# Fix
+# fix
 ${SUDO:+sudo -v}
-echo '> dpkg --configure -a'
-$SUDO dpkg --configure -a
 echo '> apt install -fy'
 $SUDO apt install -fy
+echo '> dpkg --configure -a'
+$SUDO dpkg --configure -a
 
-# Update
+# update
 ${SUDO:+sudo -v}
 echo '> apt update'
 $SUDO apt update
 echo '> apt upgrade -y'
 $SUDO apt upgrade -y
-echo '> apt install --upgradeable'
-$SUDO apt list --upgradable 2>&- \
-	| sed -nE 's~^(.*)/.*$~\1~p' \
-	| xargs $SUDO apt install -y
+if "${FLAG_UPGRADABLE:-false}"; then
+	echo '> apt install --upgradeable'
+	$SUDO apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $SUDO apt install -y
+fi
 
-# Clean
+# agressive (update/clean/remove)
+${SUDO:+sudo -v}
+echo '> apt full-upgrade -y'
+$SUDO apt full-upgrade -y
+
+# clean
 ${SUDO:+sudo -v}
 echo '> apt clean -y'
 $SUDO apt clean -y
@@ -82,8 +89,3 @@ echo '> apt autoclean -y'
 $SUDO apt autoclean -y
 echo '> apt autoremove -y'
 $SUDO apt autoremove -y
-
-# Update and Clean
-${SUDO:+sudo -v}
-echo '> apt full-upgrade -y'
-$SUDO apt full-upgrade -y
