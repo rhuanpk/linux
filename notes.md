@@ -3199,25 +3199,38 @@ tar -tf /path/to/compressed/folder.tar.gz
 - `-r`: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada);
 - `-y`: segue o link simbólico e zipa o arquivo original;
 - `-e`: criptografar o arquivo compactado;
-- `-b <path>`: especifica o diretório para o arquivo temporario (de cache) do zip.
+- `-b <path>`: especifica o diretório para o arquivo temporario (de cache) do zip;
+- `-i <pattern> [<pattern> ...]`: inclue arquivos com o padrão;
+- `-x <pattern> [<pattern> ...]`: exclui arquivos com o padrão.
 
 Compactar:
-
-```bash
+```sh
 zip [-b /tmp] [-ry] target-folder.zip /path/file/to/compact.any /path/folder/to/compact/*
 ```
 
 Descompactar:
-
-```bash
+```sh
 unzip [-d /path/to/decompress/] /path/to/compressed/folder.zip
 ```
 
 Ver o conteúdo:
-
-```bash
+```sh
 unzip -l /path/to/compressed/folder.zip
 ```
+
+Exemplos de padrões e inclusão/exclusão:
+- Exclua todos os arquivos que terminam com ".any" de todas as pastas em todos os níveis:
+	- `\*.any`
+
+- Exclua todos os arquivos que terminam com ".any" de todas as pastas que tenham o nome em todos os níveis:
+	- `\*/folder/\*.any`
+
+- Exclua todas as pastas com o(s) nome(s) em todos os níveis:
+	- `\*/folder/\*`
+	- `\*/folder-{a,b}/\*`
+
+- Exclua a pasta com o nome a partir da sua raiz (pastas a serem compactadas):
+	- `/depth0/folder/*`
 
 #### Comando _xz_
 
