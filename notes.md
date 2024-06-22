@@ -2454,7 +2454,7 @@ done
 
 ### Comando _mount_
 
-- `-o` opções:
+- `-o` opções comuns:
     - `rw/ro`
     - `showexec`
     - `allow_other`
@@ -2462,9 +2462,20 @@ done
     - `uid=<uid>`
     - `gid=<gid>`
 
-Montar arquivo iso:
+Montar arquivo **iso** (**#**):
 ```sh
 mount -o ro -t iso9660 /path/to/img.iso /mnt
+```
+
+Montar partição **ext4** e manipular com usuário regular (**#**):
+```sh
+mount -o user /dev/sdXY /mnt
+bindfs -u `id -u` -g `id -g` /mnt ~/disk
+
+# or
+
+mount /dev/sdXY /media/disk
+chown -Rv `id -un`:`id -gn` /media/disk
 ```
 
 _OBSERVATIONS_:
