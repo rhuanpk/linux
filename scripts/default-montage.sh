@@ -3,8 +3,9 @@
 # Mount usual file system types with options of a file manger mount.
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.0.2'
 readonly script="$(basename "$0")"
+readonly uid="${UID:-$(id -u)}"
 
 sudo='sudo'
 
@@ -15,7 +16,7 @@ $script v$version
 
 Mount usual file system types with options of a file manger mount.
 
-Usage: $script [<options>]
+Usage: $script [<options>] </dev/sdXY> </path/to/mount/point>
 
 Options:
 	-s: Forces keep sudo;
