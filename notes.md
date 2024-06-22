@@ -3172,8 +3172,9 @@ tar -tf /path/to/compressed/folder.tar.gz
 - `-d`: especifica a pasta para ser descompactado;
 - `-l`: listar o conteúdo do arquivo compactado;
 - `-r`: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada);
-- `-b <path>`: especifica o diretório para o arquivo temporario (de cache) do zip;
-- `-y`: segue o link simbólico e zipa o arquivo original.
+- `-y`: segue o link simbólico e zipa o arquivo original;
+- `-e`: criptografar o arquivo compactado;
+- `-b <path>`: especifica o diretório para o arquivo temporario (de cache) do zip.
 
 Compactar:
 
