@@ -3951,8 +3951,15 @@ Porém, para isso terá que tirar a validação de shell não interativo no iní
 
 #### `BASH_ENV` Approach
 
-_Sete_ a variável `BASH_ENV` na linha de execução do script:
+Defina a variável `BASH_ENV` na linha de execução do script:
 - `BASH_ENV=/path/to/file-load <script>`
+
+#### Alias Approach
+
+Define no seu shell rc o alias:
+```sh
+alias sudo='sudo '
+```
 
 ### Function Within Sudo
 
