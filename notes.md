@@ -2454,10 +2454,20 @@ done
 
 ### Comando _mount_
 
+- `-o` opções:
+    - `rw/ro`
+    - `showexec`
+    - `allow_other`
+    - `user`
+    - `uid=<uid>`
+    - `gid=<gid>`
+
 Montar arquivo iso:
 ```sh
 mount -o ro -t iso9660 /path/to/img.iso /mnt
 ```
+
+OBS: Sistemas de arquivos como **NTFS** deixam as permissões full `777` de todos os arquivos independente das opções de montagem e de comandos como `chmod`.
 
 ### Comando _declare_
 
