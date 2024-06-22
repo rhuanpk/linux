@@ -2467,7 +2467,11 @@ Montar arquivo iso:
 mount -o ro -t iso9660 /path/to/img.iso /mnt
 ```
 
-OBS: Sistemas de arquivos como **NTFS** deixam as permissões full `777` de todos os arquivos independente das opções de montagem e de comandos como `chmod`.
+_OBSERVATIONS_:
+- Sistemas de arquivos como **FAT32** deixam tudo como o esperado;
+- Sistemas de arquivos como **EXT4** deixam todos os arquivos como root pois esse sistema de arquivo não tem suporte as opçoes `uid` e `gid` por exemplo;
+- Sistemas de arquivos como **EXFAT** deixam tudo como o esperado;
+- Sistemas de arquivos como **NTFS** deixam as permissões full `777` de todos os arquivos independente das opções de montagem e de comandos como `chmod` pois esse sistema de arquivos não segue as mesmas especificações UNIX de grupos e permissões.
 
 ### Comando _declare_
 
