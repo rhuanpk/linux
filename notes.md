@@ -611,6 +611,15 @@ Formatar **exfat**:
 sudo mkfs.exfat [-L <label_name>] /dev/sdXY
 ```
 
+Formatar **ntfs**:
+
+- `-Q`: formatação rapida;
+- `-L`: adiciona label na formatação.
+
+```sh
+sudo mkfs.ntfs [-Q] [-L <label_name>] /dev/sdXY
+```
+
 #### Gerenciamento de Labels de Partições
 
 Programas necessários para `fat32`:
@@ -657,6 +666,18 @@ sudo exfatlabel /dev/sdXY
 Renomear:
 ```sh
 sudo exfatlabel /dev/sdXY label_name
+```
+
+##### `ntfs`
+
+Saber:
+```sh
+sudo ntfslabel /dev/sdXY
+```
+
+Renomear:
+```sh
+sudo ntfslabel /dev/sdXY label_name
 ```
 
 ### _Runlevels_/_Targets_
