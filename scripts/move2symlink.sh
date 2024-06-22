@@ -14,7 +14,7 @@ ALL_FILES=`ls -1 "$PATHWAY"/scripts/*.sh`
 ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
 EXPRESSION='(backup|volume-encryption-utility)\.sh'
 LOCAL_BIN='/usr/local/bin/pk'
-NO_SHORTHANDS=('vagrant-start.sh')
+NO_SHORTHANDS=('vagrant-start.sh' 'default-montage.sh')
 
 # >>> functions declaration!
 usage() {
