@@ -60,17 +60,23 @@ Setar _oh-my-zsh_ no **root**:
 
 ### Cursor
 
-#### Instalar Novo Tema de Cursor
+#### Update Alternatives
 
 Comando _[update-alternatives](#update-alternatives)_:
 
 ```bash
-sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /path/to/folder/your/cursor/index.theme 722
+sudo update-alternatives --install /usr/share/icons/default/index.theme x-cursor-theme /usr/share/icons/cursor/index.theme 999
 ```
 
-OBS: O arquivo ".theme" do cursor deve conter no início da sessão a seguinte propriedade: `Inherits=<name_root_directory>`
+_OBSERVATIONS_:
+- No caso dos cursores, devem ser salvos para `/usr/share/icons` pasta;
+- Na pasta do tema dever haver no mínimo algum arquivo ".theme" com:
+```theme
+[Icon Theme]
+Inherits=<name-cursor-root-directory>`
+```
 
-#### Aplicar novo tema de cursor
+##### Aplicar novo tema de cursor
 
 Comando _[update-alternatives](#update-alternatives)_:
 
@@ -79,6 +85,15 @@ sudo update-alternatives --config x-cursor-theme
 ```
 
 OBS: Precisa reiniciar a sessão para aplicar
+
+#### Xresources
+
+Utilizar definição direto no Xorg:
+1. Mover o cursor para `~/.icons`
+1. No arquivo `~/.Xresources`:
+    `Xcursor.theme: <name-cursor-root-directory>`
+1. Reinicie o Xorg ou recarregue as configurações:
+    `xrdb -merge ~/.Xresources`
 
 ### Fonts
 
