@@ -66,8 +66,8 @@ point="$(blkid-extract "$disk" 'label')"
 : ${point:=$(blkid-extract "$disk" 'partuuid')}
 point="/mnt/$point"
 [ -d "$point" ] && {
-	already="$(df --output='source' "$point/" | sed -n 2p)"
-	[ "$(blkid-extract "$disk" 'partuuid')" != "$(blkid-extract "$already" 'partuuid')" ] && {
+	already="$(findmnt -o 'SOURCES' "$point/" | tail -1)"
+	[ "$(blkid-extract "$disk" 'partuuid')" != "$(blkid-extract "${already:-$disk}" 'partuuid')" ] && {
 		point+="-$(blkid-extract "$disk" 'uuid')"
 	}
 }
