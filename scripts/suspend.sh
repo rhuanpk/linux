@@ -32,4 +32,4 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
-sleep "${1:-0}"; systemctl suspend
+sleep "${1:-.5}"; systemctl suspend
