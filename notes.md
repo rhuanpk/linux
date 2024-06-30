@@ -1906,7 +1906,7 @@ Monitora logs do sistema/_daemons_:
 - `-x`: deixa visualmente a saida mais legível (pretty);
 - `-f`: fica seguindo/escutando o log (equivalente ao `tail -f`);
 - `-u <unit>`: especifique o nome do serviço para _loggar_ (pode especificar múltimos `-u`);
-- `-b [<boot>]`: nulo ou 0 = boot atual, 1 = último boot e etc;
+- `-b [<boot>]`: nulo ou `-0` = boot atual, `-1` = último boot e etc;
 - `-n <lines>`: imprima as última _n_ linhas;
 - <details>
     <summary><code>-p {&lt;priority&gt;|&lt;code&gt;}</code>: filtra por prioridade:</summary>
