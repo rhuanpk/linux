@@ -1986,17 +1986,20 @@ Sinais to próprio comando `trap`:
 - --state: filtra pelo estádo da unidade.
 
 Listar todas as unidades do sistema:
-
-```bash
+```sh
 systemctl list-units [--type service] [--state running]
 ```
 
 - --reverse: mostra as dependências reversas (quais serviços dependem deste).
 
 Listar todas as dependências de uma unidade:
-
-```bash
+```sh
 systemctl list-dependencies [--reverse] <service_name>.service
+```
+
+Caso o sistema não tenha voltado do congelamento, pode-se executar:
+```sh
+systemctl thaw '*'
 ```
 
 ### Comando *sysctl*
