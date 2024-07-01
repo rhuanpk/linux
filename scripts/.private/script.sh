@@ -1,13 +1,13 @@
 #!/usr/bin/bash
 
-# <comments>
+# Some other descriptions.
 
 # >>> built-in sets!
 #set -ex +o histexpand
 
 # >>> variables declaration!
 readonly version='0.0.0'
-readonly location="$(realpath "$0")"
+readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 readonly user="$(id -un "${uid/#0/1000}")"
@@ -20,15 +20,21 @@ usage() {
 cat << EOF
 $script v$version
 
-Short description of how it works.
+DESCRIPTION
+	Short description of how it works.
 
-Usage: $script [<options>]
+USAGE
+	$script [<options>]
 
-Options:
-	-s: Forces keep sudo;
-	-r: Forces unset sudo;
-	-v: Print version;
-	-h: Print this help.
+OPTIONS
+	-s
+		Forces keep sudo.
+	-r
+		Forces unset sudo.
+	-v
+		Print version.
+	-h
+		Print this help.
 EOF
 }
 
@@ -89,7 +95,6 @@ check-needs() {
 }
 
 # >>> pre statements!
-#privileges
 privileges false false
 check-needs
 
@@ -106,4 +111,5 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-# <commands>
+# path="~/.xpto"
+# path="${path/#~/$HOME}"
