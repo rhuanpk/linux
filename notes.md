@@ -321,6 +321,13 @@ OBS: Verificar se os links estão atualizado
 1. `sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"`
 1. `sudo apt update && sudo apt install vagrant`
 
+### Instalar VirtualBox
+
+Debian SID (**#**):
+```sh
+apt install -y linux-headers-`uname -r` virtualbox virtualbox-ext-pack
+```
+
 ### Instalar AbiWord
 
 1. Instale as dependências:
@@ -370,6 +377,13 @@ echo "deb https://ppa.launchpadcontent.net/danielrichter2007/grub-customizer/ubu
 _REFERENCELINKS_:
 
 - <https://launchpad.net/~danielrichter2007/+archive/ubuntu/grub-customizer>.
+
+### spotify-downloader
+
+1. `git clone 'https://github.com/spotDL/spotify-downloader' && cd spotify-downloader`
+1. `docker build -t spotdl ./ && docker run --rm -ti -v "$(pwd)":/music --entrypoint sh spotdl`
+1. `> poetry install`
+1. `> poetry run spotdl download '<spotify-url>'`
 
 ---
 
@@ -5328,6 +5342,33 @@ lspci -nnk
 synclient VertScrollDelta=-79
 synclient HorizScrollDelta=-79
 ```
+
+### Engatilhar Para Dispositivos
+
+Adicionar algum script `.rules` em `/etc/udev/rules.d/`:
+
+- _Triggar_ por fornecedor ou produto (ou pelos dois):
+```rules
+ACTION=="<action>", SUBSYSTEMS=="<subsystem>", ATTRS{idVendor}=="<vendor-id>", ATTRS{idProduct}=="<product-id>", RUN+="/path/to/your/script.sh"
+```
+
+- _Triggar_ pelo rótulo do dispositivo:
+```rules
+ACTION=="<action>", SUBSYSTEM=="<subsystem>", ENV{ID_FS_LABEL}=="<label>", RUN+="/path/to/your/script.sh"
+```
+
+_OPTIONS_:
+
+- `ACTION`:
+    - `add`: Quando o dispositivo é adicionado
+    - `remove`: Quando o dispositivo é removido
+    - `change`: Quando o dispositivo é alterado
+
+- `SUBSYSTEMS`:
+    - `usb`: Dispositivos USB no geral
+
+- `SUBSYSTEM`:
+    - `block`: Dispositivos de bloco (discos, partições)
 
 ---
 
