@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-# Some other descriptions.
+# Internal descriptions.
 
 # >>> built-in sets!
 #set -ex +o histexpand
@@ -12,8 +12,6 @@ readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 readonly user="$(id -un "${uid/#0/1000}")"
 readonly home="/home/$user"
-
-sudo='sudo'
 
 # >>> functions declaration!
 usage() {
@@ -72,16 +70,10 @@ EOF
 # About the flags:
 # - The `-s` forces retain $sudo
 # - The `-r` forces unset $sudo
-#
-# Two or more calls:
-# - Uses the third argument as true
 privileges() {
-	local flag_sudo="$1"
-	local flag_root="$2"
-	local reset_sudo="${3:=false}"
-	if "$reset_sudo"; then
-		sudo='sudo'
-	fi 2>&-
+	local flag_sudo="${1:=false}"
+	local flag_root="${2:=false}"
+	sudo='sudo'
 	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
 		echo "$script: error: run as root #sudo"
 		exit 1
@@ -89,10 +81,11 @@ privileges() {
 		if "$flag_root" || [ "$uid" -eq 0 ]; then
 			unset sudo
 		fi
-	fi 2>&-
+	fi
 }
 
 check-needs() {
+	privileges
 	local packages=('package1' 'package2')
 	for package in "${packages[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
@@ -113,7 +106,6 @@ while getopts 'srvh' option; do
 		v) echo "$version"; exit 0;;
 		h) usage; exit 1;;
 		*) exit 2;;
-		#h|*) usage; exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
