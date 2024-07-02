@@ -3,7 +3,7 @@
 # Sleep before suspend the system.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="`basename "$0"`"
 
 # >>> functions declaration!
@@ -32,4 +32,5 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
+wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
 sleep "${1:-.5}"; systemctl suspend
