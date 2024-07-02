@@ -71,14 +71,14 @@ EOF
 # - The `-s` forces retain $sudo
 # - The `-r` forces unset $sudo
 privileges() {
-	local flag_sudo="${1:=false}"
-	local flag_root="${2:=false}"
+	local flag_sudo="$1"
+	local flag_root="$2"
 	sudo='sudo'
 	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
 		echo "$script: error: run as root #sudo"
 		exit 1
-	elif ! "$flag_sudo"; then
-		if "$flag_root" || [ "$uid" -eq 0 ]; then
+	elif ! "${flag_sudo:-false}"; then
+		if "${flag_root:-false}" || [ "$uid" -eq 0 ]; then
 			unset sudo
 		fi
 	fi
