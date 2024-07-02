@@ -67,6 +67,7 @@ EOF
 # - ROOT flag: false
 # 	- If regular: retains $sudo
 # 	- If root: unset $sudo
+# - Or simply: privileges
 #
 # About the flags:
 # - The `-s` forces retain $sudo
@@ -81,7 +82,7 @@ privileges() {
 		if "$flag_root" || [ "$uid" -eq 0 ]; then
 			unset sudo
 		fi
-	fi
+	fi 2>&-
 }
 
 check-needs() {
@@ -95,7 +96,7 @@ check-needs() {
 }
 
 # >>> pre statements!
-privileges false false
+privileges
 check-needs
 
 while getopts 'srvh' option; do
