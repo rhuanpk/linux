@@ -35,8 +35,9 @@ EOF
 }
 
 privileges() {
-	FLAG_SUDO="${1:?needs sudo flag}"
-	FLAG_ROOT="${2:?needs root flag}"
+	local FLAG_SUDO="$1"
+	local FLAG_ROOT="$2"
+	[ "$3" -a "$3" = 'true' ] && SUDO='sudo'
 	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
 		echo "$script: run with root privileges"
 		exit 1
@@ -44,7 +45,7 @@ privileges() {
 		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
 			unset SUDO
 		fi
-	fi
+	fi 2>&-
 }
 
 list-scripts() {
@@ -61,31 +62,33 @@ while getopts 'ulvh' option; do
 	case "$option" in
 		u)
 			LOCAL_BIN='/usr/local/bin'
-			privileges false false
+			privileges false false true
 		;;
 		l) list-scripts; exit;;
 		v) echo "$version"; exit 0;;
-		:|?|h) usage; exit 2;;
+		h) usage; exit 1;;
+		*) exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
 
 $SUDO mkdir -pv "$LOCAL_BIN/"
+. ~/.${SHELL##*/}rc
 [[ ! "$PATH" =~ "$LOCAL_BIN" ]] && {
 	cat <<- EOF >> ~/.bashrc
 
-		# By \`$script\` script
-		PATH+=':$LOCAL_BIN'
+		# By \`$script' script
+		PATH='$LOCAL_BIN:\$PATH'
 	EOF
 }
 
 # ***** PROGRAM START *****
 [ "$#" -eq 0 ] && {
 	for file in "$SCRIPTS_PATH"/*.sh; do
-		$SUDO cp -v "$file" "$LOCAL_BIN/`basename ${file%.*}`"
+		$SUDO cp -fv "$file" "$LOCAL_BIN/`basename ${file%.*}`"
 	done
 } || {
 	for file; do
-		$SUDO cp -v "$SCRIPTS_PATH/$file" "$LOCAL_BIN/${file%.*}"
+		$SUDO cp -fv "$SCRIPTS_PATH/$file" "$LOCAL_BIN/${file%.*}"
 	done
 }
