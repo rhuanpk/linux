@@ -89,8 +89,11 @@ check-needs() {
 	local packages=('package1' 'package2')
 	for package in "${packages[@]}"; do
 		if ! dpkg -s "$package" &>/dev/null; then
-			read -rp "$script: info: is needed the \"$package\" package, install? [Y/n] "
-			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && $sudo apt install -y "$package"
+			echo -ne "$script: info: needed \"$package\", "
+			read -rp  "install? [Y/n] "
+			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
+				$sudo apt install -y "$package"
+			}
 		fi
 	done
 }
