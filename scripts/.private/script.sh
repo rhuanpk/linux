@@ -72,9 +72,16 @@ EOF
 # About the flags:
 # - The `-s` forces retain $sudo
 # - The `-r` forces unset $sudo
+#
+# Two or more calls:
+# - Uses the third argument as true
 privileges() {
 	local flag_sudo="$1"
 	local flag_root="$2"
+	local reset_sudo="${3:=false}"
+	if "$reset_sudo"; then
+		sudo='sudo'
+	fi 2>&-
 	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
 		echo "$script: error: run as root #sudo"
 		exit 1
