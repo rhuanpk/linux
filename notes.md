@@ -4288,7 +4288,7 @@ OBS: quando por exemplo em scripts ou em função, alguma variável recebe algum
 
 #### `#`, `##`, `%`, `%%`
 
-```bash
+```sh
 $ foo=https://sub.domain.xyz/downloads/archive.tar.gz
 
 $ echo ${foo#*/}
@@ -4302,6 +4302,37 @@ $ echo ${foo%/*}
 
 $ echo ${foo%%/*}
 > https:
+```
+
+#### `@<operator>`
+
+##### `@E`
+
+Treats as `$'...'`.
+
+```sh
+$ foo='hello\nworld'
+
+$ echo "$foo"
+> hello\nworld
+
+$ echo "${foo@E}"
+> hello
+> world
+```
+
+##### `@Q`
+
+Quote each string to use as input.
+
+```sh
+$ foo='hello world'
+
+$ echo "$foo"
+> hello world
+
+$ echo "${foo@Q}"
+> 'hello world'
 ```
 
 #### Array
