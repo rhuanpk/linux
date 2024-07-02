@@ -76,7 +76,7 @@ privileges() {
 	local flag_sudo="$1"
 	local flag_root="$2"
 	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
-		echo "$script: error: run with root privileges"
+		echo "$script: error: run as root #sudo"
 		exit 1
 	elif ! "$flag_sudo"; then
 		if "$flag_root" || [ "$uid" -eq 0 ]; then
