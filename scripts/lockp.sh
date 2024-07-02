@@ -3,6 +3,9 @@
 # disable notifications
 dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
 
+# mute audio
+wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
+
 # troca o círculo pela bottom bar
 #--bar-indicator
 
