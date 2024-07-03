@@ -200,17 +200,22 @@ trap decoy SIGTSTP EXIT
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
 : ${path_bkp_dir:+$path_bkp_dir/}
-if ! output="$($sudo systemd-mount "$($sudo blkid -L "$label")" "$tmp_mountpoint" 2>&1)"; then
-	[[ "$output" =~ can\'t\ find ]] && {
-		echo '-> error: device is not plugged' | tee -a "$file_log"
-	} || {
-		echo "-> error: can't mount device" | tee -a "$file_log"
-		echo "-> output: $output" | tee -a "$file_log"
-	}
+device="$($sudo blkid -L "$label")"
+[ -z "$device" ] && {
+	echo "-> error: device not plugged" | tee -a "$file_log"
+	exit 1
+}
+if ! output="$($sudo systemd-mount --collect "$device" "$tmp_mountpoint" 2>&1)"; then
+	echo "-> error: can't mount device" | tee -a "$file_log"
+	echo "-> output: $output" | tee -a "$file_log"
 	exit 1
 fi
 mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
-path_final="${mountpoint:?device not mounted}/$path_bkp_dir$suffix"
+[ -z "$mountpoint" ] && {
+	echo "-> error: device not mounted" | tee -a "$file_log"
+	exit 1
+}
+path_final="$mountpoint/$path_bkp_dir$suffix"
 # add remove old backups
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
