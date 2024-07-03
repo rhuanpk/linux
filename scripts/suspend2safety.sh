@@ -72,6 +72,7 @@ shift $(("$OPTIND"-1))
 if ! "$IS_PLUGED"; then
 	if [ "${BATTERY_POWER%\%}" -le '9' ]; then
 		dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
+		wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
 		systemctl suspend
 	elif [ "${BATTERY_POWER%\%}" -le '11' ]; then
 		notify-send 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
