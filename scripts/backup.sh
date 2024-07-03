@@ -154,7 +154,12 @@ decoy() {
 }
 
 log-config() {
-	echo -e "########## $(date '+%F %T') ##########" | tee -a "$file_log"
+	echo -e "$(separator '#') $(date '+%F %T') $(separator '#')" \
+		| tee -a "$file_log"
+}
+
+separator() {
+	printf "${1:-*}%.s" `seq 30`
 }
 
 # >>> pre statements!
@@ -187,7 +192,8 @@ done
 
 # ***** PROGRAM START *****
 # add remove old backups
-echo -e "~\t~\t~\t $(date '+%F %T') \t~\t~\t~" | tee -a "$file_log"
+echo -e "$(separator '~') $(date '+%F %T') $(separator '~')" \
+	| tee -a "$file_log"
 trap decoy SIGTSTP EXIT
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
