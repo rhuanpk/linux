@@ -94,6 +94,7 @@ check-needs() {
 }
 
 setup() {
+	log-config
 	label="${1:-$label}"
 	: ${label:=BACKUP}
 	echo '-> info: scanning dirs file' | tee -a "$file_log"
@@ -135,6 +136,7 @@ setup() {
 }
 
 set-bkp-dir() {
+	log-config
 	local relative_path="$1"
 	[ -w "$location" ] && { old_sudo="$sudo"; unset sudo; }
 	$sudo sed -Ei "s~^(path_bkp_dir=\")(.*)\"$~\1$relative_path\"~" \
@@ -151,13 +153,16 @@ decoy() {
 	echo "-> end: finish script" | tee -a "$file_log"
 }
 
+log-config() {
+	echo -e "########## $(date '+%F %T') ##########" | tee -a "$file_log"
+}
+
 # >>> pre statements!
 privileges
 check-needs
 
 [ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
 echo >> "$file_log"
-echo -e "~\t~\t~\t $(date '+%F %T') \t~\t~\t~" | tee -a "$file_log"
 
 if ! options=$(getopt -a -o 'c::f:lp:srvh' -n "$script" -- "$@"); then
 	exit 1
@@ -182,6 +187,7 @@ done
 
 # ***** PROGRAM START *****
 # add remove old backups
+echo -e "~\t~\t~\t $(date '+%F %T') \t~\t~\t~" | tee -a "$file_log"
 trap decoy SIGTSTP EXIT
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
