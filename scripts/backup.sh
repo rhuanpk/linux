@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='3.0.0'
+readonly version='3.1.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -20,6 +20,7 @@ file_log="$home/$relative_log"
 file_dirs="$home/$relative_dirs"
 file_rules='/etc/udev/rules.d/backups.rules'
 label=""
+count_max=""
 
 # >>> functions declaration!
 usage() {
@@ -54,6 +55,8 @@ OPTIONS
 		List the folder thats store the backups.
 	-p<zip-options>
 		Can pass own zip options to run with.
+	-m<number>
+		Set a max integer number to retain backups.
 	-s
 		Forces keep sudo.
 	-r
@@ -158,9 +161,20 @@ set-bkp-dir() {
 	path_bkp_dir="$relative_path"
 }
 
+set-max-count() {
+	log-config
+	local new_count_max="$1"
+	[ -w "$location" ] && { old_sudo="$sudo"; unset sudo; }
+	$sudo sed -Ei "s~^(count_max=\")(.*)\"$~\1$new_count_max\"~" \
+		"$location"
+	sudo="${old_sudo:-$sudo}"
+	count_max="$new_count_max"
+}
+
 ls-infos() {
 	echo "-> label: \"$label\""
 	echo "-> folder: \"$path_bkp_dir\""
+	echo "-> max: \"$count_max\""
 }
 
 decoy() {
@@ -185,7 +199,7 @@ check-needs
 
 [ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
 
-if ! options=$(getopt -a -o 'c::f:lp:srvh' -n "$script" -- "$@"); then
+if ! options=$(getopt -a -o 'c::f:lp:m:srvh' -n "$script" -- "$@"); then
 	exit 1
 fi
 eval "set -- $options"
@@ -197,6 +211,7 @@ while :; do
 		-f) set-bkp-dir "$argument"; exit;;
 		-l) ls-infos; exit;;
 		-p) opts="$argument"; shift 2;;
+		-m) set-max-count "$argument"; exit;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
 		-v) echo "$version"; exit 0;;
@@ -224,7 +239,7 @@ mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 	exit 1
 }
 path_final="$mountpoint/$path_bkp_dir$suffix"
-# add remove old backups
+rm -fv "$(ls -1t | sed -n "${count_max}p")" | tee -a "$file_log"
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
