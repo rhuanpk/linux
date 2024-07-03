@@ -145,7 +145,10 @@ set-bkp-dir() {
 	path_bkp_dir="$relative_path"
 }
 
-ls-bkp-dir() { echo "-> folder: \"$path_bkp_dir\""; }
+ls-infos() {
+	echo "-> label: \"$label\""
+	echo "-> folder: \"$path_bkp_dir\""
+}
 
 decoy() {
 	$sudo umount -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
@@ -156,7 +159,7 @@ decoy() {
 
 log-config() {
 	echo -e "$(separator '#') $(date '+%F %T') $(separator '#')" \
-		| tee -a "$file_log"
+	| tee -a "$file_log"
 }
 
 separator() {
@@ -179,7 +182,7 @@ while :; do
 	case "$option" in
 		-c) setup "$argument"; shift 2;;
 		-f) set-bkp-dir "$argument"; shift 2;;
-		-l) ls-bkp-dir; exit 0;;
+		-l) ls-infos; exit 0;;
 		-p) opts="$argument"; shift 2;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
@@ -191,14 +194,13 @@ while :; do
 done
 
 # ***** PROGRAM START *****
-# add remove old backups
 echo -e "$(separator '~') $(date '+%F %T') $(separator '~')" \
-	| tee -a "$file_log"
+| tee -a "$file_log"
 trap decoy SIGTSTP EXIT
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
 : ${path_bkp_dir:+$path_bkp_dir/}
-if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint" 2>&1)"; then
+if ! output="$($sudo systemd-mount "$($sudo blkid -L "$label")" "$tmp_mountpoint" 2>&1)"; then
 	[[ "$output" =~ can\'t\ find ]] && {
 		echo '-> error: device is not plugged' | tee -a "$file_log"
 	} || {
@@ -209,6 +211,7 @@ if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint" 2>&1)"; then
 fi
 mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 path_final="${mountpoint:?device not mounted}/$path_bkp_dir$suffix"
+# add remove old backups
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
