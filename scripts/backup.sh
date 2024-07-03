@@ -1,193 +1,207 @@
 #!/usr/bin/bash
 
-# Script criado para realização de backup para alguma pasta de serviço de cloud storage e para alguma mídia externa.
+# Internal descriptions.
 
-# 1. OBS: atualmente, trocar os valores das variáveis:
-# 	- `home`;
-# 	- `ARRAY_FOLDERS_BACKUP`;
-# 	- `PATH_CLOUD`;
-# 	- `PATH_DIR_LVL`;
-# 	- `NAME_PLACE`;
-# 	- `FLAG_CLOUD`;
-# 	- `FLAG_EXTERNAL`.
+# >>> built-in sets!
+set +o histexpand
 
-# 1. OBS: necessário estar liberado no sudo:
-# 	- `/usr/bin/mkdir`;
-# 	- `/usr/bin/rmdir`;
-# 	- `/usr/bin/mount`;
-# 	- `/usr/bin/umount`.
+# >>> variables declaration!
+readonly version='3.0.0'
+readonly location="$(realpath -s "$0")"
+readonly script="$(basename "$0")"
+readonly uid="${UID:-$(id -u)}"
+readonly user="$(id -un "${uid/#0/1000}")"
+readonly home="/home/$user"
 
-# -------------------------------------------------- Declaração de variáveis --------------------------------------------------
-# Principais:
-script="`basename $(readlink -f "$0")`"
-user="`id -un`"
-home="/tmp/home/$user"
+path_bkp_dir=""
+relative_log=".local/share/$script/backups.log"
+relative_dirs=".config/$script/backups.dirs"
+file_log="$home/$relative_log"
+file_dirs="$home/$relative_dirs"
+file_rules='/etc/udev/rules.d/backups.rules'
+label=""
 
-# Arrays das pastas a serem backupiadas:
-ARRAY_FOLDERS_BACKUP=( \
-	"$home/Desktop" \
-	"$home/Documents" \
-	"$home/Downloads" \
-	"$home/Music" \
-	"$home/Pictures" \
-	"$home/Videos" \
-)
-
-# Path dos backups:
-PATH_CLOUD="$home/cloud"
-PATH_EXTERNAL_AUTO='/media/backup-disk'
-PATH_EXTERNAL_MANU='/mnt/backup-disk'
-PATH_DIR_LVL='b4ckups'
-
-# Datas:
-DATE_FULL="`date '+%y-%m-%d'`"
-
-# Nomes:
-NAME_PLACE='test' # home/work or hostname
-NAME_FILE="${DATE_FULL}_${NAME_PLACE}-backup.zip"
-
-# Logs:
-LOG_MAIN="$home/.$script.log"
-
-# Flags de controle:
-FLAG_CLOUD='false'
-FLAG_EXTERNAL='false'
-FLAG_MOUNT_AUTO='false'
-FLAG_MOUNT_MANU='false'
-
-# -------------------------------------------------- Declaração de funções --------------------------------------------------
-
-# Função que informa o uso do script.
+# >>> functions declaration!
 usage() {
-	cat <<- EOF
-		"$script" script!
+cat << EOF
+$script v$version
 
-		Make a backup of your chosen folders.
+DESCRIPTION
+	Backup script thats are trigged when some device are "plugged".
 
-		-b <path>: Pass the path to use for temporary buffer file from zip command.
-		-h: Print this help and exit.
+	Before run the $script first and each time that it changed the place,
+	run:
+		$script -c
 
-		NOTE: Change the necessary variables inside the script.
-	EOF
+	Put the absolute paths of the folders thats is desired to backup inside
+	the "~/$relative_dirs" file, one per line e.g.:
+		/path/to/folder/some
+		/path/to/folder/other
+
+	The log file is in "~/$relative_log".
+
+USAGE
+	$script [<options>]
+
+OPTIONS
+	-c[<label>]
+		Configure the udev rules. Can pass the device label, default is
+		"BACKUP".
+	-f<path/foler>
+		Relative path thats store the backups inside the device.
+	-l
+		List the folder thats store the backups.
+	-p<zip-options>
+		Can pass own zip options to run with.
+	-s
+		Forces keep sudo.
+	-r
+		Forces unset sudo.
+	-v
+		Print version.
+	-h
+		Print this help.
+EOF
 }
 
-# Função que printa mensagem padrão nos logs.
-log-prefix() {
-	echo "[$DATE_FULL * `date '+%T'`]"
-}
-
-# Função que print uma mensagem de finalização.
-message-ending() {
-	echo -e "\n---------- Finished `log-prefix` ----------" >>"$LOG_MAIN"
-}
-
-# Função que remove os backups antigos.
-remove-old-backup() {
-
-	FILES=("$1"/*"$NAME_PLACE"*)
-
-	for file in "${FILES[@]: 0:$(("${#FILES[@]}"-1))}"; do
-		find "$file" -mtime +2 -exec rm -fv '{}'\;
-	done
-
-}
-
-# -------------------------------------------------- Inicio do programa --------------------------------------------------
-
-while getopts 'b:' option; do
-	case "$option" in
-		b) ARGS+=" -b $OPTARG";;
-		:|?) usage; exit 1;;
-	esac
-done
-shift $((${OPTIND}-1))
-
-echo -e "\n\t~\t~\t~" >>"$LOG_MAIN"
-echo -e "\n---------- Started `log-prefix` ----------" >>"$LOG_MAIN"
-
-# >>> Backup ClOUD !
-if "$FLAG_CLOUD"; then
-
-	remove-old-backup "$PATH_CLOUD"
-
-	if OUTPUT="`for folder in "${ARRAY_FOLDERS_BACKUP[@]}"; do zip $ARGS -ry "$PATH_CLOUD/$NAME_FILE" "$folder"; done 2>&1`"; then
-		cat <<- EOF >>"$LOG_MAIN"
-
-			`log-prefix` --- CLOUD PROCESS STARTED ---
-
-			`log-prefix` - Backup update performed - SUCCESS !
-		EOF
-	else
-		cat <<- EOF >>"$LOG_MAIN"
-
-			`log-prefix` --- CLOUD PROCESS NOT STARTED ---
-
-			`log-prefix` - Backup update not performed - FAILURE !
-			`log-prefix` STDERR: $OUTPUT
-		EOF
-	fi
-
-	if ! "$FLAG_EXTERNAL"; then message-ending; fi
-
-fi
-
-# >>> Backup EXTERNAL!
-if "$FLAG_EXTERNAL"; then
-
-	if mountpoint "$PATH_EXTERNAL_AUTO" 2>&-; then
-		FLAG_MOUNT_AUTO='true'
-	else
-		sudo mkdir "$PATH_EXTERNAL_MANU"
-		if OUTPUT="`sudo mount -o "rw,uid=`id -u`,gid=`id -g`" -L backup-disk "$PATH_EXTERNAL_MANU" 2>&1`"; then
-			FLAG_MOUNT_MANU='true'
-		else
-			sudo rmdir "$PATH_EXTERNAL_MANU"
-			cat <<- EOF >>"$LOG_MAIN"
-
-				`log-prefix` --- EXTERNAL PROCESS NOT STARTED ---
-
-				`log-prefix` STDERR: $OUTPUT
-			EOF
-			message-ending
-			exit 1
+privileges() {
+	local flag_sudo="$1"
+	local flag_root="$2"
+	sudo='sudo'
+	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
+		echo "$script: error: run as root #sudo"
+		exit 1
+	elif ! "${flag_sudo:-false}"; then
+		if "${flag_root:-false}" || [ "$uid" -eq 0 ]; then
+			unset sudo
 		fi
 	fi
+}
 
-	if "$FLAG_MOUNT_AUTO"; then
-		PATH_EXTERNAL="$PATH_EXTERNAL_AUTO/$PATH_DIR_LVL"
-	elif "$FLAG_MOUNT_MANU"; then
-		PATH_EXTERNAL="$PATH_EXTERNAL_MANU/$PATH_DIR_LVL"
+check-needs() {
+	privileges
+	local packages=('time')
+	for package in "${packages[@]}"; do
+		if ! dpkg -s "$package" &>/dev/null; then
+			echo -en "$script: ask: needed \"$package\", "
+			read -rp "install? [Y/n] "
+			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
+				$sudo apt install -y "$package"
+			}
+		fi
+	done
+}
+
+setup() {
+	label="${1:-$label}"
+	: ${label:?need set a device label}
+	echo '-> info: scanning dirs file' | tee -a "$file_log"
+	[ ! -s "$file_dirs" ] && {
+		echo '-> error: no such dirs file or has zero size' \
+		| tee -a "$file_log"
+		exit 1
+	}
+	echo '-> info: checking folders to backup' | tee -a "$file_log"
+	while read -r folder; do
+		clean_path="${folder#!}"
+		if [ ! -d "$(readlink -e "$clean_path")" ]; then
+			echo "-> warn: \"$clean_path\" not exists" \
+			| tee -a "$file_log"
+			[[ ! "$folder" =~ ^! ]] \
+				&& sed -i "s~^$folder$~\!&~g" "$file_dirs"
+		else
+			[[ "$folder" =~ ^! ]] \
+				&& sed -i "s~^$folder$~$clean_path~g" \
+					"$file_dirs"
+		fi
+	done < "$file_dirs"
+	if grep -qm1 '^!' "$file_dirs"; then
+		echo '-> info: unexistent paths are ignoreds' \
+		| tee -a "$file_log"
 	fi
+	[ -w "$location" ] \
+		&& ${sudo:+} sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" \
+			"$location" \
+		|| $sudo sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" "$location"
+	echo '-> info: setting udev rules' | tee -a "$file_log"
+	echo "ACTION==\"add\", SUBSYSTEM==\"block\", ENV{ID_FS_LABEL}==\"$label\", RUN+=\"$location\"" \
+	| $sudo tee "$file_rules" >/dev/null \
+	|| {
+		echo "-> error: can't set udev rules" | tee -a "$file_log"
+		exit 1
+	}
+	echo '-> info: all done' | tee -a "$file_log"
+}
 
-	remove-old-backup "$PATH_EXTERNAL"
+set-bkp-dir() {
+	local relative_path="$1"
+	[ -w "$location" ] && { old_sudo="$sudo"; unset sudo; }
+	$sudo sed -Ei "s~^(path_bkp_dir=\")(.*)\"$~\1$relative_path\"~" \
+		"$location"
+	sudo="${old_sudo:-$sudo}"
+	path_bkp_dir="$relative_path"
+}
 
-	if OUTPUT="`for folder in ${ARRAY_FOLDERS_BACKUP[@]}; do zip $ARGS -ry "$PATH_EXTERNAL/$NAME_FILE" "$folder"; done 2>&1`"; then
-		cat <<- EOF >>"$LOG_MAIN"
+ls-bkp-dir() { echo "-> folder: \"$path_bkp_dir\""; }
 
-			`log-prefix` --- EXTERNAL PROCESS STARTED ---
+decoy() {
+	$sudo umount -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
+	$sudo rmdir -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
+}
 
-			`log-prefix` - Backup update performed - SUCCESS !
-		EOF
-	else
-		cat <<- EOF >>"$LOG_MAIN"
+# >>> pre statements!
+privileges
+check-needs
 
-			`log-prefix` --- EXTERNAL PROCESS NOT STARTED ---
+[ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
+echo >> "$file_log"
+echo -e "~\t~\t~\t $(date '+%F %T') \t~\t~\t~" | tee -a "$file_log"
 
-			`log-prefix` - Backup update not performed - FAILURE !
-			`log-prefix` STDERR: $OUTPUT
-		EOF
-	fi
+if ! options=$(getopt -a -o 'c::f:lp:srvh' -n "$script" -- "$@"); then
+	exit 1
+fi
+eval "set -- $options"
+while :; do
+	option="$1"
+	argument="$2"
+	case "$option" in
+		-c)
+			setup "$argument"; shift
+			[ "$argument" ] && shift
+		;;
+		-f) set-bkp-dir "$argument"; shift 2;;
+		-l) ls-bkp-dir; exit 0;;
+		-p) options="$argument"; shift 2
+		-s) privileges true false; shift;;
+		-r) privileges false true; shift;;
+		-v) echo "$version"; exit 0;;
+		-h) usage; exit 1;;
+		--) shift; break;;
+		*) shift 2; break;;
+	esac
+done
 
-	if OUTPUT="`sudo umount "${PATH_EXTERNAL%/$PATH_DIR_LVL}" 2>&1`"; then
-		if "$FLAG_MOUNT_MANU"; then sudo rmdir "${PATH_EXTERNAL%/$PATH_DIR_LVL}"; fi
-	else
-		cat <<- EOF >>"$LOG_MAIN"
-
-			 - Unable to unmount disk (automatic) - FAILURE !
-			`log-prefix` STDERR: $OUTPUT
-		EOF
-	fi
-
-	message-ending
-
+# ***** PROGRAM START *****
+# add remove old backups
+trap decoy SIGTSTP EXIT
+suffix="$(hostname)-$(date '+%F_%T').zip"
+tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
+: ${path_bkp_dir:+$path_bkp_dir/}
+if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint" 2>&1)"; then
+	[[ "$output" =~ can\'t\ find ]] && {
+		echo '-> error: device is not plugged' | tee -a "$file_log"
+	} || {
+		echo "-> error: can't mount device" | tee -a "$file_log"
+		echo "-> output: $output" | tee -a "$file_log"
+	}
+	exit 1
+fi
+mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
+path_final="${mountpoint:?device not mounted}/$path_bkp_dir$suffix"
+if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $options "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
+	echo '-> error: backup process failed' | tee -a "$file_log"
+	echo "-> output: $output" | tee -a "$file_log"
+else
+	echo "-> size: $suffix -> $(du -sh "$path_final" | cut -d$'\t' -f1)" \
+		| tee -a "$file_log"
 fi
