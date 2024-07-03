@@ -245,10 +245,12 @@ mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 path_base="$mountpoint${path_bkp_dir:+/$path_bkp_dir}"
 path_final="$path_base/$suffix"
 mkdir -pv "$path_base/" 2>&1 | tee -a "$file_log"
-ls -1t "$path_base/$(hostname)-"*.zip \
-| sed -n "$count_max,\$p" \
-| xargs -I '{}' rm -fv "$path_base/{}" 2>&1 \
-| tee -a "$file_log"
+if [ "$count_max" ]; then
+	ls -1t "$path_base/$(hostname)-"*.zip \
+	| sed -n "$count_max,\$p" \
+	| xargs -I '{}' rm -fv '{}' 2>&1 \
+	| tee -a "$file_log"
+fi
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
