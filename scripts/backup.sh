@@ -126,12 +126,25 @@ setup() {
 			"$location" \
 		|| $sudo sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" "$location"
 	echo '-> info: setting udev rules' | tee -a "$file_log"
-	echo "ACTION==\"add\", SUBSYSTEM==\"block\", ENV{ID_FS_LABEL}==\"$label\", RUN+=\"$location\"" \
+	echo "ACTION==\"add\", SUBSYSTEM==\"block\", ENV{ID_FS_LABEL}==\"$label\", TAG+=\"systemd\", ENV{SYSTEMD_WANTS}=\"backups.service\"" \
 	| $sudo tee "$file_rules" >/dev/null \
 	|| {
 		echo "-> error: can't set udev rules" | tee -a "$file_log"
 		exit 1
 	}
+	echo '-> info: setting systemd unit' | tee -a "$file_log"
+	cat <<- EOF | $sudo tee /etc/systemd/system/backups.service >/dev/null
+		[Unit]
+		Description=Unit Backup Script
+		After=local-fs.target
+
+		[Service]
+		Type=oneshot
+		ExecStart=$location
+
+		[Install]
+		WantedBy=multi-user.target
+	EOF
 	echo '-> info: all done' | tee -a "$file_log"
 }
 
@@ -200,12 +213,7 @@ trap decoy SIGTSTP EXIT
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
 : ${path_bkp_dir:+$path_bkp_dir/}
-device="$($sudo blkid -L "$label")"
-[ -z "$device" ] && {
-	echo "-> error: device not plugged" | tee -a "$file_log"
-	exit 1
-}
-if ! output="$($sudo systemd-mount --collect "$device" "$tmp_mountpoint" 2>&1)"; then
+if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint" 2>&1)"; then
 	echo "-> error: can't mount device" | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
 	exit 1
