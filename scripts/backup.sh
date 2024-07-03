@@ -151,6 +151,7 @@ decoy() {
 	$sudo umount -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
 	$sudo rmdir -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
 	echo "-> end: finish script" | tee -a "$file_log"
+	echo >> "$file_log"
 }
 
 log-config() {
@@ -167,7 +168,6 @@ privileges
 check-needs
 
 [ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
-echo >> "$file_log"
 
 if ! options=$(getopt -a -o 'c::f:lp:srvh' -n "$script" -- "$@"); then
 	exit 1
