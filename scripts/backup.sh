@@ -36,7 +36,8 @@ DESCRIPTION
 	Put the absolute paths of the folders thats is desired to backup inside
 	the "~/$relative_dirs" file, one per line e.g.:
 		/path/to/folder/some
-		/path/to/folder/other
+		/path/to/folder/any
+		/path/to/folder/white space
 
 	The log file is in "~/$relative_log".
 
@@ -147,6 +148,7 @@ ls-bkp-dir() { echo "-> folder: \"$path_bkp_dir\""; }
 decoy() {
 	$sudo umount -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
 	$sudo rmdir -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
+	echo "-> end: finish script" | tee -a "$file_log"
 }
 
 # >>> pre statements!
