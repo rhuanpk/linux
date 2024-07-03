@@ -94,7 +94,7 @@ check-needs() {
 
 setup() {
 	label="${1:-$label}"
-	: ${label:?need set a device label}
+	: ${label:=BACKUP}
 	echo '-> info: scanning dirs file' | tee -a "$file_log"
 	[ ! -s "$file_dirs" ] && {
 		echo '-> error: no such dirs file or has zero size' \
@@ -171,7 +171,7 @@ while :; do
 		;;
 		-f) set-bkp-dir "$argument"; shift 2;;
 		-l) ls-bkp-dir; exit 0;;
-		-p) options="$argument"; shift 2
+		-p) options="$argument"; shift 2;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
 		-v) echo "$version"; exit 0;;
