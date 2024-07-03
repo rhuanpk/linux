@@ -107,6 +107,7 @@ setup() {
 		exit 1
 	}
 	echo '-> info: checking folders to backup' | tee -a "$file_log"
+	# folder's here are files or directories
 	while read -r folder; do
 		clean_path="${folder#!}"
 		if [ ! -e "$(readlink -e "$clean_path")" ]; then
@@ -153,7 +154,7 @@ setup() {
 
 set-bkp-dir() {
 	log-config
-	local relative_path="$1"
+	local relative_path="${1/%\/}"
 	[ -w "$location" ] && { old_sudo="$sudo"; unset sudo; }
 	$sudo sed -Ei "s~^(path_bkp_dir=\")(.*)\"$~\1$relative_path\"~" \
 		"$location"
@@ -227,8 +228,7 @@ echo -e "$(separator '~') $(date '+%F %T') $(separator '~')" \
 trap decoy SIGTSTP EXIT
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
-: ${path_bkp_dir:+$path_bkp_dir/}
-if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint" 2>&1)"; then
+if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint/" 2>&1)"; then
 	echo "-> error: can't mount device" | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
 	exit 1
@@ -238,8 +238,9 @@ mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 	echo "-> error: device not mounted" | tee -a "$file_log"
 	exit 1
 }
-path_final="$mountpoint/$path_bkp_dir$suffix"
-rm -fv "$(ls -1t | sed -n "${count_max}p")" | tee -a "$file_log"
+path_base="$mountpoint${path_bkp_dir:+/$path_bkp_dir}"
+path_final="$path_base/$suffix"
+rm -fv "$path_base/$(ls -1t "$path_base/" | sed -n "${count_max}p")" | tee -a "$file_log"
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
