@@ -55,7 +55,7 @@ OPTIONS
 		List the folder thats store the backups.
 	-p<zip-options>
 		Can pass own zip options to run with.
-	-m<number>
+	-m[<number>]
 		Set a max integer number to retain backups.
 	-s
 		Forces keep sudo.
@@ -171,7 +171,7 @@ set-max-count() {
 	$sudo sed -Ei "s~^(count_max=\")(.*)\"$~\1$new_count_max\"~" \
 		"$location"
 	sudo="${old_sudo:-$sudo}"
-	echo "-> info: changed max backups to save: $new_count_max"\
+	echo "-> info: changed max backups to save: \"$new_count_max\""\
 	| tee -a "$file_log"
 	count_max="$new_count_max"
 }
@@ -204,7 +204,7 @@ check-needs
 
 [ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
 
-if ! options=$(getopt -a -o 'c::f::lp:m:srvh' -n "$script" -- "$@"); then
+if ! options=$(getopt -a -o 'c::f::lp:m::srvh' -n "$script" -- "$@"); then
 	exit 1
 fi
 eval "set -- $options"
