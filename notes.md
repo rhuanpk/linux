@@ -2913,6 +2913,13 @@ Pegar informações de alguma janela:
 xwininfo
 ```
 
+### Comando _lsblk_
+
+Pegar info a partir do caminho do _device_:
+```sh
+lsblk -no <column> /dev/sdXY
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
