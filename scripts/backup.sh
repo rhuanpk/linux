@@ -104,7 +104,7 @@ setup() {
 	echo '-> info: checking folders to backup' | tee -a "$file_log"
 	while read -r folder; do
 		clean_path="${folder#!}"
-		if [ ! -d "$(readlink -e "$clean_path")" ]; then
+		if [ ! -e "$(readlink -e "$clean_path")" ]; then
 			echo "-> warn: \"$clean_path\" not exists" \
 			| tee -a "$file_log"
 			[[ ! "$folder" =~ ^! ]] \
@@ -165,13 +165,10 @@ while :; do
 	option="$1"
 	argument="$2"
 	case "$option" in
-		-c)
-			setup "$argument"; shift
-			[ "$argument" ] && shift
-		;;
+		-c) setup "$argument"; shift 2;;
 		-f) set-bkp-dir "$argument"; shift 2;;
 		-l) ls-bkp-dir; exit 0;;
-		-p) options="$argument"; shift 2;;
+		-p) opts="$argument"; shift 2;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
 		-v) echo "$version"; exit 0;;
@@ -198,7 +195,7 @@ if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint" 2>&1)"; then
 fi
 mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 path_final="${mountpoint:?device not mounted}/$path_bkp_dir$suffix"
-if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $options "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
+if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
 	echo "-> output: $output" | tee -a "$file_log"
 else
