@@ -49,7 +49,7 @@ OPTIONS
 	-c[<label>]
 		Configure the udev rules. Can pass the device label, default is
 		"BACKUP".
-	-f<path/foler>
+	-f[<path/foler>]
 		Relative path thats store the backups inside the device.
 	-l
 		List the folder thats store the backups.
@@ -204,7 +204,7 @@ check-needs
 
 [ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
 
-if ! options=$(getopt -a -o 'c::f:lp:m:srvh' -n "$script" -- "$@"); then
+if ! options=$(getopt -a -o 'c::f::lp:m:srvh' -n "$script" -- "$@"); then
 	exit 1
 fi
 eval "set -- $options"
@@ -244,7 +244,7 @@ mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 }
 path_base="$mountpoint${path_bkp_dir:+/$path_bkp_dir}"
 path_final="$path_base/$suffix"
-to_remove="$(ls -1t "$path_base/" | sed -n "${count_max}p")"
+to_remove="$(ls -1t "$path_base/$(hostname)-*.zip" | sed -n "${count_max}p")"
 mkdir -pv "$path_base/" 2>&1 | tee -a "$file_log"
 [ "$to_remove" ] && rm -fv "$path_base/$to_remove" 2>&1 | tee -a "$file_log"
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
