@@ -187,6 +187,7 @@ decoy() {
 	$sudo rmdir -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
 	echo "-> end: finish script" | tee -a "$file_log"
 	echo >> "$file_log"
+	notify-send "${script^^}" 'Finished backup.'
 }
 
 log-config() {
