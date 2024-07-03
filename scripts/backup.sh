@@ -159,6 +159,8 @@ set-bkp-dir() {
 	$sudo sed -Ei "s~^(path_bkp_dir=\")(.*)\"$~\1$relative_path\"~" \
 		"$location"
 	sudo="${old_sudo:-$sudo}"
+	echo "-> info: changed folder to save backups: \"$relative_path\""\
+	| tee -a "$file_log"
 	path_bkp_dir="$relative_path"
 }
 
@@ -169,6 +171,8 @@ set-max-count() {
 	$sudo sed -Ei "s~^(count_max=\")(.*)\"$~\1$new_count_max\"~" \
 		"$location"
 	sudo="${old_sudo:-$sudo}"
+	echo "-> info: changed max backups to save: $new_count_max"\
+	| tee -a "$file_log"
 	count_max="$new_count_max"
 }
 
