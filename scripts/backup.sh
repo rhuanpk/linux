@@ -144,7 +144,10 @@ setup() {
 
 		[Service]
 		Type=oneshot
+		RemainAfterExit=yes
 		ExecStart=$location
+		Environment="DISPLAY=:0"
+		Environment="XAUTHORITY=$home/.Xauthority"
 
 		[Install]
 		WantedBy=multi-user.target
