@@ -180,9 +180,9 @@ while :; do
 	option="$1"
 	argument="$2"
 	case "$option" in
-		-c) setup "$argument"; shift 2;;
-		-f) set-bkp-dir "$argument"; shift 2;;
-		-l) ls-infos; exit 0;;
+		-c) setup "$argument"; exit;;
+		-f) set-bkp-dir "$argument"; exit;;
+		-l) ls-infos; exit;;
 		-p) opts="$argument"; shift 2;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
