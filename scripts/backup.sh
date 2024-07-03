@@ -240,6 +240,7 @@ mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 }
 path_base="$mountpoint${path_bkp_dir:+/$path_bkp_dir}"
 path_final="$path_base/$suffix"
+mkdir -pv "$path_base/" | tee -a "$file_log"
 rm -fv "$path_base/$(ls -1t "$path_base/" | sed -n "${count_max}p")" | tee -a "$file_log"
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
 	echo '-> error: backup process failed' | tee -a "$file_log"
