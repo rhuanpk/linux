@@ -2920,6 +2920,13 @@ Pegar info a partir do caminho do _device_:
 lsblk -no <column> /dev/sdXY
 ```
 
+### Comadno _isntall_
+
+Copiar arquivos para o destino já criando as pastas:
+```sh
+install -Dt </path/to/folder/> </path/to/file1>[ ...]
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
