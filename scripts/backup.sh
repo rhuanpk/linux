@@ -139,15 +139,12 @@ setup() {
 	echo '-> info: setting systemd unit' | tee -a "$file_log"
 	cat <<- EOF | $sudo tee /etc/systemd/system/backups.service >/dev/null
 		[Unit]
-		Description=Unit Backup Script
+		Description=Backup Script
 		After=local-fs.target
 
 		[Service]
-		Type=oneshot
-		RemainAfterExit=yes
+		Type=exec
 		ExecStart=$location
-		Environment="DISPLAY=:0"
-		Environment="XAUTHORITY=$home/.Xauthority"
 
 		[Install]
 		WantedBy=multi-user.target
@@ -190,7 +187,13 @@ decoy() {
 	$sudo rmdir -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
 	echo "-> end: finish script" | tee -a "$file_log"
 	echo >> "$file_log"
-	notify-send "${script^^}" 'Finished backup.'
+	[ "$uid" -eq 0 ] && {
+		runuser \
+			-l "$user" \
+			-c "notify-send \"${script^^}\" 'Finished backup.'"
+	} || {
+		notify-send "${script^^}" 'Finished backup.'
+	}
 }
 
 log-config() {
