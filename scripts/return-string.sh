@@ -36,4 +36,4 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 ANY="${1:?need something to convert}"
-[[ -f "$ANY" && ! "$ANY" =~ [[:blank:]]+ ]] && cat "$ANY" || echo "$ANY"
+[[ "$ANY" && -f "$ANY" ]] && cat "$ANY" || echo "$ANY"
