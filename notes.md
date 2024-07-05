@@ -1057,13 +1057,18 @@ Para fazer a limitação de comando ou senha separadamente no arquivo **sudoers*
 <user> ALL=[NOPASSWD:]/absolute/path/command[,...]
 ```
 
-### Comando *exec*
+### Comando _exec_
 
-Usando o *exec* junto com algum comando, depois de executado a sessão de terminal corrente é encerrada:
+O comando **exec** "substitui" o shell atual pelo comando passado e caso não seja passado passado nenhum argumento, o próprio shell atual será "substituido" por ele mesmo.
+
+Quando executamos algum comando num shell, geralmente o shell cria um PID para esse comando no roda sob ele, ou seja, um sub processo. O que o comando **exec** faz na verdade é fazer com que o comando passado como argumento herde o PID do shell atual e qualquer _signal_ que o novo processo receber, o processo original (o shell) também receberá, ou seja, quando o novo processo encerrar, ou seja, seu PID morrer, o shell atual também morrerá, pois tem o mesmo PID.
 
 ```bash
-exec <command>
+exec [<options>] [<command>]
 ```
+
+- Use quando quiser que logo depois do termino do comando o shell atual seja encerrado.
+- Use para redirecionar a saída do próprio shell para controles de logs (lembre-se que um script no final também executa num shell).
 
 ### Comando *xdotool*
 
