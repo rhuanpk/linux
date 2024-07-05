@@ -4711,6 +4711,26 @@ Ou:
 printf -- '|%.0s\n' `seq <count>`
 ```
 
+### Subsituição de Processos
+
+A saída ou a entrada são arquivos.
+
+#### `<(cmd)`
+
+O retorno dessa substituição será um arquivo, ou seja, será usada em comandos que esperam receber arquivos.
+
+- `diff ./file-1.txt ./file-2.txt` -> `diff <(echo '/foo/bar') <(pwd)`
+- `ls -1 > ./file.txt && wc -l ./file.txt` -> `wc -l <(ls -1)`
+- `while read; do echo "$REPLY"; done < <(grep -rn 'value' ./folder/)`
+
+#### `>(cmd)`
+
+O comando que gera algúm arquivo envia-o para a substituição, ou seja, é o inverso de `<()`, se antes o comando que recebia o arquivo ficava do lado de fora, agora o comando que recebe o arquivo via _STDIN_ estará do lado de dentro recendo o arquivo gerado do lado de fora. A substituição é o arquivo de saída.
+
+- `tar -cf ./archive.tar && ssh host tar -xf - < ./archive.tar` -> `tar -cf >(ssh host tar -xf -) ./`
+- `ls -1 > ./file.txt && wc -l ./file.txt` -> `ls -1 > >(wc -l)`
+- `exec > >(tee ./file.log) 2>&1`
+
 ### Comandos `test` Equivalentes `if`
 
 #### Um Comando Por Bloco
