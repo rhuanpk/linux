@@ -6758,6 +6758,27 @@ Também lê por cento de stdin:
 } | whiptail --gauge 'Please wait while we are sleeping...' 6 50 0
 ```
 
+### Configurar `diff-highlight` do Git
+
+1. Instale o **Git** caso ainda não o tenha (**#**):
+    `apt install git`
+
+1. Copie a pasta do **diff-highlight**:
+    `cp -rfv /usr/share/doc/git/contrib/diff-highlight/ ./`
+
+1. Entre na pasta:
+     `cd ./diff-highlight/`
+
+1. Gere o binário:
+    `make`
+
+1. Coloque o binário em alguma pasta da sua variável `$PATH`.
+
+_pipeline_:
+```
+cdpwd() { cd "$1" && echo "cd: $(pwd)"; }; [ "${UID:-`id -u`}" -ne 0 ]; sudo='sudo'; $sudo apt install -y git && cdpwd /tmp/ && cp -rfv /usr/share/doc/git/contrib/diff-highlight/ ./ && cdpwd ./diff-highlight/ && make && install -vDt ~/.local/bin/ ./diff-highlight
+```
+
 ---
 
 <a id="db_any_commands"></a>
