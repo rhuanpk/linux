@@ -1999,6 +1999,10 @@ Sinais to próprio comando `trap`:
 - `ERR`: executa depois de cada erro
 - `WINCH`: executa quando a janela tem suas dimensões alteradas (diminuida ou aumentada)
 
+_TIPS/TRICKS_:
+- Defina `set -o pipefail` para `ERR` conseguir capturar _pipelines_
+- Defina `set -E` para `ERR` conseguir "exergar" os erros dentro de funções e _subshells_
+
 ### Comando *systemctl*
 
 - --type: filtra pelo tipo de unidade.
