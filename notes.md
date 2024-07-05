@@ -2927,6 +2927,15 @@ Copiar arquivos para o destino já criando as pastas:
 install -Dt </path/to/folder/> </path/to/file1>[ ...]
 ```
 
+### Comando _diff_
+
+Realizar o _diff_ a nível de palavras:
+```
+diff -u /path/to/file1.any /path/to/file2.any | colordiff | diff-highlight
+```
+
+OBS: Nesse caso o _diff-highlight_ referente é [esse](#configurar-diff-highlight-do-git).
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
@@ -7014,7 +7023,7 @@ pdftk /path/to/input.pdf cat 3-r2 output /path/to/output.pdf
 pdftk /path/to/input.pdf cat r3-r1 output /path/to/output.pdf
 ```
 
-### comando *highlight-pointer*
+### Comando *highlight-pointer*
 
 Instalação:
 
