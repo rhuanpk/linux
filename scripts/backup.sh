@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='3.2.0'
+readonly version='3.3.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -149,26 +149,16 @@ setup() {
 	echo '-> info: all done'
 }
 
-set-bkp-dir() {
+set-var() {
 	log-config
-	local relative_path="${1/%\/}"
+	local var_name="$1"
+	local new_value="$2"
+	local message="$3"
 	[ -w "$location" ] && { old_sudo="$sudo"; unset sudo; }
-	$sudo sed -Ei "s~^(path_bkp_dir=\")(.*)\"$~\1$relative_path\"~" \
-		"$location"
+	$sudo sed -Ei "s~^($var_name=\").*\"$~\1$new_value\"~" "$location"
 	sudo="${old_sudo:-$sudo}"
-	echo "-> info: changed folder to save backups: \"$relative_path\""
-	path_bkp_dir="$relative_path"
-}
-
-set-max-count() {
-	log-config
-	local new_count_max="$1"
-	[ -w "$location" ] && { old_sudo="$sudo"; unset sudo; }
-	$sudo sed -Ei "s~^(count_max=\")(.*)\"$~\1$new_count_max\"~" \
-		"$location"
-	sudo="${old_sudo:-$sudo}"
-	echo "-> info: changed max backups to save: \"$new_count_max\""
-	count_max="$new_count_max"
+	echo "-> info: $message: \"$new_value\""
+	eval $var_name="$new_value"
 }
 
 ls-infos() {
@@ -215,10 +205,22 @@ while :; do
 	argument="$2"
 	case "$option" in
 		-c) setup "$argument"; exit;;
-		-f) set-bkp-dir "$argument"; exit;;
 		-l) ls-infos; exit;;
 		-p) opts="$argument"; shift 2;;
-		-m) set-max-count "$argument"; exit;;
+		-f)
+			set-var \
+				'path_bkp_dir' \
+				"${argument/%\/}" \
+				'changed folder to save backups'
+			exit
+		;;
+		-m)
+			set-var \
+				'count_max' \
+				"$argument" \
+				'changed max backups to save'
+			exit
+		;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
 		-v) echo "$version"; exit 0;;
