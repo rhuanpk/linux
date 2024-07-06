@@ -1,12 +1,12 @@
-#!/usr/bin/bash
+#!/usr/bin/bash -x
 
 # Internal descriptions.
 
 # >>> built-in sets!
-set +o histexpand
+set -Eo pipefail +o histexpand
 
 # >>> variables declaration!
-readonly version='3.5.0'
+readonly version='3.5.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -24,7 +24,8 @@ count_max=""
 
 # >>> functions declaration!
 failure() {
-	notify critical "Failure: line \"$BASH_LINENO\": command \"$BASH_COMMAND\""
+	notify "Failure: line $BASH_LINENO: command \`$BASH_COMMAND'" critical
+	return 1
 }
 
 usage() {
@@ -90,7 +91,7 @@ check-needs() {
 	privileges
 	local packages=('time')
 	for package in "${packages[@]}"; do
-		if ! dpkg -s "$package" &>/dev/null; then
+		if ! (dpkg -s "$package" &>/dev/null || failure); then
 			echo -en "$script: ask: needed \"$package\", "
 			read -rp "install? [Y/n] "
 			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
@@ -123,7 +124,7 @@ setup() {
 					"$file_dirs"
 		fi
 	done < "$file_dirs"
-	if grep -qm1 '^!' "$file_dirs"; then
+	if (grep -qm1 '^!' "$file_dirs" || failure); then
 		echo '-> info: unexistent paths are ignoreds'
 	fi
 	[ -w "$location" ] \
@@ -175,8 +176,8 @@ ls-infos() {
 }
 
 decoy() {
-	$sudo umount -v "$tmp_mountpoint" 2>&1
-	$sudo rmdir -v "$tmp_mountpoint" 2>&1
+	$sudo umount -v "$tmp_mountpoint"
+	$sudo rmdir -v "$tmp_mountpoint"
 	echo "-> end: finish script"
 	notify 'Finished backup.'
 }
@@ -195,7 +196,7 @@ notify() {
 	[ "$uid" -eq 0 ] && {
 		runuser \
 			-l "$user" \
-			-c "notify-send -u $urgency '${script^^}' '$message'"
+			-c "notify-send -u $urgency '${script^^}' ${message@Q}"
 	} || {
 		notify-send -u $urgency "${script^^}" "$message"
 	}
@@ -249,9 +250,8 @@ trap decoy EXIT
 echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
-if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint/" 2>&1)"; then
+if ! ($sudo mount -vL "$label" "$tmp_mountpoint/" || failure); then
 	echo "-> error: can't mount device"
-	echo "-> output: $output"
 	exit 1
 fi
 mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
@@ -261,15 +261,14 @@ mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 }
 path_base="$mountpoint${path_bkp_dir:+/$path_bkp_dir}"
 path_final="$path_base/$suffix"
-mkdir -pv "$path_base/" 2>&1
+mkdir -pv "$path_base/"
 if [ "$count_max" ]; then
 	ls -1t "$path_base/$(hostname)-"*.zip \
 	| sed -n "$count_max,\$p" \
-	| xargs -I '{}' rm -fv '{}' 2>&1
+	| xargs -I '{}' rm -fv '{}'
 fi
-if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
+if ! (/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") || failure ); then
 	echo '-> error: backup process failed'
-	echo "-> output: $output"
 else
 	echo "-> size: $suffix -> $(du -sh "$path_final" | cut -d$'\t' -f1)"
 fi
