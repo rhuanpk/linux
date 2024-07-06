@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='3.1.0'
+readonly version='3.2.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -100,19 +100,17 @@ setup() {
 	log-config
 	label="${1:-$label}"
 	: ${label:=BACKUP}
-	echo '-> info: scanning dirs file' | tee -a "$file_log"
+	echo '-> info: scanning dirs file'
 	[ ! -s "$file_dirs" ] && {
-		echo '-> error: no such dirs file or has zero size' \
-		| tee -a "$file_log"
+		echo '-> error: no such dirs file or has zero size'
 		exit 1
 	}
-	echo '-> info: checking folders to backup' | tee -a "$file_log"
+	echo '-> info: checking folders to backup'
 	# folder's here are files or directories
 	while read -r folder; do
 		clean_path="${folder#!}"
 		if [ ! -e "$(readlink -e "$clean_path")" ]; then
-			echo "-> warn: \"$clean_path\" not exists" \
-			| tee -a "$file_log"
+			echo "-> warn: \"$clean_path\" not exists"
 			[[ ! "$folder" =~ ^! ]] \
 				&& sed -i "s~^$folder$~\!&~g" "$file_dirs"
 		else
@@ -122,21 +120,20 @@ setup() {
 		fi
 	done < "$file_dirs"
 	if grep -qm1 '^!' "$file_dirs"; then
-		echo '-> info: unexistent paths are ignoreds' \
-		| tee -a "$file_log"
+		echo '-> info: unexistent paths are ignoreds'
 	fi
 	[ -w "$location" ] \
 		&& ${sudo:+} sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" \
 			"$location" \
 		|| $sudo sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" "$location"
-	echo '-> info: setting udev rules' | tee -a "$file_log"
+	echo '-> info: setting udev rules'
 	echo "ACTION==\"add\", SUBSYSTEM==\"block\", ENV{ID_FS_LABEL}==\"$label\", TAG+=\"systemd\", ENV{SYSTEMD_WANTS}=\"backups.service\"" \
 	| $sudo tee "$file_rules" >/dev/null \
 	|| {
-		echo "-> error: can't set udev rules" | tee -a "$file_log"
+		echo "-> error: can't set udev rules"
 		exit 1
 	}
-	echo '-> info: setting systemd unit' | tee -a "$file_log"
+	echo '-> info: setting systemd unit'
 	cat <<- EOF | $sudo tee /etc/systemd/system/backups.service >/dev/null
 		[Unit]
 		Description=Backup Script
@@ -149,7 +146,7 @@ setup() {
 		[Install]
 		WantedBy=multi-user.target
 	EOF
-	echo '-> info: all done' | tee -a "$file_log"
+	echo '-> info: all done'
 }
 
 set-bkp-dir() {
@@ -159,8 +156,7 @@ set-bkp-dir() {
 	$sudo sed -Ei "s~^(path_bkp_dir=\")(.*)\"$~\1$relative_path\"~" \
 		"$location"
 	sudo="${old_sudo:-$sudo}"
-	echo "-> info: changed folder to save backups: \"$relative_path\""\
-	| tee -a "$file_log"
+	echo "-> info: changed folder to save backups: \"$relative_path\""
 	path_bkp_dir="$relative_path"
 }
 
@@ -171,8 +167,7 @@ set-max-count() {
 	$sudo sed -Ei "s~^(count_max=\")(.*)\"$~\1$new_count_max\"~" \
 		"$location"
 	sudo="${old_sudo:-$sudo}"
-	echo "-> info: changed max backups to save: \"$new_count_max\""\
-	| tee -a "$file_log"
+	echo "-> info: changed max backups to save: \"$new_count_max\""
 	count_max="$new_count_max"
 }
 
@@ -183,10 +178,9 @@ ls-infos() {
 }
 
 decoy() {
-	$sudo umount -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
-	$sudo rmdir -v "$tmp_mountpoint" 2>&1 | tee -a "$file_log"
-	echo "-> end: finish script" | tee -a "$file_log"
-	echo >> "$file_log"
+	$sudo umount -v "$tmp_mountpoint" 2>&1
+	$sudo rmdir -v "$tmp_mountpoint" 2>&1
+	echo "-> end: finish script"
 	[ "$uid" -eq 0 ] && {
 		runuser \
 			-l "$user" \
@@ -197,8 +191,7 @@ decoy() {
 }
 
 log-config() {
-	echo -e "$(separator '#') $(date '+%F %T') $(separator '#')" \
-	| tee -a "$file_log"
+	echo -e "$(separator '#') $(date '+%F %T') $(separator '#')"
 }
 
 separator() {
@@ -206,10 +199,12 @@ separator() {
 }
 
 # >>> pre statements!
+[ ! -d "$(dirname "$file_log")/" ] && mkdir -pv "${file_log%/*}"
+exec > >(tee -a "$file_log") 2>&1
+#trap failure ERR
+
 privileges
 check-needs
-
-[ ! -d "$(dirname "$file_log")" ] && mkdir -pv "${file_log%/*}"
 
 if ! options=$(getopt -a -o 'c::f::lp:m::srvh' -n "$script" -- "$@"); then
 	exit 1
@@ -233,35 +228,33 @@ while :; do
 	esac
 done
 
+trap decoy EXIT
+
 # ***** PROGRAM START *****
-echo -e "$(separator '~') $(date '+%F %T') $(separator '~')" \
-| tee -a "$file_log"
-trap decoy SIGTSTP EXIT
+echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
 if ! output="$($sudo mount -vL "$label" "$tmp_mountpoint/" 2>&1)"; then
-	echo "-> error: can't mount device" | tee -a "$file_log"
-	echo "-> output: $output" | tee -a "$file_log"
+	echo "-> error: can't mount device"
+	echo "-> output: $output"
 	exit 1
 fi
 mountpoint="$(findmnt -ro TARGET -S "LABEL=$label" | tail -1)"
 [ -z "$mountpoint" ] && {
-	echo "-> error: device not mounted" | tee -a "$file_log"
+	echo "-> error: device not mounted"
 	exit 1
 }
 path_base="$mountpoint${path_bkp_dir:+/$path_bkp_dir}"
 path_final="$path_base/$suffix"
-mkdir -pv "$path_base/" 2>&1 | tee -a "$file_log"
+mkdir -pv "$path_base/" 2>&1
 if [ "$count_max" ]; then
 	ls -1t "$path_base/$(hostname)-"*.zip \
 	| sed -n "$count_max,\$p" \
-	| xargs -I '{}' rm -fv '{}' 2>&1 \
-	| tee -a "$file_log"
+	| xargs -I '{}' rm -fv '{}' 2>&1
 fi
 if ! output="$(/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") 2>&1)"; then
-	echo '-> error: backup process failed' | tee -a "$file_log"
-	echo "-> output: $output" | tee -a "$file_log"
+	echo '-> error: backup process failed'
+	echo "-> output: $output"
 else
-	echo "-> size: $suffix -> $(du -sh "$path_final" | cut -d$'\t' -f1)" \
-		| tee -a "$file_log"
+	echo "-> size: $suffix -> $(du -sh "$path_final" | cut -d$'\t' -f1)"
 fi
