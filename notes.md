@@ -2945,6 +2945,13 @@ diff -u /path/to/file1.any /path/to/file2.any | colordiff | diff-highlight
 
 OBS: Nesse caso o _diff-highlight_ referente é [esse](#configurar-diff-highlight-do-git).
 
+### Comando _mokutil_
+
+Checar se _secure boot_ está ativo:
+```sh
+mokutil --sb-state
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
