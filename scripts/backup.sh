@@ -24,7 +24,7 @@ count_max=""
 
 # >>> functions declaration!
 failure() {
-	notify "Failure: line $BASH_LINENO!" critical
+	notify "Failure: some error occurred on line $BASH_LINENO!" critical
 	return 1
 }
 
