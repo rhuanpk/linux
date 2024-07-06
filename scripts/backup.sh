@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='3.4.0'
+readonly version='3.5.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -23,6 +23,10 @@ label=""
 count_max=""
 
 # >>> functions declaration!
+failure() {
+	notify critical "Failure: line \"$BASH_LINENO\": command \"$BASH_COMMAND\""
+}
+
 usage() {
 cat << EOF
 $script v$version
@@ -174,13 +178,7 @@ decoy() {
 	$sudo umount -v "$tmp_mountpoint" 2>&1
 	$sudo rmdir -v "$tmp_mountpoint" 2>&1
 	echo "-> end: finish script"
-	[ "$uid" -eq 0 ] && {
-		runuser \
-			-l "$user" \
-			-c "notify-send \"${script^^}\" 'Finished backup.'"
-	} || {
-		notify-send "${script^^}" 'Finished backup.'
-	}
+	notify 'Finished backup.'
 }
 
 log-config() {
@@ -191,10 +189,22 @@ separator() {
 	printf "${1:-*}%.s" `seq 30`
 }
 
+notify() {
+	message="$1"
+	urgency="${2:-normal}"
+	[ "$uid" -eq 0 ] && {
+		runuser \
+			-l "$user" \
+			-c "notify-send -u $urgency '${script^^}' '$message'"
+	} || {
+		notify-send -u $urgency "${script^^}" "$message"
+	}
+}
+
 # >>> pre statements!
 [ ! -d "$(dirname "$file_log")/" ] && mkdir -pv "${file_log%/*}"
 exec 3>&1 > >(tee -a "$file_log") 2>&1
-#trap failure ERR
+trap failure ERR
 
 privileges
 check-needs
