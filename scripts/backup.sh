@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='3.3.0'
+readonly version='3.4.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -162,9 +162,12 @@ set-var() {
 }
 
 ls-infos() {
-	echo "-> label: \"$label\""
-	echo "-> folder: \"$path_bkp_dir\""
-	echo "-> max: \"$count_max\""
+	cat <<- EOF >&3
+		$(separator '"') ${script^^} $(separator '"')
+		-> label: "$label"
+		-> folder: "$path_bkp_dir"
+		-> max: "$count_max"
+	EOF
 }
 
 decoy() {
@@ -190,7 +193,7 @@ separator() {
 
 # >>> pre statements!
 [ ! -d "$(dirname "$file_log")/" ] && mkdir -pv "${file_log%/*}"
-exec > >(tee -a "$file_log") 2>&1
+exec 3>&1 > >(tee -a "$file_log") 2>&1
 #trap failure ERR
 
 privileges
