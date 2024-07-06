@@ -64,17 +64,22 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-# cron: */2 * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
+# cron: * * * * * export DISPLAY=:0; /usr/local/bin/pk/suspend2safety 2>/tmp/cron_error.log
 # export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/`id -u`/bus
+
+notify() {
+	notify-send 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
+}
 
 [ "`acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2`" = 'on-line' ] && IS_PLUGED='true' || IS_PLUGED='false'
 
 if ! "$IS_PLUGED"; then
 	if [ "${BATTERY_POWER%\%}" -le '9' ]; then
+		notify
 		dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
 		wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
 		systemctl suspend
 	elif [ "${BATTERY_POWER%\%}" -le '11' ]; then
-		notify-send 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
+		notify
 	fi
 fi
