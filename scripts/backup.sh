@@ -1,4 +1,4 @@
-#!/usr/bin/bash -x
+#!/usr/bin/bash
 
 # Internal descriptions.
 
@@ -6,7 +6,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration!
-readonly version='3.5.1'
+readonly version='3.5.2'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -24,7 +24,7 @@ count_max=""
 
 # >>> functions declaration!
 failure() {
-	notify "Failure: line $BASH_LINENO: command \`$BASH_COMMAND'" critical
+	notify "Failure: line $BASH_LINENO!" critical
 	return 1
 }
 
@@ -191,8 +191,8 @@ separator() {
 }
 
 notify() {
-	message="$1"
-	urgency="${2:-normal}"
+	local message="$1"
+	local urgency="${2:-normal}"
 	[ "$uid" -eq 0 ] && {
 		runuser \
 			-l "$user" \
