@@ -4,7 +4,7 @@
 
 # >>> built-in setups!
 #set -exE +o histexpand -o pipefail
-#exec > >(tee /tmp/file.log) 2>&1
+#exec 3>&1 > >(tee /tmp/file.log) 2>&1
 
 # >>> variables declaration!
 readonly version='0.0.0'
@@ -15,6 +15,12 @@ readonly user="$(id -un "${uid/#0/1000}")"
 readonly home="/home/$user"
 
 # >>> functions declaration!
+failure() {
+	notify-send "${script^^}" "Failed \"$BASH_COMMAND\"!"
+}
+
+#decoy() {}
+
 usage() {
 cat << EOF
 $script v$version
@@ -99,15 +105,9 @@ check-needs() {
 	done
 }
 
-#cleanup() {}
-
-failure() {
-	notify-send "* ${script^^} *" "Failed \"$BASH_COMMAND\"!"
-}
-
 # >>> pre statements!
-#trap cleanup EXIT
-trap failure ERR
+#trap failure ERR
+#trap decoy EXIT
 
 privileges
 check-needs
