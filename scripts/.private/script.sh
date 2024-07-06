@@ -2,8 +2,9 @@
 
 # Internal descriptions.
 
-# >>> built-in sets!
-#set -ex +o histexpand
+# >>> built-in setups!
+#set -exE +o histexpand -o pipefail
+#exec > >(tee /tmp/file.log) 2>&1
 
 # >>> variables declaration!
 readonly version='0.0.0'
@@ -98,7 +99,16 @@ check-needs() {
 	done
 }
 
+#cleanup() {}
+
+failure() {
+	notify-send "* ${script^^} *" "Failed \"$BASH_COMMAND\"!"
+}
+
 # >>> pre statements!
+#trap cleanup EXIT
+trap failure ERR
+
 privileges
 check-needs
 
