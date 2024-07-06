@@ -4712,12 +4712,12 @@ echo "$foo"
 
 Printar caracteres em sequência:
 ```sh
-printf -- '-%.0s' `seq <count>`
+printf -- '-%.s' `seq <count>`
 ```
 
 Ou:
 ```sh
-printf -- '|%.0s\n' `seq <count>`
+printf -- '|%.s\n' `seq <count>`
 ```
 
 ### Subsituição de Processos
@@ -4739,6 +4739,10 @@ O comando que gera algúm arquivo envia-o para a substituição, ou seja, é o i
 - `tar -cf ./archive.tar && ssh host tar -xf - < ./archive.tar` -> `tar -cf >(ssh host tar -xf -) ./`
 - `ls -1 > ./file.txt && wc -l ./file.txt` -> `ls -1 > >(wc -l)`
 - `exec > >(tee ./file.log) 2>&1`
+
+### Comando _set_
+
+- `-o pipefail`: agora a _pipeline_ retorna o código do primeiro comando com erro ao invés de retornar o código do último executado (útil caso não queira tratar `${PIPESTATUS[@]}`).
 
 ### Comandos `test` Equivalentes `if`
 
