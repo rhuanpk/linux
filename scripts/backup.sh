@@ -19,6 +19,7 @@ relative_dirs=".config/$script/backups.dirs"
 file_log="$home/$relative_log"
 file_dirs="$home/$relative_dirs"
 file_rules='/etc/udev/rules.d/backups.rules'
+is_auto="true"
 label=""
 count_max=""
 
@@ -62,6 +63,9 @@ OPTIONS
 		Can pass own zip options to run with.
 	-m[<number>]
 		Set a max integer number to retain backups.
+	-a
+		Toggle into automatic or not the backup when the device is
+		plugged.
 	-s
 		Forces keep sudo.
 	-r
@@ -172,6 +176,7 @@ ls-infos() {
 		-> label: "$label"
 		-> folder: "$path_bkp_dir"
 		-> max: "$count_max"
+		-> automatic: "$is_auto"
 	EOF
 }
 
@@ -210,7 +215,7 @@ trap failure ERR
 privileges
 check-needs
 
-if ! options=$(getopt -a -o 'c::f::lp:m::srvh' -n "$script" -- "$@"); then
+if ! options=$(getopt -a -o 'c::f::lp:m::asrvh' -n "$script" -- "$@"); then
 	exit 1
 fi
 eval "set -- $options"
@@ -233,6 +238,23 @@ while :; do
 				'count_max' \
 				"$argument" \
 				'changed max backups to save'
+			exit
+		;;
+		-a)
+			if "$is_auto"; then
+				argument='false'
+			else
+				argument='true'
+			fi
+			set-var \
+				'is_auto' \
+				"$argument" \
+				'changed automatic backup when stick plugged'
+			if "${is_auto:?is auto must be set}"; then
+				[ -f "$file_rules.off" ] && $sudo mv -v "$file_rules"{.off,}
+			else
+				[ -f "$file_rules" ] && $sudo mv -v "$file_rules"{,.off}
+			fi
 			exit
 		;;
 		-s) privileges true false; shift;;
