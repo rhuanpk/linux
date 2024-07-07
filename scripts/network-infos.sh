@@ -72,6 +72,9 @@ while :; do
 	echo '> ip -br -c a'
 	ip -br -c a
 
+	echo -e "\n$SEPARATOR\n\n> ip route"
+	ip route
+
 	echo -e "\n$SEPARATOR\n\n> nmcli connection show --active"
 	nmcli connection show --active
 
