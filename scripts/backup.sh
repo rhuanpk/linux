@@ -132,9 +132,8 @@ setup() {
 		echo '-> info: unexistent paths are ignoreds'
 	fi
 	[ -w "$location" ] \
-		&& ${sudo:+} sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" \
-			"$location" \
-		|| $sudo sed -Ei "s~^(label=\")(.*)\"$~\1$label\"~" "$location"
+		&& ${sudo:+} sed -Ei "s~^(label=\").*\"$~\1$label\"~" "$location" \
+		|| $sudo sed -Ei "s~^(label=\").*\"$~\1$label\"~" "$location"
 	echo '-> info: setting udev rules'
 	echo "ACTION==\"add\", SUBSYSTEM==\"block\", ENV{ID_FS_LABEL}==\"$label\", TAG+=\"systemd\", ENV{SYSTEMD_WANTS}=\"backups.service\"" \
 	| $sudo tee "$file_rules" >/dev/null \
