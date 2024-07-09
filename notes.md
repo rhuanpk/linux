@@ -144,19 +144,24 @@ sudo cp *.ttf /usr/share/fonts/truetype/<directorie_font_name>/
 <a id="db_pacotes"></a>
 [<span style="font-size:14px;">Pacotes</span>](#menu)
 
-### Comando `apt`
+### Comando _apt_
 
-Remover completamente o programa (`#`):
+Remover completamente o programa (**#**):
 ```sh
 apt purge <package>
 ```
 
-Fazer apenas o download do programa e suas dependências sem instalar (`#`):
+Fazer apenas o download do programa e suas dependências sem instalar (**#**):
 ```sh
 apt install --download-only <package>
 ```
 
 OBS: os _deb's_ serão salvos em `/var/cache/apt/archives`.
+
+Listar pacotes instalados que não sejam dos repositórios do Debian (**#**):
+```sh
+apt list '~i!~Odebian'
+```
 
 #### `apt-pinning`
 
