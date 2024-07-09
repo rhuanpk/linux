@@ -9,7 +9,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.0.0'
+readonly version='2.1.0'
 readonly script="`basename "$0"`"
 
 FILE_PATH=~/.config/git-all.path
@@ -30,7 +30,7 @@ $script v$version
 	The parameter can be passed without double quotes.
 
 	In this usage mode, neither the confirmation message nor the branch can be defined.
-	By default it confirms with the message "refresh!" in the master branch.
+	By default it confirms with the message "wip" in the master branch.
 
 `formatter 1 Custom Mode`:
 	At each iteration of the loop you can set the message and branch of the current repository.
@@ -103,12 +103,6 @@ switch-path() {
 	fi
 }
 
-pushing() {
-	GIT_MESSAGE="${1:-'refresh'}"
-	git add ./
-	git commit -m "$GIT_MESSAGE"
-	git push
-}
 
 # >>> pre statements!
 while getopts 'lscgep:vh' OPTION; do
@@ -155,12 +149,14 @@ for directory in "`realpath "$_REPO_PATHS"`"/*; do
 		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
-			read -rp "Enter with the message: " GIT_MESSAGE; echo
-			pushing $GIT_MESSAGE
+			read -rp "Enter with the message (wip): " GIT_MESSAGE; echo
+			git add ./
+			git commit -m "${GIT_MESSAGE:-wip}"
+			git push
 		elif "$FLAG_PULL"; then
 			git pull
 		else
-			[ "$#" -eq 0 ] && pushing || $*
+			[ "$#" -eq 0 ] && git status || $*
 		fi
 		FLAG_SEPARATOR='true'
 	fi
