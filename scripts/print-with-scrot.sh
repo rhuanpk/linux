@@ -3,7 +3,7 @@
 # Tira prints com o scrot e já manda pro diretório correto.
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.1.0'
 readonly script="`basename "$0"`"
 
 # >>> functions declaration!
@@ -14,45 +14,36 @@ $script v$version
 Printscreen with scrot utility and sends to \`~/Pictures/screenshots/\` folders if exists.
 Moreover sends to clipboard too.
 
-Usage: $script [<options>] [<delay>]
+Pass the standard scrot options normally. Only the -d option that must be pass only the delay value in first argument.
+
+Usage: $script [<delay>] [<scrot-options>]
 
 Options:
 	<delay>: Time delay before start printing;
-	-s: Area select;
-	-p: Show pointer in printscreen;
 	-v: Print version;
 	-h: Print this help.
 EOF
 }
 
-is-integer() {
-	[[ "$1" =~ ^[0-9]+$ ]] && return 0 || return 1
-}
 
 # >>> pre statements!
-while getopts 'spvh' OPTION; do
-	case "$OPTION" in
-		s) ARGS_ARR+='-s -f ';;
-		p) ARGS_ARR+='-p ';;
-		v) echo "$version"; exit 0;;
-		:|?|h) usage; exit 2;;
-	esac
-done
-shift $(("$OPTIND"-1))
-
+case "$1" in
+	-v) echo "$version"; exit 0;;
+	-h) usage; exit 2;;
+esac
 
 # ***** PROGRAM START *****
-# scrot -d 1 -s -p -e 'xclip -selection clipboard -target image/png $f'
+# scrot -d 1 -s -p -f -e 'xclip -selection clipboard -target image/png $f'
 cd /tmp
-
-if `is-integer $1` && [ "${1:-0}" -gt 0 ]; then
-	ARGS_ARR+="-d $1 "
+if [[ "$1" =~ ^(\.?[0-9]+\.?)+$ ]]; then
+	#ARGS_ARR+="-d $1 "
+	sleep "$1"
+	shift
 else
 	sleep .25
 fi
-
 scrot \
 	$ARGS_ARR \
-	-e 'xclip -selection clipboard -target image/png $f'
-
-mv /tmp/*scrot.png ~/Pictures/screenshots/
+	$* \
+	-e 'xclip -selection clipboard -target image/png $f' \
+&& mv /tmp/*scrot.png ~/Pictures/screenshots/
