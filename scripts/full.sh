@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.2.0'
+readonly version='2.3.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -23,6 +23,7 @@ Usage: $script [<options>]
 
 Options:
 	-u: Forces try install upgradable packages;
+	-y: Accept yes for all commands;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -44,9 +45,10 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'usrvh' option; do
+while getopts 'uysrvh' option; do
 	case "$option" in
 		u) FLAG_UPGRADABLE='true';;
+		y) FLAG_YES='-y';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -58,34 +60,38 @@ shift $(("$OPTIND"-1))
 privileges false false
 
 # ***** PROGRAM START *****
+log() {
+	echo -e "\e[3;94m$*\e[m"
+}
+
 # fix
 ${SUDO:+sudo -v}
-echo '> apt install -fy'
-$SUDO apt install -fy
-echo '> dpkg --configure -a'
+log "> apt install -f $FLAG_YES"
+$SUDO apt install -f $FLAG_YES
+log '> dpkg --configure -a'
 $SUDO dpkg --configure -a
 
 # update
 ${SUDO:+sudo -v}
-echo '> apt update'
+log '> apt update'
 $SUDO apt update
-echo '> apt upgrade -y'
-$SUDO apt upgrade -y
+log "> apt upgrade $FLAG_YES"
+$SUDO apt upgrade $FLAG_YES
 if "${FLAG_UPGRADABLE:-false}"; then
-	echo '> apt install --upgradeable'
-	$SUDO apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $SUDO apt install -y
+	log "> apt install --upgradeable $FLAG_YES"
+	$SUDO apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $SUDO apt install $FLAG_YES
 fi
 
 # agressive (update/clean/remove)
 ${SUDO:+sudo -v}
-echo '> apt full-upgrade -y'
-$SUDO apt full-upgrade -y
+log "> apt full-upgrade $FLAG_YES"
+$SUDO apt full-upgrade $FLAG_YES
 
 # clean
 ${SUDO:+sudo -v}
-echo '> apt clean -y'
-$SUDO apt clean -y
-echo '> apt autoclean -y'
-$SUDO apt autoclean -y
-echo '> apt autoremove -y'
-$SUDO apt autoremove -y
+log "> apt clean $FLAG_YES"
+$SUDO apt clean $FLAG_YES
+log "> apt autoclean $FLAG_YES"
+$SUDO apt autoclean $FLAG_YES
+log "> apt autoremove $FLAG_YES"
+$SUDO apt autoremove $FLAG_YES
