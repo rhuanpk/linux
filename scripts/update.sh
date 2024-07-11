@@ -3,7 +3,7 @@
 # Default system update.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -19,6 +19,7 @@ Default system update.
 Usage: $script [<options>]
 
 Options:
+	-y: Accept yes for all commands;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -40,8 +41,9 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'srvh' option; do
+while getopts 'ysrvh' option; do
 	case "$option" in
+		y) FLAG_YES='-y';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -54,4 +56,4 @@ privileges false false
 
 # ***** PROGRAM START *****
 $SUDO apt update
-$SUDO apt upgrade -y
+$SUDO apt upgrade $FLAG_YES
