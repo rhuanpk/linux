@@ -5433,6 +5433,23 @@ Comando _lspci_:
 lspci -nnk
 ```
 
+### Memória RAM
+
+Programas neceśsarios (**#**):
+```sh
+apt install -y lshw dmidecode
+```
+
+Comando _lshw_ (**#**):
+```sh
+lshw -c memory
+```
+
+Comando _dmidecode_ (**#**):
+```sh
+dmidecode -t memory
+```
+
 ### Mover/Cortar/Diminuir partições
 
 - Extender partição com o espaço disponível: `sudo growpart /dev/sdXY`.
