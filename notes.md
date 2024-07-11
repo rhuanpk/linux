@@ -2934,6 +2934,14 @@ Pegar info a partir do caminho do _device_:
 lsblk -no <column> /dev/sdXY
 ```
 
+Saber se o disco -e **HDD** ou **SSHD**:
+```sh
+lsblk -do name,rota
+```
+
+- `0`: para SSD
+- `1`: para HDD
+
 ### Comadno _isntall_
 
 Copiar arquivos para o destino já criando as pastas:
