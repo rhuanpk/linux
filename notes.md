@@ -2965,6 +2965,18 @@ Checar se _secure boot_ está ativo:
 mokutil --sb-state
 ```
 
+### Comando _gocr_
+
+Programas necessários (**#**):
+```sh
+apt install gocr
+```
+
+Extrair textos de imagens (**$**):
+```sh
+gocr /path/to/image/file.any
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
