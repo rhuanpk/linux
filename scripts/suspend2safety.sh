@@ -3,7 +3,7 @@
 # Checks the battery percentage and suspend for safety when necessary.
 
 # >>> built-in sets!
-set +o histexpand
+set -e +o histexpand
 
 # >>> variables declaration!
 readonly version='1.1.0'
@@ -76,7 +76,8 @@ notify() {
 if ! "$IS_PLUGED"; then
 	if [ "${BATTERY_POWER%\%}" -le '9' ]; then
 		notify
-		dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
+		polybar-msg action '#dunst.hook.1'
+		dunstctl set-paused 'true'
 		wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
 		systemctl suspend
 	elif [ "${BATTERY_POWER%\%}" -le '11' ]; then
