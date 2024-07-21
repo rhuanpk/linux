@@ -6985,63 +6985,68 @@ mplayer tv:///dev/videoX &>/dev/null
 
 ### Comando _ngrok_
 
-#### Criar túnel para conexão SSH
+#### Instalação
 
-1. Instalação :
+- Via _standalone package_
+    ```sh
+    curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | sudo tar -C /usr/local/bin/ -zxvf -
+    ```
+- <details>
+    <summary>Via oficial repos (<i>#deprecated</i>)</summary>
+
+    ```sh
+    [ "$UID" -ne 0 ] && sudo='sudo'; $sudo tee '/etc/apt/sources.list.d/ngrok.list' <<< 'deb https://ngrok-agent.s3.amazonaws.com buster main' && curl -fsSL 'https://ngrok-agent.s3.amazonaws.com/ngrok.asc' | $sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/ngrok.gpg && $sudo apt update && $sudo apt install -y ngrok
+    ```
+</details>
+
+#### Configuração
+
+Configurar a cahve de API:
 ```sh
-# via oficial repos
-sudo tee '/etc/apt/sources.list.d/ngrok.list' <<< "deb https://ngrok-agent.s3.amazonaws.com buster main" && curl -fsSL https://ngrok-agent.s3.amazonaws.com/ngrok.asc | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/ngrok.gpg && sudo apt update && sudo apt install -y ngrok
-# via standalone package (caso falhe pode ser o _link_ que quebrou)
-curl -fsSL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz | sudo tar -C /usr/local/bin/ -zxvf -
+ngrok config add-authtoken <api-token>
 ```
 
-- Configuração (da sua conta _web_ do **ngrok**):
-	`ngrok config add-authtoken <api_token>`
+#### SSH
 
-- Iniciar o _reverse proxy_ para SSH:
-	`ngrok tcp 22`
+- Iniciar o _reverse proxy_ para **SSH**:
+	`ngrok tcp <ssh-port>`
 
-Depois de iniciado, uma das linhas incia com "_Forwarding_" aonde:
-
-```bash
+Depois de iniciado, na linha "_Forwarding_" temos:
+```sh
 tcp://0.tcp.us.ngrok.io:00000 -> localhost:00000
 ```
 
-O domínio disponibilizado pelo **ngrok** é:
+- O domínio disponibilizado pelo **ngrok** é:
 	`tcp://<DOMAIN>:00000`
-
-E a porta disponibilizado pelo **ngrok** é:
+- E a porta disponibilizado pelo **ngrok** é:
 	`tcp://0.tcp.us.ngrok.io:<PORT>`
 
-Agora basta fazer a conexão como:
-
-```bash
-ssh -p <ngrok_port> <your_user>@<ngrok_domain>
-```
-
-- Iniciar o _reverse proxy_ para HTTP:
+Agora basta fazer a conexão com:
 ```sh
-# the server will be exposed by "forwarding url"
-ngrok http 8000
+ssh -p <ngrok-port> <host-user>@<ngrok-domain>
 ```
 
-_tips_:
+#### HTTP
+
+- Iniciar o _reverse proxy_ para **HTTP**:
+```sh
+ngrok http <http-port>
+```
+
+_TIPS/TRICKS_:
 
 - Iniciar o **ngrok** em background:
-
-```bash
+```sh
 nohup ngrok tcp 22 &>/dev/null &
 ```
 
 - Pegar as infos de _url's_ e endereços locais _bindados_:
-
-```bash
+```sh
 curl -sS http://127.0.0.1:4040/api/tunnels | jq -C | grep -E '(public_url|addr)'
 ```
 
 - Matar todas as seções do **ngrok**:
-
-```bash
+```sh
 kill -KILL `ps -o pid -C ngrok | tail -n +2`
 ```
 
