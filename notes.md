@@ -1358,6 +1358,11 @@ Trocar a senha de alguma chave:
 ssh-keygen -pf ~/.ssh/key_file
 ```
 
+Gerar chave pública a partir da privada:
+```sh
+ssh-keygen -yf ~/.ssh/key_file > ~/.ssh/key_file.pub
+```
+
 ##### Adicionar a chave ao *ssh-agent* automáticamente.
 
 1. De forma manual (mais segura?):
