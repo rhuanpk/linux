@@ -318,7 +318,9 @@ Extension packs (opcional):
 1. `wget "https://download.virtualbox.org/virtualbox/6.1.30/Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack"`
 1. `sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack`
 
-OBS: Verificar se os links estão atualizado
+_OBSERVATIONS_:
+- Verificar se os links estão atualizado
+- [Assinatura de módulo do kernel](#assinar-e-triggar-módulo-do-kernel)
 
 ### Instalar Vagrant
 
@@ -4296,6 +4298,34 @@ _REFERENCELINKS_:
 - [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-vnc-on-ubuntu-22-04)
 - [Baeldung](https://www.baeldung.com/linux/virtual-network-computing-server-configure)
 - [addictivetips](https://www.addictivetips.com/ubuntu-linux-tips/set-up-vnc-desktop-sharing-on-linux-with-tigervnc/)
+
+### Assinar e _Triggar_ Módulo do Kernel
+
+1. Instalar dependências (**#**):
+    `apt install mokutil dkms openssl linux-headers-$(uname -r)`
+1. Gerar a chave/certificado (**$**):
+    `openssl req -new -x509 -newkey rsa:4096 -keyout <module>.priv -outform DER -out <module>.der -nodes -days 9999 -subj '/CN=<provider>/'`
+1. Assine o módulo manualmente (**#**):
+    `/usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 <module>.priv <module>.der "$(modinfo -n <module>)"`
+1. Importar o certificado manualmente (**#**):
+    `mokutil --import <module>.der`
+1. _reinicie o sistema_
+1. Verifique se o módulo foi adicionado (**#**):
+    - Alternativa 1:
+        `cat /proc/keys | grep asymmetri`
+    - [Alternativa 2](#comando-modprobe)
+1. Adicione o trigger no dkms (**#**):
+    `echo 'SIGN_TOOL=/usr/local/bin/sign-<module>.sh' > /etc/dkms/<module>.conf`
+1. Crie o script de assinatura em `/usr/local/bin/sign-<module>.sh`:
+    ```sh
+    #!/usr/bin/bash
+    private_key=<module>.priv
+    x509_cert=<module>.der
+    /usr/src/linux-headers-$1/scripts/sign-file sha256 "$private_key" "$x509_cert" "$2" || { echo "error signing module \"$2\"" >&2; exit 1; }
+    echo "signed newly-built module \"$2\"" >&2
+    ```
+1. Dê permissão de execução para o script (**#**):
+    `chmod +x '/usr/local/bin/sign-<module>.sh'`
 
 ---
 
