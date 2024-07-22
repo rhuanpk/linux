@@ -76,9 +76,9 @@ notify() {
 if ! "$IS_PLUGED"; then
 	if [ "${BATTERY_POWER%\%}" -le '9' ]; then
 		notify
-		polybar-msg action '#dunst.hook.1'
-		dunstctl set-paused 'true'
-		wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
+		#polybar-msg action '#dunst.hook.1'
+		#dunstctl set-paused 'true'
+		#wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
 		systemctl suspend
 	elif [ "${BATTERY_POWER%\%}" -le '11' ]; then
 		notify
