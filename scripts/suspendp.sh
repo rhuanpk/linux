@@ -33,4 +33,4 @@ shift $(("$OPTIND"-1))
 # ***** PROGRAM START *****
 dunstctl set-paused 'true' && polybar-msg action '#dunst.hook.1'
 wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
-sleep "${1:-.5}"; systemctl suspend
+sleep "${1:-.5}"; systemctl suspend-then-hibernate

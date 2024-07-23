@@ -79,7 +79,7 @@ if ! "$IS_PLUGED"; then
 		#polybar-msg action '#dunst.hook.1'
 		#dunstctl set-paused 'true'
 		#wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
-		systemctl suspend
+		systemctl suspend-then-hibernate
 	elif [ "${BATTERY_POWER%\%}" -le '11' ]; then
 		notify
 	fi
