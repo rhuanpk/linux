@@ -68,14 +68,15 @@ shift $(("$OPTIND"-1))
 # export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/`id -u`/bus
 
 notify() {
-	notify-send 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
+	local urgency="${1:-normal}"
+	notify-send -u "$urgency" 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
 }
 
 [ "`acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2`" = 'on-line' ] && IS_PLUGED='true' || IS_PLUGED='false'
 
 if ! "$IS_PLUGED"; then
 	if [ "${BATTERY_POWER%\%}" -le '9' ]; then
-		notify
+		notify critical
 		#polybar-msg action '#dunst.hook.1'
 		#dunstctl set-paused 'true'
 		#wpctl set-mute '@DEFAULT_AUDIO_SINK@' 1
