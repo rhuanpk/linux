@@ -4811,6 +4811,14 @@ O comando que gera algúm arquivo envia-o para a substituição, ou seja, é o i
 
 - `-o pipefail`: agora a _pipeline_ retorna o código do primeiro comando com erro ao invés de retornar o código do último executado (útil caso não queira tratar `${PIPESTATUS[@]}`).
 
+### Comando _shopt_
+
+- `shopt -s globstar`: `**` casa com com qualquer quantidade de caractere em todos os níveis (diretórios e subdiretórios)
+- `shopt -s dotglob`: incluí arquivos e diretórios ocultos nos resultados de expansões de nomes
+
+_TIPS/TRICKS_:
+- `shopt -s globstar dotglob` com `**[/*]` causa a expansão de todos os arquivos e todo os subníveis incluíndo os ocultos (equivalente a `find`?)
+
 ### Comandos `test` Equivalentes `if`
 
 #### Um Comando Por Bloco
