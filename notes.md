@@ -2984,6 +2984,13 @@ Extrair textos de imagens (**$**):
 gocr /path/to/image/file.any
 ```
 
+### Comando _dmidecode_
+
+Saber o número de série do dispositivo (**#**):
+```sh
+dmidecode -s system-serial-number
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
