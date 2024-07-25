@@ -2991,6 +2991,25 @@ Saber o número de série do dispositivo (**#**):
 dmidecode -s system-serial-number
 ```
 
+### Comando _mtr_
+
+- `-4`: somente IPv4
+- `-6`: somente IPv6
+- `-r`: entra em _report mode_, usado com `-c`, não mostra output e no final dos ciclos mostra o resumo
+- `-w`: não resume os nomes de domínios
+- `-t`: ao invés de chamar _GUI_ ou _TUI_, reporta diretamente no console
+- `-g`: força usar GTK
+- `-C`: _output_ como CSV
+- `-j`: _output_ como JSON
+- `-c <count>`: quantidade de ciclos
+- `-i <seconds>`: quantidade de segundos entre cada ICMP Echo
+- `-s <packetsize>`: tamanho do pacote em bytes
+
+Monitorar o _TTR_ de todos os _hopes_:
+```sh
+mtr [<options>] domain.any
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
