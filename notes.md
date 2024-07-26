@@ -4267,7 +4267,10 @@ hostname -I | cut -d ' ' -f 1
 1. Adicionar nova regra no arquivo `/etc/polkit-1/rules.d/<file-name>.rules`:
 ```js
 polkit.addRule(function(action, subject) {
-    if (subject.user == "user" && (action.id == "org.freedesktop.login1.suspend" || action.id == "org.freedesktop.login1.suspend-multiple-session")) {
+    if ((action.id == "org.freedesktop.login1.suspend" ||
+         action.id == "org.freedesktop.login1.hibernate" ||
+         action.id == "org.freedesktop.login1.suspend-then-hibernate") &&
+        subject.user == "<username>") {
         return polkit.Result.YES;
     }
 });
@@ -4277,8 +4280,6 @@ polkit.addRule(function(action, subject) {
 ```sh
 systemctl restart polkit
 ```
-
-OBS: Caso necessário, troque "suspend" por "hibernete" ou crie sua própria regra.
 
 ### Como Ler Cabeçalho de Contexto (_DIFF_)
 
