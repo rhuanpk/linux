@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+# Put this script into '/usr/lib/systemd/system-sleep/'
+# and uncomment first line in program start
+# to auto exect when system resume.
+
 # >>> variables declaration!
 readonly version='1.0.0'
 readonly script="$(basename "$0")"
