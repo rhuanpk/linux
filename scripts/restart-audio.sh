@@ -1,11 +1,11 @@
 #!/usr/bin/bash
 
 # Put this script into '/usr/lib/systemd/system-sleep/'
-# and uncomment first line in program start
-# to auto exect when system resume.
+# and uncomment the line thats check for to arg 1
+# in program start to auto exect when system resume.
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.1.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -21,6 +21,8 @@ USAGE
 	$script [<options>]
 
 OPTIONS
+	-a
+		Restart the pipewire, pipewire-pulse and wireplumber services too.
 	-s
 		Forces keep sudo.
 	-r
@@ -49,8 +51,9 @@ privileges() {
 # >>> pre statements!
 privileges
 
-while getopts 'srvh' option; do
+while getopts 'asrvh' option; do
 	case "$option" in
+		a) flag_all=true;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -66,4 +69,7 @@ jack_id="$(lspci | sed -nE 's/^(.*) Audio device: .*$/\1/p')"
 if folder_id="$(ls -1 /sys/bus/pci/devices/ | grep -F "${jack_id:?no such audio jack}")"; then
 	$sudo tee /sys/bus/pci/devices/"$folder_id"/remove >/dev/null <<< '1'
 	$sudo tee /sys/bus/pci/rescan >/dev/null <<< '1'
+fi
+if "${flag_all:-true}"; then
+	systemctl --user restart pipewire pipewire-pulse wireplumber
 fi
