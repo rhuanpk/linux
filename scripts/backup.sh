@@ -1,7 +1,5 @@
 #!/usr/bin/bash
 
-# Internal descriptions.
-
 # >>> built-in sets!
 set -Eo pipefail +o histexpand
 
@@ -268,6 +266,14 @@ done
 trap decoy EXIT
 
 # ***** PROGRAM START *****
+# To know the diff between new files/folders in a dir run:
+# 	find /path/to/know -maxdepth 1 > /tmp/folders.txt \
+# 	&& cat ~/.config/backup/backups.dirs \
+# 		| grep --color=never ^/path/to/know >> /tmp/folders.txt \
+# 	&& sort /tmp/folders.txt \
+# 		| uniq -u > /tmp/not-folders.txt
+# Edit the "/tmp/not-folders.txt" then test with to se if every seems ok:
+# 	zip -9ryv /tmp/test.zip -@ < /tmp/not-folders.txt
 echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 suffix="$(hostname)-$(date '+%F_%T').zip"
 tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
