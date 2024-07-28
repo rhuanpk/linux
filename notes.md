@@ -2855,8 +2855,10 @@ _REFERENCELINKS_:
 
 ### Comando _ranger_
 
-Deselecionar todos itens selecionados:
+- Deselecionar todos itens selecionados:
     `uv`
+- Copiar o caminho absoluto do item em foco:
+    `:shell -w xclip -r -sel clip <<< '%d/%f'`
 
 #### (Des)Compressão
 
