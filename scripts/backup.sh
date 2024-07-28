@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration!
-readonly version='3.6.2'
+readonly version='3.6.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -257,7 +257,7 @@ while :; do
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
 		-v) echo "$version"; exit 0;;
-		-h) usage; exit 1;;
+		-h) usage >&3; exit 1;;
 		--) shift; break;;
 		*) shift 2; break;;
 	esac
