@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration!
-readonly version='3.5.2'
+readonly version='3.6.2'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -56,7 +56,7 @@ OPTIONS
 	-f[<path/foler>]
 		Relative path thats store the backups inside the device.
 	-l
-		List the folder thats store the backups.
+		List the scrip configs.
 	-p<zip-options>
 		Can pass own zip options to run with.
 	-m[<number>]
@@ -181,7 +181,7 @@ decoy() {
 	$sudo umount -v "$tmp_mountpoint"
 	$sudo rmdir -v "$tmp_mountpoint"
 	echo "-> end: finish script"
-	notify 'Finished backup.'
+	notify 'Backup finished.'
 }
 
 log-config() {
@@ -294,6 +294,7 @@ if [ "$count_max" ]; then
 	| sed -n "$count_max,\$p" \
 	| xargs -I '{}' rm -fv '{}'
 fi
+notify 'Backup started.'
 if ! (/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") || failure ); then
 	echo '-> error: backup process failed'
 else
