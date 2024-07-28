@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration!
-readonly version='3.6.1'
+readonly version='3.6.2'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -126,7 +126,7 @@ setup() {
 					"$file_dirs"
 		fi
 	done < "$file_dirs"
-	if (grep -qm1 '^!' "$file_dirs" || failure); then
+	if (grep -qm1 '^!' "$file_dirs" || { [ "$?" -eq 2 ] && failure; } ); then
 		echo '-> info: unexistent paths are ignoreds'
 	fi
 	[ -w "$location" ] \
