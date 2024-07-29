@@ -6946,6 +6946,23 @@ _pipeline_:
 cdpwd() { cd "$1" && echo "cd: $(pwd)"; }; [ "${UID:-`id -u`}" -ne 0 ]; sudo='sudo'; $sudo apt install -y git && cdpwd /tmp/ && cp -rfv /usr/share/doc/git/contrib/diff-highlight/ ./ && cdpwd ./diff-highlight/ && make && install -vDt ~/.local/bin/ ./diff-highlight
 ```
 
+### Desabilitar Fast Startup no Windows
+
+Via prompt de comando:
+- Lista as opções de energia:
+    `powercfg /a`
+- Habilita/Desabilita o Fast Startup
+    `powercfg -h {on|off}`
+
+Via interface gráfica:
+1. Painel de Controle
+1. Hardware e Sons
+1. Opções de Energia
+1. Escolher funções dos botões de energia
+1. Alterar configurações não disponíveis no momento
+1. Ligar inicialização rápida (recomendado)
+1. Salvar alterações
+
 ---
 
 <a id="db_any_commands"></a>
