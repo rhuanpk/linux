@@ -18,6 +18,7 @@
 - [Arch Base](#arch_base)
 - [Android](#android)
 - [Miscellaneous](#miscellaneous)
+- [Games](#games)
 - [Estudos](#estudos)
 
 <a id="debian_base"></a>
@@ -8624,6 +8625,18 @@ Imagens clicaveis:
 [![alt text][1]][1]
 
 [1]: <link-image> "image text"
+```
+
+---
+
+<a id="games"></a>
+## [Games](#menu)
+
+### Steam
+
+Lauch Options para CS:
+```
+gamemoderun %command% [-sdlaudiodriver pipewire] -nojoy -novid -vulkan -fullscreen
 ```
 
 ---
