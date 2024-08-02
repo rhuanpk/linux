@@ -280,6 +280,68 @@ Saber o tamanho dos pacotes instalados
 wajig large
 ```
 
+### Comando _flatpak_
+
+- Flatpak: [Setup](https://flatpak.org/setup)
+- Flathub: [Setup](https://flathub.org/setup)
+
+Instalar app flatpak:
+```sh
+flatpak install flathub <app-id>
+```
+
+Listar apps flatpak:
+```sh
+flatpak list
+```
+
+Executar app flatpak:
+```sh
+flatpak run <app-id>
+```
+
+Informações app flatpak:
+```sh
+flatpak infos <app-id>
+```
+
+Desinstalar app flatpak:
+```sh
+flatpak uninstall <app-id>
+```
+
+Listar flatpak _remotes_:
+```sh
+flatpak remotes
+```
+
+Impedir/Liberar app flatpak de receber atualizações:
+
+- `--remove`: "desmascara" o app flatpak
+
+```sh
+flatpak mask [--remove] <app-id>
+```
+
+#### _Rollback_
+
+Listar as versões do app flatpak:
+```sh
+flatpak remote-info --log flathub <app-id>
+```
+
+Executa o _rollback_ no app flatpak:
+```sh
+flatpak update --commit=<commit-hash> <app-id>
+```
+
+#### _Games_
+
+Vi sugestão do [Eddie](https://github.com/eddiecsilva/debian-post-install?tab=readme-ov-file#configura%C3%A7%C3%B5es-extras), **Steam** e **Heroic Games Launcher**:
+```sh
+flatpak install com.valvesoftware.Steam com.valvesoftware.Steam.Utility.MangoHud com.valvesoftware.Steam.Utility.vkBasalt com.valvesoftware.Steam.VulkanLayer.MangoHud com.heroicgameslauncher.hgl
+```
+
 ---
 
 <a id="db_programas"></a>
