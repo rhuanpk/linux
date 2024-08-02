@@ -300,29 +300,6 @@ wajig large
 1. `sudo apt install chrome-gnome-shell plank -y`
 1. https://extensions.gnome.org/extension/4198/dash-to-plank/
 
-### Instalar VirtualBox (VB)
-
-Software properties common (obrigatório):
-
-1. `sudo apt install software-properties-common -y`
-
-VirtualBox (obrigatório):
-
-2. `wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -`
-1. `wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -`
-1. `echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list`
-1. `sudo apt update`
-1. `sudo apt install virtualbox-6.1 -y`
-
-Extension packs (opcional):
-
-1. `wget "https://download.virtualbox.org/virtualbox/6.1.30/Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack"`
-1. `sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-6.1.30.vbox-extpack`
-
-_OBSERVATIONS_:
-- Verificar se os links estão atualizado
-- [Assinatura de módulo do kernel](#assinar-e-triggar-módulo-do-kernel)
-
 ### Instalar Vagrant
 
 1. `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`
@@ -333,8 +310,10 @@ _OBSERVATIONS_:
 
 Debian SID (**#**):
 ```sh
-apt install -y linux-headers-`uname -r` virtualbox virtualbox-ext-pack
+apt install linux-headers-`uname -r` virtualbox virtualbox-ext-pack virtualbox-dkms
 ```
+
+OBS: Depois de instalar um novo kernel, instale os _headers_ novamente.
 
 ### Instalar AbiWord
 
