@@ -8661,11 +8661,21 @@ Ordered list:
 </details>
 ```
 
+Comentário interno:
+```md
+[//]: # (internal comment)
+```
+
 Imagens clicaveis:
 ```md
-[![alt text][1]][1]
+[![alt text][1]](<link-to>)
 
-[1]: <link-image> "image text"
+[1]: <image-url> "image text"
+```
+
+Imagens clicaveis:
+```md
+[![alt text](<image-url>)](<link-to> "image text")
 ```
 
 ---
