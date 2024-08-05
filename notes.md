@@ -4398,6 +4398,46 @@ _REFERENCELINKS_:
 1. Dê permissão de execução para o script (**#**):
     `chmod +x '/usr/local/bin/sign-<module>.sh'`
 
+### Bluetooth
+
+#### Via _GUI_
+
+Programas necessários (**#**):
+```sh
+sudo apt install blueman
+```
+
+Habilitar o daemon (**#**):
+```sh
+sudo systemctl enable --now bluetooth
+```
+
+Depois basta abir algum dos apps do blueman no minu de aplicativo.
+
+#### Via _CLI_
+
+Programas necessários (**#**):
+```sh
+apt install bluetooth bluez bluez-tools libspa-0.2-bluetooth
+```
+
+Habilitar o daemon (**#**):
+```sh
+systemctl enable --now bluetooth
+```
+
+Enviar arquivo (**$**):
+```sh
+bt-obex -p <name|macaddr> /path/to/file.any
+```
+
+Para receber arquivos (**$**):
+```sh
+bt-obex -ys
+```
+
+OBS: Os arquivos serão salvos por padrão em `~/.cache/obexd/`.
+
 ---
 
 <a id="db_gnulinux-bash"></a>
