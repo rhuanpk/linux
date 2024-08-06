@@ -3054,6 +3054,23 @@ Monitorar o _TTR_ de todos os _hopes_:
 mtr [<options>] domain.any
 ```
 
+### Comando _pwgen_
+
+- `-s`: Senha completamente randômica
+- `-c`: Garante letras maúsculas e minúsculas
+- `-n`: Garante números
+- `-y`: Inclui caracteres especiais
+
+Programas necessários (**#**):
+```sh
+apt install pwgen
+```
+
+Gerar senha aleatória (**$**):
+```sh
+pwgen [-scny] <char-count> <passwords-count>
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
