@@ -295,7 +295,7 @@ if [ "$count_max" ]; then
 	| xargs -I '{}' rm -fv '{}'
 fi
 notify 'Backup started.'
-if ! (/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") || failure ); then
+if ! (/usr/bin/time -f '-> time: real %E' -ao "$file_log" -- zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") || failure); then
 	echo '-> error: backup process failed'
 else
 	echo "-> size: $suffix -> $(du -sh "$path_final" | cut -d$'\t' -f1)"
