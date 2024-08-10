@@ -3784,6 +3784,12 @@ Iniciar o disco:
 qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX}
 ```
 
+#### Usar Dispositivo Externo Como Disco
+
+```sh
+sudo qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -drive file=/dev/sdX
+```
+
 #### Conectar Via SSH (configurar _network_ entre _host_ e _guest_):
 
 ```bash
