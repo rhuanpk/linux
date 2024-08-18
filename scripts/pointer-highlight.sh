@@ -35,7 +35,7 @@ if ! ps -C highlight-pointer &>/dev/null; then
 	highlight-pointer \
 		--show-cursor \
 		-o 3 \
-		-r 27.5 \
+		-r 37.5 \
 		-c '#303030' \
 		-p '#a41313' \
 		-t 1 \
