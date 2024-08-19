@@ -5247,11 +5247,61 @@ sudo hwclock -s
 
 #### Comando *setxkbmap*
 
-Comando:
+Listar configurações atuais:
+```sh
+setxkbmap -query
+```
 
-```bash
+Definir layout do teclado:
+```sh
 setxkbmap -layout br [-model abnt2] [-variant abnt2]
 ```
+
+Definir _Compose Key_:
+```sh
+setxkbmap -option compose:<keysym>
+```
+
+Limpar as opções do `setxkbmap` (_Compose Key_ e outros configs):
+```sh
+setxkbmap -option
+```
+
+Lista de _keysyms_:
+- `ralt`: Alt Direito (AltGr)
+- `lalt`: Alt Esquerdo
+- `caps`: Caps Lock
+- `menu`: Menu
+- `rctrl`: Controle Direito
+- `lctrl`: Controle Esqurdo
+- `shift`: Shift
+- `super`: Super
+- `esc`: Escape
+- `backspace`: Backspace
+
+##### _Compose Key_
+
+Tabela de combinações _Compose Keys_:
+
+| Combinação                  | Resultado | Descrição                        |
+| --------------------------- | --------- | -------------------------------- |
+| `Compose` + `-` + `-` + `-` | `—`       | Travessão (em dash)              |
+| `Compose` + `'` + `e`       | `é`       | Letra "e" com acento agudo       |
+| `Compose` + `"` + `u`       | `ü`       | Letra "u" com trema              |
+| `Compose` + `,` + `c`       | `ç`       | Letra "c" com cedilha            |
+| `Compose` + `~` + `n`       | `ñ`       | Letra "n" com til                |
+| `Compose` + `^` + `o`       | `ô`       | Letra "o" com acento circunflexo |
+| `Compose` + `"` + `a`       | `ä`       | Letra "a" com trema              |
+| `Compose` + `o` + `c`       | `©`       | Símbolo de copyright             |
+| `Compose` + `+` + `-`       | `±`       | Sinal de mais ou menos           |
+| `Compose` + `-` + `>`       | `→`       | Seta para a direita              |
+| `Compose` + `<` + `-`       | `←`       | Seta para a esquerda             |
+| `Compose` + `:` + `=`       | `≠`       | Sinal de diferente               |
+| `Compose` + `^` + `2`       | `²`       | Expoente dois                    |
+| `Compose` + `/` + `=`       | `≠`       | Sinal de diferente               |
+| `Compose` + `?` + `?`       | `¿`       | Ponto de interrogação invertido  |
+| `Compose` + `!` + `!`       | `¡`       | Ponto de exclamação invertido    |
+| `Compose` + `.` + `.`       | `…`       | Reticências                      |
 
 ### Volume e Saida de Som do Sistema
 
