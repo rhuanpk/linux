@@ -8781,9 +8781,9 @@ Comentário interno:
 
 Imagens clicaveis:
 ```md
-[![alt text][1]](<link-to>)
-
 [1]: <image-url> "image text"
+
+[![alt text][1]](<link-to>)
 ```
 
 Imagens clicaveis:
