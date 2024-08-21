@@ -3,7 +3,7 @@
 # Send Color To ClipBoard sends the hex code of the color to your clipboard.
 
 # >>> built-in setups!
-set -eo pipefail
+set -eo pipefail +o histexpand
 
 # >>> variables declaration!
 readonly version='1.2.0'
@@ -60,11 +60,12 @@ check-needs() {
 		fi
 	done
 	if ! which -s 'colorpicker'; then
-		local file_url='https://raw.githubusercontent.com/rhuanpk/misc/main/binaries/colorpicker'
-		local folder2save='/usr/local/bin'
-		local filename='colorpicker'
-		$sudo wget -P "$folder2save/" "$file_url"
-		$sudo chmod +x "$folder2save/$filename"
+		#local file_url='https://raw.githubusercontent.com/rhuanpk/misc/main/binaries/colorpicker'
+		#local folder2save='/usr/local/bin'
+		#local filename='colorpicker'
+		#$sudo wget -P "$folder2save/" "$file_url"
+		#$sudo chmod +x "$folder2save/$filename"
+		echo "$script: error: need to install \`colorpicker': https://github.com/Jack12816/colorpicker"
 	fi
 }
 
