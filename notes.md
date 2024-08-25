@@ -5500,7 +5500,23 @@ export LC_ALL='en_US.UTF-8'; dpkg-reconfigure locales
 
 ### PipeWire
 
-Para o _setup_ siga o passo a passo da [wiki](https://wiki.debian.org/PipeWire).
+_Setup_ no Debian SID:
+1. (Des)Instale os pacotes necessários (**#**):
+    `apt install pipewire-audio pipewire-jack pipewire-media-session-`
+1. Copie os arquivos de configuração do PipeWire (**#**):
+    `cp -v /usr/share/doc/pipewire/examples/systemd/user/pipewire-pulse.* /etc/systemd/user/`
+1. Copie os arquivos de configuração do ALSA (**#**):
+    `cp -v /usr/share/doc/pipewire/examples/alsa.conf.d/99-pipewire-default.conf /etc/alsa/conf.d/`
+1. Copie os arquivos de configuração do JACK (**#**):
+    `cp -v /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-*.conf /etc/ld.so.conf.d/`
+1. Configure o JACK (**#**):
+    `ldconfig`
+1. Habilite o _daemon_ do WirePlumber (**$**):
+    `systemctl --user --now enable wireplumber.service`
+1. Reinicie o sistema (**$**):
+    `systemctl reboot` || `sudo reboot`
+
+OBS: Para o _setup_ oficial siga o passo a passo da [wiki](https://wiki.debian.org/PipeWire).
 
 #### Módulo de Cancelamento de Ruído
 
