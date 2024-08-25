@@ -5516,7 +5516,10 @@ _Setup_ no Debian SID:
 1. Reinicie o sistema (**$**):
     `systemctl reboot` || `sudo reboot`
 
-OBS: Para o _setup_ oficial siga o passo a passo da [wiki](https://wiki.debian.org/PipeWire).
+_OBSERVATIONS_:
+- Caso deseje desabilitar o [fluidsynth](https://www.fluidsynth.org/):
+    `sudo systemctl --global disable fluidsynth.service`
+- Para o _setup_ oficial siga o passo a passo da [wiki](https://wiki.debian.org/PipeWire)
 
 #### Módulo de Cancelamento de Ruído
 
