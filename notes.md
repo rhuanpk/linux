@@ -1906,17 +1906,18 @@ Será gerado dois arquivos, o binário propriamente dito e o código fonte em C 
 
 ### Comando _curl_
 
-- `-f`: caso *request* retorne algum código de erro, suprime a saida (*body response*);
-- `-s`: silência o **curl**, suprime o progresso ou mensagens de erro, porém, mostra a *response* normalmente;
-- `-S`: mostra o erro, caso ele ocorra enquanto a saida está silênciada (`-s`);
-- `-L`: tentar encontrar a nova *url* caso a que esteja batendo tenha caido;
-- `-o`: informa o nome e o local do arquivo de saída;
-- `-X`: tipo da request;
-- `-H`: _seta_ cabeçalhos da request;
-- `-k`: desabilita verificações de segurança (_SSL_ e etc);
-- `-v`: modo verboso;
-- `-i`: _printa_ o cabeçalho da requisição;
-- `-u <user>:<password>`: para fazer autênticação única.
+- `-f`: caso *request* retorne algum código de erro, suprime a saida (*body response*)
+- `-s`: silência o **curl**, suprime o progresso ou mensagens de erro, porém, mostra a *response* normalmente
+- `-S`: mostra o erro, caso ele ocorra enquanto a saida está silênciada (`-s`)
+- `-L`: tentar encontrar a nova *url* caso a que esteja batendo tenha caido
+- `-o`: informa o nome e o local do arquivo de saída
+- `-X`: tipo da request
+- `-H`: _seta_ cabeçalhos da request
+- `-k`: desabilita verificações de segurança (_SSL_ e etc)
+- `-v`: modo verboso
+- `-i`: _printa_ o cabeçalho da requisição
+- `-u <user>:<password>`: para fazer autênticação única
+- `-w '%{<variable>}\n'`: retorna somente a [chave específica](https://curl.se/docs/manpage.html#:~:text=%2Dw%2C%20%2D%2Dwrite%2Dout%20%3Cformat%3E) do retorno da requisição
 
 Sintaxe comum para download:
 ```sh
