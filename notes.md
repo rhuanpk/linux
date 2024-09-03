@@ -4953,6 +4953,19 @@ O comando que gera algúm arquivo envia-o para a substituição, ou seja, é o i
 _TIPS/TRICKS_:
 - `shopt -s globstar dotglob` com `**[/*]` causa a expansão de todos os arquivos e todo os subníveis incluíndo os ocultos (equivalente a `find`?)
 
+### Múltiplos Comandos _In-Line_ com Background
+
+Caso tente executar:
+```sh
+<command> &; <command>
+```
+Irá pegar um erro de sintaxe.
+
+Nesse caso, o `&` já realiza a mesma função que o `;` indicando o final de um comando (que porém, executará em background), ou seja, a forma correta de escrever a expressão seria:
+```sh
+<command> & <command>
+```
+
 ### Comandos `test` Equivalentes `if`
 
 #### Um Comando Por Bloco
