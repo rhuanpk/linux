@@ -3,7 +3,7 @@
 # Make a backup of some important files.
 
 # >>> variables declaration!
-readonly version='1.5.0'
+readonly version='1.6.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
@@ -29,6 +29,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['ssh']="$PATHWAY_BACKUP/ssh"
 	['obs-profiles']="$PATHWAY_BACKUP/obs/profiles"
 	['obs-scenes']="$PATHWAY_BACKUP/obs/scenes"
+	['vscode']="$PATHWAY_BACKUP/vscode"
 )
 
 # place from to get data
@@ -48,6 +49,7 @@ PATHWAY_SHELLRC="$home/.config/shellrc"
 PATHWAY_SSH="$home/.ssh/config"
 PATHWAY_OBS_PROFILES="$home/.config/obs-studio/basic/profiles"
 PATHWAY_OBS_SCENES="$home/.config/obs-studio/basic/scenes"
+PATHWAY_VSCODE="$home/.config/Code/User/settings.json"
 
 # >>> functions declaration!
 usage() {
@@ -104,6 +106,7 @@ cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/"
 cp -f "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}/"
 cp -f "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['misc']}/"
 cp -f "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}/"
+cp -f "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}/"
 cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obs-profiles']}/"
 cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obs-scenes']}/"
 
