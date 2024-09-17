@@ -8047,7 +8047,7 @@ git push origin :refs/tags/<tag_name>
 
 ### Remote
 
-Limpar as referência do remoto no seu repositório local (remover o que não é mais necessário):
+Limpar as referência do remoto no seu repositório local (remover o que não existe mais no repositório remoto?):
 
 ```sh
 git remote prune <remote>
