@@ -8421,6 +8421,19 @@ _Exit status_ para arquivos não traqueados (**untracked**):
 git status --porcelain | grep '^\?\?'
 ```
 
+#### Múltiplos Remotes
+
+Buscar configurar somente a branch HEAD do remoto:
+
+1. Verificar qual o nome da HEAD do remoto:
+    `git remote show <remote>`
+
+1. Buscar somente a HEAD do remoto:
+    `git fetch <remote> <branch>`
+
+1. Configure a `remote/HEAD` local:
+    `git remote set-head --auto <remote>`
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
