@@ -7681,6 +7681,20 @@ A partir de uma remoto já existente:
 git switch -c <local-branch> <remote>/<remote-branch>
 ```
 
+### Push
+
+Enviar a _branch_ local para o _remote_ específicado com o mesmo nome da _branch_ local, caso a _branch_ local não exista no remoto, será criada:
+
+```bash
+git push <remote> <local-branch>
+```
+
+Enviar a _branch_ local para o _remote_ específicado para a _branch_ remota específicada, caso a _branch_ remota não exista no remoto, será criada:
+
+```bash
+git push <remote> <local-branch>:<remote-branch>
+```
+
 ### Commits
 
 #### Revert
