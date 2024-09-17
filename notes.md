@@ -7631,6 +7631,12 @@ Forçando:
 git branch -D <branch_name>
 ```
 
+Deletar somente a referência das branchs remotas:
+
+```bash
+git branch -rl '<remote>/*' | xargs git branch -dr
+```
+
 ##### Remoto
 
 Remover:
