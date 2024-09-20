@@ -3072,6 +3072,13 @@ Gerar senha aleatória (**$**):
 pwgen [-scny] <char-count> <passwords-count>
 ```
 
+### Comando _sqlmap_
+
+Teste automatizado de SQL Injection:
+```sh
+sqlmap [--dbms=<dbms>] [--level=<1..5>] [--risk=<1..3>] [--tamper=space2comment] [--random-agent] [-p 'param[,param...]'] [-v] -u 'http://localhost:9999/v0/api/endpoint?param=value'
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
