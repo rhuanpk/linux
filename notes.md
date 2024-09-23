@@ -1397,9 +1397,14 @@ Pegar as chaves pública de um servidor:
 ssh-keyscan [-p <port>] [-t {rsa|,dsa|,ecdsa|,ed25519}] <server_ip> >> ~/.ssh/know_hosts
 ```
 
-Trocar a senha de alguma chave:
+Trocar senha da chave:
 ```sh
 ssh-keygen -pf ~/.ssh/key_file
+```
+
+Trocar comentário da chave:
+```sh
+ssh-keygen -cC '<comment>' -f ~/.ssh/key_file
 ```
 
 Gerar chave pública a partir da privada:
