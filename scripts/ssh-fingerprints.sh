@@ -3,7 +3,7 @@
 # Print the fingerprint of ssh public key argument or all in default ~/.ssh/.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="`basename "$0"`"
 
 # >>> functions declaration!
@@ -34,9 +34,13 @@ shift $(("$OPTIND"-1))
 COUNT="`ls -1 ~/.ssh/*.pub | wc -l`"
 INDEX='1'
 for pub in $HOME/.ssh/*.pub; do
+	FINGERPRINT="`ssh-keygen -lf "$pub"`"
 	echo -e "key » `dirname "$pub"`/\033[36m`basename "${pub%.*}"`\033[m.pub:"
-	echo -e "- content: $(< "$pub")"
-	echo -e "- fingerprint: `ssh-keygen -lf "$pub"`"
+	echo "- content: $(< "$pub")"
+	echo "- fingerprint: $FINGERPRINT"
+	ssh-add -l | while read added; do
+		[ "$added" = "$FINGERPRINT" ] && echo -e "- agent: \e[35mtrue\e[m"
+	done
 	[ "$INDEX" -lt "$COUNT" ] && echo
 	let INDEX++
 done
