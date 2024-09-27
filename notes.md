@@ -4479,6 +4479,17 @@ bt-obex -ys
 
 OBS: Os arquivos serão salvos por padrão em `~/.cache/obexd/`.
 
+### Como Trocar Usarname
+
+1. Troque o _login_ do usuário (**#**):
+	`usermod -l <new-username> <old-username>`
+
+1. Troque a _home_ e passe os arquivos para o novo usuário (**#**):
+	`usermod -md /home/<new-username> <new-username>`
+
+1. Troque o nome do grupo do antigo usuário (**#**):
+	`groupmod -n <new-username> <old-username>`
+
 ---
 
 <a id="db_gnulinux-bash"></a>
