@@ -1412,6 +1412,11 @@ Gerar chave pública a partir da privada:
 ssh-keygen -yf ~/.ssh/key_file > ~/.ssh/key_file.pub
 ```
 
+Saber _fingerprint_ da chave:
+```sh
+ssh-keygen -lf ~/.ssh/key_file[.pub]
+```
+
 ##### Adicionar a chave ao *ssh-agent* automáticamente.
 
 1. De forma manual (mais segura?):
