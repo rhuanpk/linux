@@ -9,7 +9,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.2.0'
+readonly version='2.3.0'
 readonly script="`basename "$0"`"
 
 FILE_PATH=~/.config/git-all.path
@@ -59,7 +59,8 @@ Usage without passing parameters:
 	`formatter 1 -h`: Print this message and exit with 2.
 
 `formatter 1 OBSERVATIONS`
-	For some features works is necessary to setup \`--set-upstream-to\` with: git branch --set-upstream-to=<remote/branch>
+	- For some features works is necessary to setup \`--set-upstream-to\` with: git branch --set-upstream-to=<remote/branch>
+	- If passing some command you can use the \`:repo:\` replacement e.g.: $script git remote set-url origin 'git@remote.any:user/:repo:.git'
 EOF
 }
 
@@ -156,7 +157,7 @@ for repo in "`realpath "$_REPO_PATHS"`"/*; do
 		elif "$FLAG_PULL"; then
 			git pull
 		else
-			[ "$#" -eq 0 ] && git status || $*
+			[ "$#" -eq 0 ] && git status || eval ${*//:repo:/$repo}
 		fi
 		FLAG_SEPARATOR='true'
 	fi
