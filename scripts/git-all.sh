@@ -9,7 +9,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.1.0'
+readonly version='2.2.0'
 readonly script="`basename "$0"`"
 
 FILE_PATH=~/.config/git-all.path
@@ -127,25 +127,25 @@ shift $(("$OPTIND"-1))
 # ***** PROGRAM START *****
 [ -z "$_REPO_PATHS" ] && _REPO_PATHS="`get-path`"
 COUNT="$(ls -1d `realpath "$_REPO_PATHS"`/* | wc -l)"
-for directory in "`realpath "$_REPO_PATHS"`"/*; do
-	if ! OUTPUT=`cd "$directory" 2>&1`; then
+for repo in "`realpath "$_REPO_PATHS"`"/*; do
+	if ! OUTPUT=`cd "$repo" 2>&1`; then
 		if "$FLAG_ERROR"; then
-			directory="`formatter 1 "$directory"`"
+			repo="`formatter 1 "$repo"`"
 			{
 				[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-				&& echo -e "$script: warning: \"$directory\" is not a folder"
+				&& echo -e "$script: warning: \"$repo\" is not a folder"
 			} || {
 				[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-				&& echo -e "$script: warning: \"$directory\" don't has permission";
+				&& echo -e "$script: warning: \"$repo\" don't has permission";
 			} || \
-				echo -e "$script: warning: some wrong occurred on entering in \"$directory\""
+				echo -e "$script: warning: some wrong occurred on entering in \"$repo\""
 			FLAG_SEPARATOR='true'
 		else
 			FLAG_SEPARATOR='false'
 		fi
 	else
-		cd "$directory" 2>&1
-		echo -e "→ git in *$(formatter 1 "`basename ${directory^^}`")*!\n"
+		cd "$repo" 2>&1
+		echo -e "${SEPARATOR}→ git in *$(formatter 1 "`basename ${repo^^}`")*!\n"
 		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
@@ -161,7 +161,7 @@ for directory in "`realpath "$_REPO_PATHS"`"/*; do
 		FLAG_SEPARATOR='true'
 	fi
 	if "$FLAG_SEPARATOR"; then
-		((COUNT>1)) && echo -e "$(formatter 34 "$(printf -- '-%.0s' `seq 42`; echo)")"
+		((COUNT>1)) &&  SEPARATOR="$(formatter 34 "$(printf -- '-%.0s' `seq 42`; echo)")\n"
 	fi
 	let COUNT--
 done
