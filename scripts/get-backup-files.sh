@@ -2,8 +2,11 @@
 
 # Make a backup of some important files.
 
+# >>> built-in setups!
+shopt -s extglob
+
 # >>> variables declaration!
-readonly version='1.6.0'
+readonly version='1.7.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
@@ -26,6 +29,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['vim']="$PATHWAY_BACKUP/vim"
 	['cron']="$PATHWAY_BACKUP/cron"
 	['dunst']="$PATHWAY_BACKUP/dunst"
+	['shellrc']="$PATHWAY_BACKUP/shellrc"
 	['ssh']="$PATHWAY_BACKUP/ssh"
 	['obs-profiles']="$PATHWAY_BACKUP/obs/profiles"
 	['obs-scenes']="$PATHWAY_BACKUP/obs/scenes"
@@ -66,11 +70,26 @@ Options:
 EOF
 }
 
+make-date() {
+	date '+%y-%m-%d_%H%M%S'
+}
+
 cleanup-history() {
 	files=("${ARRAY_PATHWAY_BACKUP['history']}"/*)
 	for file in ${files[@]: 0:$((${#files[@]}-1))}; do
 		find "$file" -mtime +2 -exec rm -f '{}' \;
 	done
+}
+
+cp-backup() {
+	local file_source="$1"
+	local folder_backup="${2%/}"
+	local old_file="$(ls -1t "$folder_backup"/?(.)* 2>&- | head -1)"
+	local new_file="$folder_backup/${file_source##*/}_`make-date`.gz"
+	gzip -c9 "$file_source" >"$new_file"
+	if cmp -s "$old_file" "$new_file"; then
+		rm -f "$new_file"
+	fi
 }
 
 # >>> pre statements!
@@ -99,14 +118,14 @@ ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['icontheme
 ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
 
 # commands cp to save
-cp -f "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}/"
-cp -f "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}/"
-cp -f "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}/"
-cp -f "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}/"
-cp -f "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}/"
-cp -f "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['misc']}/"
-cp -f "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}/"
-cp -f "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}/"
+cp-backup "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}"
+cp-backup "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}"
+cp-backup "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}"
+cp-backup "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}"
+cp-backup "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}"
+cp-backup "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['shellrc']}"
+cp-backup "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}"
+cp-backup "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}"
 cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obs-profiles']}/"
 cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obs-scenes']}/"
 
@@ -117,6 +136,6 @@ neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/crontab.txt"
 
 # complex commands to save
-FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`date +%y-%m-%d_%H%M%S`.gz"
+FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`make-date`.gz"
 gzip -c9 "$PATHWAY_HISTORY" >"$FILE_NAME_HISTORY"
 chmod 600 "$FILE_NAME_HISTORY"
