@@ -44,7 +44,7 @@ shift $(("$OPTIND"-1))
 # ***** PROGRAM START *****
 trap 'unset TIME COMMAND' EXIT
 COMMAND='ls --color=always -lhAF'
-if [[ "$1" =~ ^[0-9]+(\.[0-9]+)?$ ]]; then
+if [[ "$1" =~ ^(\.?[0-9]+\.?)+$ ]]; then
 	TIME="$1"
 	[ "$#" -gt '1' ] && { COMMAND="$2"; ARGS="${*:3}"; }
 else
