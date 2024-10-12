@@ -4,7 +4,7 @@
 # Create a folder with same name of the file then decompress inside her.
 
 # >>> variables declaration!
-readonly version='1.3.1'
+readonly version='1.4.0'
 readonly script="`basename "$0"`"
 
 # >>> functions declaration!
@@ -80,7 +80,11 @@ for file in *; do
 		action 'tar -xvf'
 	else
 		case "$EXTENSION" in
-			'.tar.gz') action 'tar -zxvf';;
+			'.tar.gz')
+				action 'tar -zxvf' \
+				|| [ "$?" -eq 2 ] \
+				&& action 'tar -xvf'
+			;;
 			'.zip') action 'unzip';;
 			'.xz') action 'xz -kdv';;
 			'.gz') action 'gzip -kdv';;
