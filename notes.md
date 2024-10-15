@@ -2680,6 +2680,18 @@ gifwrap -f /path/to/image.gif
 
 OBS: deixe o menor zoom possível do terminal.
 
+### Comando _tiv_
+
+Programas necessários:
+```sh
+apt install tiv
+```
+
+Ver imagens pelo terminal:
+```sh
+tiv /path/to/image.any
+```
+
 ### Comando _slop_
 
 - `-q`: silencia a saída;
