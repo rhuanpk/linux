@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.1.0'
 readonly script="$(basename "$0")"
 
 # >>> functions declaration!
@@ -59,7 +59,7 @@ shift $(("$OPTIND"-1))
 project="${1:?need project folder}"
 project="${project%/}"
 tmux \;\
-	new-session -d \;\
+	new-session -d -s "$(basename ${project/%./$(pwd)})" \;\
 	send-keys "cd ${project@Q}/ && $(loop 'git log -a -10 --oneline --graph')" C-m \;\
 	split-window -v \;\
 	split-window -v \;\
