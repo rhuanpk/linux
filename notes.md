@@ -6587,6 +6587,18 @@ tmux
 - Matar janela atual:
     `${mod}+&`
 
+- Pesquisar dentro do _panel_:
+    1. Entre no modo de cópia:
+        `${mod}+[`
+    1. Defina as binding do vim:
+        `${mod}+:set-window-option -g mode-keys vi`
+    1. Para buscar:
+         `/`
+    1. Ir para frente/trás:
+        `n|shift+n`
+    1. Sair do modo de busca:
+        `q`
+
 #### Fora da sessão
 
 - Listar todas as sessões:
