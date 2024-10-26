@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration!
-readonly version='1.2.0'
+readonly version='1.3.0'
 readonly script="$(basename "$0")"
 
 # >>> functions declaration!
@@ -63,9 +63,9 @@ tmux \;\
 	send-keys "cd ${project@Q}/ && $(loop 'git log -a -10 --oneline --graph')" C-m \;\
 	split-window -v \;\
 	send-keys "cd ${project@Q}/" C-m \;\
-	split-window -v \;\
-	send-keys "cd ${project@Q}/" C-m \;\
-	split-window -h -t '.1' \;\
-	send-keys "cd ${project@Q}/ && $(loop 'git diff')" C-m \;\
 	split-window -h -t '.0' \;\
+	send-keys "cd ${project@Q}/ && $(loop 'git diff')" C-m \;\
+	split-window -v -t '.0' \;\
+	send-keys "cd ${project@Q}/" C-m \;\
+	split-window -v \;\
 	send-keys "cd ${project@Q}/ && $(loop 'git status')" C-m \;\
