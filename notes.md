@@ -4170,6 +4170,18 @@ mogrify -format pdf /path/to/image.any
 mogrify -format pdf /path/to/folder/*.any
 ```
 
+Remover metadados de imagens:
+```sh
+mogrify -strip /path/to/images/*.any
+```
+
+##### Comado _identify_
+
+Verificar metadados de imagens:
+```sh
+identify -verbose /path/to/image.any | grep exif
+```
+
 #### Comando _pdftoppm_
 
 Instalação:
