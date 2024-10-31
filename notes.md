@@ -3103,6 +3103,11 @@ sqlmap [--dbms=<dbms>] [--level=<1..5>] [--risk=<1..3>] [--tamper=space2comment]
 
 ### Comando _exim4_
 
+Programas necessários (**#**):
+```sh
+apt install exim4-{base,config,daemon-light}
+```
+
 Remover todos os _mails_ da fila:
 ```sh
 sudo exim4 -bp | sed -nE 's/^.* ([[:alnum:]-]+) <.*>$/\1/p' | xargs sudo exim4 -Mrm
