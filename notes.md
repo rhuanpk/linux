@@ -3101,6 +3101,13 @@ Teste automatizado de SQL Injection:
 sqlmap [--dbms=<dbms>] [--level=<1..5>] [--risk=<1..3>] [--tamper=space2comment] [--random-agent] [-p 'param[,param...]'] [-v] -u 'http://localhost:9999/v0/api/endpoint?param=value'
 ```
 
+### Comando _exim4_
+
+Remover todos os _mails_ da fila:
+```sh
+sudo exim4 -bp | sed -nE 's/^.* ([[:alnum:]-]+) <.*>$/\1/p' | xargs sudo exim4 -Mrm
+```
+
 ### Comando *xclip*
 
 - `-f`: printa o conteúdo além de enviar para a área de transferências;
