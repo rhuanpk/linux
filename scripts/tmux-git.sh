@@ -60,7 +60,7 @@ project="${1:?need project folder}"
 project="${project%/}"
 tmux \;\
 	new-session -d -s "$(basename ${project/%./$(pwd)})" \;\
-	send-keys "cd ${project@Q}/ && $(loop 'git log -a -10 --oneline --graph')" C-m \;\
+	send-keys "cd ${project@Q}/ && $(loop 'git log -a -10 --oneline --graph --all')" C-m \;\
 	split-window -v \;\
 	send-keys "cd ${project@Q}/" C-m \;\
 	split-window -h -t '.0' \;\
