@@ -10,6 +10,7 @@ readonly version='2.2.0'
 readonly script="`basename "$0"`"
 
 FONT_BOLD=1
+FONT_ITALIC=3
 FONT_UNDERLINE=4
 FONT_BLINK=5
 FONT_REVERSE=7
@@ -309,11 +310,11 @@ submenu-file-names() {
 
 		eof
 		list-directory; echo
-		read -p 'Enter the file extension (simply <press_enter> if you want no extension): ' EXTENSION
+		echo -ne "Enter the file extension (`format "$FONT_ITALIC" empty` for no extension or \"`format "$COLOR_CYAN" =`\" for same extension): "; read EXTENSION
 		[ "$EXTENSION" != 'quit' ] && {
 			count=0
 			for file in *; do
-				mv --verbose -- "$file" "_$count$EXTENSION" &>> "$LOG_FILE"
+				mv --verbose -- "$file" "_$count${EXTENSION/=/.${file##*.}}" &>> "$LOG_FILE"
 				let count++
 			done
 		}
