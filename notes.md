@@ -3458,20 +3458,20 @@ tar -tf /path/to/compressed/folder.tar.gz
 
 Compactar:
 ```sh
-zip [-b /tmp] [-ry] target-folder.zip /path/file/to/compact.any /path/folder/to/compact/*
+zip [-b /tmp] [-ry] target-file.zip /path/file/to/compact.any /path/folder/to/compact/*
 ```
 
 Descompactar:
 ```sh
-unzip [-d /path/to/decompress/] /path/to/compressed/folder.zip
+unzip [-d /path/to/decompress/] /path/to/compressed/file.zip
 ```
 
 Ver o conteúdo:
 ```sh
-unzip -l /path/to/compressed/folder.zip
+unzip -l /path/to/compressed/file.zip
 ```
 
-Exemplos de padrões e inclusão/exclusão:
+Exemplos de padrões de inclusão/exclusão:
 - Exclua todos os arquivos que terminam com ".any" de todas as pastas em todos os níveis:
 	- `\*.any`
 
@@ -3484,6 +3484,8 @@ Exemplos de padrões e inclusão/exclusão:
 
 - Exclua a pasta com o nome a partir da sua raiz (pastas a serem compactadas):
 	- `/depth0/folder/*`
+
+OBS: caso não específicado, o local padrão do arquivo temporário é no mesmo lugar aonde será criado o arquivo "zippado", ou seja, o `target-file.zip`
 
 #### Comando _xz_
 
