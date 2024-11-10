@@ -2471,10 +2471,11 @@ efibootmgr -c -d /dev/sdX -p Y -l '\path\to\<some>x64.efi' -L 'New Boot Entry'
 
 ### Comando _less_
 
-- `:-i`: _case insensitive_ para buscas simples;
-- `:-I`: _case insensitive_ para buscas também com padrões;
-- `:m`: define uma marca para a página atual;
-- `'<mark>`: vai para a marca;
+- `:-i`: _case insensitive_ para buscas simples
+- `:-I`: _case insensitive_ para buscas também com padrões
+- `:m`: define uma marca para a página atual
+- `'<mark>`: vai para a marca
+- `<line>g`: vai para a linha
 
 ### Comando _read_
 
