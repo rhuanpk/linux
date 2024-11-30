@@ -9272,3 +9272,68 @@ Conteúdo de **file.txt**: `"hello world?"`
 Quando usamos "**/**" ao passar algum *path*, deixamos explícito que o alvo é uma **pasta/diretório** e não um arquivo **comum/regular**.
 
 Porém, se usamos sem a "**/**", em tese, deixamos explícito que é um arquivo **regular** (já que com a "**/**" dizemos que **é**), mas, dependendo da situação, se o alvo for mesmo um diretório e não especificarmos a "**/**", ele conseguirá executar a ação (levando em consideração é claro que o esperado fosse que o alvo seja uma pasta mesmo).
+
+### Unidades de Armazenamento Digital
+
+Unidades de armazenamento:
+
+| Prefix | Symbol | Value  |
+| ------ | ------ | ------ |
+| Unibit | b      | 1 bit  |
+| Nibble | ?      | 4 bits |
+| Byte   | B      | 8 bits |
+
+Sistema de multiplicadores nas bases SI Decimal (10) / IEC Binária (2):
+
+| Prefix        | Symbol | Powers                        | Difference |
+| ------------- | ------ | ----------------------------- | ---------- |
+| Kilo / Kibi   | K / Ki | 10³ = 1000¹ / 2¹⁰ = 1024¹     | 2,40%      |
+| Mega / Mebi   | M / Mi | 10⁶ = 1000² / 2²⁰ = 1024²     | 4,86%      |
+| Giga / Gibi   | G / Gi | 10⁹ = 1000³ / 2³⁰ = 1024³     | 7,37%      |
+| Tera / Tebi   | T / Ti | 10¹² = 1000⁴ / 2⁴⁰ = 1024⁴    | 9,95%      |
+| Peta / Pebi   | P / Pi | 10¹⁵ = 1000⁵ / 2⁵⁰ = 1024⁵    | 12,59%     |
+| Exa / Exbi    | E / Ei | 10¹⁸ = 1000⁶ / 2⁶⁰ = 1024⁶    | 15,29%     |
+| Zetta / Zebi  | Z / Zi | 10²¹ = 1000⁷ / 2⁷⁰ = 1024⁷    | 18,06%     |
+| Yotta / Yobi  | Y / Yi | 10²⁴ = 1000⁸ / 2⁸⁰ = 1024⁸    | 20,89%     |
+| Ronna / Robi  | R / Ri | 10²⁷ = 1000⁹ / 2⁹⁰ = 1024⁹    | 23,79%     |
+| Quetta / Qubi | Q / Qi | 10³⁰ = 1000¹⁰ / 2¹⁰⁰ = 1024¹⁰ | 26,77%     |
+
+Conversões entre unidades e multiplicadores:
+
+- <details open>
+	<summary>Entre unidades</summary>
+	
+	- <details>
+		<summary>Para escalar</summary>
+
+		- Sintaxe: `B = b / 8`
+		- Exemplo: **Kb** para **KB** → `8 Kb / 8 = 1 KB`
+	- <details>
+		<summary>Para declinar</summary>
+
+		- Sintaxe: `b = B * 8`
+		- Exemplo: **KiB** para **Kib** → `1 KiB * 8 = 8 Kib`
+
+- <details open>
+	<summary>Entre multiplicadores</summary>
+	
+	- <details>
+		<summary>Para escalar</summary>
+
+		- Sintaxe: `S = X / 10{00|24}`
+		- Exemplo: **MB** para **GB** → `1000 MB / 1000 = 1 GB`
+	- <details>
+		<summary>Para declinar</summary>
+
+		- Sintaxe: `X = S * 10{00|24}`
+		- Exemplo: **GiB** para **MiB** → `1 GiB * 1024 = 1024 MiB`
+	- <details>
+		<summary>Base 10 para 2</summary>
+
+		- Sintaxe: `Si = S * 1000^p / 1024^p`
+		- Exemplo: **T** para **Ti** → `1 T * 1000⁴ / 1024⁴ = 0.9094947017 Ti`
+	- <details>
+		<summary>Base 2 para 10</summary>
+
+		- Sintaxe: `S = Si * 1024^p / 1000^p`
+		- Exemplo: **Ti** para **T** → `1 Ti * 1024⁴ / 1000⁴ = 1.0995116277 T`
