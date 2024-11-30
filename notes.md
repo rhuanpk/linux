@@ -3305,7 +3305,7 @@ pgrep [-fl] <pattern>
 
 Exibe os processos em forma de árvore:
 ```sh
-pstree
+pstree [-psa] [<pid>]
 ```
 
 _TIPS/TRICKS_:
@@ -3320,6 +3320,9 @@ Buscar por somente um processo:
 
 - Com `pgrep`:
 	`ps -fp $(pgrep '<pattern>') --width $(("$(tput cols)"*"$(tput lines)"))`
+
+- Com `pgrep`:
+    `pgrep <search> | xargs pstree -psa`
 
 ### Saber meu *ip externo*
 
