@@ -616,6 +616,8 @@ resize2fs /dev/sdXY <new_size>
 
 ##### _Shrinking_
 
+###### Sistemas de Arquivo `ext*`
+
 1. Diminua o sistema de arquivos (`ext*`):
 
 ```bash
@@ -634,14 +636,11 @@ resize2fs /dev/sdXY <new_size>
 resizepart <device> <parition_number> <new_size>
 ```
 
-_OBSERVATIONS_:
+OBS: Caso a partição seja `exfat` realize somente o passo 2?
 
-- _unit of measurement_:
-	- `parted`: `MB, GB` or `10%`.
-	- `resize2fs`: `K`, `M`, `G` and `T`.
-	- `resizepart`: `512-byte` _sectors_.
+###### Sistema de Arquivo `ntfs`
 
-- caso a partição seja `exfat` realize somente o passo 2?
+
 
 #### Formulas de cálculo Entre MB/GB e SETORES
 
