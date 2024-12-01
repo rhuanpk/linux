@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration!
-readonly version='3.6.2'
+readonly version='3.7.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -64,6 +64,8 @@ OPTIONS
 	-a
 		Toggle into automatic or not the backup when the device is
 		plugged.
+	-d
+		Dry-run the zip and prints the final MiB size.
 	-s
 		Forces keep sudo.
 	-r
@@ -204,6 +206,20 @@ notify() {
 	}
 }
 
+check-zip-size() {
+	size="$(grep -v '^!' "$file_dirs" | zip -9ry@ - | wc -c | sed "s/<value>/$(cat)/" <<< 'scale=2; <value>/1024^2' | bc)"
+	echo "-> size: $size MiB"
+}
+
+on-off-rules() {
+	is_auto="${1:?is auto must be set}"
+	if "$is_auto"; then
+		[ -f "$file_rules.off" ] && $sudo mv -v "$file_rules"{.off,}
+	else
+		[ -f "$file_rules" ] && $sudo mv -v "$file_rules"{,.off}
+	fi
+}
+
 # >>> pre statements!
 [ ! -d "$(dirname "$file_log")/" ] && mkdir -pv "${file_log%/*}"
 exec 3>&1 > >(tee -a "$file_log") 2>&1
@@ -212,7 +228,7 @@ trap failure ERR
 privileges
 check-needs
 
-if ! options=$(getopt -a -o 'c::f::lp:m::asrvh' -n "$script" -- "$@"); then
+if ! options=$(getopt -a -o 'c::f::lp:m::asrvhd' -n "$script" -- "$@"); then
 	exit 1
 fi
 eval "set -- $options"
@@ -223,35 +239,13 @@ while :; do
 		-c) setup "$argument"; exit;;
 		-l) ls-infos; exit;;
 		-p) opts="$argument"; shift 2;;
-		-f)
-			set-var \
-				'path_bkp_dir' \
-				"${argument/%\/}" \
-				'changed folder to save backups'
-			exit
-		;;
-		-m)
-			set-var \
-				'count_max' \
-				"$argument" \
-				'changed max backups to save'
-			exit
-		;;
+		-d) check-zip-size; exit;;
+		-f) set-var 'path_bkp_dir' "${argument/%\/}" 'changed folder to save backups'; exit;;
+		-m) set-var 'count_max' "$argument" 'changed max backups to save'; exit;;
 		-a)
-			if "$is_auto"; then
-				argument='false'
-			else
-				argument='true'
-			fi
-			set-var \
-				'is_auto' \
-				"$argument" \
-				'changed automatic backup when stick plugged'
-			if "${is_auto:?is auto must be set}"; then
-				[ -f "$file_rules.off" ] && $sudo mv -v "$file_rules"{.off,}
-			else
-				[ -f "$file_rules" ] && $sudo mv -v "$file_rules"{,.off}
-			fi
+			argument='true'; if "$is_auto"; then argument='false'; fi
+			set-var 'is_auto' "$argument" 'changed automatic backup when stick plugged'
+			on-off-rules "$is_auto"
 			exit
 		;;
 		-s) privileges true false; shift;;
