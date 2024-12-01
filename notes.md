@@ -3456,6 +3456,8 @@ tar -tf /path/to/compressed/folder.tar.gz
 - `-r`: faz ser recursivo a compressão (caso não passe o glob `*` na pasta especificada);
 - `-y`: segue o link simbólico e zipa o arquivo original;
 - `-e`: criptografar o arquivo compactado;
+- `-@`: a lista de arquivos/diretórios a serem compactados vem via _STDIN_;
+- `-FS`: caso o arquivo não exista mais no _filesystem_, exclui do arquivo "zipado";
 - `-b <path>`: especifica o diretório para o arquivo temporario (de cache) do zip;
 - `-i <pattern> [<pattern> ...]`: inclue arquivos com o padrão;
 - `-x <pattern> [<pattern> ...]`: exclui arquivos com o padrão.
