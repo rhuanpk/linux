@@ -8517,6 +8517,13 @@ Buscar configurar somente a branch HEAD do remoto:
 1. Configure a `remote/HEAD` local:
     `git remote set-head --auto <remote>`
 
+#### Clonagem de Todos Repositórios (Ou Só Alguns)
+
+Comando para GitHub:
+```sh
+for repo in $(curl -fsSL [-H 'authorization: bearer <token>'] https://api.github.com/users/<user>/repos | sed -nE 's~^.*clone_url.*("https.*[<search>.*]").*$~\1~p' | tr -d '"'); do git clone "$repo"; done
+```
+
 ### Troubleshooting
 
 #### Pasta inacessível (pasta com *submodule*)
