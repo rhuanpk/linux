@@ -31,4 +31,6 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-rofi -modi drun,run,window -show drun -window-format '{w} - {c} * {t}'
+path="$PK_LOAD_CFGBKP"
+#rofi -modi 'drun,run,window,emoji:~/.local/bin/rofi/emoji' -show drun -window-format '{w} - {c} * {t}'
+rofi -modi "drun,run,window,emoji:$path/rofi/emoji" -show drun -window-format '{w} - {c} * {t}'
