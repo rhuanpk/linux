@@ -110,7 +110,7 @@ check-needs() {
 			echo -ne "$script: ask: needed \"$package\", "
 			read -rp  "install? [Y/n] "
 			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
-				$sudo `get_pm_cmd` "$package"
+				$sudo `get_pm_cmd` "$package" || exit $?
 			}
 		fi
 	done
