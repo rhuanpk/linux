@@ -2,11 +2,11 @@
 
 # Internal descriptions.
 
-# >>> built-in setups!
+# >>> built-in setups
 #set -exE +o histexpand -o pipefail
 #exec 3>&1 > >(tee /tmp/file.log) 2>&1
 
-# >>> variables declaration!
+# >>> variables declaration
 readonly version='0.0.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
@@ -14,7 +14,7 @@ readonly uid="${UID:-$(id -u)}"
 readonly user="$(id -un "${uid/#0/1000}")"
 readonly home="/home/$user"
 
-# >>> functions declaration!
+# >>> functions declaration
 failure() {
 	notify-send "${script^^}" "Failed \"$BASH_COMMAND\"!"
 }
@@ -105,7 +105,7 @@ check-needs() {
 	done
 }
 
-# >>> pre statements!
+# >>> pre statements
 #trap failure ERR
 #trap decoy EXIT
 
