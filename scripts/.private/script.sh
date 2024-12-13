@@ -92,6 +92,17 @@ privileges() {
 }
 
 check-needs() {
+	get_pm_cmd() {
+		which -s apk && { echo 'apk add'; return; }
+		which -s apt && { echo 'apt install'; return; }
+		which -s dnf && { echo 'dnf install'; return; }
+		which -s yum && { echo 'yum install'; return; }
+		which -s pkg && { echo 'pkg install'; return; }
+		which -s pacman && { echo 'pacman -S'; return; }
+		which -s emerge && { echo 'emerge -av'; return; }
+		which -s zypper && { echo 'zypper install'; return; }
+		which -s portage && { echo 'portage install'; return; }
+	}
 	privileges
 	local packages=('package1' 'package2')
 	for package in "${packages[@]}"; do
@@ -99,7 +110,7 @@ check-needs() {
 			echo -ne "$script: ask: needed \"$package\", "
 			read -rp  "install? [Y/n] "
 			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
-				$sudo apt install -y "$package"
+				$sudo `get_pm_cmd` "$package"
 			}
 		fi
 	done
