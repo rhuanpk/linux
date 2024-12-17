@@ -67,5 +67,5 @@ tmux \;\
 	send-keys "cd ${project@Q}/ && $(loop 'git diff')" C-m \;\
 	split-window -v -t '.0' \;\
 	send-keys "cd ${project@Q}/" C-m \;\
-	split-window -v \;\
-	send-keys "cd ${project@Q}/ && $(loop 'git status')" C-m \;\
+	#split-window -v \;\
+	#send-keys "cd ${project@Q}/ && $(loop 'git status')" C-m \;\
