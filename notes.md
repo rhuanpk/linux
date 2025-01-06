@@ -287,7 +287,7 @@ wajig large
 
 Instalar app flatpak:
 ```sh
-flatpak install flathub <app-id>
+flatpak install {<remote> <app-id>|<flatpakref-file>}
 ```
 
 Listar apps flatpak:
