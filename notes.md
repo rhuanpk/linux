@@ -1183,12 +1183,24 @@ head -5 /etc/passwd
 
 Organizar a saida em colunas:
 
-- -s: Delimitador
-- -t: Cria a tabela
+- `-t`: cria a tabela
+- `-L`: mantem linhas vazia
+- `-J`: saída formatada em JSON
+- `-s <delimiter>`: delimitador de entrada
+- `-o <delimiter>`: delimitador de saída
+- `-N <header[,...]>`: nomeia as colunas
+- `-H <columns>`: esconde as colunas determinadas
+- `-R <columns>`: alinhas as colunas a direita
 
-```bash
-column -s ':' -t /etc/passwd
+```sh
+column -tL -s ':' -o '|' -N 'USERNAME,PASSWORD,UID,GID,GECOS,HOME,SHELL' /etc/passwd
 ```
+
+```sh
+column -tLJ -s ':' -o '|' -N 'USERNAME,PASSWORD,UID,GID,GECOS,HOME,SHELL' /etc/passwd | jq
+```
+
+OBS: o padrão `<columns>` é o mesmo padrão de range do seu shell e "0" representa todas as colunas
 
 ### Comando *du*
 
