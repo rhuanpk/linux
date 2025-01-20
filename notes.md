@@ -7246,6 +7246,20 @@ Via interface gráfica:
 1. Ligar inicialização rápida (recomendado)
 1. Salvar alterações
 
+### Debugar Serviços Na Inicialização do Sistema
+
+Comandos úteis:
+- `systemctl [--user] list-units --type service [--all]`
+- `systemctl [--user] list-unit-files --type service [--state=enabled]`
+- `systemctl [--user] list-dependencies --reverse <service>`
+- `service --status-all`
+- `systemd-cgtop`
+
+- `systemctl [--user] daemon-reexec`
+- `systemctl [--user] status [--failed]`
+
+- `systemd-analyze {blame|critical-chain}`
+
 ---
 
 <a id="db_any_commands"></a>
