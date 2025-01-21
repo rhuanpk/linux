@@ -2,9 +2,6 @@
 
 # Script that updates, fixes and cleans the system in one go.
 
-# >>> built-in sets!
-set -e
-
 # >>> variables declaration!
 readonly version='2.3.0'
 readonly script="`basename "$0"`"
