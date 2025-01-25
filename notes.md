@@ -228,6 +228,16 @@ deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware
 deb http://deb.debian.org/debian sid main contrib non-free non-free-firmware
 ```
 
+Os arquivos `.list` (**one-line** style) serão depreciados em favor dos `.sources` (**deb822** style). No novo estilo, o diretórico `/etc/apt/trusted.gpg.d/` é depreciado sendo oficial agora apenas `/usr/share/keyrings` (chaves colocadas por pacotes) e `/etc/apt/keyrings` (chaves colocados pelo usuário):
+```sh
+Types: deb deb-src
+URIs: <uri>
+Suites: <suite> ...
+Components: [<component> ...]
+Architectures: [<arch> ...]
+Signed-By: [{/usr/share|/etc/apt}/keyrings/<key>.gpg]
+```
+
 ### Comando *dpkg*
 
 Listar todos os programas instalados:
