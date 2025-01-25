@@ -217,15 +217,15 @@ apt-key adv --keyserver <keyserver> --recv-keys <fingerprint>
 Debian `/etc/apt/sources.list`:
 ```sh
 # stable
-deb http://deb.debian.org/debian/ stable main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian stable main contrib non-free non-free-firmware
 deb http://security.debian.org/debian-security stable-security main contrib non-free non-free-firmware
-deb http://deb.debian.org/debian/ stable-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian stable-updates main contrib non-free non-free-firmware
 
 # testing
-deb http://deb.debian.org/debian/ testing main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware
 
 # unstable
-deb http://deb.debian.org/debian/ sid main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian sid main contrib non-free non-free-firmware
 ```
 
 ### Comando *dpkg*
