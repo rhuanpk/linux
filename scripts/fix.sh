@@ -22,6 +22,7 @@ Execute apt commands to fix up packages.
 Usage: $script [<options>]
 
 Options:
+	-y: Accept yes for all commands;
 	-c: Runs \`dpkg --configure -a\` first;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
@@ -44,8 +45,9 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'csrvh' option; do
+while getopts 'ycsrvh' option; do
 	case "$option" in
+		y) FLAG_YES='-y';;
 		c) DPKG_FIRST='true';;
 		s) privileges true false;;
 		r) privileges false true;;
@@ -60,8 +62,8 @@ privileges false false
 # ***** PROGRAM START *****
 if "${DPKG_FIRST:-false}"; then
 	$SUDO dpkg --configure -a
-	$SUDO apt install -fy
+	$SUDO apt install -f $FLAG_YES
 else
-	$SUDO apt install -fy
+	$SUDO apt install -f $FLAG_YES
 	$SUDO dpkg --configure -a
 fi

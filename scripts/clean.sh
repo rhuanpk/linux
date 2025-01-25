@@ -22,6 +22,7 @@ Execute apt commands to clean the old packages.
 Usage: $script [<options>]
 
 Options:
+	-y: Accept yes for all commands;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -43,8 +44,9 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'srvh' option; do
+while getopts 'ysrvh' option; do
 	case "$option" in
+		y) FLAG_YES='-y';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -56,6 +58,6 @@ shift $(("$OPTIND"-1))
 privileges false false
 
 # ***** PROGRAM START *****
-$SUDO apt clean -y
-$SUDO apt autoclean -y
-$SUDO apt autoremove -y
+$SUDO apt clean $FLAG_YES
+$SUDO apt autoclean $FLAG_YES
+$SUDO apt autoremove $FLAG_YES
