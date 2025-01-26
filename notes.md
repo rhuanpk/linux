@@ -7587,6 +7587,13 @@ Procurar pelo RGB de alguma cor:
 showrgb | grep -i '<color>'
 ```
 
+### Comando _mkchromecast_
+
+Espelhar tela do PC com dispositivo que tenha Google ou Android System:
+```sh
+mkchromecast -s --video --screencast
+```
+
 ---
 
 <a id="ubuntu"></a>
