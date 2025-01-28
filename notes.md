@@ -7288,6 +7288,48 @@ Comandos úteis:
 
 - `systemd-analyze {blame|critical-chain}`
 
+### Midia Casting/Mirroring/Server
+
+#### Comando _minidlna_
+
+Programas necessários (**#**):
+```sh
+apt install minidlna
+```
+
+Se desejar pode desabilitar o serviço na inicialização (**#**):
+```sh
+systemctl disable minidlna.service
+```
+
+Realizar a configuração via arquivo (`/etc/minidlna.conf`) (**#**):
+- `network_interface`: caso o serviço não seja capaz de determinar por conta própria
+- `media_dir`: para os diretórios de mídia
+- `friendly_name`: caso queria definir um álias para o serviço
+- `inotify`: recarrega automáticamente a biblioteca de mídia caso um novo arquivo seja inserido (use caso tenha poucas mídias?)
+- `port`: caso quira trocar a porta do serviço
+
+Iniciar o servidor manualmente:
+```sh
+sudo minidlnad -d -R
+```
+
+OBS: caso tenha _firewall_ ativo, libere a porta do serviço, exemplo: `sudo ufw allow <port> comment 'MiniDLNA'`
+
+#### Comando _mkchromecast_
+
+Programas necessários (**#**):
+```sh
+apt install mkchromecast
+```
+
+Espelhar a tela para algum dispositivo que seja compatível com o protocolo:
+```sh
+mkchromecast -s --video --screencast [--encoder-backend ffmpeg] [-b 128] [--chunk-size 8] [--resolution 720p]
+```
+
+OBS: caso tenha _firewall_ ativo, libere a porta do serviço, exemplo: `sudo ufw allow <port> comment 'Mkchromecast'`
+
 ---
 
 <a id="db_any_commands"></a>
