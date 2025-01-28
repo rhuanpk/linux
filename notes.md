@@ -6652,6 +6652,24 @@ tmux
     1. Sair do modo de busca:
         `q`
 
+- Copiar seleção para dentro do próprio tmux:
+    1. Entre no modo de cópia:
+        `${mod}+[`
+    1. Inicie o modo de seleção:
+        `<space>`
+    1. Copie o conteúdo selecionado:
+        `<enter>`
+    1. Saia do modo de cópia:
+        `q`
+    1. Cole o conteúdo copiado:
+        `${mod}+]`
+
+- Salvar conteúdo do pane para fora do tmux:
+    1. Entre no modo de comandos:
+        `${mod}+:`
+    1. Copie o conteúdo o _pane_ para o _buffer_ e salve o _buffer_ num arquivo:
+        `capture-pane -S -; save-buffer /path/to/output.txt`
+
 #### Fora da sessão
 
 - Listar todas as sessões:
