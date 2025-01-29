@@ -64,7 +64,7 @@ fi
 [ "${sig_state:=0}" -eq 1 ] && {
 	if [ "$iftype" = 'w_IP' ]; then
 		if type nmcli &>/dev/null; then
-			ssid="$(nmcli -t -f name,device conn show --active --order type | grep -F "$ifname" | cut -d':' -f1)"
+			ssid="$(nmcli -t -f name,device conn show --active --order type | grep -F "$ifname" | head -1 | cut -d':' -f1)"
 		#elif type iwgetid &>/dev/null; then
 		#	ssid="$(iwgetid -r)"
 		#elif type iwconfig &>/dev/null; then
