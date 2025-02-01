@@ -41,6 +41,5 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 while IFS= read; do
-	local output="$(printf '%*s%s' "$(((`tput cols`-64)/2))" '' "$REPLY")"
-	echo "$output"
+	echo "$(printf '%*s%s' "$(((`tput cols`-64)/2))" '' "$REPLY")"
 done <<< "`ncal -by`"
