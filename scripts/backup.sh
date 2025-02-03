@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.8.0'
+readonly version='3.8.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -399,6 +399,10 @@ echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 	exit 1
 }
 if [ "$type_bkp" = "$type_bkp_dev" ]; then
+	[ -z "$udev_label" ] && {
+		echo '-> error: the udev label (-c) must be set'
+		exit 1
+	}
 	tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
 	if ! ($sudo mount -vL "$udev_label" "$tmp_mountpoint/" || failure); then
 		echo "-> error: can't mount device"
