@@ -117,6 +117,8 @@ OBSERVATIONS
 	decoy, the temporary files from the zip command resulting from the use
 	of the \`-k' flag will be removed (using a \`[sudo] rm -fv' command).
 	Is this safe?
+
+	- Always uses \`-k' to cancel the backup.
 EOF
 }
 
