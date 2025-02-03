@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.8.1'
+readonly version='3.8.2'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -37,7 +37,7 @@ failure() {
 
 decoy() {
 	remove-zip-tmps
-	[ "$type_bkp" = "$type_bkp_dev" ] && {
+	[[ "$type_bkp" = "$type_bkp_dev" && "$tmp_mountpoint" ]] && {
 		$sudo umount -v "$tmp_mountpoint"
 		$sudo rmdir -v "$tmp_mountpoint"
 	}
