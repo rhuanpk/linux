@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.8.3'
+readonly version='3.8.4'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -66,7 +66,7 @@ DESCRIPTION
 	The pid file is in "~/$relative_pid".
 
 USAGE
-	$script [<options>]
+	$script [-p] [-t] [<options>]
 
 OPTIONS
 	-c[<label>]
