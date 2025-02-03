@@ -3314,12 +3314,18 @@ ps [-aux] [-f] [-p <pid>] [-C <name>]
 
 #### Comando _pgrep_
 
-- `-l`: mostra também o nome do processo.
-- `-f`: faz o _match_ do _pattern_ não somente com o nome do comando executado mas inclusive com toda a sua linha de argumentos.
+- `-c`: retorna somente a contagem de resultado encontrado
+- `-l`: mostra também o nome do processo
+- `-a`: mostra toda a linha de argumentos do comando
+- `-n`: retorna somente o _pid_ mais novo da árvore
+- `-o`: retorna somente o _pid_ mais velho da árvore
+- `-v`: nega o padrão (_invert match_)
+- `-x`: casa exatamente com o padrão (_exact match_)
+- `-d <delimiter>`: troca o delimitador de saída
 
 Lista os _PID's_ dos processos que casam com o _RegEx_:
 ```sh
-pgrep [-fl] <pattern>
+pgrep [-clanovx] [-d <delimiter>] <pattern>
 ```
 
 #### Comando _pstree_
@@ -9416,7 +9422,7 @@ Conversões entre unidades e multiplicadores:
 
 - <details open>
 	<summary>Entre unidades</summary>
-	
+
 	- <details>
 		<summary>Para escalar</summary>
 
@@ -9430,7 +9436,7 @@ Conversões entre unidades e multiplicadores:
 
 - <details open>
 	<summary>Entre multiplicadores</summary>
-	
+
 	- <details>
 		<summary>Para escalar</summary>
 
