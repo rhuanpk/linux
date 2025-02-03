@@ -1119,7 +1119,7 @@ Para fazer a limitação de comando ou senha separadamente no arquivo **sudoers*
 
 O comando **exec** "substitui" o shell atual pelo comando passado e caso não seja passado passado nenhum argumento, o próprio shell atual será "substituido" por ele mesmo.
 
-Quando executamos algum comando num shell, geralmente o shell cria um PID para esse comando no roda sob ele, ou seja, um sub processo. O que o comando **exec** faz na verdade é fazer com que o comando passado como argumento herde o PID do shell atual e qualquer _signal_ que o novo processo receber, o processo original (o shell) também receberá, ou seja, quando o novo processo encerrar, ou seja, seu PID morrer, o shell atual também morrerá, pois tem o mesmo PID.
+Quando executamos algum comando num shell, geralmente o shell cria um _PID_ para esse comando rodar sob ele, ou seja, um sub-processo. O que o comando **exec** faz na verdade é fazer com que o comando passado como argumento herde o PID do shell atual e qualquer _signal_ que o novo processo receber, o processo original (o shell) também receberá, ou seja, quando o novo processo encerrar, ou seja, seu _PID_ morrer, o shell atual também morrerá, pois "tem o mesmo _PID_".
 
 ```bash
 exec [<options>] [<command>]
