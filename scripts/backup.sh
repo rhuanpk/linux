@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.8.2'
+readonly version='3.8.3'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -193,6 +193,7 @@ setup() {
 	echo "ACTION==\"add\", SUBSYSTEM==\"block\", ENV{ID_FS_LABEL}==\"$label\", TAG+=\"systemd\", ENV{SYSTEMD_WANTS}=\"backups.service\"" \
 	| $sudo tee "$file_rules" >/dev/null \
 		|| { echo "-> error: can't set udev rules"; exit 1; }
+	on-off-rules "$flag_auto_udev"
 	echo '-> info: setting systemd unit'
 	cat <<- EOF | $sudo tee /etc/systemd/system/backups.service >/dev/null
 		[Unit]
@@ -283,9 +284,9 @@ check-zip-size() {
 on-off-rules() {
 	is_auto="${1:?is auto must be set}"
 	if "$is_auto"; then
-		[ -f "$file_rules.off" ] && $sudo mv -v "$file_rules"{.off,}
+		if test -f "$file_rules.off"; then $sudo mv -v "$file_rules"{.off,}; fi
 	else
-		[ -f "$file_rules" ] && $sudo mv -v "$file_rules"{,.off}
+		if test -f "$file_rules"; then $sudo mv -v "$file_rules"{,.off}; fi
 	fi
 }
 
