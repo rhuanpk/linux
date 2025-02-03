@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.8.4'
+readonly version='3.8.5'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -391,7 +391,7 @@ trap decoy EXIT
 # 	&& sort /tmp/folders.txt \
 # 		| uniq -u > /tmp/not-folders.txt
 # Edit the "/tmp/not-folders.txt" then test with to se if every seems ok:
-# 	zip -9ryv /tmp/test.zip -@ < /tmp/not-folders.txt
+# 	zip -9rv /tmp/test.zip -@ < /tmp/not-folders.txt
 echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 [ -z "$type_bkp" ] && {
 	echo '-> error: the backup type (-b) must be set'
@@ -429,7 +429,7 @@ if [ "$count_max_bkps" ]; then
 fi
 notify 'Backup started.'
 start_time="$(date '+%s')"
-zip -9ryq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
+zip -9rq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
 while kill -0 "$(cat "$file_pid")" 2>&-; do
 	sleep 1
 done 2>&-
