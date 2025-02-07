@@ -7336,6 +7336,19 @@ mkchromecast -s --video --screencast [--encoder-backend ffmpeg] [-b 128] [--chun
 
 OBS: caso tenha _firewall_ ativo, libere a porta do serviço, exemplo: `sudo ufw allow <port> comment 'Mkchromecast'`
 
+### Modificar ISO e Refaze-la
+
+1. Extrair a ISO:
+    `7z x image.iso`
+
+1. _Modifique a ISO conforme desejado_
+
+1. _Remonte a ISO modificada_
+
+Para remontar a ISO, você precisará entender um pouco as nuânces de como cada ISO é feita. Essas docs talves possam ajudar:
+- <https://wiki.debian.org/RepackBootableISO>
+- <https://github.com/Diolinux/ubuntu-autoinstall>
+
 ---
 
 <a id="db_any_commands"></a>
