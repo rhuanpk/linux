@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.2.0'
+readonly version='2.3.0'
 readonly script="`basename "$0"`"
 
 FONT_BOLD=1
@@ -100,7 +100,7 @@ list-directory() {
 
 start-test-mode() {
 	TMP_FOLDER='/tmp/tmp'
-	echo -ne "\nCreate a safe folder for tests in \"/tmp/tmp/\", move to it and generate random files for tests! [Y/n] "; read ANSWER
+	echo -ne "\nCreate a safe folder for tests in \"/tmp/tmp/\", move to it and generate random files for tests! [Y/n] "; read -e ANSWER
 	[ -z "$ANSWER" ] || [ y = "${ANSWER,,}" ] && {
 		[ ! -d "$TMP_FOLDER/" ] && mkdir -pv "$TMP_FOLDER/"
 		cd "$TMP_FOLDER/"
@@ -113,7 +113,7 @@ submenu-blank-spaces() {
 	switch-char-to-blank-space() {
 		clear; echo
 		list-directory
-		echo -en "\nEnter the character to be removed, to insert the blank space(s) in its place: "; read STRING
+		echo -en "\nEnter the character to be removed, to insert the blank space(s) in its place: "; read -e STRING
 		for file in *; do
 			mv --verbose -- "$file" "${file//$STRING/ }" &>> "$LOG_FILE"
 		done
@@ -122,7 +122,7 @@ submenu-blank-spaces() {
 	switch-blank-space-to-char() {
 		clear; echo
 		list-directory; echo
-		read -p 'Enter the character that will be placed in place of the blank space(s) (characters not accepted "<", ">", ":", "\", "/", "\", "|", "?", "*"): ' STRING
+		read -ep 'Enter the character that will be placed in place of the blank space(s) (characters not accepted "<", ">", ":", "\", "/", "\", "|", "?", "*"): ' STRING
 		for file in *; do
 			mv --verbose -- "$file" "${file// /$STRING}" &>> "$LOG_FILE"
 		done
@@ -140,7 +140,7 @@ submenu-blank-spaces() {
 			0. `format "$COLOR_RED" EXIT`
 
 		eof
-		read -p 'Choice: ' OPTION
+		read -ep 'Choice: ' OPTION
 		case "$OPTION" in
 			1) switch-char-to-blank-space;;
 			2) switch-blank-space-to-char;;
@@ -180,7 +180,7 @@ submenu-upper-lower() {
 			0. `format "$COLOR_RED" EXIT`
 
 		eof
-		read -p 'Choice: ' OPTION
+		read -ep 'Choice: ' OPTION
 		case "$OPTION" in
 			1) to-upper;;
 			2) to-lower;;
@@ -231,7 +231,7 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be added to the end'
-		read STRING
+		read -e STRING
 		for file in *; do
 			mv --verbose -- "$file" "${file//*/$file$STRING}" &>> "$LOG_FILE"
 		done
@@ -242,7 +242,7 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be removed to the end'
-		read STRING
+		read -e STRING
 		for file in *; do
 			mv --verbose -- "$file" "${file%%$STRING}" &>> "$LOG_FILE"
 		done
@@ -253,7 +253,7 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be added to the begin'
-		read STRING
+		read -e STRING
 		for file in *; do
 			mv --verbose -- "$file" "$STRING$file" &>> "$LOG_FILE"
 		done
@@ -264,7 +264,7 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be removed to the begin'
-		read STRING
+		read -e STRING
 		for file in *; do
 			mv --verbose -- "$file" "${file##$STRING}" &>> "$LOG_FILE"
 		done
@@ -275,14 +275,14 @@ submenu-file-names() {
 		message-default-composed 'Rename specific string'
 		list-directory
 		echo -e "\nRename all files changing one part of the string to another!\n"
-		read -p 'Input string: ' INPUT
-		read -p 'String de saida: ' OUTPUT
+		IFS= read -ep 'Input string: ' INPUT
+		IFS= read -ep 'String de saida: ' OUTPUT
 		[ -z "$INPUT" ] && [ -z "$OUTPUT" ] && {
 			echo -en "\nGo backing to the previous menu whithout doing anything... <press_enter> "; read
 			submenu-file-names
 		}
 		for file in *; do
-			mv --verbose -- "$file" "${file//$INPUT/$OUTPUT}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file//"$INPUT"/"$OUTPUT"}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -311,7 +311,7 @@ submenu-file-names() {
 
 		eof
 		list-directory; echo
-		echo -ne "Enter the file extension (`format "$FONT_ITALIC" empty` for no extension or \"`format "$COLOR_CYAN" =`\" for same extension): "; read EXTENSION
+		echo -ne "Enter the file extension (`format "$FONT_ITALIC" empty` for no extension or \"`format "$COLOR_CYAN" =`\" for same extension): "; read -e EXTENSION
 		[ "$EXTENSION" != 'quit' ] && {
 			count=0
 			for file in *; do
@@ -365,7 +365,7 @@ submenu-file-names() {
 				0. `format "$COLOR_RED" EXIT`
 
 			eof
-			read -p 'Choice: ' OPTION
+			read -ep 'Choice: ' OPTION
 			case "$OPTION" in
 				1) add-string-to-begin;;
 				2) remove-string-to-begin;;
@@ -392,7 +392,7 @@ submenu-file-names() {
 			0. `format "$COLOR_RED" EXIT`
 
 		eof
-		read -p 'Choice: ' OPTION
+		read -ep 'Choice: ' OPTION
 		case $OPTION in
 			1) thirdmenu-rename;;
 			2) rename-middle;;
@@ -423,7 +423,7 @@ menu-main() {
 			0. `format "$COLOR_RED" EXIT`
 
 		eof
-		read -p 'Choice: ' OPTION
+		read -ep 'Choice: ' OPTION
 		case "$OPTION" in
 			1) submenu-blank-spaces;;
 			2) submenu-upper-lower;;
@@ -451,3 +451,4 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 menu-main
+sed -E '/^$/d' "$LOG_FILE"
