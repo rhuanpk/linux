@@ -24,6 +24,7 @@ COLOR_CYAN=36
 COLOR_WHITE=37
 BACKGROUND_BLACK=40
 
+#  ̀ ́ ̂ ̃ ̈ ̄ ̆ ̇ ̧
 LIST_ACCENTS=`
 	cat <<- eof
 		ÀÁÂÃÄÅÆ A
