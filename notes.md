@@ -6646,7 +6646,13 @@ tmux
 - Matar janela atual:
     `${mod}+&`
 
-- Pesquisar dentro do _panel_:
+- Mover o _pane_ para cima:
+    `${mode}+{`
+
+- Mover o _pane_ para baixo:
+    `${mode}+}`
+
+- Pesquisar dentro do _pane_:
     1. Entre no modo de cópia:
         `${mod}+[`
     1. Defina as binding do vim:
