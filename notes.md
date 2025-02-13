@@ -7866,7 +7866,7 @@ git branch -dr <remote>/<branch>
 
 ##### Local
 
-Remover:
+Renomear:
 
 ```sh
 git branch -m <new_branch>
@@ -7879,7 +7879,7 @@ git branch -M <new_branch>
 
 ##### Remoto
 
-Remover:
+Renomear:
 
 ```sh
 git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>
