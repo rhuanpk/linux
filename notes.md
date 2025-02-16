@@ -6785,6 +6785,8 @@ Modo de Pesquisa:
 
 _TIPS/TRICKS_:
 
+- No momento do _replace_ você terá disposição `\L` (_lowercase_) e `\U` (_uppercase_). Para delimitar o encerramento das transformações, use `\E`.
+
 - Para adicionar um novo arquivo ao _buffer_ basta abrir com o comando `:e`.
 
 - Gravar comandos num registrador e executar _n_ vezes:
