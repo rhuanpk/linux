@@ -4733,6 +4733,8 @@ Zsh:
 | `[:space:]`  | Espaço em branco `[\t\r\n\v\f]`.                                      |
 | `[:xdigit:]` | Número hexadecimais `[0-9 a-f A-F]`.                                  |
 
+OBS: Num regex você também pode negar uma classe inteira com: `[^[:<class>:]]`
+
 Perl equivalentes (_PCRE_):
 
 | Classe      | Equivalente |
