@@ -1694,6 +1694,16 @@ Habilitar/Desabilitar a o bloquei de tela (e a suspenção) quando escurece a te
 gsettings set org.gnome.desktop.screensaver lock-enabled {true|false}
 ```
 
+Habilitar modo dark como padrão:
+```bash
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+```
+
+_OBSERVATIONS_:
+- `gtk-{3,4}/settings.ini`
+	- O tema que é escolhido (propriedade "theme-name") que deverá ser _dark_ (caso queira que assim seja)
+	- A propriedade "prefer-dark-theme" server para aplicativos que tem seu próprio tema e com uma versão _dark_
+
 ### Comando *history*
 
 Limpar histórico do terminal:
