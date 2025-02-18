@@ -7369,6 +7369,19 @@ Para remontar a ISO, você precisará entender um pouco as nuânces de como cada
 - <https://wiki.debian.org/RepackBootableISO>
 - <https://github.com/Diolinux/ubuntu-autoinstall>
 
+### Limpar Kernels Antigos
+
+Remove os kernels antigos e atualiza o grub:
+```sh
+dpkg -l | \
+    grep --color=never -E 'linux-image-*' | \
+    awk '{ print $2 }' | \
+    sort -V | \
+    grep -vE "($(uname -r)|image-$(dpkg --print-architecture)|generic)" | \
+    xargs sudo apt purge -y \
+&& sudo update-grub
+```
+
 ---
 
 <a id="db_any_commands"></a>
