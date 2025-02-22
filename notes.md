@@ -2126,8 +2126,20 @@ systemctl thaw '*'
 Troca a porcentagem de uso de disco (que está sobrando) para que a *swap* seja ativada:
 
 ```bash
-sudo sysctl vm.swappiness=<value_that_is_left>
+sudo sysctl vm.swappiness=90
 ```
+
+OBS: 60 é o padrão (quanto maior, "menos usa" a SWAP)
+
+Aumentar o "desejo" de manter o cache da RAM:
+
+```bash
+sudo sysctl vm.vfs_cache_pressure=75
+```
+
+OBS: 100 é o padrão (quanto menor o valor, mais tempo guarda o cache)
+
+Caso atualize o arquivos
 
 OBS: No caso, se quiser que a *swap* seja ativa com 90% de uso de disco, defina o valor para 10.
 
@@ -7300,20 +7312,6 @@ Via interface gráfica:
 1. Ligar inicialização rápida (recomendado)
 1. Salvar alterações
 
-### Debugar Serviços Na Inicialização do Sistema
-
-Comandos úteis:
-- `systemctl [--user] list-units --type service [--all]`
-- `systemctl [--user] list-unit-files --type service [--state=enabled]`
-- `systemctl [--user] list-dependencies --reverse <service>`
-- `service --status-all`
-- `systemd-cgtop`
-
-- `systemctl [--user] daemon-reexec`
-- `systemctl [--user] status [--failed]`
-
-- `systemd-analyze {blame|critical-chain}`
-
 ### Midia Casting/Mirroring/Server
 
 #### Comando _minidlna_
@@ -7381,6 +7379,46 @@ dpkg -l | \
     xargs sudo apt purge -y \
 && sudo update-grub
 ```
+
+### Melhorar Desempenho/Serviços
+
+Dicas para melhorar desempenho:
+1. Desativar serviços desnecessáros
+	- Verificar serviços em execução:
+		`systemctl list-units --type service`
+	- Desabilite os serviços desejados:
+		`systemctl disable [--now] <service>.service`
+	- Evitar desabilitar serviços do próprio **systemd**
+	- Verificar para que serve cada serviço
+1. Analisar tempo de boot:
+	`systemd-analyze blame`
+1. Utilizar um **kernel de baixa latência** (RT)
+	- Zen
+	- XanMod
+1. Desabilitar efeitos visuais da _GUI_
+	- Verificar como fazer isso no seu _DE_
+1. Use gerênciadores de memória
+	- SWAP: Disco/Arquivo usado como memória virtual
+	- ZRAM: Usa parte da própria RAM como SWAP (para evitar usar disco/arquivo)
+	- ZSWAP: Cache de RAM antes de ser eviado a SWAP
+	- Altere padrão **swappiness**:
+		`sudo sysctl vm.swappiness=10`
+	- Altere padrão **vfs_cache_pressure**:
+		`sudo sysctl vm.vfs_cache_pressure=75`
+1. Utilize um _filesystem_ de maior eficiência
+	- BTRFS
+	- XFS
+	- Configure **TRIM**: Diz a controladora do SSD/NVME quais blocos estão disponíveis a serem apagados
+
+Comandos úteis:
+- `systemctl [--user] list-units --type service [--all]`
+- `systemctl [--user] list-unit-files --type service [--state=enabled]`
+- `systemctl [--user] list-dependencies --reverse <service>`
+- `service --status-all`
+- `systemd-cgtop`
+- `systemctl [--user] daemon-reexec`
+- `systemctl [--user] status [--failed]`
+- `systemd-analyze {blame|critical-chain}`
 
 ---
 
