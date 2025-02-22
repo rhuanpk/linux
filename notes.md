@@ -2129,7 +2129,7 @@ Troca a porcentagem de uso de disco (que está sobrando) para que a *swap* seja 
 sudo sysctl vm.swappiness=90
 ```
 
-OBS: 60 é o padrão (quanto maior, "menos usa" a SWAP)
+OBS: 60 é o padrão (quanto maior, "menos usa" a SWAP). No caso, se quiser que a *swap* seja ativa com 90% de uso de disco, defina o valor para 10.
 
 Aumentar o "desejo" de manter o cache da RAM:
 
@@ -2137,11 +2137,13 @@ Aumentar o "desejo" de manter o cache da RAM:
 sudo sysctl vm.vfs_cache_pressure=75
 ```
 
-OBS: 100 é o padrão (quanto menor o valor, mais tempo guarda o cache)
+OBS: 100 é o padrão (quanto menor o valor, mais tempo guarda o cache).
 
-Caso atualize o arquivos
+Caso atualize o arquivos de configuração do usuário como `/etc/sysctl.d/99-sysctl.conf`, utilize o comando para aplicar de imediato os parâmetros ao invés de esperar reiniciar o SO:
 
-OBS: No caso, se quiser que a *swap* seja ativa com 90% de uso de disco, defina o valor para 10.
+```bash
+sudo sysctl --system
+```
 
 ### Comando *passwd*
 
