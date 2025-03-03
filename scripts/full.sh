@@ -63,6 +63,8 @@ log() {
 
 # fix
 ${SUDO:+sudo -v}
+log "> apt -f $FLAG_YES install"
+$SUDO apt -f $FLAG_YES install
 log "> apt install -f $FLAG_YES"
 $SUDO apt install -f $FLAG_YES
 log '> dpkg --configure -a'

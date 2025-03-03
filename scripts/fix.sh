@@ -62,8 +62,10 @@ privileges false false
 # ***** PROGRAM START *****
 if "${DPKG_FIRST:-false}"; then
 	$SUDO dpkg --configure -a
+	$SUDO apt -f $FLAG_YES install
 	$SUDO apt install -f $FLAG_YES
 else
+	$SUDO apt -f $FLAG_YES install
 	$SUDO apt install -f $FLAG_YES
 	$SUDO dpkg --configure -a
 fi
