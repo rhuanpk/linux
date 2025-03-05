@@ -6,7 +6,7 @@
 shopt -s extglob
 
 # >>> variables declaration!
-readonly version='1.7.0'
+readonly version='1.8.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
@@ -34,6 +34,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['obs-profiles']="$PATHWAY_BACKUP/obs/profiles"
 	['obs-scenes']="$PATHWAY_BACKUP/obs/scenes"
 	['vscode']="$PATHWAY_BACKUP/vscode"
+	['mangohud']="$PATHWAY_BACKUP/mangohud"
 )
 
 # place from to get data
@@ -54,6 +55,7 @@ PATHWAY_SSH="$home/.ssh/config"
 PATHWAY_OBS_PROFILES="$home/.config/obs-studio/basic/profiles"
 PATHWAY_OBS_SCENES="$home/.config/obs-studio/basic/scenes"
 PATHWAY_VSCODE="$home/.config/Code/User/settings.json"
+PATHWAY_MANGOHUD="$home/.config/MangoHud/MangoHud.conf"
 
 # >>> functions declaration!
 usage() {
@@ -126,6 +128,7 @@ cp-backup "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}"
 cp-backup "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['shellrc']}"
 cp-backup "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}"
 cp-backup "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}"
+cp-backup "$PATHWAY_MANGOHUD" "${ARRAY_PATHWAY_BACKUP['mangohud']}"
 cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obs-profiles']}/"
 cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obs-scenes']}/"
 
