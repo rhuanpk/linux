@@ -71,5 +71,5 @@ if folder_id="$(ls -1 /sys/bus/pci/devices/ | grep -F "${jack_id:?no such audio 
 	$sudo tee /sys/bus/pci/rescan >/dev/null <<< '1'
 fi
 if "${flag_all:-true}"; then
-	systemctl --user restart pipewire pipewire-pulse wireplumber
+	systemctl --user restart wireplumber pipewire pipewire-pulse
 fi
