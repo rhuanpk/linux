@@ -5,7 +5,7 @@
 # in program start to auto exect when system resume.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -23,6 +23,8 @@ USAGE
 OPTIONS
 	-a
 		Restart the pipewire, pipewire-pulse and wireplumber services too.
+	-z
+		Only executes the \`-a' option.
 	-s
 		Forces keep sudo.
 	-r
@@ -51,9 +53,10 @@ privileges() {
 # >>> pre statements!
 privileges
 
-while getopts 'asrvh' option; do
+while getopts 'azsrvh' option; do
 	case "$option" in
 		a) flag_all=true;;
+		z) flag_reverse=true;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -65,6 +68,10 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 #[ "$1" = 'post' ] || exit 0
+if "${flag_reverse:-true}"; then
+	systemctl --user restart wireplumber pipewire pipewire-pulse
+	exit
+fi
 jack_id="$(lspci | sed -nE 's/^(.*) Audio device: .*$/\1/p')"
 if folder_id="$(ls -1 /sys/bus/pci/devices/ | grep -F "${jack_id:?no such audio jack}")"; then
 	$sudo tee /sys/bus/pci/devices/"$folder_id"/remove >/dev/null <<< '1'
