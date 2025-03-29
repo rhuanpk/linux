@@ -68,7 +68,7 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 #[ "$1" = 'post' ] || exit 0
-if "${flag_reverse:-true}"; then
+if "${flag_reverse:-false}"; then
 	systemctl --user restart wireplumber pipewire pipewire-pulse
 	exit
 fi
@@ -77,6 +77,6 @@ if folder_id="$(ls -1 /sys/bus/pci/devices/ | grep -F "${jack_id:?no such audio 
 	$sudo tee /sys/bus/pci/devices/"$folder_id"/remove >/dev/null <<< '1'
 	$sudo tee /sys/bus/pci/rescan >/dev/null <<< '1'
 fi
-if "${flag_all:-true}"; then
+if "${flag_all:-false}"; then
 	systemctl --user restart wireplumber pipewire pipewire-pulse
 fi
