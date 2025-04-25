@@ -70,4 +70,6 @@ i3lock --color 00000000          \
 --wrong-text=''                  \
 --noinput-text=''                \
 --lock-text=''                   \
---lockfailed-text=''
+--lockfailed-text=''             \
+\
+|| i3lock --color 000000
