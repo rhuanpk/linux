@@ -16,6 +16,8 @@ USAGE
 	$script [<options>]
 
 OPTIONS
+	-d <seconds>
+		Specify the delay of commands (default 1s).
 	-s
 		Forces keep sudo.
 	-r
@@ -40,12 +42,13 @@ EOF
 
 loop() {
 	local command="${1:?need command}"
-	echo "while :; do clear; $command; sleep 1; done"
+	echo "while :; do clear; $command; sleep ${delay:-1}; done"
 }
 
 # >>> pre statements!
-while getopts 'srvh' option; do
+while getopts 'd:srvh' option; do
 	case "$option" in
+		d) delay="$OPTARG";;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
