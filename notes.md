@@ -159,6 +159,18 @@ apt install --download-only <package>
 
 OBS: os _deb's_ serão salvos em `/var/cache/apt/archives`.
 
+Marcar/Desmarcar pacote para não ser atualizado (**#**):
+```sh
+apt-mark [un]hold <package>
+```
+
+Instalar pacote com versão específica (**#**):
+```sh
+apt install <package>:<version>
+```
+
+OBS: o número da versão em específico pode ser pego com `apt policy <package>`
+
 Listar pacotes instalados que não sejam dos repositórios do Debian (**#**):
 ```sh
 apt list '~i!~Odebian'
