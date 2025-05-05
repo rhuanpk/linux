@@ -4597,6 +4597,19 @@ OBS: Os arquivos serão salvos por padrão em `~/.cache/obexd/`.
 1. Troque o nome do grupo do antigo usuário (**#**):
 	`groupmod -n <new-username> <old-username>`
 
+### Verificar WebCam em Uso
+
+Programas necessários (**#**):
+```sh
+apt install v4l-utils
+```
+
+1. Listar os dispositivos de vídeo (**$**):
+    `v4l2-ctl --list-devices`
+
+1. Checar processos que estão utilizando (**#**):
+    `lsof <device>` ou `fuser <device>`
+
 ---
 
 <a id="db_gnulinux-bash"></a>
