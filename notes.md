@@ -9019,9 +9019,11 @@ _REFERENCELINKS_:
 ### Termux
 
 Pós [instalação](https://f-droid.org/en/packages/com.termux/):
+1. `termux-change-repo`
 1. `pkg upgrade -y`
-1. `pkg install -y ranger vim tree curl git iproute2`
 1. `termux-setup-storage`
+1. `pkg install -y vim git tree curl ranger gnupg mandoc iproute2 bash-completion`
+1. `exit`
 
 Usuário:
 ```sh
