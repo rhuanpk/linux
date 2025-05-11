@@ -1894,14 +1894,12 @@ Criando um _virtual disk__ (VD):
 - `-n`: suprime a saída padrão e mostra somente o que casa?
 
 Substituir nova linha por algum caracter:
-
-```bash
+```sh
 sed -z 's/\n/; /g' /path/to/file.txt
 ```
 
 Buscar as linhas que casam com o primeiro grupo de pattern (o que estiver depois de `s/`) e o retorno será somente o *match* de `(.*)`:
-
-```bash
+```sh
 sed -nE 's/^some_string\(to_match\) (.*)/\1/p' /path/to/file.txt
 ```
 
@@ -1927,6 +1925,11 @@ sed -n '/<pattern>/,/<pattern>/p'
 Remover todos caracteres de escape ANSI:
 ```sh
 sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p'
+```
+
+Cria backup na hora de efetivar as alterações & alterações em lote:
+```sh
+grep -rl '<pattern>' | sort -u | xargs sed -Ei'.bak' '<pattern>'
 ```
 
 ### Comando *xargs*
