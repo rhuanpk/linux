@@ -1929,7 +1929,7 @@ sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p'
 
 Cria backup na hora de efetivar as alterações & alterações em lote:
 ```sh
-grep -rl '<pattern>' | sort -u | xargs sed -Ei'.bak' '<pattern>'
+grep -rl '<pattern>' | xargs sed -Ei'.bak' '<pattern>'
 ```
 
 ### Comando *xargs*
