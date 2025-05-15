@@ -21,6 +21,7 @@ Usage: $script [<options>]
 Options:
 	-u: Forces try install upgradable packages;
 	-y: Accept yes for all commands;
+	-f: Perform the firmware update actions;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -42,10 +43,11 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'uysrvh' option; do
+while getopts 'uyfsrvh' option; do
 	case "$option" in
 		u) FLAG_UPGRADABLE='true';;
 		y) FLAG_YES='-y';;
+		f) FLAG_FIRMWARE='true';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -94,3 +96,11 @@ log "> apt autoclean $FLAG_YES"
 $SUDO apt autoclean $FLAG_YES
 log "> apt autoremove $FLAG_YES"
 $SUDO apt autoremove $FLAG_YES
+
+# firmware
+log "> fwupdmgr update $FLAG_YES"
+if "${FLAG_FIRMWARE:-false}"; then
+	which -s fwupdmgr || $SUDO apt install fwupd $FLAG_YES
+	fwupdmgr refresh
+	fwupdmgr update $FLAG_YES
+fi
