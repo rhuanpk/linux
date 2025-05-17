@@ -8799,6 +8799,20 @@ for branch in `git branch --color=never | sed -E 's/^[ \*] //g'`; do
 done
 ```
 
+#### Adicionar Arquivos Já Commitados no .gitignore
+
+É necessário resetar o cache do repositório local:
+
+1. `git rm --cached -r ./`
+1. `git add ./`
+1. `git commit -m '<message>'`
+
+_pipeline_:
+
+```sh
+git rm --cached -r ./ && git add ./ && git commit -m '<message>'
+```
+
 ### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
