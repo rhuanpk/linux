@@ -17,6 +17,7 @@
 - [GitHub CLI](#github_cli)
 - [Arch Base](#arch_base)
 - [Android](#android)
+- [AWS](#aws)
 - [Miscellaneous](#miscellaneous)
 - [Games](#games)
 - [Estudos](#estudos)
@@ -9122,6 +9123,25 @@ Resetar _distro_ do zero:
 ```sh
 proot-distro reset <distro>
 ```
+
+---
+
+<a id="aws"></a>
+## [AWS](#aws)
+
+AWS CLI:
+
+- `aws configure`: configura o perfil padrão
+- `aws configure --profile <name>`: configura o perfil especificado (cria se não existir)
+- `aws configure list`: lista as configurações do perfil padrão
+- `aws configure list-profiles`: lista os nomes dos perfis configurados
+- `aws configure list --profile <name>`: lista as configuerações do perfil especificado
+- `aws configure set <key> <value>`: define o valor na variável do perfil padrão
+- `aws configure set <key> <value> --profile <name>`: define o valor na variável do perfil especificado
+- `aws configure get <key>`: pega o valor da variável específica do perfil padrão
+- `aws configure get <key> --profile <name>`: pega o valor da variável específica do perfil especificado
+
+OBS: Os nomes das variáveis (`<key>`) dos comandos `set` e `get` podem ser encontradas pelo comando `aws configure [set] help`.
 
 ---
 
