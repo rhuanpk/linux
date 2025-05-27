@@ -9127,7 +9127,7 @@ proot-distro reset <distro>
 ---
 
 <a id="aws"></a>
-## [AWS](#aws)
+## [AWS](#menu)
 
 AWS CLI:
 
