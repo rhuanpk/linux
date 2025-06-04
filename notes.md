@@ -9597,6 +9597,10 @@ Conversões entre unidades e multiplicadores:
 
 		- Sintaxe: `X = S * 10{00|24}`
 		- Exemplo: **GiB** para **MiB** → `1 GiB * 1024 = 1024 MiB`
+
+- <details open>
+    <summary>Entre bases</summary>
+
 	- <details>
 		<summary>Base 10 para 2</summary>
 
