@@ -100,7 +100,9 @@ $SUDO apt autoremove $FLAG_YES
 # firmware
 log "> fwupdmgr update $FLAG_YES"
 if "${FLAG_FIRMWARE:-false}"; then
-	which -s fwupdmgr || $SUDO apt install fwupd $FLAG_YES
-	fwupdmgr refresh
-	fwupdmgr update $FLAG_YES
+	if which -s fwupdmgr || $SUDO apt install fwupd $FLAG_YES; then
+		#fwupdmgr get-devices >&-
+		fwupdmgr refresh
+		fwupdmgr get-updates && fwupdmgr update $FLAG_YES
+	fi
 fi
