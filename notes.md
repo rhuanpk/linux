@@ -3956,7 +3956,7 @@ Executar qemu _logado_ como root:
 
 Programa necessário (`#`):
 ```sh
-apt install network-amanger
+apt install network-manager
 ```
 
 ##### Comando `nmcli`
@@ -4004,6 +4004,15 @@ nmcli connection import type <vpn-type> file /path/to/vpn-file.any
 - OBS: Depois basta se conectar com `nmtui-connect`.
 
 _OBSERVATIONS_: Para **OpenVPN** instale o pacote `network-manager-openvpn`.
+
+##### Troubleshooting
+
+Dmesg acusando `firmware failed to leave lps state` e `failed to send h2c command`, desabilite o _power save_:
+```sh
+echo $'[connection]\nwifi.powersave = 2' | sudo tee /etc/NetworkManager/conf.d/powersaver.conf && sudo systemctl restart NetworkManager.service
+```
+
+OBS: Caso já exista algum arquivo de configuração dentro de `/etc/NetworkManager/conf.d/` apenas troque o parâmetro da configuração `wifi.powersave` para `2`.
 
 #### Comando *nmap*
 
