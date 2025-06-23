@@ -3936,6 +3936,20 @@ qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX
 mount -o trans=virtio -t 9p <mount-tag> /mnt
 ```
 
+#### Passar USB Para VM
+
+```sh
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} [-usb] -device usb-host,hostbus=<bus>,hostport=<port>
+```
+
+Para listar o dispositivos:
+```sh
+lsusb -tv
+```
+
+1. O parâmetro `bus` será os primeiros níveis da listagem, por exemplo `Bus 001` (hostbus=1) ou `Bus 002` (hostbus=2).
+1. O parâmetro `port` será os próximos níveis da listagem, por exemplo `Port 001` (hostport=1) ou `Port 002\n\tPort 001` (hostport=2.1)
+
 #### Clonagem de Disco Virtual
 
 ```bash
