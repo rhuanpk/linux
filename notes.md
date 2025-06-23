@@ -3067,12 +3067,17 @@ xwininfo
 
 Pegar info a partir do caminho do _device_:
 ```sh
-lsblk -no <column> /dev/sdXY
+lsblk -no <COLUMN>[,<COLUMN> ...] /dev/sdXY
 ```
 
-Saber se o disco -e **HDD** ou **SSHD**:
+Saber o nome do _device_:
 ```sh
-lsblk -do name,rota
+lsblk -do NAME,MODEL
+```
+
+Saber se o disco é **HDD** ou **SSD**:
+```sh
+lsblk -do NAME,ROTA
 ```
 
 - `0`: para SSD
