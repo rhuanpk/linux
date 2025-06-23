@@ -3945,7 +3945,7 @@ qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX
 
 - Fornecedor e Produto:
 ```sh
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -usb [-device usb-{xhci|ehci},id={xhci|ehci}] -device usb-host,vendorid=<vendor>,productid=<product>
+qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -usb [-device usb-{xhci|ehci},id={xhci|ehci}] -device usb-host,vendorid=0x<vendor>,productid=0x<product>
 ```
 
 Para listar o dispositivos:
