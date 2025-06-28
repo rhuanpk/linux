@@ -2598,6 +2598,11 @@ Converter segundos (desde a Época) em data:
 date --date='@<seconds>' '+%F %T'
 ```
 
+Pega a data adiantada:
+```sh
+date --date="TZ=\"$(date +%Z)\" +1 hour"
+```
+
 Passar fuso horário específico:
 ```sh
 # timezone name
