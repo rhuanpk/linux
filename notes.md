@@ -2354,7 +2354,7 @@ firejail
 Executar a aplicação em _sandbox_:
 
 ```bash
-firejail <program_name>
+firejail [--noprofile] [--nodbus] [--private] <program_name>
 ```
 
 Lista os processos executando com `firejail`:
