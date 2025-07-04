@@ -14,6 +14,7 @@
 	- [Any Commands](#db_any_commands)
 - [Ubuntu](#ubuntu)
 - [Git](#git)
+- [GitHub](#github)
 - [GitHub CLI](#github_cli)
 - [Arch Base](#arch_base)
 - [Android](#android)
@@ -8856,6 +8857,19 @@ git rm --cached -r ./ && git add ./ && git commit -m '<message>'
 ### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
+
+---
+
+<a id="github"></a>
+## [GitHub](#menu)
+
+
+### URL's
+
+Saber PR's abertos:
+```
+https://github.com/pulls?q=is%3Aopen+is%3Apr+user%3A<user>+archived%3Afalse+
+```
 
 ---
 
