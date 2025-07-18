@@ -7731,6 +7731,18 @@ pdftk /path/to/input.pdf cat 3-r2 output /path/to/output.pdf
 pdftk /path/to/input.pdf cat r3-r1 output /path/to/output.pdf
 ```
 
+Gerar PDF com senha:
+
+```bash
+pdftk /path/to/file.pdf output /path/to/encrypted.pdf user_pw PROMPT
+```
+
+Retirar senha do PDF:
+
+```bash
+pdftk /path/to/encrypted.pdf input_pw PROMPT output /path/to/decrypted.pdf
+```
+
 ### Comando *highlight-pointer*
 
 Instalação:
