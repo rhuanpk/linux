@@ -8873,6 +8873,20 @@ _pipeline_:
 git rm --cached -r ./ && git add ./ && git commit -m '<message>'
 ```
 
+#### Objeto de Arquivos Vazios
+
+Quando alguma operação Git é interrompida:
+
+1. `find .git/objects/ -type f -empty -delete`
+1. `git fetch -p`
+1. `git fsck --full`
+
+_pipeline:_
+
+```sh
+find .git/objects/ -type f -empty -delete && git fetch -p && git fsck --full
+```
+
 ### Git Playground
 
 <http://git-school.github.io/visualizing-git/>
