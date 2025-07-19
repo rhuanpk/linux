@@ -8543,16 +8543,23 @@ Trocar editor padrão:
 git config --global core.editor <editor>
 ```
 
-#### `includeIf` (_repo groups_)
+#### `include`
+
+Definir arquivo de configuração para ser incluso:
+```sh
+git config --global include.path ~/path/to/.gitconfig
+```
+
+#### `includeIf`
 
 Definir arquivo de configuração específico para todos os repos dentro de terminada pasta:
 ```sh
-git config --global includeIf.'gitdir:~/path/to/folder/projects/'.path ./path/to/.gitconfig
+git config --global includeIf.'gitdir:~/path/to/projects/[**]'.path ~/path/to/projects/.gitconfig
 ```
 
-- _OBSERVATIONS_:
-    - Necessário a "/" no final do caminho do em `gitdir`;
-    - O `.` no início do caminho do `.gitconfig` é a relação da _home_ do usuário.
+_OBSERVATIONS_:
+- Aqui dizemos: Inclua o `.gitconfig` quando estiver dentro da pasta _projects_ ou numa subpasta
+- Necessário a "/" no final do caminho do em `gitdir`
 
 ### Bare
 
