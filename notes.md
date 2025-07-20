@@ -4883,7 +4883,7 @@ Shell Não-Interativo:
 
 #### Usando CLI
 
-Shells de Login:
+Shells de Login e Não-Login:
 1. `/etc/environment`:
     - Independete (carregado pelo **PAM**);
 
@@ -4905,6 +4905,9 @@ Shells Interativos:
 
 1. `~/.bashrc`:
     - Configuração local do usuario para _shells_ interativos (e de não-login).
+
+Shells Não Interativos:
+1. Não carregam nada, apenas herdão o que já tem no ambiente?
 
 #### Usando GUI
 
