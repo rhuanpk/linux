@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.0.1'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -80,7 +80,7 @@ shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
 readonly file_mimes='/usr/share/mime/types'
-readonly file_query="/tmp/$(mktemp mime-app_XXXXXXX.txt)"
+readonly file_query="$(mktemp /tmp/mime-app_XXXXXXX.txt)"
 while read mime; do
 	app="$(xdg-mime query default $mime)"
 	tee -a "$file_query" <<< "$mime: ${app:-null}"
