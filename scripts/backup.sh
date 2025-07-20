@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.11.0'
+readonly version='3.11.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -76,7 +76,7 @@ OPTIONS
 		Override once the atual backup type (must be "$type_bkp_dev"
 		or "$type_bkp_local").
 	-f[<path>]
-		Relative path inside the deviec that store the backups.
+		Relative path inside the device that store the backups.
 	-m[<integer>]
 		Set the maximum number of versions.
 	-p<zip-options>
@@ -113,8 +113,8 @@ OBSERVATIONS
 
 	- When the \`-k' option is used and the zip process is killed, it will
 	most likely leave behind its temporary buffer files that it used to
-	perform compression. If the \`-x' flag is true, then in the script
-	decoy, the temporary files from the zip command resulting from the use
+	perform compression. If the \`-x' flag is true, then in the decoy
+	script, the temporary files from the zip command resulting from the use
 	of the \`-k' flag will be removed (using a \`[sudo] rm -fv' command).
 	Is this safe?
 
