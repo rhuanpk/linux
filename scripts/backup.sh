@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.9.0'
+readonly version='3.10.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -170,17 +170,16 @@ setup() {
 		echo '-> error: no such dirs file or has nothing'
 		exit 1
 	}
-	echo '-> info: checking folders to backup'
-	# folder's here are files or directories
-	while read -r folder; do
-		clean_path="${folder#!}"
+	echo '-> info: checking paths to backup'
+	while read -r path; do
+		clean_path="${path#!}"
 		if [ ! -e "$(readlink -e "$clean_path")" ]; then
 			echo "-> warn: \"$clean_path\" not exists"
-			[[ ! "$folder" =~ ^! ]] \
-				&& sed -i "s~^$folder$~\!&~" "$file_dirs"
+			[[ ! "$path" =~ ^! ]] \
+				&& sed -i "s~^$path$~\!&~" "$file_dirs"
 		else
-			[[ "$folder" =~ ^! ]] \
-				&& sed -i "s~^$folder$~$clean_path~" "$file_dirs"
+			[[ "$path" =~ ^! ]] \
+				&& sed -i "s~^$path$~$clean_path~" "$file_dirs"
 		fi
 	done < "$file_dirs"
 	if (grep -qm1 '^!' "$file_dirs" || { [ "$?" -eq 2 ] && failure; }); then
