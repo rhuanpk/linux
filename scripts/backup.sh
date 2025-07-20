@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.8.5'
+readonly version='3.9.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -177,10 +177,10 @@ setup() {
 		if [ ! -e "$(readlink -e "$clean_path")" ]; then
 			echo "-> warn: \"$clean_path\" not exists"
 			[[ ! "$folder" =~ ^! ]] \
-				&& sed -i "s~^$folder$~\!&~g" "$file_dirs"
+				&& sed -i "s~^$folder$~\!&~" "$file_dirs"
 		else
 			[[ "$folder" =~ ^! ]] \
-				&& sed -i "s~^$folder$~$clean_path~g" "$file_dirs"
+				&& sed -i "s~^$folder$~$clean_path~" "$file_dirs"
 		fi
 	done < "$file_dirs"
 	if (grep -qm1 '^!' "$file_dirs" || { [ "$?" -eq 2 ] && failure; }); then
