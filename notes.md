@@ -6872,8 +6872,8 @@ Modo de Comando:
 	`:b {<index>|<name>}`
 - listar arquivos no _buffer_:
     `:ls`
-- mudar o _syntax highlifht_:
-    `:set filetype=<type>`
+- mudar o _syntax highlight_:
+    `:set syntax=<type>`
 
 Modo de Pesquisa:
 - pesquisa com case insensitive:
