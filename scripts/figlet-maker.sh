@@ -19,8 +19,8 @@ Generates figlet banners by given text.
 Usage: $script [<options>] <text>
 
 Options:
-	-u: Do the setup for figlet fonts;
-	-q: Do not print output, only and generates the file;
+	-u: Setup for figlet fonts;
+	-q: Not print, only generate the file;
 	-l: List all font names;
 	-f '<font1[|font2...]>': Filter by font name(s) (without your extension);
 	-s: Forces keep sudo;
