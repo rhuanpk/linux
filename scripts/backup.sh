@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.10.0'
+readonly version='3.11.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -222,16 +222,19 @@ set-var() {
 }
 
 ls-infos() {
-	cat <<- EOF >&3
-		$(separator '"') ${script^^} $(separator '"')
-		-> label: "$udev_label"
-		-> folder: "$path_bkp_dev"
-		-> max: "$count_max_bkps"
-		-> automatic: "$flag_auto_udev"
-		-> local: "$path_bkp_local"
-		-> type: "$type_bkp"
-		-> removes: "$flag_auto_rm"
-	EOF
+cat << EOF >&3
+$(separator '"') ${script^^} $(separator '"')
+-> backup
+	- type .....: ${type_bkp@Q}
+	- copies ...: ${count_max_bkps@Q}
+	- removes ..: ${flag_auto_rm@Q}
+-> local
+	- folder ...: ${path_bkp_local@Q}
+-> device
+	- folder ...: ${path_bkp_dev@Q}
+	- label ....: ${udev_label@Q}
+	- automatic : ${flag_auto_udev@Q}
+EOF
 }
 
 log-config() {
