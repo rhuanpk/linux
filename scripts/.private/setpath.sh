@@ -16,7 +16,7 @@ DESCRIPTION
 	Atual supported flags:
 		- linux
 		- scripts
-		- cfg-bkp
+		- cfgbkp
 		- notes
 
 USAGE
@@ -88,7 +88,7 @@ setpath() {
 declare -A paths=(
 	['linux']='PATH_LINUX'
 	['scripts']='PATH_SCRIPTS'
-	['cfg-bkp']='PATH_CFGBKP'
+	['cfgbkp']='PATH_CFGBKP'
 	['notes']='PATH_NOTES'
 )
 
