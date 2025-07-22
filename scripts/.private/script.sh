@@ -3,7 +3,8 @@
 # Internal descriptions.
 
 # >>> built-in setups
-#set -exE +o histexpand -o pipefail
+#shopt -s globstar
+#set -exCE +H -o pipefail
 #exec 3>&1 > >(tee /tmp/file.log) 2>&1
 
 # >>> variables declaration
