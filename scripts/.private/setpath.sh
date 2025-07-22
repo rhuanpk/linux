@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.0.0'
+readonly version='2.1.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -23,6 +23,8 @@ USAGE
 	$script [<options>]
 
 OPTIONS
+	-p
+		Only prints the path, not save or edit nothing.
 	-s
 		Forces keep sudo.
 	-r
@@ -51,8 +53,9 @@ privileges() {
 # >>> pre statements
 privileges
 
-while getopts 'srvh' option; do
+while getopts 'psrvh' option; do
 	case "$option" in
+		p) flag_print=true;;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -72,10 +75,12 @@ setpath() {
 		| xargs dirname 2>&- \
 		| tail -1
 	)
-	if ! grep -qE -m 1 "^$variable=.*$" "$environment"; then
-		$sudo tee -a "$environment" <<< "$variable=$path" &>/dev/null
-	else
-		$sudo sed -Ei "/^$variable=.*$/s~[^=]+$~$path~" "$environment" 2>&-
+	if ! "${flag_print:-false}"; then
+		if ! grep -qE -m 1 "^$variable=.*$" "$environment"; then
+			$sudo tee -a "$environment" <<< "$variable=$path" &>/dev/null
+		else
+			$sudo sed -Ei "/^$variable=.*$/s~[^=]+$~$path~" "$environment" 2>&-
+		fi
 	fi
 	echo "$path"
 }
