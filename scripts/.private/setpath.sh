@@ -79,12 +79,14 @@ setpath() {
 	fi
 	echo "$path"
 }
+
 declare -A paths=(
 	['linux']='PATH_LINUX'
 	['scripts']='PATH_SCRIPTS'
 	['cfg-bkp']='PATH_CFGBKP'
 	['notes']='PATH_NOTES'
 )
+
 for folder in "${1:-${!paths[@]}}"; do
 	variable="${paths[$folder]}"
 	[ -z "$variable" ] && exit 1
