@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.1.0'
+readonly version='2.2.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -115,7 +115,7 @@ while getopts ':bd:p:srvh' option; do
 done
 shift $(("$OPTIND"-1))
 
-: ${path:?need a path to move scripts}
+: ${path:=$(pwd)}
 
 # ***** PROGRAM START *****
 excludes=(
