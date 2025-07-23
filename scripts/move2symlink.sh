@@ -1,100 +1,125 @@
 #!/usr/bin/bash
 
-# OBS: Whenever you add a new function, add it to the "ALL_FUNCTIONS" array.
+# >>> variables declaration
+readonly version='2.0.0'
+readonly script="$(basename "$0")"
+readonly uid="${UID:-$(id -u)}"
 
-# >>> variables declaration!
-readonly version='1.1.0'
-readonly script="`basename "$0"`"
-readonly uid="${UID:-`id -u`}"
+readonly root_bin='/usr/local/bin'
+readonly home_bin="$HOME/.local/bin/"
+local_bin="$home_bin"
 
-SUDO='sudo'
-SETLOAD_URL='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setload.sh'
-PATHWAY=${PK_LOAD_LINUX:-`wget -qO - "$SETLOAD_URL" | bash - 2>&- | grep linux`}
-ALL_FILES=`ls -1 "$PATHWAY"/scripts/*.sh`
-ALL_FUNCTIONS=('copy2symlink' 'copy2binary')
-EXPRESSION='(backup|volume-encryption-utility)\.sh'
-LOCAL_BIN='/usr/local/bin/pk'
-NO_SHORTHANDS=('vagrant-start.sh' 'default-montage.sh' 'gomobile-setup.sh')
-
-# >>> functions declaration!
+# >>> functions declaration
 usage() {
 cat << EOF
 $script v$version
 
-Move binaries to \`/usr/local/bin\` folder converting symlinks but some not.
+DESCRIPTION
+	Create symlinks of scripts in the folder.
+	By default from \$PATH_SCRIPTS to ${home_bin@Q}.
 
-Usage: $script [<options>]
+USAGE
+	$script [<options>]
 
-Options:
-	-l: Move only those that will be converted to symlinks;
-	-h: Saves the scripts in '~/.local/bin/';
-	-s: Forces keep sudo;
-	-r: Forces unset sudo;
-	-v: Print version;
-	-h: Print this help.
+OPTIONS
+	-b
+		Saves the symlinks in ${root_bin@Q} instead ${home_bin@Q}.
+	-p [<path>]
+		Instead get the path of folder from \$PATH_SCRIPTS, get it
+		from \`pwd' or specified path.
+	-s
+		Forces keep sudo.
+	-r
+		Forces unset sudo.
+	-v
+		Print version.
+	-h
+		Print this help.
 EOF
 }
 
 privileges() {
-	FLAG_SUDO="${1:?needs sudo flag}"
-	FLAG_ROOT="${2:?needs root flag}"
-	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
-		echo "$script: run with root privileges"
+	local flag_sudo="$1"
+	local flag_root="$2"
+	sudo='sudo'
+	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
+		echo "$script: error: run as root #sudo"
 		exit 1
-	elif ! "$FLAG_SUDO"; then
-		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
-			unset SUDO
+	elif ! "${flag_sudo:-false}"; then
+		if "${flag_root:-false}" || [ "$uid" -eq 0 ]; then
+			unset sudo
 		fi
 	fi
 }
 
-make-shorthand() {
-	NAME="`basename "${1%.sh}"`"
-	[[ "$NAME" =~ - ]] && tr '-' '\n' <<< "$NAME" | cut -c 1 | tr -d '\n' || echo "$NAME"
-}
-
-make-filename() {
-	FILE="`basename "${1:?needs a file to validade}"`"
-	[[ "${NO_SHORTHANDS[@]}" =~ $FILE ]] && echo "${FILE%.sh}" || echo "`make-shorthand "$FILE"`"
-}
-
-copy2symlink() {
-	for file in `grep -vE "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$SUDO ln -sfv "$file" "$LOCAL_BIN/`make-filename "$file"`"
+check-needs() {
+	get_pm_cmd() {
+		which -s apk && { echo 'apk add'; return; }
+		which -s apt && { echo 'apt install'; return; }
+		which -s dnf && { echo 'dnf install'; return; }
+		which -s yum && { echo 'yum install'; return; }
+		which -s pkg && { echo 'pkg install'; return; }
+		which -s pacman && { echo 'pacman -S'; return; }
+		which -s emerge && { echo 'emerge -av'; return; }
+		which -s zypper && { echo 'zypper install'; return; }
+		which -s portage && { echo 'portage install'; return; }
+	}
+	privileges
+	local packages=('curl')
+	for package in "${packages[@]}"; do
+		if ! dpkg -s "$package" &>/dev/null; then
+			echo -ne "$script: ask: needed \"$package\", "
+			read -rp  "install? [Y/n] "
+			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
+				$sudo `get_pm_cmd` "$package" || exit $?
+			}
+		fi
 	done
 }
 
-copy2binary() {
-	for file in `grep -E "$EXPRESSION" <<< "$ALL_FILES"`; do
-		$SUDO cp -v "$file" "$LOCAL_BIN/`make-filename "$file"`"
-	done
+setpath() {
+	local setpath_url='https://raw.githubusercontent.com/rhuanpk/linux/refs/heads/main/scripts/.private/setpath.sh'
+	path="${PATH_SCRIPTS:-$(curl -fsL "$setpath_url" | bash -s -- -p scripts)}"
 }
 
-execute-all() {
-	for func in "${ALL_FUNCTIONS[@]}"; do $func; done
+setargs() {
+	local arg="${1:-need a arg to set}"
+	[ "$arg" = 'p' ] && path="$(pwd)"
 }
 
-# >>> pre statements!
-[ -z "$PATHWAY" ] && PATHWAY="`pwd`" || PATHWAY+='/scripts'
+# >>> pre statements
+check-needs
+setpath
 
-while getopts 'lasrvh' OPTION; do
-	case "$OPTION" in
-		l) FLAG_SYMLINK='true';;
-		a) LOCAL_BIN=~/.local/bin/;;
+unset sudo
+
+while getopts ':bp:srvh' option; do
+	case "$option" in
+		b)
+			local_bin="$root_bin"
+			privileges
+		;;
+		p) path="$OPTARG";;
+		:) setargs "$OPTARG";;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
-		:|?|h) usage; exit 2;;
+		h) usage; exit 1;;
+		*) exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
 
-privileges false false
-$SUDO mkdir -pv "$LOCAL_BIN"
+: ${path:?need a path to move scripts}
 
 # ***** PROGRAM START *****
-if "${FLAG_SYMLINK:-false}"; then
-	copy2symlink
-else
-	execute-all
-fi
+excludes=(
+	'backup.sh'
+	'volume-encryption-utility.sh'
+)
+
+for file in "$path"/*.sh; do
+	name="$(basename "$file")"
+	[[ "${excludes[*]}" =~ $name ]] && continue
+	$sudo ln -sfv "$file" "$local_bin/${name%.sh}"
+done
