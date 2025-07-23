@@ -14,13 +14,13 @@ DESCRIPTION
 	Setup the given preseted "path flag" and return their atual path is OS.
 
 	Atual supported flags:
-		- linux
-		- scripts
-		- cfgbkp
-		- notes
+		- linux (\$PATH_LINUX)
+		- scripts (\$PATH_SCRIPTS)
+		- cfgbkp (\$PATH_CFGBKP)
+		- notes (\$PATH_NOTES)
 
 USAGE
-	$script [<options>]
+	$script [<options>] [<flag>]
 
 OPTIONS
 	-p
