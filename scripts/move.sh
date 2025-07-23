@@ -120,7 +120,7 @@ shift $(("$OPTIND"-1))
 # ***** PROGRAM START *****
 excludes=(
 	'backup.sh'
-	'volume-encryption-utility.sh'
+	'volume-encryption.sh'
 )
 
 for src in "$path"/*.sh; do
