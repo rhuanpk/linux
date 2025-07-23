@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.0.0'
+readonly version='2.1.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -24,6 +24,9 @@ USAGE
 OPTIONS
 	-b
 		Saves the symlinks in ${root_bin@Q} instead ${home_bin@Q}.
+	-d [<path>]
+		Saves the symlinks in the specified folder, if no argument
+		is provided, \`pwd' is the default.
 	-p [<path>]
 		Instead get the path of folder from \$PATH_SCRIPTS, get it
 		from \`pwd' or specified path.
@@ -84,6 +87,7 @@ setpath() {
 
 setargs() {
 	local arg="${1:-need a arg to set}"
+	[ "$arg" = 'd' ] && local_bin="$(pwd)"
 	[ "$arg" = 'p' ] && path="$(pwd)"
 }
 
@@ -93,13 +97,14 @@ setpath
 
 unset sudo
 
-while getopts ':bp:srvh' option; do
+while getopts ':bd:p:srvh' option; do
 	case "$option" in
 		b)
 			local_bin="$root_bin"
 			privileges
 		;;
-		p) path="$OPTARG";;
+		d) local_bin="${OPTARG%/}";;
+		p) path="${OPTARG%/}";;
 		:) setargs "$OPTARG";;
 		s) privileges true false;;
 		r) privileges false true;;
