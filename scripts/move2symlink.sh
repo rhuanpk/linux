@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.2.0'
+readonly version='2.3.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -15,21 +15,20 @@ cat << EOF
 $script v$version
 
 DESCRIPTION
-	Create symlinks of scripts in the folder.
-	By default from \$PATH_SCRIPTS to ${home_bin@Q}.
+	Copy the scripts from \$PATH_SCRIPTS to ${home_bin@Q}.
 
 USAGE
 	$script [<options>]
 
 OPTIONS
 	-b
-		Saves the symlinks in ${root_bin@Q} instead ${home_bin@Q}.
-	-d [<path>]
-		Saves the symlinks in the specified folder, if no argument
-		is provided, \`pwd' is the default.
+		Saves in ${root_bin@Q} instead ${home_bin@Q}.
+	-l
+		Make symlinks instead copies.
 	-p [<path>]
-		Instead get the path of folder from \$PATH_SCRIPTS, get it
-		from \`pwd' or specified path.
+		Saves from specified folder (default is \`pwd').
+	-d [<path>]
+		Saves to specified folder (default is \`pwd').
 	-s
 		Forces keep sudo.
 	-r
@@ -97,14 +96,15 @@ setpath
 
 unset sudo
 
-while getopts ':bd:p:srvh' option; do
+while getopts ':blp:d:srvh' option; do
 	case "$option" in
 		b)
 			local_bin="$root_bin"
 			privileges
 		;;
-		d) local_bin="${OPTARG%/}";;
+		l) flag_symlink=true;;
 		p) path="${OPTARG%/}";;
+		d) local_bin="${OPTARG%/}";;
 		:) setargs "$OPTARG";;
 		s) privileges true false;;
 		r) privileges false true;;
@@ -123,8 +123,14 @@ excludes=(
 	'volume-encryption-utility.sh'
 )
 
-for file in "$path"/*.sh; do
-	name="$(basename "$file")"
+for src in "$path"/*.sh; do
+	cmd='cp -fv'
+	name="$(basename "$src")"
+	dst="$local_bin/${name%.sh}"
 	[[ "${excludes[*]}" =~ $name ]] && continue
-	$sudo ln -sfv "$file" "$local_bin/${name%.sh}"
+	if "${flag_symlink:-false}"; then
+		cmd='ln -sfv'
+	fi
+	[ -L "$dst" ] && rm -fv "$dst"
+	eval "$sudo $cmd '$src' '$dst'"
 done
