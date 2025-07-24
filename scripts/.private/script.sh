@@ -133,7 +133,7 @@ while getopts 'srvh' option; do
 		*) exit 2;;
 	esac
 done
-shift $(("$OPTIND"-1))
+shift $((OPTIND-1))
 
 # ***** PROGRAM START *****
 # path="~/.xpto"
