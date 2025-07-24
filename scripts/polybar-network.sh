@@ -3,7 +3,7 @@
 # Prints the local ip for polybar module.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.1.1'
 readonly script="`basename "$0"`"
 
 # >>> functions declaration!
@@ -38,7 +38,7 @@ check-ifname() {
 }
 
 # set signal file
-readonly sig='/tmp/pns.sig'
+readonly sig='/tmp/polybar-network.sig'
 sig_state="`[ -f "$sig" ] && wc -l < "$sig"`"
 
 # get interface routes
