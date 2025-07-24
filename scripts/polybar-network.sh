@@ -76,7 +76,7 @@ fi
 	fi
 }
 [ "$sig_state" -ge 2 ] && rm "$sig"
-if pvs; then
+if polybar-vpn; then
 	ip+=' (%{F#FF00FF}VPN%{F-})'
 fi
 echo "%{F#10E3E3}$iftype:%{F-} $ip"
