@@ -80,7 +80,7 @@ check-needs() {
 }
 
 setpath() {
-	local setpath_url='https://raw.githubusercontent.com/rhuanpk/linux/refs/heads/main/scripts/.private/setpath.sh'
+	local setpath_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
 	path="${PATH_SCRIPTS:-$(curl -fsL "$setpath_url" | bash -s -- -p scripts)}"
 }
 
