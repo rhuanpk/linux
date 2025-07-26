@@ -69,7 +69,7 @@ shift $(("$OPTIND"-1))
 
 notify() {
 	local urgency="${1:-normal}"
-	notify-send -u "$urgency" 'Battery Power low!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
+	notify-send -u "$urgency" 'Battery Power!' "Low battery: $BATTERY_POWER or less, plug it into outlet."
 }
 
 [ "`acpi --ac-adapter | tr -d '[[:blank:]]' | cut -d ':' -f 2`" = 'on-line' ] && IS_PLUGED='true' || IS_PLUGED='false'
