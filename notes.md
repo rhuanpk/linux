@@ -5041,6 +5041,83 @@ O comando `test` por padrão sem nenhum argumento valida com a opção `-n`, log
 [ "$FOO" ]
 ```
 
+#### `-p` & `-t`
+
+_Named pipes_ e _process replacements_.
+
+Para o seguinte teste de mesa:
+```sh
+#!/bin/bash
+
+for fd in {0..2}; do
+	prefix="fd ${fd@Q} is"
+	[ ! -t "$fd" ] && prefix+=' not'
+	echo "$prefix opened"
+done
+
+for arg; do
+	prefix="arg ${arg@Q} is"
+	[ ! -p "$arg" ] && prefix+=' not'
+	echo "$prefix a named pipe"
+done
+```
+
+Teríamos as seguintes saída para as chamadas:
+1. `$ ./test.sh`
+    ```
+    fd '0' is opened
+    fd '1' is opened
+    fd '2' is opened
+    ```
+
+1. `$ ./test.sh "foo" "bar"`
+    ```
+    fd '0' is opened
+    fd '1' is opened
+    fd '2' is opened
+    arg 'foo' is not a named pipe
+    arg 'bar' is not a named pipe
+    ```
+
+1. `$ ./test.sh <(echo "foo") "bar"`
+    ```
+    fd '0' is opened
+    fd '1' is opened
+    fd '2' is opened
+    arg '/dev/fd/63' is a named pipe
+    arg 'bar' is not a named pipe
+    ```
+
+1. `$ echo "foo" | ./test.sh`
+    ```
+    fd '0' is not opened
+    fd '1' is opened
+    fd '2' is opened
+    ```
+
+1. `$ ./test.sh < file.txt`
+    ```
+    fd '0' is not opened
+    fd '1' is opened
+    fd '2' is opened
+    ```
+
+1. `$ ./test.sh <<< "foo"`
+    ```
+    fd '0' is not opened
+    fd '1' is opened
+    fd '2' is opened
+    ```
+
+1. `$ echo xpto | ./test.sh <(echo foo) bar`
+    ```
+    fd '0' is not opened
+    fd '1' is opened
+    fd '2' is opened
+    arg '/dev/fd/63' is a named pipe
+    arg 'bar' is not a named pipe
+    ```
+
 ### ANSI Colors
 
 Escapes:
