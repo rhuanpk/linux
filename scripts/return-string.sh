@@ -35,5 +35,11 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-ANY="${1:?need something to convert}"
-[[ "$ANY" && -f "$ANY" ]] && cat "$ANY" || echo "$ANY"
+if [[ "$1" && ( -f "$1" || -p "$1" ) ]]; then
+	cat "$1"
+elif [ ! -t 0 ]; then
+	read -u 0
+	echo "$REPLY"
+else
+	echo "$*"
+fi
