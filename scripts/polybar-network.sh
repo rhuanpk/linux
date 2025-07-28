@@ -50,7 +50,7 @@ ifname="$(cut -d' ' -f1 <<< "$route")"
 
 # set ip address
 ip="$(cut -d' ' -f2 <<< "$route")"
-: ${ip:=N/I}
+: ${ip:=N/A}
 
 # set interface type
 if check-ifname /proc/net/wireless; then
