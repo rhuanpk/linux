@@ -66,7 +66,8 @@ DESCRIPTION
 	The pid file is in "~/$relative_pid".
 
 USAGE
-	$script [-p] [-t] [<options>]
+	$script {-c|-f|-m|-l|-a|-b|-i|-d|-k|-x|-v|-h}
+	$script [-s|-r] [-p] [-t]
 
 OPTIONS
 	-c[<label>]
