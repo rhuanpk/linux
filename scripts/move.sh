@@ -81,6 +81,7 @@ check-needs() {
 
 setpath() {
 	local setpath_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
+	[ -z "$PATH_SCRIPTS" ] && source /etc/environment
 	path="${PATH_SCRIPTS:-$(curl -fsL "$setpath_url" | bash -s -- -p scripts)}"
 }
 
@@ -116,6 +117,7 @@ done
 shift $(("$OPTIND"-1))
 
 : ${path:=$(pwd)}
+[ ! -d "$local_bin" ] && mkdir -pv "$local_bin"
 
 # ***** PROGRAM START *****
 excludes=(
