@@ -82,7 +82,7 @@ setpath() {
 			$sudo sed -Ei "/^$variable=.*$/s~[^=]+$~$path~" "$environment" 2>&-
 		fi
 	fi
-	echo "$path"
+	[ "$path" ] && echo "$path"
 }
 
 declare -A paths=(
