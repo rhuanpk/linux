@@ -6,14 +6,14 @@
 shopt -s extglob
 
 # >>> variables declaration!
-readonly version='1.8.0'
+readonly version='1.9.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 readonly user="`id -un "${uid/#0/1000}"`"
 readonly home="/home/$user"
 
 # where data are stored
-PATHWAY_BACKUP="$home/Documents/config-files-backup/hosts/`hostname`"
+PATHWAY_BACKUP="$home/Documents/cfb/hosts/`hostname`"
 declare -A ARRAY_PATHWAY_BACKUP=(
 	['opt']="$PATHWAY_BACKUP/opt"
 	['fonts']="$PATHWAY_BACKUP/fonts"
