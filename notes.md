@@ -6917,6 +6917,8 @@ Modo de Comando:
 	`:! pwd`
 - executa um comando e seu retorno vai direto para o arquivo que está sendo editado:
 	`:r! pwd`
+- executa um comando "em todo o arquivo":
+	`:%! cat -s`
 - faz a listagem do histórico de _deletes/yanks_ ("_reg_" é a abreviação de "_register_"):
 	`:reg`
 - limpa o arquivo (deleta todas as linhas):
