@@ -31,6 +31,6 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
-IFNAMES="`ip -br link | cut -d ' ' -f 1`"
-VPNS="tun0|wg0|`hostname`"
-[[ "$IFNAMES" =~ ($VPNS) ]]
+types="$(nmcli --fields=TYPE conn show --active)"
+vpns='vpn|tun|wireguard'
+[[ "$types" =~ $vpns ]]
