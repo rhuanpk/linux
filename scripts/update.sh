@@ -2,6 +2,9 @@
 
 # Default system update.
 
+# >>> built-in sets!
+set -e
+
 # >>> variables declaration!
 readonly version='1.2.0'
 readonly script="`basename "$0"`"
