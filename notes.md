@@ -4344,6 +4344,33 @@ VIDEO to GIF:
 ffmpeg -i /path/to/video/input.any /path/to/save/output.gif
 ```
 
+#### Comando _imgp_
+
+Instalação:
+```sh
+apt install imgp
+```
+
+- `-w`: Sobrescreve a imagem original
+- `-r`: Aplica recursividade
+- `-n`: Permite a imagem ser escala para dimensões maiores que 100%
+- `-x <resolutionn>`: Adapta a imagem para a resolução especificada
+- `-q <quality>`: Especifica a qualidade final da imagem (para imagens JPEG)
+
+HxV:
+- Horizontal x Vertical
+- X Axis x Y Axis
+- Width x Height
+
+- Adapta a imagem para a resolução preservando a altura:
+	`imgp [-w] -rnx 1366x768 -q 95 folder/ image.png`
+
+- Adapta a imagem apenas na largura e especifica a alatura:
+	`imgp [-w] -rnx 0x250 -q 95 folder/ image.png`
+
+- Escala a imagem para 150%:
+	`imgp [-w] -rnx 150 -q 95 folder/ image.png`
+
 #### Tool Kit _mkvtoolnix_
 
 Instalação:
