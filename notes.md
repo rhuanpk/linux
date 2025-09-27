@@ -1286,6 +1286,11 @@ Pastas de configuração:
 - Pasta de configuração do usuário (servidor):
     `/etc/ssh/sshd_config.d/`
 
+Arquivos de identificação:
+- `known_hosts`: Servidores que você aceitou como confiaveis (na hora de estabelecer/solicitar conexão com um servidor, ele envia seu _fingerprint_ para que o cliente possa validar que está se conectando corretamente)
+
+- `authorized_keys`: Clientes que você aceitou como confiaveis (caso no servidor estiver cofigurado conexões via chave, somente os clientes que tem suas chaves públicas adicionadas serão bem-sucedidos)
+
 #### Conexões
 
 - `-p <port>`: troca a porta padrão (que é `22`);
@@ -1400,7 +1405,7 @@ Iniciar um agente *ssh* (quando algo buscar por uma chave é o *ssh-agent* que i
 eval `ssh-agent -s`
 ```
 
-OBS: Essa forma passada é a forma oficial descrita no manual do *ssh*. outros meios de iniciar o *ssh-agent* seria `ssh-agent -s` ou `exec ssh-agent bash`.
+OBS: Essa é a forma oficial descrita no manual do *ssh*. Outra forma de iniciar o *ssh-agent* seria `exec ssh-agent bash`.
 
 Adicionar chave ao agente:
 ```sh
@@ -1492,16 +1497,19 @@ Depois coloque o caminho do *banner* na variável dentro do arquivo de configura
 
 #### Troubleshooting
 
-A versão 9 e posterior do _openssh_ agora usar o `ssh.socket` como gatilho para o daemon (`ssh.service`) e por exemplo a porta é ouvido pelo que diz o `ssh.socket`, nesse caso, o que resolve é desabilitar o `ssh.socket`, remover o arquivo que força a sua chamada e habilitar o `ssh.service`:
+A versão 9 e posterior do _openssh_ usa o `ssh.socket` como gatilho para o daemon `ssh.service`, o que faz com que a porta precise ser configurado via systemd e não `sshd_config.conf`.
+
+Para lidar com isso podemos desabilitar o `ssh.socket` e habilitar o `ssh.service`:
 
 1. `sudo systemctl disable --now ssh.socket`
-1. `sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf`
 1. `sudo systemctl enable --now ssh.service`
 
 _pipeline_:
 ```sh
-sudo systemctl disable --now ssh.socket && sudo rm -f /etc/systemd/system/ssh.service.d/00-socket.conf && sudo systemctl enable --now ssh.service
+sudo systemctl disable --now ssh.socket && sudo systemctl enable --now ssh.service
 ```
+
+Caso não queira desabilita-lo, altere as configurações em `/etc/ssh/sshd_config.d/sshd_config.conf`, depois execute `systemctl daemon-reload && systemctl restart ssh.socket`, isso fara com que `/usr/lib/systemd/system-generators/sshd-socket-generator` seja executado, gerando o arquivo `/run/systemd/generator/ssh.socket.d/addresses.conf` contendo as configurações do _sshd_ que são então lidas corretamente pelo _socket_.
 
 _TIPS/TRICKS_:
 
