@@ -4689,6 +4689,16 @@ apt install v4l-utils
 1. Checar processos que estão utilizando (**#**):
     `lsof <device>` ou `fuser <device>`
 
+### Saber Tipo de Sessão
+
+1. Pegar o _id_ da sessão:
+    `loginctl`
+1. Verificar o tipo:
+    `loginctl show-session <session-id> -p Type`
+
+Usar variável de ambiente, se definida:
+    `echo $XDG_SESSION_TYPE`
+
 ---
 
 <a id="db_gnulinux-bash"></a>
