@@ -3796,6 +3796,16 @@ Montar:
 sudo mount /dev/sdXY /mnt
 ```
 
+ou
+
+```
+sudo mount /dev/sdXY /mnt -o uid=$(id -u),gid=$(id -g)
+# or
+sudo mount /dev/sdXY /mnt -o users,uid=$(id -u),gid=$(id -g)
+# or
+sudo mount /dev/sdXY /mnt -o users,exec,dev,suid,uid=$(id -u),gid=$(id -g)
+```
+
 Desmontar:
 
 ```bash
