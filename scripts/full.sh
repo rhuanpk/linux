@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.3.0'
+readonly version='2.3.1'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -101,8 +101,8 @@ log "> apt autoremove $FLAG_YES"
 $SUDO apt autoremove $FLAG_YES
 
 # firmware
-log "> fwupdmgr update $FLAG_YES"
 if "${FLAG_FIRMWARE:-false}"; then
+	log "> fwupdmgr update $FLAG_YES"
 	if which -s fwupdmgr || $SUDO apt install fwupd $FLAG_YES; then
 		#fwupdmgr get-devices >&-
 		fwupdmgr refresh
