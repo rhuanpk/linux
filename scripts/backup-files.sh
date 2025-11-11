@@ -8,22 +8,19 @@ shopt -s extglob
 # >>> variables declaration!
 readonly version='1.9.0'
 readonly script="`basename "$0"`"
-readonly uid="${UID:-`id -u`}"
-readonly user="`id -un "${uid/#0/1000}"`"
-readonly home="/home/$user"
 
 # where data are stored
-PATHWAY_BACKUP="$home/Documents/cfb/hosts/`hostname`"
+PATHWAY_BACKUP="$HOME/Documents/cfb/hosts/`hostname`"
 declare -A ARRAY_PATHWAY_BACKUP=(
 	['opt']="$PATHWAY_BACKUP/opt"
 	['fonts']="$PATHWAY_BACKUP/fonts"
-	['iconthemes']="$PATHWAY_BACKUP/icons-themes"
+	['iconthemes']="$PATHWAY_BACKUP/iconsthemes"
 	['terminator']="$PATHWAY_BACKUP/terminator"
 	['dpkg']="$PATHWAY_BACKUP/dpkg"
 	['neofetch']="$PATHWAY_BACKUP/neofetch"
 	['misc']="$PATHWAY_BACKUP/misc"
 	['gtk']="$PATHWAY_BACKUP/gtk"
-	['localbin']="$PATHWAY_BACKUP/local-bin"
+	['localbin']="$PATHWAY_BACKUP/localbin"
 	['history']="$PATHWAY_BACKUP/history"
 	['git']="$PATHWAY_BACKUP/git"
 	['vim']="$PATHWAY_BACKUP/vim"
@@ -31,31 +28,33 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['dunst']="$PATHWAY_BACKUP/dunst"
 	['shellrc']="$PATHWAY_BACKUP/shellrc"
 	['ssh']="$PATHWAY_BACKUP/ssh"
-	['obs-profiles']="$PATHWAY_BACKUP/obs/profiles"
-	['obs-scenes']="$PATHWAY_BACKUP/obs/scenes"
+	['obsprofiles']="$PATHWAY_BACKUP/obs/profiles"
+	['obsscenes']="$PATHWAY_BACKUP/obs/scenes"
 	['vscode']="$PATHWAY_BACKUP/vscode"
 	['mangohud']="$PATHWAY_BACKUP/mangohud"
+	['sway']="$PATHWAY_BACKUP/sway"
 )
 
 # place from to get data
 PATHWAY_OPT='/opt'
-PATHWAY_FONTS="$home/Documents/fonts"
-PATHWAY_ICONS="$home/.local/share/icons"
-PATHWAY_THEMES="$home/.local/share/themes"
-PATHWAY_TERMINATOR="$home/.config/terminator/config"
-PATHWAY_TREE="$home/misc"
-PATHWAY_GTK="$home/.config/gtk-3.0/settings.ini"
+PATHWAY_FONTS="$HOME/Documents/fonts"
+PATHWAY_ICONS="$HOME/.local/share/icons"
+PATHWAY_THEMES="$HOME/.local/share/themes"
+PATHWAY_TERMINATOR="$HOME/.config/terminator/config"
+PATHWAY_TREE="$HOME/misc"
+PATHWAY_GTK="$HOME/.config/gtk-3.0/settings.ini"
 PATHWAY_LOCALBIN="/usr/local/bin"
-PATHWAY_HISTORY="$home/.bash_history"
-PATHWAY_GIT="$home/.gitconfig"
-PATHWAY_VIM="$home/.vimrc"
-PATHWAY_DUNST="$home/.config/dunst/dunstrc"
-PATHWAY_SHELLRC="$home/.config/shellrc"
-PATHWAY_SSH="$home/.ssh/config"
-PATHWAY_OBS_PROFILES="$home/.config/obs-studio/basic/profiles"
-PATHWAY_OBS_SCENES="$home/.config/obs-studio/basic/scenes"
-PATHWAY_VSCODE="$home/.config/Code/User/settings.json"
-PATHWAY_MANGOHUD="$home/.config/MangoHud/MangoHud.conf"
+PATHWAY_HISTORY="$HOME/.bash_history"
+PATHWAY_GIT="$HOME/.gitconfig"
+PATHWAY_VIM="$HOME/.vimrc"
+PATHWAY_DUNST="$HOME/.config/dunst/dunstrc"
+PATHWAY_SHELLRC="$HOME/.config/shellrc"
+PATHWAY_SSH="$HOME/.ssh/config"
+PATHWAY_OBS_PROFILES="$HOME/.config/obs-studio/basic/profiles"
+PATHWAY_OBS_SCENES="$HOME/.config/obs-studio/basic/scenes"
+PATHWAY_VSCODE="$HOME/.config/Code/User/settings.json"
+PATHWAY_MANGOHUD="$HOME/.config/MangoHud/MangoHud.conf"
+PATHWAY_SWAY="$HOME/.config/sway/config"
 
 # >>> functions declaration!
 usage() {
@@ -120,22 +119,23 @@ ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['icontheme
 ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
 
 # commands cp to save
-cp-backup "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}"
+#cp-backup "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}"
+#cp-backup "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}"
+#cp-backup "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['shellrc']}"
 cp-backup "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}"
 cp-backup "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}"
 cp-backup "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}"
-cp-backup "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}"
-cp-backup "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['shellrc']}"
 cp-backup "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}"
+cp-backup "$PATHWAY_SWAY" "${ARRAY_PATHWAY_BACKUP['sway']}"
 cp-backup "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}"
 cp-backup "$PATHWAY_MANGOHUD" "${ARRAY_PATHWAY_BACKUP['mangohud']}"
-cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obs-profiles']}/"
-cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obs-scenes']}/"
+cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obsprofiles']}/"
+cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obsscenes']}/"
 
 # others commands to save
-tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree.txt"
+#neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
+#tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
-neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/crontab.txt"
 
 # complex commands to save
