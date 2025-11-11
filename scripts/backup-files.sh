@@ -103,7 +103,7 @@ cleanup-history() {
 cp-backup() {
 	local file_source="$1"
 	local folder_backup="${2%/}"
-	local old_file="$(ls -1t "$folder_backup"/?(.)* 2>&- | head -1)"
+	local old_file="$(ls -1t "$folder_backup/${file_source##*/}"* 2>&- | head -1)"
 	local new_file="$folder_backup/${file_source##*/}_`make-date`.gz"
 	gzip -c9 "$file_source" >"$new_file"
 	if cmp -s "$old_file" "$new_file"; then
