@@ -33,6 +33,9 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['vscode']="$PATHWAY_BACKUP/vscode"
 	['mangohud']="$PATHWAY_BACKUP/mangohud"
 	['sway']="$PATHWAY_BACKUP/sway"
+	['swaync']="$PATHWAY_BACKUP/swaync"
+	['waybar']="$PATHWAY_BACKUP/waybar"
+	['waybarmods']="$PATHWAY_BACKUP/waybar/custom"
 )
 
 # place from to get data
@@ -55,6 +58,10 @@ PATHWAY_OBS_SCENES="$HOME/.config/obs-studio/basic/scenes"
 PATHWAY_VSCODE="$HOME/.config/Code/User/settings.json"
 PATHWAY_MANGOHUD="$HOME/.config/MangoHud/MangoHud.conf"
 PATHWAY_SWAY="$HOME/.config/sway/config"
+PATHWAY_SWAYNC="$HOME/.config/swaync/style.css"
+PATHWAY_WAYBAR_CONFIG="$HOME/.config/waybar/config.jsonc"
+PATHWAY_WAYBAR_STYLE="$HOME/.config/waybar/style.css"
+PATHWAY_WAYBAR_POWER="$HOME/.config/waybar/custom/power.xml"
 
 # >>> functions declaration!
 usage() {
@@ -127,6 +134,10 @@ cp-backup "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}"
 cp-backup "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}"
 cp-backup "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}"
 cp-backup "$PATHWAY_SWAY" "${ARRAY_PATHWAY_BACKUP['sway']}"
+cp-backup "$PATHWAY_SWAYNC" "${ARRAY_PATHWAY_BACKUP['swaync']}"
+cp-backup "$PATHWAY_WAYBAR_CONFIG" "${ARRAY_PATHWAY_BACKUP['waybar']}"
+cp-backup "$PATHWAY_WAYBAR_STYLE" "${ARRAY_PATHWAY_BACKUP['waybar']}"
+cp-backup "$PATHWAY_WAYBAR_POWER" "${ARRAY_PATHWAY_BACKUP['waybarmods']}"
 cp-backup "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}"
 cp-backup "$PATHWAY_MANGOHUD" "${ARRAY_PATHWAY_BACKUP['mangohud']}"
 cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obsprofiles']}/"
