@@ -6,7 +6,7 @@
 shopt -s extglob
 
 # >>> variables declaration!
-readonly version='1.9.0'
+readonly version='1.10.0'
 readonly script="`basename "$0"`"
 
 # where data are stored
