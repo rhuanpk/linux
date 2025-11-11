@@ -37,6 +37,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['waybar']="$PATHWAY_BACKUP/waybar"
 	['waybarmods']="$PATHWAY_BACKUP/waybar/custom"
 	['kitty']="$PATHWAY_BACKUP/kitty"
+	['kanshi']="$PATHWAY_BACKUP/kanshi"
 )
 
 # place from to get data
@@ -64,6 +65,7 @@ PATHWAY_WAYBAR_CONFIG="$HOME/.config/waybar/config.jsonc"
 PATHWAY_WAYBAR_STYLE="$HOME/.config/waybar/style.css"
 PATHWAY_WAYBAR_POWER="$HOME/.config/waybar/custom/power.xml"
 PATHWAY_KITTY="$HOME/.config/kitty/kitty.conf"
+PATHWAY_KANSHI="$HOME/.config/kanshi/config"
 
 # >>> functions declaration!
 usage() {
@@ -121,36 +123,37 @@ done
 cleanup-history
 
 # commands ls to save
+ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
 ls -1 "$PATHWAY_OPT" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['opt']}/optionals.txt"
 ls -1 "$PATHWAY_FONTS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
 ls -1 "$PATHWAY_ICONS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/icons.txt"
 ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/themes.txt"
-ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
 
 # commands cp to save
 #cp-backup "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}"
 #cp-backup "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}"
 #cp-backup "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['shellrc']}"
+cp-backup "$PATHWAY_WAYBAR_POWER" "${ARRAY_PATHWAY_BACKUP['waybarmods']}"
 cp-backup "$PATHWAY_GTK" "${ARRAY_PATHWAY_BACKUP['gtk']}"
 cp-backup "$PATHWAY_GIT" "${ARRAY_PATHWAY_BACKUP['git']}"
 cp-backup "$PATHWAY_VIM" "${ARRAY_PATHWAY_BACKUP['vim']}"
 cp-backup "$PATHWAY_SSH" "${ARRAY_PATHWAY_BACKUP['ssh']}"
-cp-backup "$PATHWAY_KITTY" "${ARRAY_PATHWAY_BACKUP['kitty']}"
 cp-backup "$PATHWAY_SWAY" "${ARRAY_PATHWAY_BACKUP['sway']}"
-cp-backup "$PATHWAY_SWAYNC" "${ARRAY_PATHWAY_BACKUP['swaync']}"
-cp-backup "$PATHWAY_WAYBAR_CONFIG" "${ARRAY_PATHWAY_BACKUP['waybar']}"
-cp-backup "$PATHWAY_WAYBAR_STYLE" "${ARRAY_PATHWAY_BACKUP['waybar']}"
-cp-backup "$PATHWAY_WAYBAR_POWER" "${ARRAY_PATHWAY_BACKUP['waybarmods']}"
+cp-backup "$PATHWAY_KITTY" "${ARRAY_PATHWAY_BACKUP['kitty']}"
 cp-backup "$PATHWAY_VSCODE" "${ARRAY_PATHWAY_BACKUP['vscode']}"
+cp-backup "$PATHWAY_KANSHI" "${ARRAY_PATHWAY_BACKUP['kanshi']}"
+cp-backup "$PATHWAY_SWAYNC" "${ARRAY_PATHWAY_BACKUP['swaync']}"
 cp-backup "$PATHWAY_MANGOHUD" "${ARRAY_PATHWAY_BACKUP['mangohud']}"
+cp-backup "$PATHWAY_WAYBAR_STYLE" "${ARRAY_PATHWAY_BACKUP['waybar']}"
+cp-backup "$PATHWAY_WAYBAR_CONFIG" "${ARRAY_PATHWAY_BACKUP['waybar']}"
 cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obsprofiles']}/"
 cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obsscenes']}/"
 
 # others commands to save
-#neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 #tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree.txt"
-dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
+#neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/crontab.txt"
+dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
 
 # complex commands to save
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`make-date`.gz"
