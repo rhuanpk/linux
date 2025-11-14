@@ -25,6 +25,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['opt']="$PATHWAY_BACKUP/opt"
 	['qt5']="$PATHWAY_BACKUP/qt5"
 	['qt6']="$PATHWAY_BACKUP/qt6"
+	['apt']="$PATHWAY_BACKUP/apt"
 	['sway']="$PATHWAY_BACKUP/sway"
 	['dpkg']="$PATHWAY_BACKUP/dpkg"
 	['cron']="$PATHWAY_BACKUP/cron"
@@ -51,6 +52,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 #PATHWAY_DUNST="$HOME/.config/dunst/dunstrc"
 PATHWAY_OBS_PROFILES="$HOME/.config/obs-studio/basic/profiles"
 PATHWAY_OPT='/opt'
+PATHWAY_APT="/etc/apt"
 PATHWAY_VIM="$HOME/.vimrc"
 PATHWAY_GIT="$HOME/.gitconfig"
 PATHWAY_SSH="$HOME/.ssh/config"
@@ -168,6 +170,7 @@ cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obsscenes']}/"
 #neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/crontab.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
+zip -9r "${ARRAY_PATHWAY_BACKUP['apt']}/apt.zip" "$PATHWAY_APT/"
 
 # complex commands to save
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`make-date`.gz"
