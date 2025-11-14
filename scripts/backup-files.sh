@@ -94,7 +94,7 @@ EOF
 }
 
 make-date() {
-	date '+%y-%m-%d_%H%M%S'
+	date '+%y%m%d-%H%M%S'
 }
 
 cleanup-history() {
