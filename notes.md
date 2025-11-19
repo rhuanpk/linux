@@ -1883,7 +1883,7 @@ random_word=$(shuf file.txt | tail -1); echo $random_word; sed -in "/${random_wo
 Criar pendrive bootavel:
 
 ```bash
-sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=32M conv=fsync status=progress
+sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=32M conv=fsync status=progress; sync
 ```
 
 Criar backup de partição/HD:
