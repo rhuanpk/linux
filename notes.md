@@ -1883,12 +1883,12 @@ random_word=$(shuf file.txt | tail -1); echo $random_word; sed -in "/${random_wo
 Criar pendrive bootavel:
 
 ```bash
-sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=256159 conv=fdatasync status=progress; sync
+sudo dd if=/path/to/isos/iso.file of=/dev/sdX bs=32M conv=fsync status=progress
 ```
 
 Criar backup de partição/HD:
 ```sh
-sudo dd if=/dev/sdX[Y] of=/tmp/backup.hd bs=4M
+sudo dd if=/dev/sdX[Y] of=/tmp/backup.hd bs=8M
 ```
 
 Criando um _virtual disk__ (VD):
