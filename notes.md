@@ -3999,6 +3999,14 @@ Executar qemu _logado_ como root:
 1. Executar comando passando a variável `DISPLAY`:
     `DISPLAY=:0 <command>`
 
+### Virt Manager
+
+Instalação:
+1. `[sudo] apt install qemu-system bridge-utils`
+1. `[sudo] apt install --install-recommends virt-manager`
+1. `[sudo] usermod -aG libvirt rhuanpk`
+1. _Restart the session_
+
 ### Wi-fi CLI
 
 #### Pacote `network-manager`
