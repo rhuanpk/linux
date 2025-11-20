@@ -7628,6 +7628,16 @@ Comandos úteis:
 - `systemctl [--user] status [--failed]`
 - `systemd-analyze {blame|critical-chain}`
 
+### Trocar Nome de Usuário
+
+1. Enable the root: `[sudo] passwd root`
+1. Login as root: `[sudo] su -`
+1. Kill all user process: `[sudo] pkill -9 -u <olduser>`
+1. Change the username: `[sudo] usermod -l <newuser> <olduser>`
+1. Change the groupname`[sudo] groupmod -n <newgroup> <oldgroup>`
+1. Change the home: `[sudo] usermod -md /home/<newuser> <newuser>`
+1. Disable th root: `[sudo] passwd -ld root`
+
 ---
 
 <a id="db_any_commands"></a>
