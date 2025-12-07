@@ -18,7 +18,7 @@
 - [GitHub CLI](#github_cli)
 - [Arch Base](#arch_base)
 - [Android](#android)
-- [AWS](#aws)
+- [Programação](#prog)
 - [Miscellaneous](#miscellaneous)
 - [Games](#games)
 - [Estudos](#estudos)
@@ -9373,10 +9373,27 @@ proot-distro reset <distro>
 
 ---
 
-<a id="aws"></a>
-## [AWS](#menu)
+<a id="prog"></a>
+## [Programação](#menu)
 
-AWS CLI:
+### ASDF
+
+1. Listar todos os _plugins_ e suas versões (já instalados):
+    `asdf list`
+1. Listar todos os _plugins_ disponíveis (para adição):
+    `asdf plugin list all`
+1. Adicionar um _plugin_:
+    `asdf plugin add <plugin>`
+1. Instalar uma ferramenta:
+    `asdf install <plugin> {<version>|latest}`
+1. Define localmente a versão de uma ferramenta:
+    `asdf set [-u] [-p] <plugin> {<version>|latest}`
+    - `-u`: Define globalmente a versão
+    - `-p`: Define localalmente a versão mais próxima
+1. Verificar a versão atual de cada ferramenta:
+    `asdf current`
+
+### AWS
 
 - `aws configure`: configura o perfil padrão
 - `aws configure --profile <name>`: configura o perfil especificado (cria se não existir)
