@@ -3888,6 +3888,7 @@ gio mount -u '<device_path_name>'
 - `Y`: número da partição;
 - `-m`: memória RAM em MB;
 - `-smp`: núcleos do processador;
+- `-cpu {host|<type>}`: tipo do processador;
 - `-nographic`: executa em _background_.
 
 Instalação:
