@@ -1,10 +1,5 @@
 #!/usr/bin/bash
 
-# Script that uploads all repositories automatically.
-# Requirements:
-# 	1. Have credential.helper enabled.
-# The variable "_REPO_PATHS" must receive the path of the directory where all repos are located.
-
 # >>> built-in sets!
 set +o histexpand
 
@@ -25,16 +20,13 @@ $script v$version
 
 `formatter 1 DESCRIPTION`
 
-`formatter 1 Normal Mode`:
-	Pass the git command to be used as a parameter, if no parameters are passed it will push by default.
-	The parameter can be passed without double quotes.
+Normal mode:
+	Pass the git command to be used as a parameter, if no parameters are passed it will \`git status' by default.
+	The parameter can be passed without quotes.
 
-	In this usage mode, neither the confirmation message nor the branch can be defined.
-	By default it confirms with the message "wip" in the master branch.
-
-`formatter 1 Custom Mode`:
+Custom mode:
 	At each iteration of the loop you can set the message and branch of the current repository.
-	This mode only accepts git push.
+	In this mode the uniq operation to perform is \`git push'.
 
 `formatter 1 USAGE`
 
@@ -59,8 +51,10 @@ Usage without passing parameters:
 	`formatter 1 -h`: Print this message and exit with 2.
 
 `formatter 1 OBSERVATIONS`
-	- For some features works is necessary to setup \`--set-upstream-to\` with: git branch --set-upstream-to=<remote/branch>
-	- If passing some command you can use the \`:repo:\` replacement e.g.: $script git remote set-url origin 'git@remote.any:user/:repo:.git'
+	- For some features works is necessary to setup \`--set-upstream-to' with: git branch --set-upstream-to=<remote/branch>
+	- If passing some command you can use the internal \`:repo:' replacement, where the replacement is present will be
+		changed to the name of the atual repo e.g.: $script git remote set-url origin 'git@remote.any:user/:repo:.git'
+
 EOF
 }
 
