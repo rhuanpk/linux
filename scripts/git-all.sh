@@ -4,14 +4,14 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.3.1'
+readonly version='2.4.0'
 readonly script="`basename "$0"`"
 
-FILE_PATH=~/.config/git-all.path
-#_REPO_PATHS='/tmp'
 FLAG_CUSTOM='false'
 FLAG_PULL='false'
 FLAG_ERROR='false'
+PATH_FILE=~/.config/git-all.path
+#PATH_REPOS='/tmp'
 
 # >>> functions declaration!
 usage() {
@@ -46,7 +46,8 @@ Usage without passing parameters:
 	`formatter 1 -c`: Start the CUSTOM MODE;
 	`formatter 1 -g`: Pull in all repos;
 	`formatter 1 -e`: Show errors on cd in repo if occurs;
-	`formatter 1 -p \<path\>`: Set a temporary path (that's valid only this time) to grab the folders;
+	`formatter 1 -p \<path\>`: Set path once to grab the folders;
+	`formatter 1 -p \<repo\>\[, \<repo sitory\>\]`: Set repos (comma separated) inside path to iterate over;
 	`formatter 1 -v`: Print version;
 	`formatter 1 -h`: Print this message and exit with 2.
 
@@ -65,7 +66,7 @@ formatter() {
 }
 
 get-path() {
-	{ echo "$(< "$FILE_PATH")"; } 2>&-
+	{ echo "$(< "$PATH_FILE")"; } 2>&-
 }
 
 print-path() {
@@ -90,7 +91,7 @@ switch-path() {
 		echo -e "`formatter 31 '> The path not exist!'`"
 		exit 1
 	else
-		if echo "${path/%\//}" >"$FILE_PATH"; then
+		if echo "${path/%\//}" >"$PATH_FILE"; then
 			echo -e "`formatter 32 '> New path successfully changed!'`"
 		else
 			echo -e "`formatter 31 '> New path NOT successfully changed!'`"
@@ -100,30 +101,39 @@ switch-path() {
 
 
 # >>> pre statements!
-while getopts 'lscgep:vh' OPTION; do
+while getopts 'lscgep:r:vh' OPTION; do
 	case "$OPTION" in
 		l) print-path; exit 0;;
 		s) switch-path; exit 0;;
 		c) FLAG_CUSTOM=true;;
 		g) FLAG_PULL=true;;
 		e) FLAG_ERROR=true;;
-		p) _REPO_PATHS="$OPTARG";;
+		p) PATH_REPOS="$OPTARG";;
+		r) NAME_REPOS="$OPTARG";;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
 done
 shift $(("$OPTIND"-1))
 
-[ ! -f "$FILE_PATH" ] || [ ! -s "$FILE_PATH" ] && {
+[ ! -f "$PATH_FILE" ] || [ ! -s "$PATH_FILE" ] && {
 	echo -e "$script: error: file path is not exists or set ups, use \`-s\` flag"
 	exit 1
 }
 
 # ***** PROGRAM START *****
-[ -z "$_REPO_PATHS" ] && _REPO_PATHS="`get-path`"
-COUNT="$(ls -1d `realpath "$_REPO_PATHS"`/* | wc -l)"
-for directory in "`realpath "$_REPO_PATHS"`"/*; do
-	repo="`basename $directory`"
+[ -z "$PATH_REPOS" ] && PATH_REPOS="`get-path`"
+ARRAY_REPOS=("`realpath "$PATH_REPOS"`"/*)
+[ "$NAME_REPOS" ] && {
+	unset ARRAY_REPOS
+	IFS=',' read -ra NAME_REPOS <<< "$NAME_REPOS"
+	for repo in "${NAME_REPOS[@]}"; do
+		ARRAY_REPOS+=("$PATH_REPOS/$repo")
+	done
+}
+COUNT="${#ARRAY_REPOS[@]}"
+for directory in "${ARRAY_REPOS[@]}"; do
+	repo="`basename "$directory"`"
 	if ! OUTPUT=`cd "$directory" 2>&1`; then
 		if "$FLAG_ERROR"; then
 			directory="`formatter 1 "$directory"`"
