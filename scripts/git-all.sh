@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.4.1'
+readonly version='2.5.0'
 readonly script="`basename "$0"`"
 
 FLAG_CUSTOM='false'
@@ -47,11 +47,12 @@ Usage without passing parameters:
 	`formatter 1 -g`: Pull in all repos;
 	`formatter 1 -e`: Show errors on cd in repo if occurs;
 	`formatter 1 -p \<path\>`: Set path once to grab the folders;
-	`formatter 1 -p \<repo\>\[, \<repo sitory\>\]`: Set repos (comma separated) inside path to iterate over;
+	`formatter 1 -r \<repo\>\[, \<repo sitory\>\]`: Set repos (comma separated) inside path to iterate over;
 	`formatter 1 -v`: Print version;
 	`formatter 1 -h`: Print this message and exit with 2.
 
 `formatter 1 OBSERVATIONS`
+	- Pass a "!" in the begin of \`-r' flag to invert match
 	- For some features works is necessary to setup \`--set-upstream-to' with: git branch --set-upstream-to=<remote/branch>
 	- If passing some command you can use the internal \`:repo:' replacement, where the replacement is present will be
 		changed to the name of the atual repo e.g.: $script git remote set-url origin 'git@remote.any:user/:repo:.git'
@@ -125,7 +126,7 @@ PATH_REPOS="${PATH_REPOS/#./$(pwd)}"
 # ***** PROGRAM START *****
 [ -z "$PATH_REPOS" ] && PATH_REPOS="`get-path`"
 ARRAY_REPOS=("`realpath "$PATH_REPOS"`"/*)
-[ "$NAME_REPOS" ] && {
+[[ "$NAME_REPOS" && ! "$NAME_REPOS" =~ ^! ]] && {
 	unset ARRAY_REPOS
 	IFS=',' read -ra NAME_REPOS <<< "$NAME_REPOS"
 	for repo in "${NAME_REPOS[@]}"; do
@@ -135,6 +136,9 @@ ARRAY_REPOS=("`realpath "$PATH_REPOS"`"/*)
 COUNT="${#ARRAY_REPOS[@]}"
 for directory in "${ARRAY_REPOS[@]}"; do
 	repo="`basename "$directory"`"
+	[[ "$NAME_REPOS" && "$NAME_REPOS" =~ ^! ]] && {
+		[[ "$NAME_REPOS" =~ $repo ]] && continue
+	}
 	if ! OUTPUT=`cd "$directory" 2>&1`; then
 		if "$FLAG_ERROR"; then
 			directory="`formatter 1 "$directory"`"
