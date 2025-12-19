@@ -7066,7 +7066,7 @@ Criar _swap_ como arquivo:
 	`sudo fallocate -l 4G /swapfile`
 
 1. Altere as permissões do arquivo:
-	`sudo chmod 600 /swapfile`
+	`sudo chmod 0600 /swapfile`
 
 1. Formate o arquivo:
 	`sudo mkswap /swapfile`
