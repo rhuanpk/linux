@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.3.0'
+readonly version='2.4.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -125,14 +125,13 @@ excludes=(
 	'volume-encryption.sh'
 )
 
-for src in "$path"/*.sh; do
+(( $# >= 1 )) && srcs='${@/#/$path\/}' || srcs='$path/*.sh'
+for src in $(eval echo $srcs); do
 	cmd='cp -fv'
 	name="$(basename "$src")"
 	dst="$local_bin/${name%.sh}"
 	[[ "${excludes[*]}" =~ $name ]] && continue
-	if "${flag_symlink:-false}"; then
-		cmd='ln -sfv'
-	fi
+	if "${flag_symlink:-false}"; then cmd='ln -sfv'; fi
 	[ -L "$dst" ] && rm -fv "$dst"
 	eval "$sudo $cmd '$src' '$dst'"
 done
