@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.4.0'
+readonly version='2.4.1'
 readonly script="`basename "$0"`"
 
 FLAG_CUSTOM='false'
@@ -91,7 +91,7 @@ switch-path() {
 		echo -e "`formatter 31 '> The path not exist!'`"
 		exit 1
 	else
-		if echo "${path/%\//}" >"$PATH_FILE"; then
+		if echo "${path/%\/}" >"$PATH_FILE"; then
 			echo -e "`formatter 32 '> New path successfully changed!'`"
 		else
 			echo -e "`formatter 31 '> New path NOT successfully changed!'`"
@@ -108,7 +108,7 @@ while getopts 'lscgep:r:vh' OPTION; do
 		c) FLAG_CUSTOM=true;;
 		g) FLAG_PULL=true;;
 		e) FLAG_ERROR=true;;
-		p) PATH_REPOS="$OPTARG";;
+		p) PATH_REPOS="${OPTARG/%\/}";;
 		r) NAME_REPOS="$OPTARG";;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
@@ -120,6 +120,7 @@ shift $(("$OPTIND"-1))
 	echo -e "$script: error: file path is not exists or set ups, use \`-s\` flag"
 	exit 1
 }
+PATH_REPOS="${PATH_REPOS/#./$(pwd)}"
 
 # ***** PROGRAM START *****
 [ -z "$PATH_REPOS" ] && PATH_REPOS="`get-path`"
@@ -139,12 +140,12 @@ for directory in "${ARRAY_REPOS[@]}"; do
 			directory="`formatter 1 "$directory"`"
 			{
 				[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-				&& echo -e "$script: warning: \"$directory\" is not a folder"
+				&& echo -e "$script: warn: \"$directory\" is not a folder"
 			} || {
 				[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-				&& echo -e "$script: warning: \"$directory\" don't has permission";
+				&& echo -e "$script: warn: \"$directory\" don't has permission";
 			} || \
-				echo -e "$script: warning: some wrong occurred on entering in \"$directory\""
+				echo -e "$script: err: $OUTPUT \"$directory\""
 			FLAG_SEPARATOR='true'
 		else
 			FLAG_SEPARATOR='false'
