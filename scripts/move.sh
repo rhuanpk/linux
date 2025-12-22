@@ -18,7 +18,7 @@ DESCRIPTION
 	Copy the scripts from \$PATH_SCRIPTS to ${home_bin@Q}.
 
 USAGE
-	$script [<options>]
+	$script [<options>] [foo.sh] [bar.sh]
 
 OPTIONS
 	-b
