@@ -8229,7 +8229,7 @@ git revert <commit>
 Passando um _range_ (do mais antigo para o mais novo) de _commits_ (isso fará um **revert** por vez):
 
 ```sh
-git revert <oldest_commit>..<newst_commit>
+git revert <oldest-commit>..<newst-commit>
 ```
 
 #### Reset
@@ -8237,19 +8237,19 @@ git revert <oldest_commit>..<newst_commit>
 Resetar o commit sem perder as alterações colocando elas na _worktree_:
 
 ```bash
-git reset <commit_hash>
+git reset <commit-hash>
 ```
 
 Resetar o commit sem perder as alterações voltando elas para o _index_ (_staged area_):
 
 ```bash
-git reset --soft <commit_hash>
+git reset --soft <commit-hash>
 ```
 
 Desfazer o commit por completo (sem manter as alterações):
 
 ```bash
-git reset --hard <commit_hash>
+git reset --hard <commit-hash>
 ```
 
 #### Amend
@@ -8280,13 +8280,13 @@ git cherry-pick <commit_hash>
 Somente aplicando as alterações do _commit_:
 
 ```bash
-git cherry-pick --no-commit <commit_hash>
+git cherry-pick --no-commit <commit-hash>
 ```
 
 Trazendo o _commit_ e edita a mensagem antes de concluir:
 
 ```bash
-git cherry-pick --edit <commit_hash>
+git cherry-pick --edit <commit-hash>
 ```
 
 OBS: estando na _branch_ que vai receber as alterações.
@@ -8306,10 +8306,10 @@ git rebase -i {HEAD*|<commit_hash>}
 
 ### Merge
 
-"Dry Run":
+_Dry-run_:
 
 1. Faça o "_merge_ falso":
-	`git merge --no-commit --no-ff <branch_name>`
+	`git merge --no-commit --no-ff <branch-name>`
 
 1. Caso tenha alguma alteração, veja com:
 	`git diff --cached`
@@ -8319,10 +8319,28 @@ OBS: caso precise desafzer algum merge: `git merge --abort`.
 Com _squash_:
 
 ```bash
-git merge --squash <branch_name>
+git merge --squash <branch-name>
 ```
 
-OBS: dessa forma, com tudo irá virár um único _commit_, no final ele deixa tudo em _staged_ para você _commitar_ com a mensagem que desejar.
+OBS: dessa forma, como tudo irá virár um único _commit_, no final ele deixa tudo em _staged_ para você _commitar_ com a mensagem desejada.
+
+#### Conflito
+
+Se a mesclagem já estiver em progresso:
+- Aceitar as alterações "locais":
+    `git checkout --ours file.txt`
+- Aceitar as alterações "remotas":
+    `git checkout --theirs file.txt`
+
+Se ainda irá mesclar:
+- Aceitar as alterações "locais":
+    `git merge -X ours <branch-name>`
+- Aceitar as alterações "remotas":
+    `git merge -X theirs <branch-name>`
+
+_OBSERVATIONS_:
+- _Branch_ "local": _branch_ atual na qual será mesclada
+- _Branch_ "remota": _branch_ que será mesclada na atual
 
 ### Rebase
 
