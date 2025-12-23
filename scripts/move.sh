@@ -1,12 +1,12 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.4.0'
+readonly version='2.4.1'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
 readonly root_bin='/usr/local/bin'
-readonly home_bin="$HOME/.local/bin/"
+readonly home_bin="$HOME/.local/bin"
 local_bin="$home_bin"
 
 # >>> functions declaration
@@ -133,5 +133,5 @@ for src in $(eval echo $srcs); do
 	[[ "${excludes[*]}" =~ $name ]] && continue
 	if "${flag_symlink:-false}"; then cmd='ln -sfv'; fi
 	[ -L "$dst" ] && rm -fv "$dst"
-	eval "$sudo $cmd '$src' '$dst'"
+	eval $sudo $cmd '$src' '$dst'
 done
