@@ -7023,6 +7023,8 @@ Modo de Comando:
     `:ls`
 - mudar o _syntax highlight_:
     `:set syntax=<type>`
+- não adiciona nova linha no final:
+    `:set nofixeol`
 
 Modo de Pesquisa:
 - pesquisa com case insensitive:
