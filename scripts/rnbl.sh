@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.0.0'
+readonly version='2.0.1'
 readonly script="`basename "$0"`"
 
 FORMAT_RED='\e[31m'
@@ -55,11 +55,11 @@ REQUIRES
 		See `echo -e ${FORMAT_UNDERLINED}TYPEOF${FORMAT_RESET}` section for <typeof> options.
 
 OPTIONALS
-	-v, --version
-		Print the versions and exit with 0.
-
 	-h, --help
 		Print this help and exit with 0.
+
+	-v, --version
+		Print the versions and exit with 0.
 
 TYPEOF
 	Options for <typeof> argument.
@@ -105,17 +105,15 @@ format-make-cyan() {
 if ! OPTIONS=`getopt -l "$GETOPT_LONG_OPTIONS" -n "$script" -- "$GETOPT_SHORT_OPTIONS" "$@"`; then
 	print-exiting
 elif ! [[ "$OPTIONS" =~ $REGEX_DEFAULT || "$OPTIONS" =~ $REGEX_REQUIRES ]]; then
-	cat <<- EOF >&2
-		$script: ${FORMAT_RED}missing required options${FORMAT_RESET}!
-		$script: ${FORMAT_BOLD}-h${FORMAT_RESET} or ${FORMAT_BOLD}--help${FORMAT_RESET} to see!
-	EOF
+	echo -e "${FORMAT_RED}missing required options${FORMAT_RESET}!"
+	echo -e "${FORMAT_BOLD}-h${FORMAT_RESET} or ${FORMAT_BOLD}--help${FORMAT_RESET} to see!"
 	print-exiting
 fi
 eval "set -- $OPTIONS"
 while :; do
 	OPTION="$1"
 	ARGUMENT="$2"
-	case $option in
+	case $OPTION in
 		-m|--pattern) PATTERN="${ARGUMENT}"; shift 2;;
 		-f|--pathway) PATHWAY="${ARGUMENT}"; shift 2;;
 		-t|--typeof) TYPEOF="${ARGUMENT}"; shift 2;;
@@ -164,6 +162,6 @@ elif [[ "${TYPEOF,,}" = 'd' || "${TYPEOF,,}" = 'directory' ]]; then
 		print-leaving
 	fi
 else
-	echo -e "$script: ${FORMAT_RED}incorrect${FORMAT_RESET} typeof argument!" >&2
+	echo -e "${FORMAT_RED}incorrect${FORMAT_RESET} typeof argument!" >&2
 	print-exiting
 fi
