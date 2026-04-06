@@ -139,7 +139,7 @@ privileges() {
 
 check-needs() {
 	privileges
-	local packages=('time')
+	local packages=('time', 'libnotify-bin')
 	for package in "${packages[@]}"; do
 		if ! (which -s "$package" || failure); then
 			echo -en "$script: ask: needed \"$package\", "
