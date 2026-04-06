@@ -107,7 +107,7 @@ check-needs() {
 	privileges
 	local packages=('package1' 'package2')
 	for package in "${packages[@]}"; do
-		if ! dpkg -s "$package" &>/dev/null; then
+		if ! which -s "$package"; then
 			echo -ne "$script: ask: needed \"$package\", "
 			read -rp  "install? [Y/n] "
 			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
