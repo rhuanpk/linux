@@ -141,7 +141,7 @@ check-needs() {
 	privileges
 	local packages=('time')
 	for package in "${packages[@]}"; do
-		if ! (dpkg -s "$package" &>/dev/null || failure); then
+		if ! (which -s "$package" || failure); then
 			echo -en "$script: ask: needed \"$package\", "
 			read -rp "install? [Y/n] "
 			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
