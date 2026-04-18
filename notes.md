@@ -8197,6 +8197,18 @@ Renomear:
 git push <remote> <remote>/<old_branch>:refs/heads/<new_branch> :<old_branch>
 ```
 
+Desvincular local com remoto inexistente:
+
+```sh
+git branch --unset-upstream
+```
+
+Vincular local com novo remoto:
+
+```sh
+git branch --set-upstream-to=<remote>/<new_branch>
+```
+
 #### Criação de Branchs
 
 A partir de uma remoto já existente:
