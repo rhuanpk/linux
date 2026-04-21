@@ -7907,6 +7907,20 @@ Retirar senha do PDF:
 pdftk /path/to/encrypted.pdf input_pw PROMPT output /path/to/decrypted.pdf
 ```
 
+#### Comando `qpdf`
+
+Programas necessários:
+
+```bash
+sudo apt install qpdf -y
+```
+
+Decriptar PDF:
+
+```bash
+qpdf --password=<password> --decrypt /path/to/encrypted.pdf /path/to/decrypted.pdf
+```
+
 ### Comando *highlight-pointer*
 
 Instalação:
