@@ -7662,14 +7662,24 @@ Comandos úteis:
 
 ### Comando _yt-dlp_
 
+Listar formatos disponíveis:
+```sh
+yt-dlp -F <url>
+```
+
 Baixar áudio:
 ```sh
-yt-dlp -x --audio-format mp3 <yt-url>
+yt-dlp -x --audio-format mp3 <url>
 ```
 
 Baixar vídeo:
 ```sh
-yt-dlp -S ext:mp4,res:1080 <yt-url>
+yt-dlp -S ext:mp4,res:1080 <url>
+```
+
+Baixar vídeo na melhor qualidade disponível:
+```sh
+yt-dlp -f mp4 <url>
 ```
 
 ### Comando *trans*
@@ -8003,6 +8013,18 @@ showrgb | grep -i '<color>'
 Espelhar tela do PC com dispositivo que tenha Google ou Android System:
 ```sh
 mkchromecast -s --video --screencast
+```
+
+### Comando _mpv_
+
+Instalação:
+```sh
+apt install mpv
+```
+
+Cortar vídeo:
+```sh
+mpv /path/to/input.mp4 --start=<[hh:][mm:]ss> --end=<[hh:][mm:]ss> -o /path/to/output.mp4
 ```
 
 ---
