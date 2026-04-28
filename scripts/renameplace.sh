@@ -6,7 +6,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.3.0'
+readonly version='2.4.0'
 readonly script="`basename "$0"`"
 
 FONT_BOLD=1
@@ -350,7 +350,7 @@ submenu-file-names() {
 		done; echo
 	}
 
-	function thirdmenu-rename() {
+	thirdmenu-rename() {
 		while :; do
 			clear
 			message-default-simply 'Add/Remove from Begin/End'
