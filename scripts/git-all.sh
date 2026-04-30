@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.5.0'
+readonly version='2.6.0'
 readonly script="`basename "$0"`"
 
 FLAG_CUSTOM='false'
@@ -46,8 +46,8 @@ Usage without passing parameters:
 	`formatter 1 -c`: Start the CUSTOM MODE;
 	`formatter 1 -g`: Pull in all repos;
 	`formatter 1 -e`: Show errors on cd in repo if occurs;
-	`formatter 1 -p \<path\>`: Set path once to grab the folders;
-	`formatter 1 -r \<repo\>\[, \<repo sitory\>\]`: Set repos (comma separated) inside path to iterate over;
+	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders;
+	`formatter 1 -r \"\<repo\>\[,\<repo\>\...]\"`: Set repos (comma separated) inside path to iterate over;
 	`formatter 1 -v`: Print version;
 	`formatter 1 -h`: Print this message and exit with 2.
 
