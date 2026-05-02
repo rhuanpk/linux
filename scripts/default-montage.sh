@@ -3,7 +3,7 @@
 # Mount usual file system types with options of a file manger mount.
 
 # >>> variables declaration!
-readonly version='1.2.0'
+readonly version='1.2.1'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -77,12 +77,13 @@ if mountpoint -q "$point/"; then
 	cleanup
 else
 	$sudo mkdir -pv "$point/"
+	ugid=",uid=`id -u`,gid=`id -g`"
 	case "$(blkid-extract "$disk" 'type')" in
 		ext4) options=',nosuid,nodev,errors=remount-ro,uhelper=udisks2';;
-		vfat) options=",nosuid,nodev,uid=`id -u`,gid=`id -g`,showexec,flush,uhelper=udisks2";;
-		exfat) options=",nosuid,nodev,uid=`id -u`,gid=`id -g`,uhelper=udisks2";;
-		ntfs) options=',nosuid,nodev,uhelper=udisks2';;
-		iso9660) options=",nosuid,nodev,uid=`id -u`,gid=`id -g`,uhelper=udisks2";;
+		vfat) options=",nosuid,nodev$ugid,showexec,flush,uhelper=udisks2";;
+		exfat) options=",nosuid,nodev$ugid,uhelper=udisks2";;
+		ntfs) options=",nosuid,nodev$ugid,uhelper=udisks2";; # if ugid not applied can use `,force'?
+		iso9660) options=",nosuid,nodev$ugid,uhelper=udisks2";;
 		*) echo "$script: info: unusual filesystem type";;
 	esac
 	if ! $sudo mount -vo defaults$options "$disk" "$point/"; then
