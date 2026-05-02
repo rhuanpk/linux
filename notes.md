@@ -3113,11 +3113,18 @@ install -Dt </path/to/folder/> </path/to/file1>[ ...]
 ### Comando _diff_
 
 Realizar o _diff_ a nível de palavras:
-```
+```sh
 diff -u /path/to/file1.any /path/to/file2.any | colordiff | diff-highlight
 ```
 
 OBS: Nesse caso o _diff-highlight_ referente é [esse](#configurar-diff-highlight-do-git).
+
+### Comando _patch_
+
+Aplicar diff em arquivo:
+```sh
+patch /path/to/applied.any < /path/to/diff.patch
+```
 
 ### Comando _mokutil_
 
