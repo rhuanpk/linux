@@ -3,7 +3,7 @@
 # Mount usual file system types with options of a file manger mount.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -71,18 +71,21 @@ point="/mnt/$point"
 		point+="-$(blkid-extract "$disk" 'uuid')"
 	}
 }
+cleanup() { $sudo rmdir -v "$point/"; }
 if mountpoint -q "$point/"; then
 	$sudo umount -v "$point/"
-	$sudo rmdir -v "$point/"
+	cleanup
 else
 	$sudo mkdir -pv "$point/"
 	case "$(blkid-extract "$disk" 'type')" in
 		ext4) options=',nosuid,nodev,errors=remount-ro,uhelper=udisks2';;
 		vfat) options=",nosuid,nodev,uid=`id -u`,gid=`id -g`,showexec,flush,uhelper=udisks2";;
 		exfat) options=",nosuid,nodev,uid=`id -u`,gid=`id -g`,uhelper=udisks2";;
-		ntfs) options=',nosuid,nodev,default_permissions,uhelper=udisks2';;
+		ntfs) options=',nosuid,nodev,uhelper=udisks2';;
 		iso9660) options=",nosuid,nodev,uid=`id -u`,gid=`id -g`,uhelper=udisks2";;
 		*) echo "$script: info: unusual filesystem type";;
 	esac
-	$sudo mount -vo defaults$options "$disk" "$point/"
+	if ! $sudo mount -vo defaults$options "$disk" "$point/"; then
+		cleanup
+	fi
 fi
