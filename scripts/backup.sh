@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.11.1'
+readonly version='3.12.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -410,7 +410,9 @@ if [ "$type_bkp" = "$type_bkp_dev" ]; then
 		exit 1
 	}
 	tmp_mountpoint="$($sudo mktemp -d "/mnt/$script-XXXXXXX")"
-	if ! ($sudo mount -vL "$udev_label" "$tmp_mountpoint/" || failure); then
+	filesystem_type="$($sudo blkid -o export "$($sudo blkid -L FILES)" | sed -nE 's/^TYPE=(.*)$/\1/p')"
+	[ "$filesystem_type" = 'ntfs' ] && mount_option="-o defaults,uid=`id -u`,gid=`id -g`,force"
+	if ! ($sudo mount -vL "$udev_label" $mount_option "$tmp_mountpoint/" || failure); then
 		echo "-> error: can't mount device"
 		exit 1
 	fi
