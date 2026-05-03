@@ -3095,13 +3095,20 @@ Saber o nome do _device_:
 lsblk -do NAME,MODEL
 ```
 
-Saber se o disco é **HDD** ou **SSD**:
+Saber se o disco é **HDD** ou **SSD** (`0` para SSD & `1` para HDD):
 ```sh
 lsblk -do NAME,ROTA
 ```
 
-- `0`: para SSD
-- `1`: para HDD
+Saber se o tipo de conexão do disco:
+```sh
+lsblk -do NAME,TRAN
+```
+
+Infos gerais e úteis:
+```sh
+lsblk -o NAME,MODEL,TRAN,SIZE,ROTA,TYPE
+```
 
 ### Comadno _isntall_
 
