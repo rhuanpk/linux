@@ -5323,6 +5323,45 @@ O comando que gera algúm arquivo envia-o para a substituição, ou seja, é o i
 _TIPS/TRICKS_:
 - `shopt -s globstar dotglob` com `**[/*]` causa a expansão de todos os arquivos e todo os subníveis incluíndo os ocultos (equivalente a `find`?)
 
+### Controle de Saída de Script
+
+Utilizando `trap`:
+```sh
+#!/bin/bash
+trap "quit='true'" SIGTERM SIGINT SIGQUIT SIGSTOP SIGTSTP # SIGINT = ctrl+c
+
+stay() {
+        local delay="${1:-1}"
+        local pid
+        sleep "$delay" & pid="$!"
+        while kill -0 "$pid" 2>&-; do
+                wait "$pid"
+        done
+}
+
+check() {
+        if ${quit:-false}; then
+                exit
+        fi
+}
+
+while :; do
+        check
+        echo sleeping
+        stay
+done
+```
+
+Utilizando `read`:
+```sh
+#!/bin/bash
+while :; do
+        echo sleeping
+        read -t 1 -n 1 -p 'continue? <Y/n> '; echo
+        [ "${REPLY,,}" = 'n' ] && exit
+done
+```
+
 ### Múltiplos Comandos _In-Line_ com Background
 
 Caso tente executar:
