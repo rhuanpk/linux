@@ -4273,7 +4273,7 @@ Chame o comando e siga o procedimento para recuperação completa de HD:
 photorec
 ```
 
-##### Recuperação de HDD/SSD?
+##### Recuperação de HDD/SSD corrompido?
 
 1. Boot pela *iso live*
 1. Conecte o HD externo que receberá os arquivo recuperados do HD comrrompido
@@ -4520,29 +4520,52 @@ Aliases:
 unalias <alias>
 ```
 
-### Recuperar Arquivos de um `rm` Comando
+### Recuperar Arquivos Removidos (`rm`)
 
-1. SE for um arquivo editavel:
+1. SE for um arquivo editável:
     1. Pegue pid do na segunda coluna e o descritor de arquivo na quarta coluna:
         `lsof | grep '/path/to/file'`
     1. Copie o arquivo direto do descritor:
         `cp /proc/<pid>/fd/<fd> /path/to/restored/file`
-1. Desmonte imediatamente o sistema de arquivos ou remonte somente leitura:
+1. Desmonte imediatamente a partição ou remonte somente leitura:
     - Para desmontar:
         `umount /dev/sdXY`
     - Para remontar somente leitura:
-        `mount -o remount,ro /dev/sdXY`
+        `mount -o ro,norecovery,remount /dev/sdXY`
 1. Faça backup da partição:
-    `dd if=/dev/sdX[Y] of=/tmp/backup.hd bs=4M`
+    `dd if=/dev/sdXY of=/tmp/backup.hd bs=8M status=progress`
+    - Observação: a partir dessa cópia, você escolher em trabalhar diretamente no disco e deixar a imagem como backup ou vice-versa
 1. <details>
     <summary>Execute a recuperação</summary>
 
     - <details>
-        <summary>Caso <code>ext4</code></summary>
+        <summary><code>ext4</code>: <code>extundelete</code></summary>
 
-        - `extundelete --restore-all {/dev/sdX[Y]|/path/to/backup.hd}`\
-        OBS: Veja outras opções do comando com:
-            `man extundelete`
+		1. Instale a ferramenta: `apt install extundelete`
+        1. Restaure toda a partição: `extundelete --restore-all {/dev/sdXY|/path/to/backup.hd}`
+		1. OU restaure somente um arquivo: `extundelete --restore-file relative/path/to/file.any {/dev/sdXY|/path/to/backup.hd}`
+		1. OU restaure somente uma pasta: `extundelete --restore-directory relative/path/to/directory/ {/dev/sdXY|/path/to/backup.hd}`
+
+		_OBSERVAÇÕES_:
+		- Arquivos restaurados serão salvos em `./RECOVERED_FILES/` se não especificado "`--output-dir /extundelete/`"
+		- Se retornar `0 descriptors loaded` e `0 recoverable inodes`, o _journal_ não tem registros e a ferramenta não consegue recuperar
+	- <details>
+        <summary><code>ext4</code>: <code>ext4magic</code></summary>
+
+		1. Instale a ferramenta: `apt install ext4magic`
+		1. Restaure toda a partição: `ext4magic -md /ext4magic/ {/dev/sdXY|/path/to/backup.hd}`
+		1. OU restaure somente uma pasta: `ext4magic -d /ext4magic/ -rf relative/path/to/directory/ {/dev/sdXY|/path/to/backup.hd}`
+    - <details>
+        <summary><code>ext4</code>: <code>strings</code></summary>
+
+		1. Verifique se há indícios do que procura: `grep -oa "<pattern>" {/dev/sdXY|/path/to/backup.hd}`
+        1. Restaure como texto pleno: `strings {/dev/sdXY|/path/to/backup.hd} | grep -A <lines> "<pattern>" > /recovered.txt`
+
+		_OBSERVAÇÕES_:
+		- Técnica mais indica para arquivos de texto (documentos, códigos fonte e etc)
+		- Para com cabeçalhos bem definidos (imagens, vídeos, PDFs, ZIPs e etc) o `photorec` tem mais acurácia
+    </details>
+    </details>
     </details>
 </details>
 
@@ -9523,7 +9546,7 @@ And [here][repo] too.
 Itens colapsados:
 
 ```md
-## Markdown Details
+# Markdown Details
 
 <details open>
 <summary>Summary 1</summary>
@@ -9537,9 +9560,9 @@ Ordered list:
     - Item 1.3.1
     - Item 1.3.2
     - Item 1.3.3
+	</details>
 1. Item 1.4
 
-</details>
 </details>
 ```
 
