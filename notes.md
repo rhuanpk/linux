@@ -3898,104 +3898,100 @@ gio mount -u '<device_path_name>'
 
 ### Qemu
 
-- `X`: letra do disco;
-- `Y`: número da partição;
-- `-m`: memória RAM em MB;
-- `-smp`: núcleos do processador;
-- `-cpu {host|<type>}`: tipo do processador;
-- `-nographic`: executa em _background_.
+- `-cpu {host|<type>}`: Tipo do processador
+- `-nographic`: Executa em _background_
 
 Instalação:
-
-```bash
-sudo apt install -y qemu-system-x86 qemu-utils
+```sh
+sudo apt install qemu-system-x86 qemu-utils ovmf
 ```
 
 Criar disco:
-
-```bash
-qemu-img create -f qcow2 /path/to/disk.qcow2 15G
+```sh
+qemu-img create -f qcow2 /path/to/disk.qcow2 32G
 ```
 
 #### BIOS (Legacy)
 
 Subir VM:
-
-```bash
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
+```sh
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -boot d -cdrom /path/to/system.iso
 ```
 
 Iniciar o disco:
-
-```bash
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX}
+```sh
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX}
 ```
 
 #### UEFI
 
-Dependência:
+<details>
+<summary>Recursos OVMF!</summary>
 
-```bash
-sudo apt install ovmf -y
-```
+- CODE: Firmware (RO)
+    - `OVMF_CODE_4M.fd`: Padrão
+    - `OVMF_CODE_4M.secboot.fd`: _Secure Boot_
+    - `OVMF_CODE_4M.secboot.strictnx.fd`: _Secure Boot_ com _Strict NX (No-Execute)_
+    - `OVMF_CODE_4M.ms.fd`: _Alias_ para `OVMF_CODE_4M.secboot.fd`
+    - `OVMF_CODE_4M.snakeoil.fd`: _Alias_ para `OVMF_CODE_4M.secboot.fd`
+- VARS: Variáveis persistentes NVRAM (RW)
+    - `OVMF_VARS_4M.fd`: Padrão (NVRAM vazia)
+    - `OVMF_VARS_4M.ms.fd`: Variáveis da Microsoft (_Secure Boot_)
+    - `OVMF_VARS_4M.snakeoil.fd`: Variáveis de teste auto-assinadas
+</details>
 
 Subir VM:
-
-```bash
-qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -boot d -cdrom disk_image.iso
+```sh
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -drive file={/path/to/disk.qcow2|/dev/sdX},if=virtio -machine q35 -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE_4M[.secboot].fd -drive if=pflash,format=raw,readonly=off,file=$HOME/Desktop/qemu/OVMF_VARS_4M[.ms].fd
 ```
 
 Iniciar o disco:
-
-```bash
-qemu-system-x86_64 -enable-kvm -bios /usr/share/ovmf/OVMF.fd -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX}
-```
-
-#### Usar Dispositivo Externo Como Disco
-
 ```sh
-sudo qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -drive file=/dev/sdX
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -drive file={/path/to/disk.qcow2|/dev/sdX},if=virtio -machine q35 -drive if=pflash,format=raw,readonly=on,file=/usr/share/OVMF/OVMF_CODE_4M[.secboot].fd -drive if=pflash,format=raw,readonly=off,file=$HOME/Desktop/qemu/OVMF_VARS_4M[.ms].fd -boot d -cdrom /path/to/system.iso
 ```
+
+_OBSERVAÇÕES_:
+- Crie um cópias do arquivo de variáiveis para cada VM que subir
 
 #### Conectar Via SSH (configurar _network_ entre _host_ e _guest_):
 
 ```bash
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -device e1000,netdev=net0 -netdev user,id=net0,hostfwd=tcp::2222-:22
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -device e1000,netdev=net0 -netdev user,id=net0,hostfwd=tcp::2222-:22
 ```
 
 #### Conectar Outro VD ou Um HD Real
 
 ```sh
 # other qcow2 VD
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/path/to/disk.qcow2,format=qcow2,if=virtio
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/path/to/disk.qcow2,format=qcow2,if=virtio
 # for VD created by dd
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/path/to/disk.img,format=raw,if=virtio
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/path/to/disk.img,format=raw,if=virtio
 # for HD partition (HDD or pendrives)
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/dev/sdXY,format=raw,if=virtio
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -drive file=/dev/sdXY,format=raw,if=virtio
 ```
 
 #### Compartilhar Pasta do Host com Guest
 
 - Compartilhe a pasta com a VM:
 ```sh
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -virtfs local,path=/path/to/shared-folder,mount_tag=shared-folder,security_model=passthrough
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -virtfs local,path=/path/to/shared-folder,mount_tag=shared-folder,security_model=passthrough
 ```
 
 - Monte a pasta por dentro da VM:
 ```sh
-mount -o trans=virtio -t 9p <mount-tag> /mnt
+mount -o trans=virtio -t 9p <mounttag> /mnt
 ```
 
 #### Passar USB Para VM
 
 - BUS e Porta ou Endereço:
 ```sh
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -usb [-device usb-{xhci|ehci},id={xhci|ehci}] -device usb-host,hostbus=<bus>,{hostport=<port>|hostaddr=<addr>}
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -usb [-device usb-{xhci|ehci},id={xhci|ehci}] -device usb-host,hostbus=<bus>,{hostport=<port>|hostaddr=<addr>}
 ```
 
 - Fornecedor e Produto:
 ```sh
-qemu-system-x86_64 -enable-kvm -m 2048 -smp 2 -hda {/path/to/disk.qcow2|/dev/sdX} -usb [-device usb-{xhci|ehci},id={xhci|ehci}] -device usb-host,vendorid=0x<vendor>,productid=0x<product>
+qemu-system-x86_64 -enable-kvm -m 4096 -smp 4 -hda {/path/to/disk.qcow2|/dev/sdX} -usb [-device usb-{xhci|ehci},id={xhci|ehci}] -device usb-host,vendorid=0x<vendor>,productid=0x<product>
 ```
 
 Para listar o dispositivos:
@@ -4011,14 +4007,6 @@ Exemplo de saída:
 ```bash
 qemu-img convert -pO qcow2 /path/to/base-disk.qcow2 /path/to/output-disk.qcow2
 ```
-
-#### Troubleshooting
-
-Executar qemu _logado_ como root:
-1. Liberar acesso no `xhost` (**$**):
-    `xhost +si:localuser:root`
-1. Executar comando passando a variável `DISPLAY`:
-    `DISPLAY=:0 <command>`
 
 ### Virt Manager
 
