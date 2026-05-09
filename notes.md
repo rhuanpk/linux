@@ -3664,8 +3664,12 @@ top
 
 Comando *smem*:
 
+- `USS` (_Unique Set Size_): Memória exclusiva do programa (não inclui memória compartilhada (ex. _libs_))
+- `PSS` (_Proportional Set Size_): USS junto com memória compartilhada dividida igualmente pelos processos que a usam
+- `RSS` (_Resident Set Size_): USS com memória compartilhada total
+
 ```bash
-smem -akt -P <program_name>
+smem -tkr [-a] [-s {uss|pss}] [-c 'pid command uss pss'] [-P <program>]
 ```
 
 ### Limpar memória cache
