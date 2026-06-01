@@ -81,8 +81,8 @@ while :; do
 	#echo -e "\n$SEPARATOR\n\n> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\""
 	#nmcli device wifi list bssid "$BSSID" ifname "$IFNAME"
 
-	echo -e "\n$SEPARATOR\n\n> ping -c 1 'linux.org'"
-	ping -c 1 'linux.org'
+	echo -e "\n$SEPARATOR\n\n> ping -c 1 'kernel.org'"
+	ping -c 1 'kernel.org'
 
 	tput cup `tput cols` 0
 	sleep 3
