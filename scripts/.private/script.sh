@@ -34,9 +34,9 @@ USAGE
 
 OPTIONS
 	-s
-		Forces keep sudo.
+		Force keep the sudo.
 	-r
-		Forces unset sudo.
+		Force run as root.
 	-v
 		Print version.
 	-h
@@ -44,31 +44,18 @@ OPTIONS
 EOF
 }
 
-# OBSERVATIONS
+# OBSERVATIONS!
 #
-# If you do not use sudo, delete all related parts!
+# If you d'not use sudo, delete all related parts.
 #
 # When called:
-# - This retains $sudo:
-# 	- Sets $sudo
-# 	- SUDO flag: true
+# - This run root:
 # 	- ROOT flag: true
 #
 # - This retains $sudo:
-# 	- Sets $sudo
 # 	- SUDO flag: true
-# 	- ROOT flag: false
-#
-# - This unset $sudo:
-# 	- Sets $sudo
-# 	- SUDO flag: false
-# 	- ROOT falg: true
-#
-# - This require root:
-# 	- Not set $sudo
 #
 # For automatic:
-# - Sets $sudo
 # - SUDO flag: false
 # - ROOT flag: false
 # 	- If regular: retains $sudo
@@ -76,20 +63,26 @@ EOF
 # - Or simply: privileges
 #
 # About the flags:
-# - The `-s` forces retain $sudo
-# - The `-r` forces unset $sudo
+# - `-s` force retain $sudo
+# - `-r` force run root
 privileges() {
 	local flag_sudo="$1"
 	local flag_root="$2"
-	sudo='sudo'
-	if [[ -z "$sudo" && "$uid" -ne 0 ]]; then
-		echo "$script: error: run as root #sudo"
-		exit 1
-	elif ! "${flag_sudo:-false}"; then
-		if "${flag_root:-false}" || [ "$uid" -eq 0 ]; then
-			unset sudo
-		fi
+	: ${uid:?need set uid}
+	if "${flag_root:-false}"; then
+		((uid != 0)) && {
+			echo "$script: error: run as root (!sudo)" >&2
+			exit 1
+		}
+		unset sudo
+		return 0
 	fi
+	if "${flag_sudo:-false}"; then
+		sudo='sudo'
+		return 0
+	fi
+	sudo='sudo'
+	((uid == 0)) && unset sudo
 }
 
 check-needs() {
