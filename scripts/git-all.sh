@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.7.0'
+readonly version='2.6.0'
 readonly script="`basename "$0"`"
 
 FLAG_CUSTOM='false'
@@ -41,15 +41,15 @@ Usage without passing parameters:
 	$script [<options>]
 
 `formatter 1 OPTIONS`
-	`formatter 1 -l`: List the atual path selected and exit with 0
-	`formatter 1 -s`: Set a new path to grab the folders
-	`formatter 1 -c`: Start the CUSTOM MODE
-	`formatter 1 -g`: Pull in all repos
-	`formatter 1 -e`: Show errors on cd in repo if occurs
-	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders (default is \`pwd')
-	`formatter 1 -r \"\<repo\>\[,...]\"`: Set repos (comma separated) inside path to iterate over
-	`formatter 1 -v`: Print version
-	`formatter 1 -h`: Print this message and exit with 2
+	`formatter 1 -l`: List the atual path selected and exit with 0;
+	`formatter 1 -s`: Set a new path to grab the folders;
+	`formatter 1 -c`: Start the CUSTOM MODE;
+	`formatter 1 -g`: Pull in all repos;
+	`formatter 1 -e`: Show errors on cd in repo if occurs;
+	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders;
+	`formatter 1 -r \"\<repo\>\[,\<repo\>\...]\"`: Set repos (comma separated) inside path to iterate over;
+	`formatter 1 -v`: Print version;
+	`formatter 1 -h`: Print this message and exit with 2.
 
 `formatter 1 OBSERVATIONS`
 	- Pass a "!" in the begin of \`-r' flag to invert match
@@ -102,18 +102,15 @@ switch-path() {
 
 
 # >>> pre statements!
-while getopts 'lscgepr:vh' OPTION; do
+while getopts 'lscgep:r:vh' OPTION; do
 	case "$OPTION" in
 		l) print-path; exit 0;;
 		s) switch-path; exit 0;;
 		c) FLAG_CUSTOM=true;;
 		g) FLAG_PULL=true;;
 		e) FLAG_ERROR=true;;
+		p) PATH_REPOS="${OPTARG/%\/}";;
 		r) NAME_REPOS="$OPTARG";;
-		p)
-			PATH_REPOS="${OPTARG/%\/}"
-			: "${PATH_REPOS:=$(pwd)}"
-		;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
