@@ -4,8 +4,8 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.6.0'
-readonly script="`basename "$0"`"
+readonly version='2.7.0'
+readonly script="$(basename "$0")"
 
 FLAG_CUSTOM='false'
 FLAG_PULL='false'
@@ -20,11 +20,11 @@ $script v$version
 
 `formatter 1 DESCRIPTION`
 
-Normal mode:
+`formatter 4 NORMAL_MODE`:
 	Pass the git command to be used as a parameter, if no parameters are passed it will \`git status' by default.
 	The parameter can be passed without quotes.
 
-Custom mode:
+`formatter 4 CUSTOM_MODE`:
 	At each iteration of the loop you can set the message and branch of the current repository.
 	In this mode the uniq operation to perform is \`git push'.
 
@@ -41,15 +41,15 @@ Usage without passing parameters:
 	$script [<options>]
 
 `formatter 1 OPTIONS`
-	`formatter 1 -l`: List the atual path selected and exit with 0;
-	`formatter 1 -s`: Set a new path to grab the folders;
-	`formatter 1 -c`: Start the CUSTOM MODE;
-	`formatter 1 -g`: Pull in all repos;
-	`formatter 1 -e`: Show errors on cd in repo if occurs;
-	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders;
-	`formatter 1 -r \"\<repo\>\[,\<repo\>\...]\"`: Set repos (comma separated) inside path to iterate over;
-	`formatter 1 -v`: Print version;
-	`formatter 1 -h`: Print this message and exit with 2.
+	`formatter 1 -l`: List the atual path selected and exit 0
+	`formatter 1 -s`: Set a new path to grab the folders
+	`formatter 1 -c`: Start the `formatter 4 CUSTOM_MODE`
+	`formatter 1 -g`: Pull in all repos
+	`formatter 1 -e`: Show errors when enter in repo (if occurs)
+	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders
+	`formatter 1 -r \"\<repo\>\[,\<repo\>\...]\"`: Set repos (comma separated) inside path to iterate over
+	`formatter 1 -v`: Print version
+	`formatter 1 -h`: Print this message and exit 2
 
 `formatter 1 OBSERVATIONS`
 	- Pass a "!" in the begin of \`-r' flag to invert match
@@ -71,31 +71,31 @@ get-path() {
 }
 
 print-path() {
-	git_path="`get-path`"
+	git_path="$(get-path)"
 	[ "$git_path" ] \
-		&& message="\"$(formatter 33 "$git_path")\"" \
-		|| message="$(formatter 31 none path sets)"
+		&& message="\"`formatter 33 "$git_path"`\"" \
+		|| message="`formatter 31 none path sets`"
 	cat <<- eof
 		Atual path: $message!
 	eof
 }
 
 switch-path() {
-	atual_path="`print-path`"
-	[ "$(sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p' <<< "$atual_path")" ] && echo -e "$atual_path"
+	atual_path="$(print-path)"
+	[ "$(sed -nE 's/^.*\x1b\[([0-9]+;?)+m(.*)\x1b\[.*$/\2/p' <<< "$atual_path")" ] && echo "$atual_path"
 	read -ep "Enter the new path where the repositories are: " path
 	path="${path/#~/$HOME}"
 	if [ -z "$path" ]; then
-		echo -e "`formatter 31 '> The path can not is null!'`"
+		echo "`formatter 31 '> The path can not is null!'`"
 		exit 1
 	elif [ ! -d "$path" ]; then
-		echo -e "`formatter 31 '> The path not exist!'`"
+		echo "`formatter 31 '> The path not exist!'`"
 		exit 1
 	else
 		if echo "${path/%\/}" >"$PATH_FILE"; then
-			echo -e "`formatter 32 '> New path successfully changed!'`"
+			echo "`formatter 32 '> New path successfully changed!'`"
 		else
-			echo -e "`formatter 31 '> New path NOT successfully changed!'`"
+			echo "`formatter 31 '> New path NOT successfully changed!'`"
 		fi
 	fi
 }
@@ -104,28 +104,45 @@ switch-path() {
 # >>> pre statements!
 while getopts 'lscgep:r:vh' OPTION; do
 	case "$OPTION" in
+		# checks
+		#p) [[ "$OPTARG" =~ ^- ]] && { #[ "${OPTARG:0:1}" = - ]
+		#	echo "$script: `formatter 2\;31 ERR`: path can't contains '-' as first char in \`-p' flag" >&2
+		#	exit 2
+		#};;&
+		# cases
 		l) print-path; exit 0;;
 		s) switch-path; exit 0;;
 		c) FLAG_CUSTOM=true;;
 		g) FLAG_PULL=true;;
 		e) FLAG_ERROR=true;;
-		p) PATH_REPOS="${OPTARG/%\/}";;
+		p) PATH_REPOS="$OPTARG";;
 		r) NAME_REPOS="$OPTARG";;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
 done
-shift $(("$OPTIND"-1))
+shift $((OPTIND - 1))
 
 [ ! -f "$PATH_FILE" ] || [ ! -s "$PATH_FILE" ] && {
-	echo -e "$script: error: file path is not exists or set ups, use \`-s\` flag"
-	exit 1
+	echo "$script: `formatter 2\;31 ERR`: file path is not exists or is set, use \`-s' flag" >&2
+	exit 2
 }
-PATH_REPOS="${PATH_REPOS/#./$(pwd)}"
+
+[[ "$PATH_REPOS" && ! -d "$PATH_REPOS" ]] && {
+	echo "$script: `formatter 2\;31 ERR`: repos path is not valid or found: '$PATH_REPOS'" >&2
+	exit 2
+}
+
+PATH_REPOS="${PATH_REPOS:+$(realpath -- "$PATH_REPOS")}"
+
+[[ "$PATH_REPOS" && "$(find "$PATH_REPOS" -maxdepth 0 -empty)" ]] && {
+	echo "$script: `formatter 2 INFO`: repos path is empty: '$PATH_REPOS'"
+	exit 0
+}
 
 # ***** PROGRAM START *****
-[ -z "$PATH_REPOS" ] && PATH_REPOS="`get-path`"
-ARRAY_REPOS=("`realpath "$PATH_REPOS"`"/*)
+[ -z "$PATH_REPOS" ] && PATH_REPOS="$(get-path)"
+ARRAY_REPOS=("$PATH_REPOS"/*)
 [[ "$NAME_REPOS" && ! "$NAME_REPOS" =~ ^! ]] && {
 	unset ARRAY_REPOS
 	IFS=',' read -ra NAME_REPOS <<< "$NAME_REPOS"
@@ -134,29 +151,30 @@ ARRAY_REPOS=("`realpath "$PATH_REPOS"`"/*)
 	done
 }
 COUNT="${#ARRAY_REPOS[@]}"
+CHARS="$(printf -- '-%.0s' $(seq 42); echo)"
 for directory in "${ARRAY_REPOS[@]}"; do
-	repo="`basename "$directory"`"
+	repo="$(basename "$directory")"
 	[[ "$NAME_REPOS" && "$NAME_REPOS" =~ ^! ]] && {
 		[[ "$NAME_REPOS" =~ $repo ]] && continue
 	}
-	if ! OUTPUT=`cd "$directory" 2>&1`; then
+	if ! OUTPUT=$(cd "$directory" 2>&1); then
 		if "$FLAG_ERROR"; then
 			directory="`formatter 1 "$directory"`"
 			{
 				[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-				&& echo -e "$script: warn: \"$directory\" is not a folder"
+				&& echo "$script: `formatter 2\;33 WARN`: \"$directory\" is not a folder" >&2
 			} || {
 				[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-				&& echo -e "$script: warn: \"$directory\" don't has permission";
+				&& echo "$script: `formatter 2\;33 WARN`: \"$directory\" don't has permission" >&2
 			} || \
-				echo -e "$script: err: $OUTPUT \"$directory\""
+				echo "$script: `formatter 2\;31 ERR`: $OUTPUT \"$directory\"" >&2
 			FLAG_SEPARATOR='true'
 		else
 			FLAG_SEPARATOR='false'
 		fi
 	else
 		cd "$directory" 2>&1
-		echo -e "${SEPARATOR}→ git in *$(formatter 1 "${repo^^}")*!\n"
+		echo -e "${SEPARATOR}→ git in *`formatter 1 "${repo^^}"`*!\n"
 		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
@@ -172,7 +190,7 @@ for directory in "${ARRAY_REPOS[@]}"; do
 		FLAG_SEPARATOR='true'
 	fi
 	if "$FLAG_SEPARATOR"; then
-		((COUNT>1)) &&  SEPARATOR="$(formatter 34 "$(printf -- '-%.0s' `seq 42`; echo)")\n"
+		((COUNT > 1)) && SEPARATOR="`formatter 34 "$CHARS"`\n"
 	fi
 	let COUNT--
 done
