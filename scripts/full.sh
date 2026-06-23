@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.3.1'
+readonly version='2.3.2'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -68,8 +68,6 @@ log() {
 
 # fix
 ${SUDO:+sudo -v}
-log "> apt -f $FLAG_YES install"
-$SUDO apt -f $FLAG_YES install
 log "> apt install -f $FLAG_YES"
 $SUDO apt install -f $FLAG_YES
 log '> dpkg --configure -a'
@@ -86,7 +84,7 @@ if "${FLAG_UPGRADABLE:-false}"; then
 	$SUDO apt list --upgradable 2>&- | sed -nE 's~^(.*)/.*$~\1~p' | xargs $SUDO apt install $FLAG_YES
 fi
 
-# agressive (update/clean/remove)
+# agressive
 ${SUDO:+sudo -v}
 log "> apt full-upgrade $FLAG_YES"
 $SUDO apt full-upgrade $FLAG_YES

@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.1.1'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -62,10 +62,8 @@ privileges false false
 # ***** PROGRAM START *****
 if "${DPKG_FIRST:-false}"; then
 	$SUDO dpkg --configure -a
-	$SUDO apt -f $FLAG_YES install
 	$SUDO apt install -f $FLAG_YES
 else
-	$SUDO apt -f $FLAG_YES install
 	$SUDO apt install -f $FLAG_YES
 	$SUDO dpkg --configure -a
 fi
