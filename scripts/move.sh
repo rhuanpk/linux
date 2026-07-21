@@ -82,6 +82,7 @@ check-needs() {
 setpath() {
 	local setpath_url='https://raw.githubusercontent.com/rhuanpk/linux/main/scripts/.private/setpath.sh'
 	[ -z "$PATH_SCRIPTS" ] && source /etc/environment
+	[ -z "$PATH_SCRIPTS" ] && PATH_SCRIPTS="$(find "$HOME/" -type f -name ".scripts.pf" 2>&- \ | xargs dirname 2>&- \ | tail -1)"
 	path="${PATH_SCRIPTS:-$(curl -fsL "$setpath_url" | bash -s -- -p scripts)}"
 }
 
