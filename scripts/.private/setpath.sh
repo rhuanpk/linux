@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 # >>> variables declaration
-readonly version='2.2.0'
+readonly version='2.2.1'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 
@@ -54,10 +54,10 @@ setpath() {
 		| tail -1
 	)
 	if ! "${flag_print:-false}"; then
-		if ! grep -qE -m 1 "^$variable=.*$" "$environment" 2>&-; then
-			tee -a "$environment" <<< "$variable=$path" &>/dev/null
+		if ! grep -qE -m 1 "^export $variable=.*$" "$environment" 2>&-; then
+			tee -a "$environment" <<< "export $variable=$path" &>/dev/null
 		else
-			sed -Ei "/^$variable=.*$/s~[^=]*$~$path~" "$environment" 2>&-
+			sed -Ei "/^export $variable=.*$/s~[^=]*$~$path~" "$environment" 2>&-
 		fi
 	fi
 	[ "$path" ] && echo "$path"
