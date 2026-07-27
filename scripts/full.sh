@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.3.2'
+readonly version='2.4.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -103,7 +103,7 @@ if "${FLAG_FIRMWARE:-false}"; then
 	log "> fwupdmgr update $FLAG_YES"
 	if which -s fwupdmgr || $SUDO apt install fwupd $FLAG_YES; then
 		#fwupdmgr get-devices >&-
-		fwupdmgr refresh
-		fwupdmgr get-updates && fwupdmgr update $FLAG_YES
+		fwupdmgr refresh --force
+		fwupdmgr get-updates --force && fwupdmgr update --force $FLAG_YES
 	fi
 fi
