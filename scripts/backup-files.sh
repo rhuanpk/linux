@@ -6,14 +6,13 @@
 shopt -s extglob
 
 # >>> variables declaration!
-readonly version='1.10.0'
+readonly version='1.10.1'
 readonly script="`basename "$0"`"
 
 # where data are stored
 PATHWAY_BACKUP="$HOME/Documents/cfb/hosts/`hostname`"
 declare -A ARRAY_PATHWAY_BACKUP=(
 	#['misc']="$PATHWAY_BACKUP/misc"
-	#['kitty']="$PATHWAY_BACKUP/kitty"
 	#['dunst']="$PATHWAY_BACKUP/dunst"
 	#['shellrc']="$PATHWAY_BACKUP/shellrc"
 	#['neofetch']="$PATHWAY_BACKUP/neofetch"
@@ -32,6 +31,7 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['gtk3']="$PATHWAY_BACKUP/gtk3"
 	['gtk4']="$PATHWAY_BACKUP/gtk4"
 	['fonts']="$PATHWAY_BACKUP/fonts"
+	['kitty']="$PATHWAY_BACKUP/kitty"
 	['waybar']="$PATHWAY_BACKUP/waybar"
 	['swaync']="$PATHWAY_BACKUP/swaync"
 	['swappy']="$PATHWAY_BACKUP/swappy"
@@ -39,16 +39,15 @@ declare -A ARRAY_PATHWAY_BACKUP=(
 	['thunar']="$PATHWAY_BACKUP/thunar"
 	['vscode']="$PATHWAY_BACKUP/vscode"
 	['history']="$PATHWAY_BACKUP/history"
-	['localbin']="$PATHWAY_BACKUP/localbin"
+	['binary']="$PATHWAY_BACKUP/binary"
 	['obsscenes']="$PATHWAY_BACKUP/obs/scenes"
 	['terminator']="$PATHWAY_BACKUP/terminator"
-	['iconthemes']="$PATHWAY_BACKUP/iconsthemes"
+	['looks']="$PATHWAY_BACKUP/looks"
 	['obsprofiles']="$PATHWAY_BACKUP/obs/profiles"
 )
 
 # place from to get data
-#PATHWAY_KITTY="$HOME/.config/kitty/kitty.conf"
-#PATHWAY_TREE="$HOME/misc"
+#PATHWAY_MISC="$HOME/misc"
 #PATHWAY_SHELLRC="$HOME/.config/shellrc"
 #PATHWAY_DUNST="$HOME/.config/dunst/dunstrc"
 PATHWAY_OBS_PROFILES="$HOME/.config/obs-studio/basic/profiles"
@@ -68,6 +67,7 @@ PATHWAY_KANSHI="$HOME/.config/kanshi/config"
 PATHWAY_QT5="$HOME/.config/qt5ct/qt5ct.conf"
 PATHWAY_QT6="$HOME/.config/qt6ct/qt6ct.conf"
 PATHWAY_THUNAR="$HOME/.config/Thunar/uca.xml"
+PATHWAY_KITTY="$HOME/.config/kitty/kitty.conf"
 PATHWAY_SWAYNC="$HOME/.config/swaync/style.css"
 PATHWAY_GTK3="$HOME/.config/gtk-3.0/settings.ini"
 PATHWAY_GTK4="$HOME/.config/gtk-4.0/settings.ini"
@@ -111,7 +111,7 @@ cp-backup() {
 	local folder_backup="${2%/}"
 	local old_file="$(ls -1t "$folder_backup/${file_source##*/}"* 2>&- | head -1)"
 	local new_file="$folder_backup/${file_source##*/}_`make-date`.gz"
-	gzip -c9 "$file_source" >"$new_file"
+	gzip -9c "$file_source" >"$new_file"
 	if cmp -s "$old_file" "$new_file"; then
 		rm -f "$new_file"
 	fi
@@ -136,14 +136,13 @@ done
 cleanup-history
 
 # commands ls to save
-ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['localbin']}/binaries.txt"
-ls -1 "$PATHWAY_OPT" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['opt']}/optionals.txt"
-ls -1 "$PATHWAY_FONTS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
-ls -1 "$PATHWAY_ICONS" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/icons.txt"
-ls -1 "$PATHWAY_THEMES" | cat -n | tr -s ' ' >"${ARRAY_PATHWAY_BACKUP['iconthemes']}/themes.txt"
+ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['binary']}/binary.txt"
+ls -1 "$PATHWAY_OPT" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['opt']}/optionals.txt"
+ls -1 "$PATHWAY_FONTS" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
+ls -1 "$PATHWAY_ICONS" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['looks']}/icons.txt"
+ls -1 "$PATHWAY_THEMES" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['looks']}/themes.txt"
 
 # commands cp to save
-#cp-backup "$PATHWAY_KITTY" "${ARRAY_PATHWAY_BACKUP['kitty']}"
 #cp-backup "$PATHWAY_DUNST" "${ARRAY_PATHWAY_BACKUP['dunst']}"
 #cp-backup "$PATHWAY_SHELLRC" "${ARRAY_PATHWAY_BACKUP['shellrc']}"
 #cp-backup "$PATHWAY_MANGOHUD" "${ARRAY_PATHWAY_BACKUP['mangohud']}"
@@ -156,6 +155,7 @@ cp-backup "$PATHWAY_QT6" "${ARRAY_PATHWAY_BACKUP['qt6']}"
 cp-backup "$PATHWAY_SWAY" "${ARRAY_PATHWAY_BACKUP['sway']}"
 cp-backup "$PATHWAY_GTK3" "${ARRAY_PATHWAY_BACKUP['gtk3']}"
 cp-backup "$PATHWAY_GTK4" "${ARRAY_PATHWAY_BACKUP['gtk4']}"
+cp-backup "$PATHWAY_KITTY" "${ARRAY_PATHWAY_BACKUP['kitty']}"
 cp-backup "$PATHWAY_SWAYNC" "${ARRAY_PATHWAY_BACKUP['swaync']}"
 cp-backup "$PATHWAY_SWAPPY" "${ARRAY_PATHWAY_BACKUP['swappy']}"
 cp-backup "$PATHWAY_KANSHI" "${ARRAY_PATHWAY_BACKUP['kanshi']}"
@@ -165,17 +165,17 @@ cp-backup "$PATHWAY_WAYBAR_CONFIG" "${ARRAY_PATHWAY_BACKUP['waybar']}"
 cp-backup "$PATHWAY_TERMINATOR" "${ARRAY_PATHWAY_BACKUP['terminator']}"
 cp-backup "$PATHWAY_VSCODE_SETTINGS" "${ARRAY_PATHWAY_BACKUP['vscode']}"
 cp-backup "$PATHWAY_VSCODE_KEYBINDINGS" "${ARRAY_PATHWAY_BACKUP['vscode']}"
-cp -rf "$PATHWAY_OBS_PROFILES/"* "${ARRAY_PATHWAY_BACKUP['obsprofiles']}/"
-cp -rf "$PATHWAY_OBS_SCENES/"* "${ARRAY_PATHWAY_BACKUP['obsscenes']}/"
+#cp -rf "$PATHWAY_OBS_PROFILES"/* "${ARRAY_PATHWAY_BACKUP['obsprofiles']}/"
+#cp -rf "$PATHWAY_OBS_SCENES"/* "${ARRAY_PATHWAY_BACKUP['obsscenes']}/"
 
 # others commands to save
-#tree "$PATHWAY_TREE" >"${ARRAY_PATHWAY_BACKUP['misc']}/tree.txt"
+#tree "$PATHWAY_MISC" >"${ARRAY_PATHWAY_BACKUP['misc']}/misc.txt"
 #neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/crontab.txt"
-dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/list.txt"
-zip -9r "${ARRAY_PATHWAY_BACKUP['apt']}/apt.zip" "$PATHWAY_APT/"
+dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/dpkg.txt"
+zip -9qr "${ARRAY_PATHWAY_BACKUP['apt']}/apt.zip" "$PATHWAY_APT/"
 
 # complex commands to save
 FILE_NAME_HISTORY="${ARRAY_PATHWAY_BACKUP['history']}/bash-history_`make-date`.gz"
-gzip -c9 "$PATHWAY_HISTORY" >"$FILE_NAME_HISTORY"
+gzip -9c "$PATHWAY_HISTORY" >"$FILE_NAME_HISTORY"
 chmod 600 "$FILE_NAME_HISTORY"
