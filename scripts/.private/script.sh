@@ -9,8 +9,8 @@
 
 # >>> variables declaration
 readonly version='0.0.0'
-readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
+readonly location="$(realpath -s "$0")"
 readonly uid="${UID:-$(id -u)}"
 readonly user="$(id -un "${uid/#0/1000}")"
 readonly home="/home/$user"
