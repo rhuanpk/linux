@@ -40,7 +40,7 @@ OPTIONS
 	-v
 		Print version.
 	-h
-		Print this help.
+		Print help.
 EOF
 }
 
