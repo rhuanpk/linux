@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.7.0'
+readonly version='2.8.0'
 readonly script="$(basename "$0")"
 
 FLAG_CUSTOM='false'
@@ -62,8 +62,8 @@ EOF
 
 formatter() {
 	formatting="$1"
-	[[ "$formatting" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || message="$*"
-	echo -e "\e[${formatting}m$message\e[m"
+	[[ "$formatting" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || { formatting=00; message="$*"; }
+	echo -e "\033[${formatting}m$message\033[00m"
 }
 
 get-path() {
@@ -150,8 +150,11 @@ ARRAY_REPOS=("$PATH_REPOS"/*)
 		ARRAY_REPOS+=("$PATH_REPOS/$repo")
 	done
 }
+readonly CHARS="$(printf -- '-%.0s' $(seq 42); echo)"
+readonly TITLE_FORMAT='2;3;97'
+readonly TITLE_START="`formatter $TITLE_FORMAT "> git in *"`"
+readonly TITLE_END="`formatter $TITLE_FORMAT "*"`"
 COUNT="${#ARRAY_REPOS[@]}"
-CHARS="$(printf -- '-%.0s' $(seq 42); echo)"
 for directory in "${ARRAY_REPOS[@]}"; do
 	repo="$(basename "$directory")"
 	[[ "$NAME_REPOS" && "$NAME_REPOS" =~ ^! ]] && {
@@ -174,7 +177,7 @@ for directory in "${ARRAY_REPOS[@]}"; do
 		fi
 	else
 		cd "$directory" 2>&1
-		echo -e "${SEPARATOR}→ git in *`formatter 1 "${repo^^}"`*!\n"
+		echo -e "$SEPARATOR$TITLE_START`formatter 1\;$TITLE_FORMAT "$repo"`$TITLE_END\n"
 		if "$FLAG_CUSTOM"; then
 			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
