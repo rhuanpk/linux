@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.8.0'
+readonly version='2.9.0'
 readonly script="$(basename "$0")"
 
 FLAG_CUSTOM='false'
@@ -25,8 +25,8 @@ $script v$version
 	The parameter can be passed without quotes.
 
 `formatter 4 CUSTOM_MODE`:
-	At each iteration of the loop you can set the message and branch of the current repository.
-	In this mode the uniq operation to perform is \`git push'.
+	At each iteration of the loop you can execute a specifc command as you type.
+	If nothing is typed, nothing is done.
 
 `formatter 1 USAGE`
 
@@ -179,16 +179,14 @@ for directory in "${ARRAY_REPOS[@]}"; do
 		cd "$directory" 2>&1
 		echo -e "$SEPARATOR$TITLE_START`formatter 1\;$TITLE_FORMAT "$repo"`$TITLE_END\n"
 		if "$FLAG_CUSTOM"; then
-			read -rp 'Edit this repository? (y)es/(n)ext: ' answer
+			read -rp 'Edit this repository? (Y)es/(n)ext: ' answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
-			read -rp "Enter with the message (wip): " GIT_MESSAGE; echo
-			git add ./
-			git commit -m "${GIT_MESSAGE:-wip}"
-			git push
+			read -erp "Enter with the command: " GIT_COMMAND; echo
+			eval "$GIT_COMMAND"
 		elif "$FLAG_PULL"; then
 			git pull
 		else
-			[ "$#" -eq 0 ] && git status || eval ${*//:repo:/$repo}
+			[ "$#" -eq 0 ] && git status || eval "${*//:repo:/$repo}"
 		fi
 		FLAG_SEPARATOR='true'
 	fi
