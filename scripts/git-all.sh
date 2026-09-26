@@ -179,9 +179,10 @@ for directory in "${ARRAY_REPOS[@]}"; do
 		cd "$directory" 2>&1
 		echo -e "$SEPARATOR$TITLE_START`formatter 1\;$TITLE_FORMAT "$repo"`$TITLE_END\n"
 		if "$FLAG_CUSTOM"; then
-			read -rp 'Edit this repository? (Y)es/(n)ext: ' answer
+			echo -n "`formatter 2\;3 'Edit this repository? (Y)es/(n)ext:'` "; read -r answer
 			[ "${answer,,}" = 'n' ] 2>&- && continue
-			read -erp "Enter with the command: " GIT_COMMAND; echo
+			echo; git status; echo
+			echo -n "`formatter 2\;3 'Enter with the command:'` "; read -re GIT_COMMAND; echo
 			eval "$GIT_COMMAND"
 		elif "$FLAG_PULL"; then
 			git pull
