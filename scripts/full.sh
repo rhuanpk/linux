@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.4.0'
+readonly version='2.5.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -68,10 +68,10 @@ log() {
 
 # fix
 ${SUDO:+sudo -v}
-log "> apt install -f $FLAG_YES"
-$SUDO apt install -f $FLAG_YES
 log '> dpkg --configure -a'
 $SUDO dpkg --configure -a
+log "> apt install -f $FLAG_YES"
+$SUDO apt install -f $FLAG_YES
 
 # update
 ${SUDO:+sudo -v}

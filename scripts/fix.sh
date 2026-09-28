@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='1.1.1'
+readonly version='1.2.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -23,7 +23,7 @@ Usage: $script [<options>]
 
 Options:
 	-y: Accept yes for all commands;
-	-c: Runs \`dpkg --configure -a\` first;
+	-c: Runs apt fix first;
 	-s: Forces keep sudo;
 	-r: Forces unset sudo;
 	-v: Print version;
@@ -48,7 +48,7 @@ privileges() {
 while getopts 'ycsrvh' option; do
 	case "$option" in
 		y) FLAG_YES='-y';;
-		c) DPKG_FIRST='true';;
+		c) APT_FIRST='true';;
 		s) privileges true false;;
 		r) privileges false true;;
 		v) echo "$version"; exit 0;;
@@ -60,10 +60,10 @@ shift $(("$OPTIND"-1))
 privileges false false
 
 # ***** PROGRAM START *****
-if "${DPKG_FIRST:-false}"; then
-	$SUDO dpkg --configure -a
+if "${APT_FIRST:-false}"; then
 	$SUDO apt install -f $FLAG_YES
+	$SUDO dpkg --configure -a
 else
-	$SUDO apt install -f $FLAG_YES
 	$SUDO dpkg --configure -a
+	$SUDO apt install -f $FLAG_YES
 fi
