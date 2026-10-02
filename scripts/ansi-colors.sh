@@ -8,7 +8,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.1.0'
 readonly script="`basename "$0"`"
 
 TEXT='ANSI'
@@ -19,6 +19,10 @@ cat << EOF
 $script v$version
 
 ANSI colors (escape sequences) print.
+
+ASCII escape formats (start,end):
+- \\033[<code>[;<code>]m,\\033[0m
+- \\e[<code>[;<code>]m,\\e[0m
 
 Usage: $script [<options>]
 
