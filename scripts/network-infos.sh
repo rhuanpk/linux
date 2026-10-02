@@ -3,9 +3,8 @@
 # Print network informations.
 
 # >>> variables declaration!
-readonly version='1.0.0'
+readonly version='1.1.0'
 readonly script="`basename "$0"`"
-readonly uid="${UID:-`id -u`}"
 
 SUDO='sudo'
 
@@ -19,40 +18,16 @@ Print network informations.
 Usage: $script [<options>]
 
 Options:
+	-p: Print once without looping;
 	-v: Print version;
 	-h: Print this help.
 EOF
 }
 
-privileges() {
-	FLAG_SUDO="${1:?needs sudo flag}"
-	FLAG_ROOT="${2:?needs root flag}"
-	if [[ -z "$SUDO" && "$uid" -ne 0 ]]; then
-		echo "$script: error: run with root privileges"
-		exit 1
-	elif ! "$FLAG_SUDO"; then
-		if "$FLAG_ROOT" || [ "$uid" -eq 0 ]; then
-			unset SUDO
-		fi
-	fi
-}
-
-check-needs() {
-	privileges false false
-	PACKAGES=('network-manager')
-	for package in "${PACKAGES[@]}"; do
-		if ! dpkg -s "$package" &>/dev/null; then
-			read -p "$script: info: is needed the \"$package\" package, install? [Y/n] " answer
-			[ -z "$answer" ] || [ 'y' = "${answer,,}" ] && $SUDO apt install -y "$package"
-		fi
-	done
-}
-
 # >>> pre statements!
-check-needs
-
-while getopts 'vh' option; do
+while getopts 'pvh' option; do
 	case "$option" in
+		p) FLAG_BREAK=true;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
@@ -60,8 +35,11 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
+FORMAT='\033[1;3m'
+UNFORMAT='\033[m'
+
 while :; do
-	SEPARATOR="$(printf -- '*%.0s' $(seq '0' "$(("`tput cols`"-2))"))"
+	SEPARATOR="\033[2;3m$(printf -- '*%.0s' $(seq '0' "$(("`tput cols`"-2))"))\033[m"
 
 	#SSID="`nmcli -t -f 'NAME,TYPE' conn show --active | grep -vE '(vpn|tun|wireg|loop|brid)' | cut -d':' -f1`"
 	#BSSID="`nmcli -t -f 802-11-wireless.seen-bssids conn show "$SSID" | cut -d':' -f2- | cut -d',' -f1`"
@@ -69,21 +47,30 @@ while :; do
 
 	clear
 
-	echo '> ip -br -c a'
+	echo -e "$FORMAT> ip -br -c a$UNFORMAT"
 	ip -br -c a
 
-	echo -e "\n$SEPARATOR\n\n> ip route"
+	echo -e "\n$SEPARATOR\n\n$FORMAT> ip route$UNFORMAT"
 	ip route
 
-	echo -e "\n$SEPARATOR\n\n> nmcli connection show --active"
-	nmcli connection show --active
+	if which -s nmcli; then
+		echo -e "\n$SEPARATOR\n\n$FORMAT> nmcli connection show --active$UNFORMAT"
+		nmcli connection show --active
+	fi
 
-	#echo -e "\n$SEPARATOR\n\n> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\""
+	#echo -e "\n$SEPARATOR\n\n$FORMAT> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\"$UNFORMAT"
 	#nmcli device wifi list bssid "$BSSID" ifname "$IFNAME"
 
-	echo -e "\n$SEPARATOR\n\n> ping -c 1 'kernel.org'"
+	echo -e "\n$SEPARATOR\n\n$FORMAT> ping -c 1 'kernel.org'$UNFORMAT"
 	ping -c 1 'kernel.org'
 
-	tput cup `tput cols` 0
+	#echo
+
+	if ${FLAG_BREAK:-false}; then
+		break
+	fi
+
+	#tput cup `tput cols` 0
+
 	sleep 3
 done
