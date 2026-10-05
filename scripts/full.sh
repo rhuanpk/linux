@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.6.0'
+readonly version='2.6.1'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -104,7 +104,10 @@ $SUDO apt autoremove $FLAG_YES
 
 # flatpak
 if "${FLAG_FIRMWARE:-false}"; then
-	flatpak update
+	if which -s fwupdmgr; then
+		log "> flatpak update $FLAG_YES"
+		flatpak update
+	fi
 fi
 
 # firmware
