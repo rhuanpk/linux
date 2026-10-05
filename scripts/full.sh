@@ -6,7 +6,7 @@
 set -e
 
 # >>> variables declaration!
-readonly version='2.5.0'
+readonly version='2.6.0'
 readonly script="`basename "$0"`"
 readonly uid="${UID:-`id -u`}"
 
@@ -19,14 +19,17 @@ $script v$version
 
 Execute "all" apt commands to fix, update and cleanup.
 
+Also can install flatpak and firmware updates.
+
 Usage: $script [<options>]
 
 Options:
+	-p: Also update flatpak packages;
+	-s: Perform the firmware update actions;
 	-u: Forces try install upgradable packages;
 	-y: Accept yes for all commands;
-	-f: Perform the firmware update actions;
-	-s: Forces keep sudo;
-	-r: Forces unset sudo;
+	-S: Forces keep sudo;
+	-R: Forces unset sudo;
 	-v: Print version;
 	-h: Print this help.
 EOF
@@ -46,13 +49,14 @@ privileges() {
 }
 
 # >>> pre statements!
-while getopts 'uyfsrvh' option; do
+while getopts 'psuySRvh' option; do
 	case "$option" in
+		p) FLAG_FLATPAK='true';;
+		s) FLAG_FIRMWARE='true';;
 		u) FLAG_UPGRADABLE='true';;
 		y) FLAG_YES='-y';;
-		f) FLAG_FIRMWARE='true';;
-		s) privileges true false;;
-		r) privileges false true;;
+		S) privileges true false;;
+		R) privileges false true;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
@@ -97,6 +101,11 @@ log "> apt autoclean $FLAG_YES"
 $SUDO apt autoclean $FLAG_YES
 log "> apt autoremove $FLAG_YES"
 $SUDO apt autoremove $FLAG_YES
+
+# flatpak
+if "${FLAG_FIRMWARE:-false}"; then
+	flatpak update
+fi
 
 # firmware
 if "${FLAG_FIRMWARE:-false}"; then
