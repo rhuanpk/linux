@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.10.0'
+readonly version='2.10.1'
 readonly script="$(basename "$0")"
 
 FLAG_CUSTOM='false'
@@ -104,12 +104,6 @@ switch-path() {
 # >>> pre statements!
 while getopts 'gcqelsp:r:vh' OPTION; do
 	case "$OPTION" in
-		# checks
-		#p) [[ "$OPTARG" =~ ^- ]] && { #[ "${OPTARG:0:1}" = - ]
-		#	echo "$script: `formatter 2\;31 ERR`: path can't contains '-' as first char in \`-p' flag" >&2
-		#	exit 2
-		#};;&
-		# cases
 		g) FLAG_PULL=true;;
 		c) FLAG_CUSTOM=true;;
 		q) FLAG_ERROR_RUN=true;;
