@@ -4,12 +4,13 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.9.0'
+readonly version='2.10.0'
 readonly script="$(basename "$0")"
 
 FLAG_CUSTOM='false'
 FLAG_PULL='false'
-FLAG_ERROR='false'
+FLAG_ERROR_RUN='false'
+FLAG_ERROR_CD='false'
 PATH_FILE=~/.config/git-all.path
 #PATH_REPOS='/tmp'
 
@@ -32,20 +33,19 @@ $script v$version
 
 Usage passing parameters:
 	$script [<options>] `formatter 33 git status`
-
 	OR
-
 	$script [<options>] `formatter 33 '"git pull origin master"'`
 
 Usage without passing parameters:
 	$script [<options>]
 
 `formatter 1 OPTIONS`
+	`formatter 1 -g`: Pull in all repos
+	`formatter 1 -c`: Start the `formatter 4 CUSTOM_MODE`
+	`formatter 1 -q`: Omit errors when executing (if occurs)
+	`formatter 1 -e`: Show errors when enter in repo (if occurs)
 	`formatter 1 -l`: List the atual path selected and exit 0
 	`formatter 1 -s`: Set a new path to grab the folders
-	`formatter 1 -c`: Start the `formatter 4 CUSTOM_MODE`
-	`formatter 1 -g`: Pull in all repos
-	`formatter 1 -e`: Show errors when enter in repo (if occurs)
 	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders
 	`formatter 1 -r \"\<repo\>\[,\<repo\>\...]\"`: Set repos (comma separated) inside path to iterate over
 	`formatter 1 -v`: Print version
@@ -102,7 +102,7 @@ switch-path() {
 
 
 # >>> pre statements!
-while getopts 'lscgep:r:vh' OPTION; do
+while getopts 'gcqelsp:r:vh' OPTION; do
 	case "$OPTION" in
 		# checks
 		#p) [[ "$OPTARG" =~ ^- ]] && { #[ "${OPTARG:0:1}" = - ]
@@ -110,11 +110,12 @@ while getopts 'lscgep:r:vh' OPTION; do
 		#	exit 2
 		#};;&
 		# cases
+		g) FLAG_PULL=true;;
+		c) FLAG_CUSTOM=true;;
+		q) FLAG_ERROR_RUN=true;;
+		e) FLAG_ERROR_CD=true;;
 		l) print-path; exit 0;;
 		s) switch-path; exit 0;;
-		c) FLAG_CUSTOM=true;;
-		g) FLAG_PULL=true;;
-		e) FLAG_ERROR=true;;
 		p) PATH_REPOS="$OPTARG";;
 		r) NAME_REPOS="$OPTARG";;
 		v) echo "$version"; exit 0;;
@@ -161,7 +162,7 @@ for directory in "${ARRAY_REPOS[@]}"; do
 		[[ "$NAME_REPOS" =~ $repo ]] && continue
 	}
 	if ! OUTPUT=$(cd "$directory" 2>&1); then
-		if "$FLAG_ERROR"; then
+		if "$FLAG_ERROR_CD"; then
 			directory="`formatter 1 "$directory"`"
 			{
 				[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
@@ -183,11 +184,23 @@ for directory in "${ARRAY_REPOS[@]}"; do
 			[ "${answer,,}" = 'n' ] 2>&- && continue
 			echo; git status; echo
 			echo -n "`formatter 2\;3 'Enter with the command:'` "; read -re GIT_COMMAND; echo
-			eval "$GIT_COMMAND"
+			if "$FLAG_ERROR_RUN"; then
+				eval "$GIT_COMMAND 2>&-"
+			else
+				eval "$GIT_COMMAND"
+			fi
 		elif "$FLAG_PULL"; then
-			git pull
+			if "$FLAG_ERROR_RUN"; then
+				git pull 2>&-
+			else
+				git pull
+			fi
 		else
-			[ "$#" -eq 0 ] && git status || eval "${*//:repo:/$repo}"
+			if "$FLAG_ERROR_RUN"; then
+				[ "$#" -eq 0 ] && git status || eval "${*//:repo:/$repo} 2>&-"
+			else
+				[ "$#" -eq 0 ] && git status || eval "${*//:repo:/$repo}"
+			fi
 		fi
 		FLAG_SEPARATOR='true'
 	fi
