@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.10.1'
+readonly version='2.10.2'
 readonly script="$(basename "$0")"
 
 FLAG_CUSTOM='false'
@@ -179,7 +179,7 @@ for directory in "${ARRAY_REPOS[@]}"; do
 			echo; git status; echo
 			echo -n "`formatter 2\;3 'Enter with the command:'` "; read -re GIT_COMMAND; echo
 			if "$FLAG_ERROR_RUN"; then
-				eval "$GIT_COMMAND 2>&-"
+				eval "{ $GIT_COMMAND ;} 2>&-"
 			else
 				eval "$GIT_COMMAND"
 			fi
@@ -191,7 +191,7 @@ for directory in "${ARRAY_REPOS[@]}"; do
 			fi
 		else
 			if "$FLAG_ERROR_RUN"; then
-				[ "$#" -eq 0 ] && git status || eval "${*//:repo:/$repo} 2>&-"
+				[ "$#" -eq 0 ] && git status || eval "{ ${*//:repo:/$repo} ;} 2>&-"
 			else
 				[ "$#" -eq 0 ] && git status || eval "${*//:repo:/$repo}"
 			fi
