@@ -6,11 +6,11 @@
 shopt -s extglob
 
 # >>> variables declaration!
-readonly version='1.10.1'
+readonly version='1.11.0'
 readonly script="`basename "$0"`"
 
 # where data are stored
-PATHWAY_BACKUP="$HOME/Documents/cfb/hosts/`hostname`"
+PATHWAY_BACKUP="$HOME/Documents/backups/hosts/`hostname`"
 declare -A ARRAY_PATHWAY_BACKUP=(
 	#['misc']="$PATHWAY_BACKUP/misc"
 	#['dunst']="$PATHWAY_BACKUP/dunst"
@@ -127,6 +127,12 @@ done
 shift $(("$OPTIND"-1))
 
 # ***** PROGRAM START *****
+# check if folder exists
+[ ! -d "$PATHWAY_BACKUP" ] && {
+	echo "$script: error: no such folder to save backup" >&2
+	exit 1
+}
+
 # create necessary folders
 for pathway in "${ARRAY_PATHWAY_BACKUP[@]}"; do
 	[ ! -d "$pathway/" ] && mkdir -p "$pathway/"
