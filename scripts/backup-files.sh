@@ -6,7 +6,7 @@
 shopt -s extglob
 
 # >>> variables declaration!
-readonly version='1.11.0'
+readonly version='1.12.0'
 readonly script="`basename "$0"`"
 
 # where data are stored
@@ -57,7 +57,7 @@ PATHWAY_VIM="$HOME/.vimrc"
 PATHWAY_GIT="$HOME/.gitconfig"
 PATHWAY_SSH="$HOME/.ssh/config"
 PATHWAY_LOCALBIN="/usr/local/bin"
-PATHWAY_FONTS="$HOME/Documents/fonts"
+PATHWAY_FONTS="$HOME/Documents/looks/fonts"
 PATHWAY_HISTORY="$HOME/.bash_history"
 PATHWAY_SWAY="$HOME/.config/sway/config"
 PATHWAY_ICONS="$HOME/.local/share/icons"
@@ -144,7 +144,6 @@ cleanup-history
 # commands ls to save
 ls -1 "$PATHWAY_LOCALBIN" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['binary']}/binary.txt"
 ls -1 "$PATHWAY_OPT" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['opt']}/optionals.txt"
-ls -1 "$PATHWAY_FONTS" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
 ls -1 "$PATHWAY_ICONS" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['looks']}/icons.txt"
 ls -1 "$PATHWAY_THEMES" | cat -n | tr -s '[[:blank:]]' >"${ARRAY_PATHWAY_BACKUP['looks']}/themes.txt"
 
@@ -175,8 +174,9 @@ cp-backup "$PATHWAY_VSCODE_KEYBINDINGS" "${ARRAY_PATHWAY_BACKUP['vscode']}"
 #cp -rf "$PATHWAY_OBS_SCENES"/* "${ARRAY_PATHWAY_BACKUP['obsscenes']}/"
 
 # others commands to save
-#tree "$PATHWAY_MISC" >"${ARRAY_PATHWAY_BACKUP['misc']}/misc.txt"
 #neofetch >"${ARRAY_PATHWAY_BACKUP['neofetch']}/infos.txt"
+#tree -aF "$PATHWAY_MISC" >"${ARRAY_PATHWAY_BACKUP['misc']}/misc.txt"
+tree -aF "$PATHWAY_FONTS" >"${ARRAY_PATHWAY_BACKUP['fonts']}/fonts.txt"
 crontab -l >"${ARRAY_PATHWAY_BACKUP['cron']}/crontab.txt"
 dpkg -l >"${ARRAY_PATHWAY_BACKUP['dpkg']}/dpkg.txt"
 zip -9qr "${ARRAY_PATHWAY_BACKUP['apt']}/apt.zip" "$PATHWAY_APT/"
