@@ -31,9 +31,9 @@ USAGE
 	$script [<options>]
 
 OPTIONS
-	-s
+	-S
 		Force keep the sudo.
-	-r
+	-R
 		Force run as root.
 	-v
 		Print version.
@@ -84,7 +84,7 @@ privileges() {
 }
 
 check-needs() {
-	get_pm_cmd() {
+	package-manager() {
 		which -s apk && { echo 'apk add'; return; }
 		which -s apt && { echo 'apt install'; return; }
 		which -s dnf && { echo 'dnf install'; return; }
@@ -102,7 +102,7 @@ check-needs() {
 			echo -ne "$script: ask: needed \"$package\", "
 			read -rp  "install? [Y/n] "
 			[ -z "$REPLY" ] || [ 'y' = "${REPLY,,}" ] && {
-				$sudo `get_pm_cmd` "$package" || exit $?
+				$sudo `package-manager` "$package" || exit $?
 			}
 		fi
 	done
@@ -115,10 +115,10 @@ check-needs() {
 privileges
 check-needs
 
-while getopts 'srvh' option; do
+while getopts 'SRvh' option; do
 	case "$option" in
-		s) privileges true false;;
-		r) privileges false true;;
+		S) privileges true false;;
+		R) privileges false true;;
 		v) echo "$version"; exit 0;;
 		h) usage; exit 1;;
 		*) exit 2;;
