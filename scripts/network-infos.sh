@@ -3,7 +3,7 @@
 # Print network informations.
 
 # >>> variables declaration!
-readonly version='1.1.0'
+readonly version='1.2.0'
 readonly script="`basename "$0"`"
 
 SUDO='sudo'
@@ -61,8 +61,8 @@ while :; do
 	#echo -e "\n$SEPARATOR\n\n$FORMAT> nmcli device wifi list bssid \"$BSSID\" ifname \"$IFNAME\"$UNFORMAT"
 	#nmcli device wifi list bssid "$BSSID" ifname "$IFNAME"
 
-	echo -e "\n$SEPARATOR\n\n$FORMAT> ping -c 1 'kernel.org'$UNFORMAT"
-	ping -c 1 'kernel.org'
+	echo -e "\n$SEPARATOR\n\n$FORMAT> ping -4 -c 1 kernel.org$UNFORMAT"
+	ping -4 -c 1 kernel.org
 
 	#echo
 
