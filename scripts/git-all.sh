@@ -4,9 +4,10 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.10.2'
+readonly version='2.11.0'
 readonly script="$(basename "$0")"
 
+FLAG_FORMAT='true'
 FLAG_CUSTOM='false'
 FLAG_PULL='false'
 FLAG_ERROR_RUN='false'
@@ -48,6 +49,7 @@ Usage without passing parameters:
 	`formatter 1 -s`: Set a new path to grab the folders
 	`formatter 1 -p \"\<path\>\"`: Set path once to grab the folders
 	`formatter 1 -r \"\<repo\>\[,\<repo\>\...]\"`: Set repos (comma separated) inside path to iterate over
+	`formatter 1 -f`: Disable ANSI formatting (raw color mode)
 	`formatter 1 -v`: Print version
 	`formatter 1 -h`: Print this message and exit 2
 
@@ -63,7 +65,7 @@ EOF
 formatter() {
 	formatting="$1"
 	[[ "$formatting" =~ ([[:digit:]]+;?)* ]] && message="${@:2}" || { formatting=00; message="$*"; }
-	echo -e "\033[${formatting}m$message\033[00m"
+	if "$FLAG_FORMAT"; then echo -e "\033[${formatting}m$message\033[00m"; else printf '%s\n' "$message"; fi
 }
 
 get-path() {
@@ -102,7 +104,7 @@ switch-path() {
 
 
 # >>> pre statements!
-while getopts 'gcqelsp:r:vh' OPTION; do
+while getopts 'gcqelsp:r:fvh' OPTION; do
 	case "$OPTION" in
 		g) FLAG_PULL=true;;
 		c) FLAG_CUSTOM=true;;
@@ -112,6 +114,7 @@ while getopts 'gcqelsp:r:vh' OPTION; do
 		s) switch-path; exit 0;;
 		p) PATH_REPOS="$OPTARG";;
 		r) NAME_REPOS="$OPTARG";;
+		f) FLAG_FORMAT=false;;
 		v) echo "$version"; exit 0;;
 		:|?|h) usage; exit 2;;
 	esac
