@@ -231,9 +231,9 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be added to the end'
-		read -e STRING
+		IFS= read -e STRING
 		for file in *; do
-			mv --verbose -- "$file" "${file//*/$file$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file//*/"$file$STRING"}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -242,9 +242,9 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be removed to the end'
-		read -e STRING
+		IFS= read -e STRING
 		for file in *; do
-			mv --verbose -- "$file" "${file%%$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file%%"$STRING"}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -253,7 +253,7 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be added to the begin'
-		read -e STRING
+		IFS= read -e STRING
 		for file in *; do
 			mv --verbose -- "$file" "$STRING$file" &>> "$LOG_FILE"
 		done
@@ -264,9 +264,9 @@ submenu-file-names() {
 		message-default-composed 'Add/Remove from Begin/End'
 		list-directory
 		message-input 'string to be removed to the begin'
-		read -e STRING
+		IFS= read -e STRING
 		for file in *; do
-			mv --verbose -- "$file" "${file##$STRING}" &>> "$LOG_FILE"
+			mv --verbose -- "$file" "${file##"$STRING"}" &>> "$LOG_FILE"
 		done
 	}
 
@@ -276,7 +276,7 @@ submenu-file-names() {
 		list-directory
 		echo -e "\nRename all files changing one part of the string to another!\n"
 		IFS= read -ep 'Input string: ' INPUT
-		IFS= read -ep 'String de saida: ' OUTPUT
+		IFS= read -ep 'Output string: ' OUTPUT
 		[ -z "$INPUT" ] && [ -z "$OUTPUT" ] && {
 			echo -en "\nGo backing to the previous menu whithout doing anything... <press_enter> "; read
 			submenu-file-names
