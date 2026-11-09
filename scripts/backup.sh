@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.12.2'
+readonly version='3.12.3'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -62,6 +62,9 @@ DESCRIPTION
 
 	The log file is in "~/$relative_log".
 	The pid file is in "~/$relative_pid".
+
+	This script uses the \`-y' zip option, so, the symlinks are stored
+	as it is, not derefence are made.
 
 USAGE
 	$script {-c|-f|-m|-l|-a|-b|-i|-d|-k|-x|-v|-h}
@@ -273,7 +276,7 @@ check-zip-size() {
 	done &
 	local prefix='MiB'
 	local start_time="$(date '+%s')"
-	local bytes="$(zip -9rq - $(grep -v '^!' "$file_dirs" | tr '\n' ' ') | wc -c)"
+	local bytes="$(zip -9yrq - $(grep -v '^!' "$file_dirs" | tr '\n' ' ') | wc -c)"
 	local end_time="$(date '+%s')"
 	local size="$(calc "$bytes" 2)"
 	(( $(bc -l <<< "$size > 1024") )) && { size="$(calc "$bytes" 3)"; prefix='GiB'; }
@@ -392,7 +395,7 @@ trap decoy EXIT
 # 	&& sort /tmp/folders.txt \
 # 		| uniq -u > /tmp/not-folders.txt
 # Edit the "/tmp/not-folders.txt" then test with to se if every seems ok:
-# 	zip -9rv /tmp/test.zip -@ < /tmp/not-folders.txt
+# 	zip -9yrv /tmp/test.zip -@ < /tmp/not-folders.txt
 echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 [ -z "$type_bkp" ] && {
 	echo '-> error: the backup type (-b) must be set'
@@ -432,7 +435,7 @@ if [ "$count_max_bkps" ]; then
 fi
 notify 'Backup started.'
 start_time="$(date '+%s')"
-zip -9rq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
+zip -9yrq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
 while kill -0 "$(cat "$file_pid")" 2>&-; do
 	sleep 1
 done 2>&-
