@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.12.0'
+readonly version='3.12.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -423,7 +423,7 @@ if [ "$type_bkp" = "$type_bkp_dev" ]; then
 	}
 fi
 set-path-base
-suffix="$(hostname)-$(date '+%F_%T').zip"
+suffix="$(hostname)_$(date '%y%m%d-%H%M%S').zip"
 path_final="$path_base/$suffix"
 mkdir -pv "$path_base/"
 if [ "$count_max_bkps" ]; then
