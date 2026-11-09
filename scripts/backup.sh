@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.12.5'
+readonly version='4.0.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -24,7 +24,7 @@ file_rules="/etc/udev/rules.d/backup.rules"
 udev_label=""
 count_max_bkps=""
 flag_auto_udev="true"
-flag_auto_rm="false"
+#flag_auto_rm="false"
 
 # >>> functions declaration
 failure() {
@@ -34,7 +34,7 @@ failure() {
 }
 
 decoy() {
-	remove-zip-tmps
+	#remove-zip-tmps
 	[[ "$type_bkp" = "$type_bkp_dev" && "$tmp_mountpoint" ]] && {
 		$sudo umount -v "$tmp_mountpoint"
 		$sudo rmdir -v "$tmp_mountpoint"
@@ -60,14 +60,17 @@ DESCRIPTION
 		/path/to/folder/stuff
 		/path/to/folder/foo bar
 
-	The log file is in "~/$relative_log".
-	The pid file is in "~/$relative_pid".
+	The LOG file is in "~/$relative_log".
+	The PID file is in "~/$relative_pid".
 
 	This script uses the \`-y' zip option, so, the symlinks are stored
 	as it is, not derefence are made.
 
+	This script uses a zip technique to write the final compressed file
+	directly, without any cache (temporary file).
+
 USAGE
-	$script {-c|-f|-m|-l|-a|-b|-i|-d|-k|-x|-v|-h}
+	$script {-c|-f|-m|-l|-a|-b|-i|-d|-k|-v|-h}
 	$script [-s|-r] [-p] [-t]
 
 OPTIONS
@@ -83,6 +86,7 @@ OPTIONS
 		Set the maximum number of versions.
 	-p<zip>
 		Can pass own ZIP OPTIONS to run with.
+		Because the zip technique, some options does not working.
 	-l<path>
 		Absolute path for local backup (standard is "$HOME").
 	-a
@@ -95,8 +99,6 @@ OPTIONS
 		Dry-run the zip and prints the final MiB size.
 	-k
 		Kill the backup running in background.
-	-x
-		Toggle the automatic removal zip temporary files if exists.
 	-s
 		Forces keep sudo.
 	-r
@@ -113,12 +115,9 @@ OBSERVATIONS
 	- The absolute path in \`-l' option is some path in the filesystem,
 	like a absolute path in a already mounted device too.
 
-	- When the \`-k' option is used and the zip process is killed, it will
-	most likely leave behind its temporary buffer files that it used to
-	perform compression. If the \`-x' flag is true, then in the decoy
-	script, the temporary files from the zip command resulting from the use
-	of the \`-k' flag will be removed (using a \`[sudo] rm -fv' command).
-	Is this safe?
+	- When the \`-k' option is used and the zip process is killed.
+	Use this option to ensure that the script is shutdown running
+	the decoy function.
 
 	- Always uses \`-k' to cancel the backup.
 EOF
@@ -229,7 +228,6 @@ $(separator '"') ${script^^} $(separator '"')
 -> backup
 	- type .....: ${type_bkp@Q}
 	- copies ...: ${count_max_bkps@Q}
-	- removes ..: ${flag_auto_rm@Q}
 -> local
 	- folder ...: ${path_bkp_local@Q}
 -> device
@@ -303,13 +301,13 @@ toggle-automatic() {
 	on-off-rules "$flag_auto_udev"
 }
 
-toggle-remove() {
-	local argument='true'
-	if "$flag_auto_rm"; then
-		argument='false'
-	fi
-	set-var 'flag_auto_rm' "$argument" 'changed automatic remove zip tmp files'
-}
+#toggle-remove() {
+#	local argument='true'
+#	if "$flag_auto_rm"; then
+#		argument='false'
+#	fi
+#	set-var 'flag_auto_rm' "$argument" 'changed automatic remove zip tmp files'
+#}
 
 kill-running() {
 	log-error() {
@@ -321,22 +319,22 @@ kill-running() {
 	} || log-error
 }
 
-remove-zip-tmps() {
-	if "$flag_auto_rm" && [ "$path_base" ]; then
-		exec 9< <(file "$path_base"/*)
-		while read -u9; do
-			local file="$(cut -d: -f1 <<< "$REPLY")"
-			local message="$(cut -d: -f 2- <<< "$REPLY")"
-			[[ "$message" =~ ^[[:blank:]]*Zip\ archive\ data ]] && {
-				#read -ep "-> ask: remove residual zip file '$file'? (Y/n) "
-				#[ -z "$REPLY" -o "${REPLY,,}" = 'y' ] && $sudo rm -fv "$file"
-				$sudo rm -fv "$file"
-			}
-		done; exec 9<&-
-	else
-		return 0
-	fi
-}
+#remove-zip-tmps() {
+#	if "$flag_auto_rm" && [ "$path_base" ]; then
+#		exec 9< <(file "$path_base"/*)
+#		while read -u9; do
+#			local file="$(cut -d: -f1 <<< "$REPLY")"
+#			local message="$(cut -d: -f 2- <<< "$REPLY")"
+#			[[ "$message" =~ ^[[:blank:]]*Zip\ archive\ data ]] && {
+#				#read -ep "-> ask: remove residual zip file '$file'? (Y/n) "
+#				#[ -z "$REPLY" -o "${REPLY,,}" = 'y' ] && $sudo rm -fv "$file"
+#				$sudo rm -fv "$file"
+#			}
+#		done; exec 9<&-
+#	else
+#		return 0
+#	fi
+#}
 
 set-path-base() {
 	if [ "$type_bkp" = "$type_bkp_dev" ]; then
@@ -375,7 +373,7 @@ while :; do
 		-i) ls-infos; exit;;
 		-d) check-zip-size; exit;;
 		-k) kill-running; exit;;
-		-x) toggle-remove; exit;;
+		#-x) toggle-remove; exit;;
 		-s) privileges true false; shift;;
 		-r) privileges false true; shift;;
 		-v) echo "$version"; exit 0;;
@@ -393,9 +391,9 @@ trap decoy EXIT
 # 	&& cat ~/.config/backup/backups.dirs \
 # 		| grep --color=never ^/path/to/know >> /tmp/folders.txt \
 # 	&& sort /tmp/folders.txt \
-# 		| uniq -u > /tmp/not-folders.txt
-# Edit the "/tmp/not-folders.txt" then test with to se if every seems ok:
-# 	zip -9yrv /tmp/test.zip -@ < /tmp/not-folders.txt
+# 		| uniq -u > /tmp/notfolders.txt
+# Edit the "/tmp/notfolders.txt" then test with to se if every seems ok:
+# 	zip -9yrv /tmp/test.zip -@ < /tmp/notfolders.txt
 echo -e "$(separator '~') $(date '+%F %T') $(separator '~')"
 [ -z "$type_bkp" ] && {
 	echo '-> error: the backup type (-b) must be set'
@@ -435,10 +433,10 @@ if [ "$count_max_bkps" ]; then
 fi
 notify 'Backup started.'
 start_time="$(date '+%s')"
-zip -9yrq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
-while kill -0 "$(cat "$file_pid")" 2>&-; do
-	sleep 1
-done 2>&-
+#zip -9yrq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
+zip -9yrq $opts - -@ < <(grep -v '^!' "$file_dirs") > "$path_final" &
+zip_pid="$(tee "$file_pid" <<< "$!")"
+wait "$zip_pid"; [ "$?" -ne 0 ] && rm -fv "$path_final"
 end_time="$(date '+%s')"
 echo -e "-> time: $(date -ud "@$((end_time - start_time))" '+%T')"
 echo "-> size: $suffix: $(du -sh "$path_final" | cut -d$'\t' -f1 || echo 'n/a')"
