@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.12.3'
+readonly version='3.12.4'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -424,11 +424,11 @@ if [ "$type_bkp" = "$type_bkp_dev" ]; then
 	}
 fi
 set-path-base
-suffix="$(hostname)_$(date '%y%m%d-%H%M%S').zip"
+suffix="$(hostname)_$(date '+%y%m%d-%H%M%S').zip"
 path_final="$path_base/$suffix"
 mkdir -pv "$path_base/"
 if [ "$count_max_bkps" ]; then
-	if output="$(ls -1t "$path_base/$(hostname)-"*.zip)"; then
+	if output="$(ls -1t "$path_base/$(hostname)_"*.zip)"; then
 		sed -n "$count_max_bkps,\$p" <<< "$output" \
 		| xargs -I '{}' rm -fv '{}'
 	fi
