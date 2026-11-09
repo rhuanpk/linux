@@ -4,24 +4,22 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='3.12.1'
+readonly version='3.12.2'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
-readonly user="$(id -un "${uid/#0/1000}")"
-readonly home="/home/$user"
 
 type_bkp_dev="device"
 type_bkp_local="local"
 type_bkp=""
 path_bkp_dev=""
-path_bkp_local="/tmp"
+path_bkp_local="$HOME"
 relative_log=".local/share/$script/backup.log"
 relative_pid=".local/etc/$script/backup.pid"
 relative_dirs=".config/$script/backup.dirs"
-file_log="$home/$relative_log"
-file_pid="$home/$relative_pid"
-file_dirs="$home/$relative_dirs"
+file_log="$HOME/$relative_log"
+file_pid="$HOME/$relative_pid"
+file_dirs="$HOME/$relative_dirs"
 file_rules="/etc/udev/rules.d/backup.rules"
 udev_label=""
 count_max_bkps=""
@@ -80,10 +78,10 @@ OPTIONS
 		Relative path inside the device that store the backups.
 	-m[<integer>]
 		Set the maximum number of versions.
-	-p<zip-options>
+	-p<zip>
 		Can pass own ZIP OPTIONS to run with.
 	-l<path>
-		Absolute path for local backup (standard is "/tmp").
+		Absolute path for local backup (standard is "$HOME").
 	-a
 		Toggle the automatic backup when the device is plugged.
 	-b
@@ -251,7 +249,7 @@ notify() {
 	local urgency="${2:-normal}"
 	[ "$uid" -eq 0 ] && {
 		runuser \
-			-l "$user" \
+			-l "$USER" \
 			-c "notify-send -u $urgency '${script^^}' ${message@Q}"
 	} || {
 		notify-send -u $urgency "${script^^}" "$message"
