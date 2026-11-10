@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='4.1.0'
+readonly version='4.1.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -349,7 +349,7 @@ for folder in "$file_log" "$file_pid"; do
 	[ ! -d "$(dirname "$folder")/" ] && mkdir -pv "${folder%/*}"
 done
 exec 3>&1 > >(tee -a "$file_log") 2>&1
-[ "$FLAG_DEBUG" -eq 1 ] && trap failure ERR
+[ "${FLAG_DEBUG:-0}" -eq 1 ] && trap failure ERR
 
 privileges
 check-needs
