@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='4.1.3'
+readonly version='4.1.4'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -436,9 +436,9 @@ start_time="$(date '+%s')"
 #zip -9yrq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
 zip -9yrq $opts - -@ < <(grep -v '^!' "$file_dirs") > "$path_final" &
 zip_pid="$(tee "$file_pid" <<< "$!")"
-wait "$zip_pid"; wait_pid="$?"
+wait "$zip_pid" 2>&-; wait_pid="$?"
 if [[ ! "$wait_pid" =~ ^(0|18)$ ]]; then
-	[[ ! "$wait_pid" =~ ^(137)$ ]] && failure
+	[[ "$wait_pid" =~ ^(137)$ ]] && echo "-> info: backup exit (killed)" || failure
 	rm -fv "$path_final"
 fi
 end_time="$(date '+%s')"
