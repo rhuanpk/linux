@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='4.1.2'
+readonly version='4.1.3'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -426,7 +426,7 @@ suffix="$(hostname)_$(date '+%y%m%d-%H%M%S').zip"
 path_final="$path_base/$suffix"
 mkdir -pv "$path_base/"
 if [ "$count_max_bkps" ]; then
-	if output="$(ls -1t "$path_base/$(hostname)_"*.zip)"; then
+	if output="$(ls -1t "$path_base/$(hostname)_"*.zip 2>&-)"; then
 		sed -n "$count_max_bkps,\$p" <<< "$output" \
 		| xargs -I '{}' rm -fv '{}'
 	fi
@@ -443,4 +443,4 @@ if [[ ! "$wait_pid" =~ ^(0|18)$ ]]; then
 fi
 end_time="$(date '+%s')"
 echo -e "-> time: $(date -ud "@$((end_time - start_time))" '+%T')"
-echo "-> size: $suffix: $(du -sh "$path_final" | cut -d$'\t' -f1 || echo 'n/a')"
+echo "-> size: $suffix: $(du -sh "$path_final" 2>&- | cut -d$'\t' -f1 || echo 'N/A')"
