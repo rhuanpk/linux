@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='4.0.0'
+readonly version='4.0.1'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -436,7 +436,7 @@ start_time="$(date '+%s')"
 #zip -9yrq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
 zip -9yrq $opts - -@ < <(grep -v '^!' "$file_dirs") > "$path_final" &
 zip_pid="$(tee "$file_pid" <<< "$!")"
-wait "$zip_pid"; [ "$?" -ne 0 ] && rm -fv "$path_final"
+wait "$zip_pid"; [ "$?" -ne 0 -a "$?" -ne 18 ] && rm -fv "$path_final"
 end_time="$(date '+%s')"
 echo -e "-> time: $(date -ud "@$((end_time - start_time))" '+%T')"
 echo "-> size: $suffix: $(du -sh "$path_final" | cut -d$'\t' -f1 || echo 'n/a')"
