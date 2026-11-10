@@ -4,7 +4,7 @@
 set -Eo pipefail +o histexpand
 
 # >>> variables declaration
-readonly version='4.0.1'
+readonly version='4.1.0'
 readonly location="$(realpath -s "$0")"
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
@@ -349,7 +349,7 @@ for folder in "$file_log" "$file_pid"; do
 	[ ! -d "$(dirname "$folder")/" ] && mkdir -pv "${folder%/*}"
 done
 exec 3>&1 > >(tee -a "$file_log") 2>&1
-trap failure ERR
+[ "$FLAG_DEBUG" -eq 1 ] && trap failure ERR
 
 privileges
 check-needs
@@ -436,7 +436,7 @@ start_time="$(date '+%s')"
 #zip -9yrq $opts "$path_final" -@ < <(grep -v '^!' "$file_dirs") & echo "$!" > "$file_pid"
 zip -9yrq $opts - -@ < <(grep -v '^!' "$file_dirs") > "$path_final" &
 zip_pid="$(tee "$file_pid" <<< "$!")"
-wait "$zip_pid"; [ "$?" -ne 0 -a "$?" -ne 18 ] && rm -fv "$path_final"
+wait "$zip_pid"; [ "$?" -ne 0 -a "$?" -ne 18 ] && { rm -fv "$path_final"; failure; }
 end_time="$(date '+%s')"
 echo -e "-> time: $(date -ud "@$((end_time - start_time))" '+%T')"
 echo "-> size: $suffix: $(du -sh "$path_final" | cut -d$'\t' -f1 || echo 'n/a')"
