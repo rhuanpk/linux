@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Generates figlet banners by given text.
 
 # >>> variables declaration!

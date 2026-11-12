@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Print network informations.
 
 # >>> variables declaration!

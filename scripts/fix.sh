@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Try fix brokened packages.
 
 # >>> built-in sets!

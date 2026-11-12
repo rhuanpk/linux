@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Prints the local ip for polybar module.
 
 # >>> variables declaration!

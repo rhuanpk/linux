@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Remove Last Clank character remove thats in all lines in file passed like argument.
 
 # >>> variables declaration!

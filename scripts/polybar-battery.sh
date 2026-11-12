@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Prints the battery percentage if it is "ac adapter".
 
 # >>> variables declaration!

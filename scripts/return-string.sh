@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Returns the conversion of the passed argument to string, whether int, float, string, or file.
 
 # >>> variables declaration!

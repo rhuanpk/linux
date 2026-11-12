@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Checks the battery percentage and suspend for safety when necessary.
 
 # >>> built-in sets!

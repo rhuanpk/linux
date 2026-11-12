@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Go to into a new or existing vagrant workspace.
 
 # >>> variables declaration!

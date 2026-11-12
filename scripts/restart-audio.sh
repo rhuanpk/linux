@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Put this script into '/usr/lib/systemd/system-sleep/'
 # and uncomment the line thats check for to arg 1
 # in program start to auto exect when system resume.

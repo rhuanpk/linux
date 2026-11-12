@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 android_build_tools_version='34.0.0'
 android_api_version='35'
 gomobile_cmd='build'

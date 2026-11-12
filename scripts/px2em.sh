@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # this script calculate the conversion of px to em in css
 # only by values multiple of 4 with base of size 62.5%
 

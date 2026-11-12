@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # This script decompress most popular compress extensions.
 # Create a folder with same name of the file then decompress inside her.
 

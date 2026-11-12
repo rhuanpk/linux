@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Script that updates, fixes and cleans the system in one go.
 
 # >>> built-in sets!

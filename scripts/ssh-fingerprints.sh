@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Print the fingerprint of ssh public key argument or all in default ~/.ssh/.
 
 # >>> variables declaration!

@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Print ANSI colors.
 #
 # The "column" program is in the "bsdextrautils" package, install it if necessary.

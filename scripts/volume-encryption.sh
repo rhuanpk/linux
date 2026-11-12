@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Volume Encryption Utility (veu).
 
 # >>> variable declarations !

@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Cleans up everything that is useless on the system, left by uninstalled packages.
 
 # >>> built-in sets!

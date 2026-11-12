@@ -1,19 +1,21 @@
 #!/usr/bin/bash
 
-# Internal descriptions.
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
 
-# >>> built-in setups
+# Internal descriptions and instructions.
+
+# >>> builtin setups
 #shopt -s globstar
 #set -exCE +H -o pipefail
 #exec 3>&1 > >(tee /tmp/file.log) 2>&1
 
-# >>> variables declaration
+# >>> variable declarations
 readonly version='0.0.0'
 readonly script="$(basename "$0")"
 readonly uid="${UID:-$(id -u)}"
 readonly location="$(realpath -s "$0")"
 
-# >>> functions declaration
+# >>> function declarations
 failure() {
 	notify-send "${script^^}" "Failed \"$BASH_COMMAND\"!"
 }

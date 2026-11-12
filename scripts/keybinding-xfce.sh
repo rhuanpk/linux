@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Reset and set as new keybing for xfce environments.
 
 # >>> variables declaration!

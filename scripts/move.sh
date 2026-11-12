@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # >>> variables declaration
 readonly version='2.4.1'
 readonly script="$(basename "$0")"

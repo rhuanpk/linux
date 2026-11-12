@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Mount usual file system types with options of a file manger mount.
 
 # >>> variables declaration!

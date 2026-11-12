@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # Take the Window (TK).
 # It is software that gives focus to the specified window or executes a command if it is not available.
 

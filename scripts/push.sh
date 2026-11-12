@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+#AUTHOR=rhuanpk;EMAIL=dev@rhuanpk.net
+
 # It does the entire push process automatically and if no parameter is passed, it commits with a standard message.
 
 # >>> variables declaration!
