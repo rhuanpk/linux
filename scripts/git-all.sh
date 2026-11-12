@@ -4,7 +4,7 @@
 set +o histexpand
 
 # >>> variables declaration!
-readonly version='2.11.0'
+readonly version='2.11.1'
 readonly script="$(basename "$0")"
 
 FLAG_FORMAT='true'
@@ -122,12 +122,12 @@ done
 shift $((OPTIND - 1))
 
 [ ! -f "$PATH_FILE" ] || [ ! -s "$PATH_FILE" ] && {
-	echo "$script: `formatter 2\;31 ERR`: file path is not exists or is set, use \`-s' flag" >&2
+	echo "$script: `formatter 31 ERR`: file path is not exists or is set, use \`-s' flag" >&2
 	exit 2
 }
 
 [[ "$PATH_REPOS" && ! -d "$PATH_REPOS" ]] && {
-	echo "$script: `formatter 2\;31 ERR`: repos path is not valid or found: '$PATH_REPOS'" >&2
+	echo "$script: `formatter 31 ERR`: repos path is not valid or found: '$PATH_REPOS'" >&2
 	exit 2
 }
 
@@ -163,12 +163,12 @@ for directory in "${ARRAY_REPOS[@]}"; do
 			directory="`formatter 1 "$directory"`"
 			{
 				[[ "$OUTPUT" =~ [nN]ot\ a\ directory ]] \
-				&& echo "$script: `formatter 2\;33 WARN`: \"$directory\" is not a folder" >&2
+				&& echo "$script: `formatter 33 WARN`: \"$directory\" is not a folder" >&2
 			} || {
 				[[ "$OUTPUT" =~ [pP]ermission\ denied ]] \
-				&& echo "$script: `formatter 2\;33 WARN`: \"$directory\" don't has permission" >&2
+				&& echo "$script: `formatter 33 WARN`: \"$directory\" don't has permission" >&2
 			} || \
-				echo "$script: `formatter 2\;31 ERR`: $OUTPUT \"$directory\"" >&2
+				echo "$script: `formatter 31 ERR`: $OUTPUT \"$directory\"" >&2
 			FLAG_SEPARATOR='true'
 		else
 			FLAG_SEPARATOR='false'
